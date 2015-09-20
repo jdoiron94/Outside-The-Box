@@ -8,26 +8,34 @@ namespace KineticCamp {
         private Texture2D texture;
         private Projectile projectile;
         private Vector2 location;
+        private Direction direction;
         private Rectangle bounds;
         private Rectangle windowBounds;
 
         private int health;
         private int speed;
+        private double lastFired;
 
-        public Entity(Texture2D texture, Projectile projectile, Vector2 location, Rectangle bounds, Rectangle windowBounds, int health, int speed) {
+        public Entity(Texture2D texture, Projectile projectile, Vector2 location, Direction direction, Rectangle bounds, Rectangle windowBounds, int health, int speed) {
             this.texture = texture;
             this.projectile = projectile;
+            this.location = location;
+            this.direction = direction;
             this.bounds = bounds;
             this.windowBounds = windowBounds;
-            this.location = location;
             this.health = health;
             this.speed = speed;
+            lastFired = -1;
         }
 
-        public Entity(Texture2D texture, Projectile projectile, Vector2 location, Rectangle windowBounds, int health, int speed) :
-            this(texture, projectile, location, new Rectangle((int) location.X, (int) location.Y, texture.Width, texture.Height), windowBounds, health, speed) {
+        public Entity(Texture2D texture, Projectile projectile, Vector2 location, Direction direction, Rectangle windowBounds, int health, int speed) :
+            this(texture, projectile, location, direction, new Rectangle((int) location.X, (int) location.Y, texture.Width, texture.Height), windowBounds, health, speed) {
         }
 
+        // will need to change to texture2d array for all directions
+        // stills: facing north, south, west, east
+        // movement: l/r north, l/r south, l/r west, l/r east
+        // 12 sprites minimum
         public Texture2D getTexture() {
             return texture;
         }
@@ -38,6 +46,10 @@ namespace KineticCamp {
 
         public Vector2 getLocation() {
             return location;
+        }
+
+        public Direction getDirection() {
+            return direction;
         }
 
         public Rectangle getBounds() {
@@ -56,6 +68,10 @@ namespace KineticCamp {
             return speed;
         }
 
+        public double getLastFired() {
+            return lastFired;
+        }
+
         public void setProjectile(Projectile projectile) {
             this.projectile = projectile;
         }
@@ -68,8 +84,18 @@ namespace KineticCamp {
             location.Y += y;
         }
 
+        // update sprite to respective sprite facing the correct direction
+        public void setDirection(Direction direction) {
+            this.direction = direction;
+        }
+
         public void deriveHealth(int health) {
             this.health += health;
+        }
+
+        public Projectile createProjectile(double lastFired) {
+            this.lastFired = lastFired; 
+            return new Projectile(projectile.getTexture(), projectile.getPosition(), projectile.getVelocity(), projectile.getCooldown());
         }
 
         public bool isDead() {

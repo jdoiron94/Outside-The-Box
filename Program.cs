@@ -1,6 +1,7 @@
 ﻿using System;
 
 namespace KineticCamp {
+
 #if WINDOWS || LINUX
     /// <summary>
     /// The main class.

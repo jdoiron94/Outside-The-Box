@@ -1,13 +1,26 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
 
 namespace KineticCamp {
+
+    /* CHANGELOG
+     * Version 0.0.0.3
+     *
+     * 0.0.0.1:
+     *      Added a few sprites to test functionality, centered player on screen, locked player to the map's bounds
+     * 0.0.0.2:
+     *      Created data structures for relevant information, handling entities on/off screen
+     * 0.0.0.3:
+     *      Direction handling, basic projectile support, changed rendering order
+     */
+
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
     public class Game1 : Game {
+        
+        // TODO: content handler, input handler, collision handler
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -18,6 +31,8 @@ namespace KineticCamp {
 
         int midX;
         int midY;
+
+        private const int step = 4;
 
         public Game1() {
             graphics = new GraphicsDeviceManager(this);
@@ -30,9 +45,12 @@ namespace KineticCamp {
         /// related content. Calling base.Initialize will enumerate through any components
         /// and initialize them as well.
         /// </summary>
+        //
+        // TODO: set viewport bounds to be a factor of sprite dimensions
         protected override void Initialize() {
-            // TODO: Add your initialization logic here
-
+            //graphics.PreferredBackBufferWidth = x;
+            //graphics.PreferredBackBufferHeight = y;
+            //graphics.ApplyChanges();
             base.Initialize();
         }
 
@@ -44,10 +62,10 @@ namespace KineticCamp {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             playerTexture = Content.Load<Texture2D>("player");
-            midX = (Window.ClientBounds.Width - playerTexture.Width) / 2;
-            midY = (Window.ClientBounds.Height - playerTexture.Height) / 2;
-            player = new Entity(playerTexture, new Projectile(Content.Load<Texture2D>("bullet"), new Vector2(midX + 32, midY), 5, 150), new Vector2(midX, midY), Window.ClientBounds, 50, 5);
-            npc = new Entity(Content.Load<Texture2D>("npc"), null, new Vector2(midX + 150, midY + 150), Window.ClientBounds, 50, 5);
+            midX = (graphics.PreferredBackBufferWidth - playerTexture.Width) / 2;
+            midY = (graphics.PreferredBackBufferHeight - playerTexture.Height) / 2;
+            player = new Entity(playerTexture, new Projectile(Content.Load<Texture2D>("bullet"), new Vector2(midX, midY), 5, 250), new Vector2(midX, midY), Direction.EAST, GraphicsDevice.Viewport.Bounds, 50, 5);
+            npc = new Entity(Content.Load<Texture2D>("npc"), null, new Vector2(midX + 150, midY + 150), Direction.EAST, GraphicsDevice.Viewport.Bounds, 50, 5);
             level = new Level(player, Content.Load<Texture2D>("map"), new Entity[] { npc });
             // TODO: use this.Content to load your game content here
         }
@@ -70,33 +88,40 @@ namespace KineticCamp {
             if (kbs.IsKeyDown(Keys.Escape)) {
                 Exit();
             } else if (kbs.IsKeyDown(Keys.W)) {
-                if (level.getY() + 2 < midY) {
-                    level.deriveY(2);
+                player.setDirection(Direction.NORTH);
+                if (player.getLocation().Y + step < midY) {
+                    level.deriveY(step);
                 }
             } else if (kbs.IsKeyDown(Keys.S)) {
-                if (level.getY() - 2 > -1 * (level.getMap().Height - midY - player.getTexture().Height)) {
-                    level.deriveY(-2);
+                player.setDirection(Direction.SOUTH);
+                if (player.getLocation().Y - step > -(level.getMap().Height - midY - player.getTexture().Height)) {
+                    level.deriveY(-step);
                 }
             } else if (kbs.IsKeyDown(Keys.A)) {
-                if (level.getX() + 2 < midX) {
-                    level.deriveX(2);
+                player.setDirection(Direction.WEST);
+                if (player.getLocation().X + step < midX) {
+                    level.deriveX(step);
                 }
             } else if (kbs.IsKeyDown(Keys.D)) {
-                if (level.getX() - 2 > -1 * ((level.getMap().Width - midX - player.getTexture().Width))) {
-                    level.deriveX(-2);
+                player.setDirection(Direction.EAST);
+                if (player.getLocation().X - step > -((level.getMap().Width - midX - player.getTexture().Width))) {
+                    level.deriveX(-step);
                 }
-            } else if (kbs.IsKeyDown(Keys.Space)) {
+            }
+            if (kbs.IsKeyDown(Keys.Space)) {
+                double totalMilliseconds = gameTime.TotalGameTime.TotalMilliseconds;
+                if (player.getLastFired() == -1 || totalMilliseconds - player.getLastFired() >= player.getProjectile().getCooldown()) {
+                    level.addProjectile(player.createProjectile(totalMilliseconds));
+                }
                 foreach (Entity e in level.getNpcs()) {
                     if (e != null) {
                         // handle projectile interaction with npcs
+                        // if hit, derive npc health by -1 * skilltree power
+                        // Console.WriteLine("Health: " + npc.getHealth());
                     }
                 }
-                npc.deriveHealth(-50);
-                Console.WriteLine("Health: " + npc.getHealth());
             }
-            
-            // TODO: Add your update logic here
-
+            level.updateProjectiles();
             base.Update(gameTime);
         }
 
@@ -106,13 +131,9 @@ namespace KineticCamp {
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime) {
             GraphicsDevice.Clear(Color.Black);
-
-            // TODO: Add your drawing code here
-           
             spriteBatch.Begin();
             level.draw(spriteBatch);
             spriteBatch.End();
-
             base.Draw(gameTime);
         }
     }
