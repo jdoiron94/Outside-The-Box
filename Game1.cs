@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-
 using System;
 
 namespace KineticCamp {
@@ -9,19 +8,16 @@ namespace KineticCamp {
     /// This is the main type for your game.
     /// </summary>
     public class Game1 : Game {
+
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        Texture2D playerTexture;
+        Entity player;
+        Entity npc;
+        Level level;
 
-        Texture2D player;
-        Texture2D npc;
-        Texture2D map;
-        
-        Rectangle playerBounds;
-
-        int x;
-        int y;
-        int centX;
-        int centY;
+        int midX;
+        int midY;
 
         public Game1() {
             graphics = new GraphicsDeviceManager(this);
@@ -31,7 +27,7 @@ namespace KineticCamp {
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
         /// This is where it can query for any required services and load any non-graphic
-        /// related content.  Calling base.Initialize will enumerate through any components
+        /// related content. Calling base.Initialize will enumerate through any components
         /// and initialize them as well.
         /// </summary>
         protected override void Initialize() {
@@ -47,13 +43,12 @@ namespace KineticCamp {
         protected override void LoadContent() {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            player = Content.Load<Texture2D>("player");
-            npc = Content.Load<Texture2D>("npc");
-            map = Content.Load<Texture2D>("map");
-            centX = (Window.ClientBounds.Width - player.Width) / 2;
-            centY = (Window.ClientBounds.Height - player.Height) / 2;
-            playerBounds = new Rectangle(centX, centY, player.Width, player.Height);
-
+            playerTexture = Content.Load<Texture2D>("player");
+            midX = (Window.ClientBounds.Width - playerTexture.Width) / 2;
+            midY = (Window.ClientBounds.Height - playerTexture.Height) / 2;
+            player = new Entity(playerTexture, new Projectile(Content.Load<Texture2D>("bullet"), new Vector2(midX + 32, midY), 5, 150), new Vector2(midX, midY), Window.ClientBounds, 50, 5);
+            npc = new Entity(Content.Load<Texture2D>("npc"), null, new Vector2(midX + 150, midY + 150), Window.ClientBounds, 50, 5);
+            level = new Level(player, Content.Load<Texture2D>("map"), new Entity[] { npc });
             // TODO: use this.Content to load your game content here
         }
 
@@ -72,25 +67,32 @@ namespace KineticCamp {
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime) {
             KeyboardState kbs = Keyboard.GetState();
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || kbs.IsKeyDown(Keys.Escape)) {
+            if (kbs.IsKeyDown(Keys.Escape)) {
                 Exit();
-            }
-            if (kbs.IsKeyDown(Keys.W)) {
-                if (y + 2 < centY) {
-                    y += 2;
+            } else if (kbs.IsKeyDown(Keys.W)) {
+                if (level.getY() + 2 < midY) {
+                    level.deriveY(2);
                 }
             } else if (kbs.IsKeyDown(Keys.S)) {
-                if (y - 2 > -1 * (map.Height - centY - player.Height)) {
-                    y -= 2;
+                if (level.getY() - 2 > -1 * (level.getMap().Height - midY - player.getTexture().Height)) {
+                    level.deriveY(-2);
                 }
             } else if (kbs.IsKeyDown(Keys.A)) {
-                if (x + 2 < centX) {
-                    x += 2;
+                if (level.getX() + 2 < midX) {
+                    level.deriveX(2);
                 }
             } else if (kbs.IsKeyDown(Keys.D)) {
-                if (x - 2 > -1 * ((map.Width - centX - player.Width))) {
-                    x -= 2;
+                if (level.getX() - 2 > -1 * ((level.getMap().Width - midX - player.getTexture().Width))) {
+                    level.deriveX(-2);
                 }
+            } else if (kbs.IsKeyDown(Keys.Space)) {
+                foreach (Entity e in level.getNpcs()) {
+                    if (e != null) {
+                        // handle projectile interaction with npcs
+                    }
+                }
+                npc.deriveHealth(-50);
+                Console.WriteLine("Health: " + npc.getHealth());
             }
             
             // TODO: Add your update logic here
@@ -108,9 +110,7 @@ namespace KineticCamp {
             // TODO: Add your drawing code here
            
             spriteBatch.Begin();
-            spriteBatch.Draw(map, new Rectangle(x, y, map.Width, map.Height), Color.White);
-            spriteBatch.Draw(player, playerBounds, Color.White);
-            //spriteBatch.Draw(npc, new Rectangle(700, 700, npc.Width, npc.Height), Color.White);
+            level.draw(spriteBatch);
             spriteBatch.End();
 
             base.Draw(gameTime);
