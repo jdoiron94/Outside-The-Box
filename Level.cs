@@ -9,13 +9,15 @@ namespace KineticCamp {
 
         private Entity player;
         private Texture2D map;
-        private List<Entity> npcs = new List<Entity>();
-        private List<Projectile> projectiles = new List<Projectile>();
+        private List<Entity> npcs;
+        private List<Projectile> projectiles;
 
         public Level(Entity player, Texture2D map, Entity[] npcs) {
             this.player = player;
             this.map = map;
+            this.npcs = new List<Entity>();
             this.npcs.AddRange(npcs);
+            projectiles = new List<Projectile>();
         }
 
         public Entity getPlayer() {
@@ -69,6 +71,18 @@ namespace KineticCamp {
             }
         }
 
+        public void updateNpcs() {
+            for (int i = 0; i < npcs.Count; i++) {
+                Entity npc = npcs[i];
+                if (npc != null) {
+                    if (npc.isDead()) {
+                        npcs.RemoveAt(i);
+                        i--;
+                    }
+                }
+            }
+        }
+
         public void draw(SpriteBatch batch) {
             batch.Draw(map, new Rectangle((int) player.getLocation().X, (int) player.getLocation().Y, map.Width, map.Height), Color.White);
             foreach (Projectile projectile in projectiles) {
@@ -78,7 +92,7 @@ namespace KineticCamp {
             }
             batch.Draw(player.getTexture(), player.getBounds(), Color.White);
             foreach (Entity e in npcs) {
-                if (e != null && !e.isDead() && e.isOnScreen()) {
+                if (e != null && e.isOnScreen()) {
                     e.draw(batch);
                 }
             }

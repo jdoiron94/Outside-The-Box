@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
+using System;
+
 namespace KineticCamp {
 
     /* CHANGELOG
@@ -13,6 +15,8 @@ namespace KineticCamp {
      *      Created data structures for relevant information, handling entities on/off screen
      * 0.0.0.3:
      *      Direction handling, basic projectile support, changed rendering order
+     * 0.0.0.4:
+     *      Projectile rotation, npc hotfix
      */
 
     /// <summary>
@@ -51,6 +55,7 @@ namespace KineticCamp {
             //graphics.PreferredBackBufferWidth = x;
             //graphics.PreferredBackBufferHeight = y;
             //graphics.ApplyChanges();
+            Window.Title = "Kinetic Camp";
             base.Initialize();
         }
 
@@ -64,7 +69,7 @@ namespace KineticCamp {
             playerTexture = Content.Load<Texture2D>("player");
             midX = (graphics.PreferredBackBufferWidth - playerTexture.Width) / 2;
             midY = (graphics.PreferredBackBufferHeight - playerTexture.Height) / 2;
-            player = new Entity(playerTexture, new Projectile(Content.Load<Texture2D>("bullet"), new Vector2(midX, midY), 5, 250), new Vector2(midX, midY), Direction.EAST, GraphicsDevice.Viewport.Bounds, 50, 5);
+            player = new Entity(playerTexture, new Projectile(Content.Load<Texture2D>("bullet"), new Vector2(midX, midY), 2, 250, 0.5f), new Vector2(midX, midY), Direction.EAST, GraphicsDevice.Viewport.Bounds, 50, 5);
             npc = new Entity(Content.Load<Texture2D>("npc"), null, new Vector2(midX + 150, midY + 150), Direction.EAST, GraphicsDevice.Viewport.Bounds, 50, 5);
             level = new Level(player, Content.Load<Texture2D>("map"), new Entity[] { npc });
             // TODO: use this.Content to load your game content here
@@ -115,13 +120,15 @@ namespace KineticCamp {
                 }
                 foreach (Entity e in level.getNpcs()) {
                     if (e != null) {
+                        npc.deriveHealth(-50);
                         // handle projectile interaction with npcs
                         // if hit, derive npc health by -1 * skilltree power
-                        // Console.WriteLine("Health: " + npc.getHealth());
+                        Console.WriteLine("Health: " + npc.getHealth());
                     }
                 }
             }
             level.updateProjectiles();
+            level.updateNpcs();
             base.Update(gameTime);
         }
 

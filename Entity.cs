@@ -95,7 +95,7 @@ namespace KineticCamp {
 
         public Projectile createProjectile(double lastFired) {
             this.lastFired = lastFired; 
-            return new Projectile(projectile.getTexture(), projectile.getPosition(), projectile.getVelocity(), projectile.getCooldown());
+            return new Projectile(projectile.getTexture(), projectile.getPosition(), projectile.getVelocity(), projectile.getCooldown(), projectile.getRotationSpeed());
         }
 
         public bool isDead() {
