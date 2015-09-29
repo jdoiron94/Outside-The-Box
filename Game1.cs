@@ -1,13 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-
-using System;
 
 namespace KineticCamp {
 
     /* CHANGELOG
-     * Version 0.0.0.3
+     * Version 0.0.0.5
      *
      * 0.0.0.1:
      *      Added a few sprites to test functionality, centered player on screen, locked player to the map's bounds
@@ -17,6 +14,8 @@ namespace KineticCamp {
      *      Direction handling, basic projectile support, changed rendering order
      * 0.0.0.4:
      *      Projectile rotation, npc hotfix
+     * 0.0.0.5:
+     *      Fixed #isOnScreen logic, added GameObject, ScreenManager, InputManager, CollisionManager
      */
 
     /// <summary>
@@ -24,23 +23,48 @@ namespace KineticCamp {
     /// </summary>
     public class Game1 : Game {
         
-        // TODO: content handler, input handler, collision handler
+        // TODO: test ScreenManager, have InputManager determine actions based on ScreenManager's active screen,
+        // TOOD: check on coordinate system/fix CollisionManager
 
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
-        Texture2D playerTexture;
-        Entity player;
-        Entity npc;
-        Level level;
+        private GraphicsDeviceManager graphics;
+        private SpriteBatch spriteBatch;
+        private Texture2D playerTexture;
+        private Entity player;
+        private Entity npc;
+        private GameObject obj;
+        private Level level;
 
-        int midX;
-        int midY;
+        private InputManager inputManager;
 
-        private const int step = 4;
+        private int midX;
+        private int midY;
+
+        private const int stepSize = 4;
 
         public Game1() {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+        }
+
+        /*
+         * Returns the center x coordinate of the game
+         */
+        public int getMidX() {
+            return midX;
+        }
+
+        /*
+         * Returns the center y coordinate of the game
+         */
+        public int getMidY() {
+            return midY;
+        }
+
+        /*
+         * Returns the stepping size for the player and entities
+         */
+        public int getStepSize() {
+            return stepSize;
         }
 
         /// <summary>
@@ -52,11 +76,11 @@ namespace KineticCamp {
         //
         // TODO: set viewport bounds to be a factor of sprite dimensions
         protected override void Initialize() {
+            base.Initialize();
             //graphics.PreferredBackBufferWidth = x;
             //graphics.PreferredBackBufferHeight = y;
             //graphics.ApplyChanges();
             Window.Title = "Kinetic Camp";
-            base.Initialize();
         }
 
         /// <summary>
@@ -64,14 +88,17 @@ namespace KineticCamp {
         /// all of your content.
         /// </summary>
         protected override void LoadContent() {
+            base.LoadContent();
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             playerTexture = Content.Load<Texture2D>("player");
             midX = (graphics.PreferredBackBufferWidth - playerTexture.Width) / 2;
             midY = (graphics.PreferredBackBufferHeight - playerTexture.Height) / 2;
             player = new Entity(playerTexture, new Projectile(Content.Load<Texture2D>("bullet"), new Vector2(midX, midY), 2, 250, 0.5f), new Vector2(midX, midY), Direction.EAST, GraphicsDevice.Viewport.Bounds, 50, 5);
-            npc = new Entity(Content.Load<Texture2D>("npc"), null, new Vector2(midX + 150, midY + 150), Direction.EAST, GraphicsDevice.Viewport.Bounds, 50, 5);
-            level = new Level(player, Content.Load<Texture2D>("map"), new Entity[] { npc });
+            npc = new Entity(Content.Load<Texture2D>("npc"), null, new Vector2(midX + 148, midY + 148), Direction.EAST, GraphicsDevice.Viewport.Bounds, 50, 5);
+            obj = new GameObject(Content.Load<Texture2D>("sprite"), null, new Vector2(midX + 100, midY + 100), GraphicsDevice.Viewport.Bounds);
+            level = new Level(player, Content.Load<Texture2D>("map"), new Entity[] { npc }, new GameObject[] { obj });
+            inputManager = new InputManager(this, player, level);
             // TODO: use this.Content to load your game content here
         }
 
@@ -80,6 +107,8 @@ namespace KineticCamp {
         /// game-specific content.
         /// </summary>
         protected override void UnloadContent() {
+            base.UnloadContent();
+            spriteBatch.Dispose();
             // TODO: Unload any non ContentManager content here
         }
 
@@ -89,47 +118,10 @@ namespace KineticCamp {
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime) {
-            KeyboardState kbs = Keyboard.GetState();
-            if (kbs.IsKeyDown(Keys.Escape)) {
-                Exit();
-            } else if (kbs.IsKeyDown(Keys.W)) {
-                player.setDirection(Direction.NORTH);
-                if (player.getLocation().Y + step < midY) {
-                    level.deriveY(step);
-                }
-            } else if (kbs.IsKeyDown(Keys.S)) {
-                player.setDirection(Direction.SOUTH);
-                if (player.getLocation().Y - step > -(level.getMap().Height - midY - player.getTexture().Height)) {
-                    level.deriveY(-step);
-                }
-            } else if (kbs.IsKeyDown(Keys.A)) {
-                player.setDirection(Direction.WEST);
-                if (player.getLocation().X + step < midX) {
-                    level.deriveX(step);
-                }
-            } else if (kbs.IsKeyDown(Keys.D)) {
-                player.setDirection(Direction.EAST);
-                if (player.getLocation().X - step > -((level.getMap().Width - midX - player.getTexture().Width))) {
-                    level.deriveX(-step);
-                }
-            }
-            if (kbs.IsKeyDown(Keys.Space)) {
-                double totalMilliseconds = gameTime.TotalGameTime.TotalMilliseconds;
-                if (player.getLastFired() == -1 || totalMilliseconds - player.getLastFired() >= player.getProjectile().getCooldown()) {
-                    level.addProjectile(player.createProjectile(totalMilliseconds));
-                }
-                foreach (Entity e in level.getNpcs()) {
-                    if (e != null) {
-                        npc.deriveHealth(-50);
-                        // handle projectile interaction with npcs
-                        // if hit, derive npc health by -1 * skilltree power
-                        Console.WriteLine("Health: " + npc.getHealth());
-                    }
-                }
-            }
+            base.Update(gameTime);
+            inputManager.update(gameTime);
             level.updateProjectiles();
             level.updateNpcs();
-            base.Update(gameTime);
         }
 
         /// <summary>
@@ -137,11 +129,11 @@ namespace KineticCamp {
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime) {
+            base.Draw(gameTime);
             GraphicsDevice.Clear(Color.Black);
             spriteBatch.Begin();
             level.draw(spriteBatch);
             spriteBatch.End();
-            base.Draw(gameTime);
         }
     }
 }
