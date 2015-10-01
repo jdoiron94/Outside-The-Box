@@ -17,6 +17,9 @@ namespace KineticCamp {
         private Level level;
         private CollisionManager collisionManager;
 
+        private ButtonState lastState;
+        private ButtonState state;
+
         private int stepSize;
         private int midX;
         private int midY;
@@ -111,6 +114,20 @@ namespace KineticCamp {
                         Console.WriteLine("Health: " + npc.getHealth());
                     }
                 }*/
+            }
+            lastState = state;
+            state = Mouse.GetState().LeftButton;
+            if (lastState.Equals(ButtonState.Pressed) && state.Equals(ButtonState.Released)) {
+                foreach (GameObject obj in level.getObjects()) {
+                    if (obj != null) {
+                        Point p = new Point(Mouse.GetState().X, Mouse.GetState().Y);
+                        if (p != null && obj.getBounds().Contains(p)) { // and is object is throwable. make instance variable in GameObject for bool throwable and a getter for it.
+                            obj.setLocation(game.getMouse().X, game.getMouse().Y); // will need to play around with mouse states and what current one is/last one is for accurately
+                            Console.WriteLine("obj contains mouse!");
+                        }
+                    }
+                }
+                Console.WriteLine("Mouse pressed");
             }
         }
     }

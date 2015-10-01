@@ -1,10 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace KineticCamp {
 
     /* CHANGELOG
-     * Version 0.0.0.5
+     * Version 0.0.0.6
      *
      * 0.0.0.1:
      *      Added a few sprites to test functionality, centered player on screen, locked player to the map's bounds
@@ -16,6 +18,8 @@ namespace KineticCamp {
      *      Projectile rotation, npc hotfix
      * 0.0.0.5:
      *      Fixed #isOnScreen logic, added GameObject, ScreenManager, InputManager, CollisionManager
+     * 0.0.0.6:
+     *      Drawing of cursor, object bounds fixed, clicking on objects
      */
 
     /// <summary>
@@ -35,6 +39,9 @@ namespace KineticCamp {
         private Level level;
 
         private InputManager inputManager;
+
+        private Texture2D cursor;
+        private MouseState mouse;
 
         private int midX;
         private int midY;
@@ -99,6 +106,7 @@ namespace KineticCamp {
             obj = new GameObject(Content.Load<Texture2D>("sprite"), null, new Vector2(midX + 100, midY + 100), GraphicsDevice.Viewport.Bounds);
             level = new Level(player, Content.Load<Texture2D>("map"), new Entity[] { npc }, new GameObject[] { obj });
             inputManager = new InputManager(this, player, level);
+            cursor = Content.Load<Texture2D>("cursor");
             // TODO: use this.Content to load your game content here
         }
 
@@ -122,6 +130,7 @@ namespace KineticCamp {
             inputManager.update(gameTime);
             level.updateProjectiles();
             level.updateNpcs();
+            mouse = Mouse.GetState();
         }
 
         /// <summary>
@@ -133,7 +142,14 @@ namespace KineticCamp {
             GraphicsDevice.Clear(Color.Black);
             spriteBatch.Begin();
             level.draw(spriteBatch);
+            if (mouse != null) {
+                spriteBatch.Draw(cursor, new Vector2(mouse.X, mouse.Y), Color.White);
+            }
             spriteBatch.End();
+        }
+
+        public MouseState getMouse() {
+            return mouse;
         }
     }
 }

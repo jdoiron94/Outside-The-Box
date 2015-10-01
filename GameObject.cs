@@ -91,6 +91,7 @@ namespace KineticCamp {
          */
         public void deriveX(int x) {
             location.X += x;
+            bounds.X += x;
         }
 
         /*
@@ -98,6 +99,12 @@ namespace KineticCamp {
          */
         public void deriveY(int y) {
             location.Y += y;
+            bounds.Y += y;
+        }
+
+        public void setLocation(int x, int y) {
+            location = new Vector2(x, y);
+            bounds = new Rectangle(x, y, texture.Width, texture.Height);
         }
 
         /*
