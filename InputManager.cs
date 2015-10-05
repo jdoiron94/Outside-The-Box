@@ -77,8 +77,13 @@ namespace KineticCamp {
                 {
                     Console.WriteLine("player: " + player.getLocation().ToString());
                     player.setDirection(Direction.NORTH);
+<<<<<<< HEAD
+                    destination = new Vector2(player.getLocation().X, player.getLocation().Y - stepSize);
+                    if (player.getLocation().Y + stepSize > 0 && collisionManager.isValid(destination, player))
+=======
                     destination = new Vector2(player.getLocation().X, player.getLocation().Y + stepSize);
                     if (player.getLocation().Y + stepSize > 0/* && collisionManager.isValid(destination)*/)
+>>>>>>> origin/master
                     {
                         player.deriveY(-stepSize);
                     }
@@ -91,8 +96,13 @@ namespace KineticCamp {
                 {
                     Console.WriteLine("player: " + player.getLocation().ToString());
                     player.setDirection(Direction.SOUTH);
+<<<<<<< HEAD
+                    destination = new Vector2(player.getLocation().X, player.getLocation().Y + stepSize);
+                    if (player.getLocation().Y + stepSize < midY * 2 && collisionManager.isValid(destination, player))
+=======
                     destination = new Vector2(player.getLocation().X, player.getLocation().Y - stepSize);
                     if (player.getLocation().Y + stepSize < midY * 2/* && collisionManager.isValid(destination)*/)
+>>>>>>> origin/master
                     {
                         player.deriveY(stepSize);
                     }
@@ -105,8 +115,13 @@ namespace KineticCamp {
                 {
                     Console.WriteLine("player: " + player.getLocation().ToString());
                     player.setDirection(Direction.WEST);
+<<<<<<< HEAD
+                    destination = new Vector2(player.getLocation().X - stepSize, player.getLocation().Y);
+                    if (player.getLocation().X + stepSize > 0 && collisionManager.isValid(destination, player))
+=======
                     destination = new Vector2(player.getLocation().X + stepSize, player.getLocation().Y);
                     if (player.getLocation().X + stepSize > 0/* && collisionManager.isValid(destination)*/)
+>>>>>>> origin/master
                     {
                         player.deriveX(-stepSize);
                     }
@@ -119,9 +134,14 @@ namespace KineticCamp {
                 {
                     Console.WriteLine("player: " + player.getLocation().ToString());
                     player.setDirection(Direction.EAST);
+<<<<<<< HEAD
+                    destination = new Vector2(player.getLocation().X + stepSize, player.getLocation().Y);
+                    if (player.getLocation().X + stepSize < midX * 2 && collisionManager.isValid(destination, player))
+=======
                     destination = new Vector2(player.getLocation().X - stepSize, player.getLocation().Y);
                     Console.WriteLine("dest: " + destination.ToString());
                     if (player.getLocation().X + stepSize < midX * 2/* && collisionManager.isValid(destination)*/)
+>>>>>>> origin/master
                     {
                         player.deriveX(stepSize);
                     }
@@ -198,7 +218,11 @@ namespace KineticCamp {
                 {
                     Console.WriteLine("selectedObject: " + selectedObject.getLocation().ToString());
                     selectedObject.setDirection(Direction.NORTH);
+<<<<<<< HEAD
+                    //destination = new Vector2(selectedObject.getLocation().X, selectedObject.getLocation().Y + stepSize);
+=======
                     destination = new Vector2(selectedObject.getLocation().X, selectedObject.getLocation().Y + stepSize);
+>>>>>>> origin/master
                     if (selectedObject.getLocation().Y + stepSize > 0/* && collisionManager.isValid(destination)*/)
                     {
                         selectedObject.deriveY(-stepSize);
@@ -212,7 +236,11 @@ namespace KineticCamp {
                 {
                     Console.WriteLine("selectedObject: " + selectedObject.getLocation().ToString());
                     selectedObject.setDirection(Direction.SOUTH);
+<<<<<<< HEAD
+                    //destination = new Vector2(selectedObject.getLocation().X, selectedObject.getLocation().Y - stepSize);
+=======
                     destination = new Vector2(selectedObject.getLocation().X, selectedObject.getLocation().Y - stepSize);
+>>>>>>> origin/master
                     if (selectedObject.getLocation().Y - stepSize < midY * 2/* && collisionManager.isValid(destination)*/)
                     {
                         selectedObject.deriveY(stepSize);
@@ -226,7 +254,11 @@ namespace KineticCamp {
                 {
                     Console.WriteLine("selectedObject: " + selectedObject.getLocation().ToString());
                     selectedObject.setDirection(Direction.WEST);
+<<<<<<< HEAD
+                    //destination = new Vector2(selectedObject.getLocation().X + stepSize, selectedObject.getLocation().Y);
+=======
                     destination = new Vector2(selectedObject.getLocation().X + stepSize, selectedObject.getLocation().Y);
+>>>>>>> origin/master
                     if (selectedObject.getLocation().X + stepSize > 0/* && collisionManager.isValid(destination)*/)
                     {
                         selectedObject.deriveX(-stepSize);
@@ -240,8 +272,13 @@ namespace KineticCamp {
                 {
                     Console.WriteLine("selectedObject: " + selectedObject.getLocation().ToString());
                     selectedObject.setDirection(Direction.EAST);
+<<<<<<< HEAD
+                    //destination = new Vector2(selectedObject.getLocation().X - stepSize, selectedObject.getLocation().Y);
+                    //Console.WriteLine("dest: " + destination.ToString());
+=======
                     destination = new Vector2(selectedObject.getLocation().X - stepSize, selectedObject.getLocation().Y);
                     Console.WriteLine("dest: " + destination.ToString());
+>>>>>>> origin/master
                     if (selectedObject.getLocation().X - stepSize < midX * 2/* && collisionManager.isValid(destination)*/)
                     {
                         selectedObject.deriveX(stepSize);

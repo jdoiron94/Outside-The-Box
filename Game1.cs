@@ -103,7 +103,7 @@ namespace KineticCamp {
             playerTexture = Content.Load<Texture2D>("player");
             midX = (graphics.PreferredBackBufferWidth - playerTexture.Width) / 2;
             midY = (graphics.PreferredBackBufferHeight - playerTexture.Height) / 2;
-            player = new Entity(playerTexture, new Projectile(Content.Load<Texture2D>("bullet"), new Vector2(midX, midY), 2, 250, 0.5f), new Vector2(midX, midY), Direction.EAST, GraphicsDevice.Viewport.Bounds, 50, 5);
+            player = new Entity(playerTexture, new Projectile(Content.Load<Texture2D>("bullet"), new Vector2(midX, midY), 7, 250, 0.5f), new Vector2(midX, midY), Direction.EAST, GraphicsDevice.Viewport.Bounds, 50, 5);
             npc = new Entity(Content.Load<Texture2D>("npc"), null, new Vector2(midX + 148, midY + 148), Direction.EAST, GraphicsDevice.Viewport.Bounds, 50, 5);
             obj = new GameObject(Content.Load<Texture2D>("sprite"), null, new Vector2(midX + 100, midY + 100), GraphicsDevice.Viewport.Bounds, true);
             level = new Level(player, Content.Load<Texture2D>("map"), new Entity[] { npc }, new GameObject[] { obj });

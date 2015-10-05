@@ -131,7 +131,7 @@ namespace KineticCamp {
          */
         public void deriveX(int x) {
             location.X += x;
-            movedX += x;
+            movedX = x;
             Console.WriteLine("movedX: " + movedX);
             bounds.X += x;
         }
@@ -155,7 +155,7 @@ namespace KineticCamp {
          */
         public void deriveY(int y) {
             location.Y += y;
-            movedY += y;
+            movedY = y;
             Console.WriteLine("movedY: " + movedY);
             bounds.Y += y;
         }
@@ -181,7 +181,7 @@ namespace KineticCamp {
          */
         public Projectile createProjectile(double lastFired) {
             this.lastFired = lastFired; 
-            return new Projectile(projectile.getTexture(), projectile.getPosition(), projectile.getVelocity(), projectile.getCooldown(), projectile.getRotationSpeed());
+            return new Projectile(projectile.getTexture(), this.location, projectile.getVelocity(), projectile.getCooldown(), projectile.getRotationSpeed());
         }
 
         /*
