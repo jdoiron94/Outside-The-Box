@@ -15,21 +15,25 @@ namespace KineticCamp {
         private Direction direction;
         private Rectangle bounds;
         private Rectangle windowBounds;
+        private bool liftable;
+        private bool selected;
 
         private double lastFired;
 
-        public GameObject(Texture2D texture, Projectile projectile, Vector2 location, Direction direction, Rectangle windowBounds) {
+        public GameObject(Texture2D texture, Projectile projectile, Vector2 location, Direction direction, Rectangle windowBounds, bool liftable) {
             this.texture = texture;
             this.projectile = projectile;
             this.location = location;
             this.direction = direction;
             this.windowBounds = windowBounds;
+            this.liftable = liftable;
+            this.selected = false; 
             bounds = new Rectangle((int) location.X, (int) location.Y, texture.Width, texture.Height);
             lastFired = -1;
         }
 
-        public GameObject(Texture2D texture, Projectile projectile, Vector2 location, Rectangle windowBounds) :
-            this(texture, projectile, location, Direction.NONE, windowBounds) {
+        public GameObject(Texture2D texture, Projectile projectile, Vector2 location, Rectangle windowBounds, bool liftable) :
+            this(texture, projectile, location, Direction.NONE, windowBounds, liftable) {
         }
 
         /* Returns the object's texture
@@ -72,6 +76,21 @@ namespace KineticCamp {
             return windowBounds;
         }
 
+        public bool isLiftable()
+        {
+            return liftable;
+        }
+
+        public bool isSelected()
+        {
+            return selected;
+        }
+
+        public void setSelected(bool selected)
+        {
+            this.selected = selected;
+        }
+
         /*
          * Returns the object's last projectile fire time in ms
          */
@@ -100,6 +119,11 @@ namespace KineticCamp {
         public void deriveY(int y) {
             location.Y += y;
             bounds.Y += y;
+        }
+
+        public void setDirection(Direction direction)
+        {
+            this.direction = direction;
         }
 
         public void setLocation(int x, int y) {

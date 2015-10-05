@@ -16,6 +16,7 @@ namespace KineticCamp {
         private List<Entity> npcs;
         private List<GameObject> objects;
         private List<Projectile> projectiles;
+        private GameObject selectedObject;
 
         public Level(Entity player, Texture2D map, Entity[] npcs, GameObject[] objects) {
             this.player = player;
@@ -25,6 +26,7 @@ namespace KineticCamp {
             this.objects = new List<GameObject>(objects.Length);
             this.objects.AddRange(objects);
             projectiles = new List<Projectile>();
+            this.selectedObject = null;
         }
 
         /*
@@ -60,6 +62,16 @@ namespace KineticCamp {
          */
         public List<Projectile> getProjectiles() {
             return projectiles;
+        }
+
+        public GameObject getSelectedObject()
+        {
+            return selectedObject;
+        }
+
+        public void setSelectedObject(int index)
+        {
+            this.selectedObject = objects[index];
         }
 
         /*
@@ -140,7 +152,9 @@ namespace KineticCamp {
          * Draws the level's map, player, NPCs, and objects currently on screen in the game
          */
         public void draw(SpriteBatch batch) {
-            batch.Draw(map, new Rectangle((int) player.getLocation().X, (int) player.getLocation().Y, map.Width, map.Height), Color.White);
+            //batch.Draw(map, new Rectangle((int) player.getLocation().X, (int) player.getLocation().Y, map.Width, map.Height), Color.White);
+            batch.Draw(map, new Vector2(0, 0), Color.White);
+
             foreach (Projectile projectile in projectiles) {
                 if (projectile != null) {
                     projectile.draw(batch);

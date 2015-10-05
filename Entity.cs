@@ -133,7 +133,7 @@ namespace KineticCamp {
             location.X += x;
             movedX += x;
             Console.WriteLine("movedX: " + movedX);
-            //bounds.X += x;
+            bounds.X += x;
         }
 
         /*
@@ -157,7 +157,7 @@ namespace KineticCamp {
             location.Y += y;
             movedY += y;
             Console.WriteLine("movedY: " + movedY);
-            //bounds.Y += y;
+            bounds.Y += y;
         }
 
         // update sprite to respective sprite facing the correct direction

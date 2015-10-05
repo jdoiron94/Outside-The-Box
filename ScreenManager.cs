@@ -14,10 +14,11 @@ namespace KineticCamp {
         private Screen activeScreen;
         private List<Screen> screens;
 
-        public ScreenManager(Screen activeScreen, Screen[] screens) {
+        public ScreenManager(Screen activeScreen, List<Screen> screens) {
             this.activeScreen = activeScreen;
-            this.screens = new List<Screen>(screens.Length);
-            this.screens.AddRange(screens);
+           //this.screens = new List<Screen>(screens.Count);
+            //this.screens.AddRange(screens);
+            this.screens = screens; 
         }
 
         /*
@@ -34,6 +35,20 @@ namespace KineticCamp {
             return screens;
         }
 
+
+        public void setActiveScreen(int index)
+        {
+            for(int i=0; i<screens.Count; i++)
+            {
+                if(screens[i] == this.activeScreen)
+                {
+                    screens[i].setActive(false);
+                    //break;
+                }
+            }
+            this.activeScreen = screens[index];
+            this.activeScreen.setActive(true);
+        }
         /*
          * Updates the active screen
          */

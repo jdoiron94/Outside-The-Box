@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+using System.Collections.Generic;
 
 namespace KineticCamp {
 
@@ -37,6 +38,7 @@ namespace KineticCamp {
         private Entity npc;
         private GameObject obj;
         private Level level;
+        private List<Screen> screens;
 
         private InputManager inputManager;
 
@@ -103,9 +105,15 @@ namespace KineticCamp {
             midY = (graphics.PreferredBackBufferHeight - playerTexture.Height) / 2;
             player = new Entity(playerTexture, new Projectile(Content.Load<Texture2D>("bullet"), new Vector2(midX, midY), 2, 250, 0.5f), new Vector2(midX, midY), Direction.EAST, GraphicsDevice.Viewport.Bounds, 50, 5);
             npc = new Entity(Content.Load<Texture2D>("npc"), null, new Vector2(midX + 148, midY + 148), Direction.EAST, GraphicsDevice.Viewport.Bounds, 50, 5);
-            obj = new GameObject(Content.Load<Texture2D>("sprite"), null, new Vector2(midX + 100, midY + 100), GraphicsDevice.Viewport.Bounds);
+            obj = new GameObject(Content.Load<Texture2D>("sprite"), null, new Vector2(midX + 100, midY + 100), GraphicsDevice.Viewport.Bounds, true);
             level = new Level(player, Content.Load<Texture2D>("map"), new Entity[] { npc }, new GameObject[] { obj });
-            inputManager = new InputManager(this, player, level);
+            // Initialize list of game screens, and add screens. Menu should be the first screen active.
+            screens = new List<Screen>(); 
+            screens.Add(new Screen("Menu", false));
+            screens.Add(new Screen("Normal", true));
+            screens.Add(new Screen("Telekinesis-Select", false));
+            screens.Add(new Screen("Telekinesis-Move", false));
+            inputManager = new InputManager(this, player, level, screens);
             cursor = Content.Load<Texture2D>("cursor");
             // TODO: use this.Content to load your game content here
         }
