@@ -151,7 +151,7 @@ namespace KineticCamp {
         /*
          * Draws the level's map, player, NPCs, and objects currently on screen in the game
          */
-        public void draw(SpriteBatch batch) {
+        public void draw(SpriteBatch batch, int mode) {
             //batch.Draw(map, new Rectangle((int) player.getLocation().X, (int) player.getLocation().Y, map.Width, map.Height), Color.White);
             batch.Draw(map, new Vector2(0, 0), Color.White);
 
@@ -162,7 +162,36 @@ namespace KineticCamp {
             }
             foreach (GameObject obj in objects) {
                 if (obj != null && obj.isOnScreen()) {
-                    obj.draw(batch);
+                    if (mode == 0)
+                    {
+                        obj.draw(batch);
+                    }
+                    else if (mode == 1)
+                    {
+                        if (obj.isLiftable())
+                        {
+                            obj.drawSelectable(batch);
+                        }
+                        else
+                        {
+                            obj.draw(batch);
+                        }
+                    }
+                    else
+                    {
+                        if (obj.isSelected())
+                        {
+                            obj.drawSelected(batch);
+                        }
+                        else if(obj.isLiftable())
+                        {
+                            obj.drawSelectable(batch);
+                        }
+                        else
+                        {
+                            obj.draw(batch);
+                        }
+                    }
                 }
             }
             batch.Draw(player.getTexture(), player.getBounds(), Color.White);

@@ -129,8 +129,10 @@ namespace KineticCamp {
 
             /* Just entered telekinesis mode (player uses mouse to select a liftable object)*/
             else if (screenManager.getActiveScreen().getName() == "Telekinesis-Select") {
+                game.setMode(1); 
                 lastState = state;
                 state = Mouse.GetState().LeftButton;
+
                 if (lastState == ButtonState.Pressed && state == ButtonState.Released) {
                     foreach (GameObject obj in level.getObjects()) {
                         if (obj != null && obj.isLiftable()) {
@@ -149,12 +151,14 @@ namespace KineticCamp {
                 } else if (kbs.IsKeyDown(Keys.X)) {
                     //switch to telekinesis-select mode (player clicks a liftable object to select it)
                     screenManager.setActiveScreen(1);
+                    game.setMode(0);
                     Console.WriteLine("Entered telekinesis mode!");
                 }
             }
 
             /* Telekinetic lifting mode (player controls the selected object's movement)*/
             else if (screenManager.getActiveScreen().getName() == "Telekinesis-Move") {
+                game.setMode(2);
                 if (kbs.IsKeyDown(Keys.Escape)) {
                     game.Exit();
                 } else if (kbs.IsKeyDown(Keys.W)) {

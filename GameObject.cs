@@ -152,5 +152,15 @@ namespace KineticCamp {
         public void draw(SpriteBatch batch) {
             batch.Draw(texture, location, Color.White);
         }
+
+        public void drawSelectable(SpriteBatch batch)
+        {
+            batch.Draw(texture, location, Color.LightGreen);
+        }
+
+        public void drawSelected(SpriteBatch batch)
+        {
+            batch.Draw(texture, location, Color.IndianRed);
+        }
     }
 }
