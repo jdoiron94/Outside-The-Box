@@ -21,6 +21,10 @@ namespace KineticCamp {
      *      Fixed #isOnScreen logic, added GameObject, ScreenManager, InputManager, CollisionManager
      * 0.0.0.6:
      *      Drawing of cursor, object bounds fixed, clicking on objects
+     * 0.0.0.7:
+     *      Mostly fixed collisions/projectiles to new map/player system
+     * 0.0.0.8:
+     *      Fixed #setActiveScreen
      */
 
     /// <summary>
@@ -89,7 +93,7 @@ namespace KineticCamp {
             //graphics.PreferredBackBufferWidth = x;
             //graphics.PreferredBackBufferHeight = y;
             //graphics.ApplyChanges();
-            Window.Title = "Kinetic Camp";
+            Window.Title = "Outside The Box";
         }
 
         /// <summary>

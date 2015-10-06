@@ -1,2 +1,2 @@
-# Kinetic-Camp
-Our game, Kinetic Camp, for Game Design and Development
+# Outside-The-Box
+Our game, Outside The Box, for Game Design and Development

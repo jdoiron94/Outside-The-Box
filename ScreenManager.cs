@@ -35,19 +35,15 @@ namespace KineticCamp {
             return screens;
         }
 
-
-        public void setActiveScreen(int index)
-        {
-            for(int i=0; i<screens.Count; i++)
-            {
-                if(screens[i] == this.activeScreen)
-                {
-                    screens[i].setActive(false);
-                    //break;
-                }
+        /*
+         * Sets the active screen to the screen at the specified index
+         */
+        public void setActiveScreen(int index) {
+            if (!activeScreen.Equals(screens[index])) {
+                activeScreen.setActive(false);
+                activeScreen = screens[index];
+                activeScreen.setActive(true);
             }
-            this.activeScreen = screens[index];
-            this.activeScreen.setActive(true);
         }
         /*
          * Updates the active screen
