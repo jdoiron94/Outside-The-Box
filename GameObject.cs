@@ -12,6 +12,7 @@ namespace KineticCamp {
         private Texture2D texture;
         private Projectile projectile;
         private Vector2 location;
+        private Vector2 destination;
         private Direction direction;
         private Rectangle bounds;
         private Rectangle windowBounds;
@@ -24,6 +25,7 @@ namespace KineticCamp {
             this.texture = texture;
             this.projectile = projectile;
             this.location = location;
+            this.destination = location;
             this.direction = direction;
             this.windowBounds = windowBounds;
             this.liftable = liftable;
@@ -54,6 +56,16 @@ namespace KineticCamp {
          */
         public Vector2 getLocation() {
             return location;
+        }
+
+        public Vector2 getDestination()
+        {
+            return destination;
+        }
+
+        public void setDestination(Vector2 destination)
+        {
+            this.destination = destination;
         }
 
         /* Returns the object's direction

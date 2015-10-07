@@ -64,7 +64,6 @@ namespace KineticCamp {
          */
         public void update(GameTime time) {
             KeyboardState kbs = Keyboard.GetState();
-            Vector2 destination;
 
             /* Normal gameplay (player has control of character's movement*/
             if (screenManager.getActiveScreen().getName() == "Normal") {
@@ -73,8 +72,8 @@ namespace KineticCamp {
                 } else if (kbs.IsKeyDown(Keys.W)) {
                     Console.WriteLine("player: " + player.getLocation().ToString());
                     player.setDirection(Direction.NORTH);
-                    destination = new Vector2(player.getLocation().X, player.getLocation().Y - stepSize);
-                    if (player.getLocation().Y + stepSize > 0 && collisionManager.isValid(destination, player)) {
+                    player.setDestination(new Vector2(player.getLocation().X, player.getLocation().Y - stepSize));
+                    if (player.getLocation().Y + stepSize > 0 && collisionManager.isValid(player)) {
                         player.deriveY(-stepSize);
                     } else {
                         Console.WriteLine("u wanna go north? nty");
@@ -82,8 +81,8 @@ namespace KineticCamp {
                 } else if (kbs.IsKeyDown(Keys.S)) {
                     Console.WriteLine("player: " + player.getLocation().ToString());
                     player.setDirection(Direction.SOUTH);
-                    destination = new Vector2(player.getLocation().X, player.getLocation().Y + stepSize);
-                    if (player.getLocation().Y + stepSize < midY * 2 && collisionManager.isValid(destination, player)) {
+                    player.setDestination(new Vector2(player.getLocation().X, player.getLocation().Y + stepSize));
+                    if (player.getLocation().Y + stepSize < midY * 2 && collisionManager.isValid(player)) {
                         player.deriveY(stepSize);
                     } else {
                         Console.WriteLine("u wanna go south? nty");
@@ -91,8 +90,8 @@ namespace KineticCamp {
                 } else if (kbs.IsKeyDown(Keys.A)) {
                     Console.WriteLine("player: " + player.getLocation().ToString());
                     player.setDirection(Direction.WEST);
-                    destination = new Vector2(player.getLocation().X - stepSize, player.getLocation().Y);
-                    if (player.getLocation().X + stepSize > 0 && collisionManager.isValid(destination, player)) {
+                    player.setDestination(new Vector2(player.getLocation().X - stepSize, player.getLocation().Y));
+                    if (player.getLocation().X + stepSize > 0 && collisionManager.isValid(player)) {
                         player.deriveX(-stepSize);
                     } else {
                         Console.WriteLine("u wanna go west? nty");
@@ -100,13 +99,16 @@ namespace KineticCamp {
                 } else if (kbs.IsKeyDown(Keys.D)) {
                     Console.WriteLine("player: " + player.getLocation().ToString());
                     player.setDirection(Direction.EAST);
-                    destination = new Vector2(player.getLocation().X + stepSize, player.getLocation().Y);
-                    if (player.getLocation().X + stepSize < midX * 2 && collisionManager.isValid(destination, player)) {
+                    player.setDestination(new Vector2(player.getLocation().X + stepSize, player.getLocation().Y));
+                    if (player.getLocation().X + stepSize < midX * 2 && collisionManager.isValid(player)) {
                         player.deriveX(stepSize);
                     } else {
                         Console.WriteLine("u wanna go east? nty");
                     }
+                } else {
+                    player.setDestination(player.getLocation()); //if no movement keys are pressed, destination is same as location
                 }
+
                 if (kbs.IsKeyDown(Keys.Space)) {
                     double totalMilliseconds = time.TotalGameTime.TotalMilliseconds;
                     if (player.getLastFired() == -1 || totalMilliseconds - player.getLastFired() >= player.getProjectile().getCooldown()) {
@@ -120,7 +122,8 @@ namespace KineticCamp {
                             Console.WriteLine("Health: " + npc.getHealth());
                         }
                     }*/
-                } else if (kbs.IsKeyDown(Keys.X)) {
+                } 
+                if (kbs.IsKeyDown(Keys.X)) {
                     //switch to telekinesis-select mode (player clicks a liftable object to select it)
                     screenManager.setActiveScreen(2);
                     Console.WriteLine("Entered telekinesis mode!");
@@ -164,8 +167,8 @@ namespace KineticCamp {
                 } else if (kbs.IsKeyDown(Keys.W)) {
                     Console.WriteLine("selectedObject: " + selectedObject.getLocation().ToString());
                     selectedObject.setDirection(Direction.NORTH);
-                    //destination = new Vector2(selectedObject.getLocation().X, selectedObject.getLocation().Y + stepSize);
-                    if (selectedObject.getLocation().Y + stepSize > 0/* && collisionManager.isValid(destination)*/) {
+                    selectedObject.setDestination(new Vector2(selectedObject.getLocation().X, selectedObject.getLocation().Y - stepSize));
+                    if (selectedObject.getLocation().Y + stepSize > 0 && collisionManager.isValid(selectedObject)) {
                         selectedObject.deriveY(-stepSize);
                     } else {
                         Console.WriteLine("u wanna go north? nty");
@@ -173,8 +176,8 @@ namespace KineticCamp {
                 } else if (kbs.IsKeyDown(Keys.S)) {
                     Console.WriteLine("selectedObject: " + selectedObject.getLocation().ToString());
                     selectedObject.setDirection(Direction.SOUTH);
-                    //destination = new Vector2(selectedObject.getLocation().X, selectedObject.getLocation().Y - stepSize);
-                    if (selectedObject.getLocation().Y - stepSize < midY * 2/* && collisionManager.isValid(destination)*/) {
+                    selectedObject.setDestination(new Vector2(selectedObject.getLocation().X, selectedObject.getLocation().Y + stepSize));
+                    if (selectedObject.getLocation().Y - stepSize < midY * 2 && collisionManager.isValid(selectedObject)) {
                         selectedObject.deriveY(stepSize);
                     } else {
                         Console.WriteLine("u wanna go south? nty");
@@ -182,8 +185,8 @@ namespace KineticCamp {
                 } else if (kbs.IsKeyDown(Keys.A)) {
                     Console.WriteLine("selectedObject: " + selectedObject.getLocation().ToString());
                     selectedObject.setDirection(Direction.WEST);
-                    //destination = new Vector2(selectedObject.getLocation().X + stepSize, selectedObject.getLocation().Y);
-                    if (selectedObject.getLocation().X + stepSize > 0/* && collisionManager.isValid(destination)*/) {
+                    selectedObject.setDestination(new Vector2(selectedObject.getLocation().X - stepSize, selectedObject.getLocation().Y));
+                    if (selectedObject.getLocation().X + stepSize > 0 && collisionManager.isValid(selectedObject)) {
                         selectedObject.deriveX(-stepSize);
                     } else {
                         Console.WriteLine("u wanna go west? nty");
@@ -191,17 +194,21 @@ namespace KineticCamp {
                 } else if (kbs.IsKeyDown(Keys.D)) {
                     Console.WriteLine("selectedObject: " + selectedObject.getLocation().ToString());
                     selectedObject.setDirection(Direction.EAST);
-                    //destination = new Vector2(selectedObject.getLocation().X - stepSize, selectedObject.getLocation().Y);
-                    //Console.WriteLine("dest: " + destination.ToString());
-                    if (selectedObject.getLocation().X - stepSize < midX * 2/* && collisionManager.isValid(destination)*/) {
+                    selectedObject.setDestination(new Vector2(selectedObject.getLocation().X + stepSize, selectedObject.getLocation().Y));
+                    if (selectedObject.getLocation().X - stepSize < midX * 2 && collisionManager.isValid(selectedObject)) {
                         selectedObject.deriveX(stepSize);
                     } else {
                         Console.WriteLine("u wanna go east? nty");
                     }
+                } else {
+                    selectedObject.setDestination(selectedObject.getLocation()); //if no movement keys are pressed, destination is same as location
                 }
-                if (kbs.IsKeyDown(Keys.Space)) {
 
-                } else if (kbs.IsKeyDown(Keys.X)) {
+                if (kbs.IsKeyDown(Keys.Space)) {
+                    //throw object
+                } 
+
+                if (kbs.IsKeyDown(Keys.X)) {
                     //deselect object
                     selectedObject.setSelected(false);
                     selectedObject = null;

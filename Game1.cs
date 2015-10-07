@@ -123,7 +123,7 @@ namespace KineticCamp {
             player = new Entity(playerTexture, new Projectile(Content.Load<Texture2D>("bullet"), new Vector2(midX, midY), 7, 250, 0.5f), new Vector2(midX, midY), Direction.EAST, GraphicsDevice.Viewport.Bounds, 50, 5);
             npc = new Entity(Content.Load<Texture2D>("npc"), null, new Vector2(midX + 148, midY + 148), Direction.EAST, GraphicsDevice.Viewport.Bounds, 50, 5);
             obj = new GameObject(Content.Load<Texture2D>("sprite"), null, new Vector2(midX + 100, midY + 100), GraphicsDevice.Viewport.Bounds, true);
-            obj2 = new GameObject(Content.Load<Texture2D>("GreenMushroom"), null, new Vector2(midX + 120, midY + 120), GraphicsDevice.Viewport.Bounds, true);
+            obj2 = new GameObject(Content.Load<Texture2D>("GreenMushroom"), null, new Vector2(midX + 50, midY + 120), GraphicsDevice.Viewport.Bounds, true);
             level = new Level(player, Content.Load<Texture2D>("map"), new Entity[] { npc }, new GameObject[] { obj, obj2});
             // Initialize list of game screens, and add screens. Menu should be the first screen active.
             screens = new List<Screen>(); 

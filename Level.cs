@@ -152,7 +152,6 @@ namespace KineticCamp {
          * Draws the level's map, player, NPCs, and objects currently on screen in the game
          */
         public void draw(SpriteBatch batch, int mode) {
-            //batch.Draw(map, new Rectangle((int) player.getLocation().X, (int) player.getLocation().Y, map.Width, map.Height), Color.White);
             batch.Draw(map, new Vector2(0, 0), Color.White);
 
             foreach (Projectile projectile in projectiles) {

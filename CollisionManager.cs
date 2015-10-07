@@ -44,22 +44,67 @@ namespace KineticCamp {
             return Vector2.Distance(x0, x1) <= 4 + t0.Width;
         }
 
-        /*
-         * Returns true if the supposed position does not collide with other objects or entities; otherwise, false
-         */
-        public bool isValid(Vector2 position, Entity me) {
+        public bool collides(Entity e0, Entity e1) {
+            Rectangle e0Rect = new Rectangle((int) e0.getDestination().X, (int) e0.getDestination().Y, e0.getTexture().Width, e0.getTexture().Height);
+            Rectangle e1Rect = new Rectangle((int) e1.getDestination().X, (int) e1.getDestination().Y, e1.getTexture().Width, e1.getTexture().Height);
+
+            return e0Rect.Intersects(e1Rect); 
+        }
+
+        public bool collides(Entity e0, GameObject e1)
+        {
+            Rectangle e0Rect = new Rectangle((int)e0.getDestination().X, (int)e0.getDestination().Y, e0.getTexture().Width, e0.getTexture().Height);
+            Rectangle e1Rect = new Rectangle((int)e1.getDestination().X, (int)e1.getDestination().Y, e1.getTexture().Width, e1.getTexture().Height);
+
+            return e0Rect.Intersects(e1Rect);
+        }
+
+        public bool collides(GameObject e0, Entity e1)
+        {
+            Rectangle e0Rect = new Rectangle((int)e0.getDestination().X, (int)e0.getDestination().Y, e0.getTexture().Width, e0.getTexture().Height);
+            Rectangle e1Rect = new Rectangle((int)e1.getDestination().X, (int)e1.getDestination().Y, e1.getTexture().Width, e1.getTexture().Height);
+
+            return e0Rect.Intersects(e1Rect);
+        }
+
+        public bool collides(GameObject e0, GameObject e1)
+        {
+            Rectangle e0Rect = new Rectangle((int)e0.getDestination().X, (int)e0.getDestination().Y, e0.getTexture().Width, e0.getTexture().Height);
+            Rectangle e1Rect = new Rectangle((int)e1.getDestination().X, (int)e1.getDestination().Y, e1.getTexture().Width, e1.getTexture().Height);
+
+            return e0Rect.Intersects(e1Rect);
+        }
+
+
+        public bool isValid(Entity me) {
             foreach (GameObject g in level.getObjects()) {
                 if (g != null) {
-                    if (collides(position - new Vector2(0, me.getMovedY()), g.getLocation() + new Vector2(me.getMovedX(), 0), g.getTexture())) {
-                        Console.WriteLine("player collision with GameObject");
+                    if (collides(me, g)) {
+                        return false;
+                    }
+                }
+            }
+            foreach (Entity e in level.getNpcs()) {
+                if (e != null && e != me) {
+                    if (collides(me, e)) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        public bool isValid(GameObject me) {
+            foreach (GameObject g in level.getObjects()) {
+                if (g != null && g != me) {
+                    if (collides(me, g)) {
                         return false;
                     }
                 }
             }
             foreach (Entity e in level.getNpcs()) {
                 if (e != null) {
-                    if (collides(position - new Vector2(0, me.getMovedY()), e.getLocation() + new Vector2(me.getMovedX(), 0), e.getTexture())) {
-                        Console.WriteLine("player collision with Goku");
+                    if (collides(me, e)) {
                         return false;
                     }
                 }
