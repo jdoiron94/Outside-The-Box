@@ -39,6 +39,7 @@ namespace KineticCamp {
         private SpriteBatch spriteBatch;
         private Texture2D playerTexture;
         private Entity player;
+        private PlayerManager playerManager;
         private Entity npc;
         private GameObject obj;
         private GameObject obj2; 
@@ -123,15 +124,16 @@ namespace KineticCamp {
             player = new Entity(playerTexture, new Projectile(Content.Load<Texture2D>("bullet"), new Vector2(midX, midY), 7, 250, 0.5f), new Vector2(midX, midY), Direction.EAST, GraphicsDevice.Viewport.Bounds, 50, 5);
             npc = new Entity(Content.Load<Texture2D>("npc"), null, new Vector2(midX + 148, midY + 148), Direction.EAST, GraphicsDevice.Viewport.Bounds, 50, 5);
             obj = new GameObject(Content.Load<Texture2D>("sprite"), null, new Vector2(midX + 100, midY + 100), GraphicsDevice.Viewport.Bounds, true);
+            playerManager = new PlayerManager(player, new DisplayBar(Content.Load<Texture2D>("HealthBarTexture"), new Vector2(20, 20), Color.Red, Content.Load<Texture2D>("BackBarTexture")));
             obj2 = new GameObject(Content.Load<Texture2D>("GreenMushroom"), null, new Vector2(midX + 50, midY + 120), GraphicsDevice.Viewport.Bounds, true);
-            level = new Level(player, Content.Load<Texture2D>("map"), new Entity[] { npc }, new GameObject[] { obj, obj2});
+            level = new Level(player, Content.Load<Texture2D>("map"), new Entity[] { npc }, new GameObject[] { obj, obj2}, new DisplayBar[] {playerManager.getHealthBar()});
             // Initialize list of game screens, and add screens. Menu should be the first screen active.
             screens = new List<Screen>(); 
             screens.Add(new Screen("Menu", false));
             screens.Add(new Screen("Normal", true));
             screens.Add(new Screen("Telekinesis-Select", false));
             screens.Add(new Screen("Telekinesis-Move", false));
-            inputManager = new InputManager(this, player, level, screens);
+            inputManager = new InputManager(this, player, level, playerManager, screens);
             cursor = Content.Load<Texture2D>("cursor");
             // TODO: use this.Content to load your game content here
         }
@@ -153,6 +155,7 @@ namespace KineticCamp {
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime) {
             base.Update(gameTime);
+            inputManager.getPlayerManager().updateHealthCooldown();
             inputManager.update(gameTime);
             level.updateProjectiles();
             level.updateNpcs();

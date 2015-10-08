@@ -18,6 +18,7 @@ namespace KineticCamp {
         private Level level;
         private CollisionManager collisionManager;
         private ScreenManager screenManager;
+        private PlayerManager playerManager;
 
         private ButtonState lastState;
         private ButtonState state;
@@ -26,11 +27,12 @@ namespace KineticCamp {
         private int midX;
         private int midY;
 
-        public InputManager(Game1 game, Entity player, Level level, List<Screen> screens) {
+        public InputManager(Game1 game, Entity player, Level level, PlayerManager playerManager, List<Screen> screens) {
             this.game = game;
             this.player = player;
             this.selectedObject = null;
             this.level = level;
+            this.playerManager = playerManager; 
             collisionManager = new CollisionManager(player, level);
             screenManager = new ScreenManager(screens[1], screens);
             stepSize = game.getStepSize();
@@ -60,6 +62,14 @@ namespace KineticCamp {
         }
 
         /*
+        * Returns the Player Manager
+        */
+        public PlayerManager getPlayerManager()
+        {
+            return playerManager;
+        }
+
+        /*
          * Handles all user input to the game, depending on the keyboard/mouse states and the screen's state.
          */
         public void update(GameTime time) {
@@ -67,6 +77,12 @@ namespace KineticCamp {
 
             /* Normal gameplay (player has control of character's movement*/
             if (screenManager.getActiveScreen().getName() == "Normal") {
+
+                if (playerManager.getHealthCoolDown() == 35)
+                {
+                    playerManager.healthRegen();
+                }
+
                 if (kbs.IsKeyDown(Keys.Escape)) {
                     game.Exit();
                 } else if (kbs.IsKeyDown(Keys.W)) {
@@ -127,6 +143,11 @@ namespace KineticCamp {
                     //switch to telekinesis-select mode (player clicks a liftable object to select it)
                     screenManager.setActiveScreen(2);
                     Console.WriteLine("Entered telekinesis mode!");
+                }
+
+                if (kbs.IsKeyDown(Keys.P))
+                {
+                    playerManager.damagePlayer(2);
                 }
             }
 

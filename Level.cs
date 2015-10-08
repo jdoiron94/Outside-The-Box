@@ -17,8 +17,9 @@ namespace KineticCamp {
         private List<GameObject> objects;
         private List<Projectile> projectiles;
         private GameObject selectedObject;
+        private List<DisplayBar> displayBars;
 
-        public Level(Entity player, Texture2D map, Entity[] npcs, GameObject[] objects) {
+        public Level(Entity player, Texture2D map, Entity[] npcs, GameObject[] objects, DisplayBar[] displayBars) {
             this.player = player;
             this.map = map;
             this.npcs = new List<Entity>(npcs.Length);
@@ -27,6 +28,8 @@ namespace KineticCamp {
             this.objects.AddRange(objects);
             projectiles = new List<Projectile>();
             this.selectedObject = null;
+            this.displayBars = new List<DisplayBar>(displayBars.Length);
+            this.displayBars.AddRange(displayBars);
         }
 
         /*
@@ -197,6 +200,14 @@ namespace KineticCamp {
             foreach (Entity e in npcs) {
                 if (e != null && e.isOnScreen()) {
                     e.draw(batch);
+                }
+            }
+
+            foreach (DisplayBar d in displayBars)
+            {
+                if (d != null)
+                {
+                    d.draw(batch);
                 }
             }
         }

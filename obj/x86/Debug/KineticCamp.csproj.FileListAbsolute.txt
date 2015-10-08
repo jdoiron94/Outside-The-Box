@@ -96,3 +96,38 @@ C:\Users\Patrick\Documents\Visual Studio 2013\Projects\Outside-The-Box\bin\Windo
 C:\Users\Patrick\Documents\Visual Studio 2013\Projects\Outside-The-Box\bin\Windows\Debug\SharpDX.RawInput.xml
 C:\Users\Patrick\Documents\Visual Studio 2013\Projects\Outside-The-Box\bin\Windows\Debug\SharpDX.Direct3D9.xml
 C:\Users\Patrick\Documents\Visual Studio 2013\Projects\Outside-The-Box\obj\x86\Debug\KineticCamp.csprojResolveAssemblyReference.cache
+C:\Users\Robert\Documents\GitHub\Outside-The-Box\obj\x86\Debug\KineticCamp.exe
+C:\Users\Robert\Documents\GitHub\Outside-The-Box\obj\x86\Debug\KineticCamp.pdb
+C:\Users\Robert\Documents\GitHub\Outside-The-Box\bin\Windows\Debug\Content\bullet.png
+C:\Users\Robert\Documents\GitHub\Outside-The-Box\bin\Windows\Debug\Content\cursor.png
+C:\Users\Robert\Documents\GitHub\Outside-The-Box\bin\Windows\Debug\Content\map.jpg
+C:\Users\Robert\Documents\GitHub\Outside-The-Box\bin\Windows\Debug\Content\npc.png
+C:\Users\Robert\Documents\GitHub\Outside-The-Box\bin\Windows\Debug\Content\player.png
+C:\Users\Robert\Documents\GitHub\Outside-The-Box\bin\Windows\Debug\Content\sprite.png
+C:\Users\Robert\Documents\GitHub\Outside-The-Box\bin\Windows\Debug\Content\Content.mgcb
+C:\Users\Robert\Documents\GitHub\Outside-The-Box\bin\Windows\Debug\Content\BackBarTexture.png
+C:\Users\Robert\Documents\GitHub\Outside-The-Box\bin\Windows\Debug\Content\GreenMushroom.png
+C:\Users\Robert\Documents\GitHub\Outside-The-Box\bin\Windows\Debug\Content\HealthBarTexture.png
+C:\Users\Robert\Documents\GitHub\Outside-The-Box\bin\Windows\Debug\KineticCamp.exe
+C:\Users\Robert\Documents\GitHub\Outside-The-Box\bin\Windows\Debug\KineticCamp.pdb
+C:\Users\Robert\Documents\GitHub\Outside-The-Box\bin\Windows\Debug\MonoGame.Framework.dll
+C:\Users\Robert\Documents\GitHub\Outside-The-Box\bin\Windows\Debug\SharpDX.MediaFoundation.dll
+C:\Users\Robert\Documents\GitHub\Outside-The-Box\bin\Windows\Debug\SharpDX.dll
+C:\Users\Robert\Documents\GitHub\Outside-The-Box\bin\Windows\Debug\SharpDX.XAudio2.dll
+C:\Users\Robert\Documents\GitHub\Outside-The-Box\bin\Windows\Debug\SharpDX.Direct3D11.dll
+C:\Users\Robert\Documents\GitHub\Outside-The-Box\bin\Windows\Debug\SharpDX.DXGI.dll
+C:\Users\Robert\Documents\GitHub\Outside-The-Box\bin\Windows\Debug\SharpDX.Direct2D1.dll
+C:\Users\Robert\Documents\GitHub\Outside-The-Box\bin\Windows\Debug\SharpDX.XInput.dll
+C:\Users\Robert\Documents\GitHub\Outside-The-Box\bin\Windows\Debug\SharpDX.RawInput.dll
+C:\Users\Robert\Documents\GitHub\Outside-The-Box\bin\Windows\Debug\SharpDX.Direct3D9.dll
+C:\Users\Robert\Documents\GitHub\Outside-The-Box\bin\Windows\Debug\MonoGame.Framework.xml
+C:\Users\Robert\Documents\GitHub\Outside-The-Box\bin\Windows\Debug\SharpDX.MediaFoundation.xml
+C:\Users\Robert\Documents\GitHub\Outside-The-Box\bin\Windows\Debug\SharpDX.xml
+C:\Users\Robert\Documents\GitHub\Outside-The-Box\bin\Windows\Debug\SharpDX.XAudio2.xml
+C:\Users\Robert\Documents\GitHub\Outside-The-Box\bin\Windows\Debug\SharpDX.Direct3D11.xml
+C:\Users\Robert\Documents\GitHub\Outside-The-Box\bin\Windows\Debug\SharpDX.DXGI.xml
+C:\Users\Robert\Documents\GitHub\Outside-The-Box\bin\Windows\Debug\SharpDX.Direct2D1.xml
+C:\Users\Robert\Documents\GitHub\Outside-The-Box\bin\Windows\Debug\SharpDX.XInput.xml
+C:\Users\Robert\Documents\GitHub\Outside-The-Box\bin\Windows\Debug\SharpDX.RawInput.xml
+C:\Users\Robert\Documents\GitHub\Outside-The-Box\bin\Windows\Debug\SharpDX.Direct3D9.xml
+C:\Users\Robert\Documents\GitHub\Outside-The-Box\obj\x86\Debug\KineticCamp.csprojResolveAssemblyReference.cache
