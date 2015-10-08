@@ -18,17 +18,18 @@ namespace KineticCamp {
         private Vector2 destination;
         private Vector2 moved;
         private Direction direction;
+        private AIPath path;
         private Rectangle bounds;
         private Rectangle windowBounds;
 
         private int health;
         private int speed;
-        private double lastFired;
-
+        private int stepSize;
         private int movedX;
         private int movedY;
+        private double lastFired;
 
-        public Entity(Texture2D texture, Projectile projectile, Vector2 location, Direction direction, Rectangle bounds, Rectangle windowBounds, int health, int speed) {
+        public Entity(Texture2D texture, Projectile projectile, Vector2 location, Direction direction, Rectangle bounds, Rectangle windowBounds, int health, int speed, int stepSize) {
             this.texture = texture;
             this.projectile = projectile;
             this.location = location;
@@ -38,12 +39,14 @@ namespace KineticCamp {
             this.windowBounds = windowBounds;
             this.health = health;
             this.speed = speed;
+            this.stepSize = stepSize;
             moved = new Vector2(0f, 0f);
+            path = null;
             lastFired = -1;
         }
 
         public Entity(Texture2D texture, Projectile projectile, Vector2 location, Direction direction, Rectangle windowBounds, int health, int speed) :
-            this(texture, projectile, location, direction, new Rectangle((int) location.X, (int) location.Y, texture.Width, texture.Height), windowBounds, health, speed) {
+            this(texture, projectile, location, direction, new Rectangle((int) location.X, (int) location.Y, texture.Width, texture.Height), windowBounds, health, speed, 4) {
         }
 
         // will need to change to texture2d array for all directions
@@ -72,13 +75,17 @@ namespace KineticCamp {
             return location;
         }
 
-        public Vector2 getDestination()
-        {
+        /*
+         * Returns the entity's destination
+         */
+        public Vector2 getDestination() {
             return destination;
         }
 
-        public void setDestination(Vector2 destination)
-        {
+        /*
+         * Sets the entity's destination
+         */
+        public void setDestination(Vector2 destination) {
             this.destination = destination;
         }
 
@@ -94,6 +101,13 @@ namespace KineticCamp {
          */
         public Direction getDirection() {
             return direction;
+        }
+
+        /*
+         * Returns the entity's static AI path
+         */
+        public AIPath getPath() {
+            return path;
         }
 
         /*
@@ -125,10 +139,21 @@ namespace KineticCamp {
         }
 
         /*
+         * Returns the entity's step size
+         */
+        public int getStepSize() {
+            return stepSize;
+        }
+
+        /*
          * Returns the entity's last projectile fire time in ms
          */
         public double getLastFired() {
             return lastFired;
+        }
+
+        public void setPath(AIPath path) {
+            this.path = path;
         }
 
         /*
@@ -144,8 +169,8 @@ namespace KineticCamp {
         public void deriveX(int x) {
             location.X += x;
             movedX = x;
-            Console.WriteLine("movedX: " + movedX);
             bounds.X += x;
+            destination.X += x;
         }
 
         /*
@@ -168,8 +193,8 @@ namespace KineticCamp {
         public void deriveY(int y) {
             location.Y += y;
             movedY = y;
-            Console.WriteLine("movedY: " + movedY);
             bounds.Y += y;
+            destination.Y += y;
         }
 
         // update sprite to respective sprite facing the correct direction
@@ -193,7 +218,7 @@ namespace KineticCamp {
          */
         public Projectile createProjectile(double lastFired) {
             this.lastFired = lastFired; 
-            return new Projectile(projectile.getTexture(), this.location, projectile.getVelocity(), projectile.getCooldown(), projectile.getRotationSpeed());
+            return new Projectile(projectile.getTexture(), location, projectile.getVelocity(), projectile.getCooldown(), projectile.getRotationSpeed());
         }
 
         /*

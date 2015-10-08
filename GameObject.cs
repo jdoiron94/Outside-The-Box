@@ -58,13 +58,17 @@ namespace KineticCamp {
             return location;
         }
 
-        public Vector2 getDestination()
-        {
+        /*
+         * Returns the object's destination
+         */
+        public Vector2 getDestination() {
             return destination;
         }
 
-        public void setDestination(Vector2 destination)
-        {
+        /*
+         * Sets the object's destination
+         */
+        public void setDestination(Vector2 destination) {
             this.destination = destination;
         }
 
@@ -88,18 +92,24 @@ namespace KineticCamp {
             return windowBounds;
         }
 
-        public bool isLiftable()
-        {
+        /*
+         * Returns if the object is liftable
+         */
+        public bool isLiftable() {
             return liftable;
         }
 
-        public bool isSelected()
-        {
+        /*
+         * Returns if the object is currently selected
+         */
+        public bool isSelected() {
             return selected;
         }
 
-        public void setSelected(bool selected)
-        {
+        /*
+         * Sets the object's selected boolean to the parameter
+         */
+        public void setSelected(bool selected) {
             this.selected = selected;
         }
 
@@ -133,14 +143,11 @@ namespace KineticCamp {
             bounds.Y += y;
         }
 
-        public void setDirection(Direction direction)
-        {
+        /*
+         * Sets the object's moving direction
+         */
+        public void setDirection(Direction direction) {
             this.direction = direction;
-        }
-
-        public void setLocation(int x, int y) {
-            location = new Vector2(x, y);
-            bounds = new Rectangle(x, y, texture.Width, texture.Height);
         }
 
         /*
@@ -152,7 +159,7 @@ namespace KineticCamp {
         }
 
         /*
-         * REturns true if the object is currently on the screen; otherwise, false
+         * Returns true if the object is currently on the screen; otherwise, false
          */
         public bool isOnScreen() {
             return location.X >= -texture.Width && location.X <= windowBounds.Width && location.Y >= -texture.Height && location.Y <= windowBounds.Height;
@@ -161,18 +168,14 @@ namespace KineticCamp {
         /*
          * Draws the object on the screen, given a SpriteBatch
          */
-        public void draw(SpriteBatch batch) {
-            batch.Draw(texture, location, Color.White);
-        }
-
-        public void drawSelectable(SpriteBatch batch)
-        {
-            batch.Draw(texture, location, Color.LightGreen);
-        }
-
-        public void drawSelected(SpriteBatch batch)
-        {
-            batch.Draw(texture, location, Color.IndianRed);
+        public void draw(SpriteBatch batch, byte mode) {
+            if (mode == 0) {
+                batch.Draw(texture, location, Color.White);
+            } else if (mode == 1) {
+                batch.Draw(texture, location, (liftable ? Color.LightGreen : Color.White));
+            } else {
+                batch.Draw(texture, location, (selected ? Color.IndianRed : Color.White));
+            }
         }
     }
 }

@@ -91,8 +91,6 @@ namespace KineticCamp {
                     player.setDestination(new Vector2(player.getLocation().X, player.getLocation().Y - stepSize));
                     if (player.getLocation().Y + stepSize > 0 && collisionManager.isValid(player)) {
                         player.deriveY(-stepSize);
-                    } else {
-                        Console.WriteLine("u wanna go north? nty");
                     }
                 } else if (kbs.IsKeyDown(Keys.S)) {
                     Console.WriteLine("player: " + player.getLocation().ToString());
@@ -100,8 +98,6 @@ namespace KineticCamp {
                     player.setDestination(new Vector2(player.getLocation().X, player.getLocation().Y + stepSize));
                     if (player.getLocation().Y + stepSize < midY * 2 && collisionManager.isValid(player)) {
                         player.deriveY(stepSize);
-                    } else {
-                        Console.WriteLine("u wanna go south? nty");
                     }
                 } else if (kbs.IsKeyDown(Keys.A)) {
                     Console.WriteLine("player: " + player.getLocation().ToString());
@@ -109,8 +105,6 @@ namespace KineticCamp {
                     player.setDestination(new Vector2(player.getLocation().X - stepSize, player.getLocation().Y));
                     if (player.getLocation().X + stepSize > 0 && collisionManager.isValid(player)) {
                         player.deriveX(-stepSize);
-                    } else {
-                        Console.WriteLine("u wanna go west? nty");
                     }
                 } else if (kbs.IsKeyDown(Keys.D)) {
                     Console.WriteLine("player: " + player.getLocation().ToString());
@@ -118,8 +112,6 @@ namespace KineticCamp {
                     player.setDestination(new Vector2(player.getLocation().X + stepSize, player.getLocation().Y));
                     if (player.getLocation().X + stepSize < midX * 2 && collisionManager.isValid(player)) {
                         player.deriveX(stepSize);
-                    } else {
-                        Console.WriteLine("u wanna go east? nty");
                     }
                 } else {
                     player.setDestination(player.getLocation()); //if no movement keys are pressed, destination is same as location
@@ -153,7 +145,7 @@ namespace KineticCamp {
 
             /* Just entered telekinesis mode (player uses mouse to select a liftable object)*/
             else if (screenManager.getActiveScreen().getName() == "Telekinesis-Select") {
-                game.setMode(1); 
+                level.setMode(1); 
                 lastState = state;
                 state = Mouse.GetState().LeftButton;
 
@@ -175,14 +167,14 @@ namespace KineticCamp {
                 } else if (kbs.IsKeyDown(Keys.X)) {
                     //switch to telekinesis-select mode (player clicks a liftable object to select it)
                     screenManager.setActiveScreen(1);
-                    game.setMode(0);
+                    level.setMode(0);
                     Console.WriteLine("Entered telekinesis mode!");
                 }
             }
 
             /* Telekinetic lifting mode (player controls the selected object's movement)*/
             else if (screenManager.getActiveScreen().getName() == "Telekinesis-Move") {
-                game.setMode(2);
+                level.setMode(2);
                 if (kbs.IsKeyDown(Keys.Escape)) {
                     game.Exit();
                 } else if (kbs.IsKeyDown(Keys.W)) {
@@ -191,8 +183,6 @@ namespace KineticCamp {
                     selectedObject.setDestination(new Vector2(selectedObject.getLocation().X, selectedObject.getLocation().Y - stepSize));
                     if (selectedObject.getLocation().Y + stepSize > 0 && collisionManager.isValid(selectedObject)) {
                         selectedObject.deriveY(-stepSize);
-                    } else {
-                        Console.WriteLine("u wanna go north? nty");
                     }
                 } else if (kbs.IsKeyDown(Keys.S)) {
                     Console.WriteLine("selectedObject: " + selectedObject.getLocation().ToString());
@@ -200,8 +190,6 @@ namespace KineticCamp {
                     selectedObject.setDestination(new Vector2(selectedObject.getLocation().X, selectedObject.getLocation().Y + stepSize));
                     if (selectedObject.getLocation().Y - stepSize < midY * 2 && collisionManager.isValid(selectedObject)) {
                         selectedObject.deriveY(stepSize);
-                    } else {
-                        Console.WriteLine("u wanna go south? nty");
                     }
                 } else if (kbs.IsKeyDown(Keys.A)) {
                     Console.WriteLine("selectedObject: " + selectedObject.getLocation().ToString());
@@ -209,8 +197,6 @@ namespace KineticCamp {
                     selectedObject.setDestination(new Vector2(selectedObject.getLocation().X - stepSize, selectedObject.getLocation().Y));
                     if (selectedObject.getLocation().X + stepSize > 0 && collisionManager.isValid(selectedObject)) {
                         selectedObject.deriveX(-stepSize);
-                    } else {
-                        Console.WriteLine("u wanna go west? nty");
                     }
                 } else if (kbs.IsKeyDown(Keys.D)) {
                     Console.WriteLine("selectedObject: " + selectedObject.getLocation().ToString());
@@ -218,8 +204,6 @@ namespace KineticCamp {
                     selectedObject.setDestination(new Vector2(selectedObject.getLocation().X + stepSize, selectedObject.getLocation().Y));
                     if (selectedObject.getLocation().X - stepSize < midX * 2 && collisionManager.isValid(selectedObject)) {
                         selectedObject.deriveX(stepSize);
-                    } else {
-                        Console.WriteLine("u wanna go east? nty");
                     }
                 } else {
                     selectedObject.setDestination(selectedObject.getLocation()); //if no movement keys are pressed, destination is same as location

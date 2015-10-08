@@ -11,12 +11,15 @@ namespace KineticCamp {
          * Class which holds all pertinent information to any given level.
          */
 
+        private byte mode;
+
         private Entity player;
         private Texture2D map;
+        private GameObject selectedObject;
+
         private List<Entity> npcs;
         private List<GameObject> objects;
         private List<Projectile> projectiles;
-        private GameObject selectedObject;
         private List<DisplayBar> displayBars;
 
         public Level(Entity player, Texture2D map, Entity[] npcs, GameObject[] objects, DisplayBar[] displayBars) {
@@ -67,14 +70,32 @@ namespace KineticCamp {
             return projectiles;
         }
 
-        public GameObject getSelectedObject()
-        {
+        /*
+         * Returns the currently selected object
+         */
+        public GameObject getSelectedObject() {
             return selectedObject;
         }
 
-        public void setSelectedObject(int index)
-        {
-            this.selectedObject = objects[index];
+        /*
+         * Sets the selected object
+         */
+        public void setSelectedObject(int index) {
+            selectedObject = objects[index];
+        }
+
+        /*
+         * Returns the telekinesis mode
+         */
+        public byte getMode() {
+            return mode;
+        }
+
+        /*
+         * Sets the telekinesis mode
+         */
+        public void setMode(byte mode) {
+            this.mode = mode;
         }
 
         /*
@@ -90,7 +111,6 @@ namespace KineticCamp {
             foreach (Entity e in npcs) {
                 if (e != null) {
                     e.deriveX(x);
-                    Console.WriteLine("npc x: " + e.getLocation().X);
                 }
             }
         }
@@ -108,7 +128,6 @@ namespace KineticCamp {
             foreach (Entity e in npcs) {
                 if (e != null) {
                     e.deriveY(y);
-                    Console.WriteLine("npc y: " + e.getLocation().Y);
                 }
             }
         }
@@ -128,6 +147,30 @@ namespace KineticCamp {
                 Projectile projectile = projectiles[i];
                 if (projectile != null) {
                     projectile.update(player);
+                    if (projectile.isActive()) {
+                        foreach (Entity e in npcs) {
+                            if (e != null && e.isOnScreen()) {
+                                Rectangle pos = new Rectangle((int)projectile.getPosition().X, (int)projectile.getPosition().Y, projectile.getTexture().Width, projectile.getTexture().Height);
+                                if (pos.Intersects(new Rectangle((int)e.getDestination().X + (e.getTexture().Width / 2), (int)e.getDestination().Y, e.getTexture().Width, e.getTexture().Height))) {
+                                    projectile.setActive(false);
+                                    e.deriveHealth(-5);
+                                    Console.WriteLine("entity health: " + e.getHealth());
+                                    break;
+                                }
+                            }
+                        }
+                        if (projectile.isActive()) {
+                            foreach (GameObject e in objects) {
+                                if (e != null && e.isOnScreen()) {
+                                    Rectangle pos = new Rectangle((int)projectile.getPosition().X, (int)projectile.getPosition().Y, projectile.getTexture().Width, projectile.getTexture().Height);
+                                    if (pos.Intersects(new Rectangle((int)e.getDestination().X + (e.getTexture().Width / 2), (int)e.getDestination().Y, e.getTexture().Width, e.getTexture().Height))) {
+                                        projectile.setActive(false);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
                     if (!projectile.isActive()) {
                         projectiles.RemoveAt(i);
                         i--;
@@ -146,6 +189,10 @@ namespace KineticCamp {
                     if (npc.isDead()) {
                         npcs.RemoveAt(i);
                         i--;
+                    } else {
+                        if (npc.getPath() != null) {
+                            npc.getPath().update();
+                        }
                     }
                 }
             }
@@ -154,9 +201,8 @@ namespace KineticCamp {
         /*
          * Draws the level's map, player, NPCs, and objects currently on screen in the game
          */
-        public void draw(SpriteBatch batch, int mode) {
+        public void draw(SpriteBatch batch) {
             batch.Draw(map, new Vector2(0, 0), Color.White);
-
             foreach (Projectile projectile in projectiles) {
                 if (projectile != null) {
                     projectile.draw(batch);
@@ -164,36 +210,7 @@ namespace KineticCamp {
             }
             foreach (GameObject obj in objects) {
                 if (obj != null && obj.isOnScreen()) {
-                    if (mode == 0)
-                    {
-                        obj.draw(batch);
-                    }
-                    else if (mode == 1)
-                    {
-                        if (obj.isLiftable())
-                        {
-                            obj.drawSelectable(batch);
-                        }
-                        else
-                        {
-                            obj.draw(batch);
-                        }
-                    }
-                    else
-                    {
-                        if (obj.isSelected())
-                        {
-                            obj.drawSelected(batch);
-                        }
-                        else if(obj.isLiftable())
-                        {
-                            obj.drawSelectable(batch);
-                        }
-                        else
-                        {
-                            obj.draw(batch);
-                        }
-                    }
+                    obj.draw(batch, mode);
                 }
             }
             batch.Draw(player.getTexture(), player.getBounds(), Color.White);
@@ -203,10 +220,8 @@ namespace KineticCamp {
                 }
             }
 
-            foreach (DisplayBar d in displayBars)
-            {
-                if (d != null)
-                {
+            foreach (DisplayBar d in displayBars) {
+                if (d != null) {
                     d.draw(batch);
                 }
             }

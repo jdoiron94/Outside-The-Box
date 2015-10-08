@@ -92,6 +92,10 @@ namespace KineticCamp {
             return active;
         }
 
+        public void setActive(bool active) {
+            this.active = active;
+        }
+
         /*
          * Derives the projectile's location in terms of its x coordinate
          */

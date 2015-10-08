@@ -14,10 +14,7 @@ namespace KineticCamp {
 
         private Entity player;
         private Level level;
-
-        private Rectangle r1;
-        private Rectangle r2;
-
+        
         public CollisionManager(Entity player, Level level) {
             this.player = player;
             this.level = level;
@@ -44,49 +41,47 @@ namespace KineticCamp {
             return Vector2.Distance(x0, x1) <= 4 + t0.Width;
         }
 
+        /*
+         * Returns true if the entities collide; otherwise, false
+         */
         public bool collides(Entity e0, Entity e1) {
             Rectangle e0Rect = new Rectangle((int) e0.getDestination().X, (int) e0.getDestination().Y, e0.getTexture().Width, e0.getTexture().Height);
             Rectangle e1Rect = new Rectangle((int) e1.getDestination().X, (int) e1.getDestination().Y, e1.getTexture().Width, e1.getTexture().Height);
-
             return e0Rect.Intersects(e1Rect); 
         }
 
-        public bool collides(Entity e0, GameObject e1)
-        {
+        /*
+         * Returns true if an entity and object collide; otherwise, false
+         */
+        public bool collides(Entity e0, GameObject e1) {
             Rectangle e0Rect = new Rectangle((int)e0.getDestination().X, (int)e0.getDestination().Y, e0.getTexture().Width, e0.getTexture().Height);
             Rectangle e1Rect = new Rectangle((int)e1.getDestination().X, (int)e1.getDestination().Y, e1.getTexture().Width, e1.getTexture().Height);
-
             return e0Rect.Intersects(e1Rect);
         }
 
-        public bool collides(GameObject e0, Entity e1)
-        {
+        /*
+         * Returns true if two objects collide; otherwise, false
+         */
+        public bool collides(GameObject e0, GameObject e1) {
             Rectangle e0Rect = new Rectangle((int)e0.getDestination().X, (int)e0.getDestination().Y, e0.getTexture().Width, e0.getTexture().Height);
             Rectangle e1Rect = new Rectangle((int)e1.getDestination().X, (int)e1.getDestination().Y, e1.getTexture().Width, e1.getTexture().Height);
-
             return e0Rect.Intersects(e1Rect);
         }
 
-        public bool collides(GameObject e0, GameObject e1)
-        {
-            Rectangle e0Rect = new Rectangle((int)e0.getDestination().X, (int)e0.getDestination().Y, e0.getTexture().Width, e0.getTexture().Height);
-            Rectangle e1Rect = new Rectangle((int)e1.getDestination().X, (int)e1.getDestination().Y, e1.getTexture().Width, e1.getTexture().Height);
-
-            return e0Rect.Intersects(e1Rect);
-        }
-
-
-        public bool isValid(Entity me) {
+        /*
+         * Returns true if an entity's destination is valid and does not collide; otherwise, false
+         */
+        public bool isValid(Entity ent) {
             foreach (GameObject g in level.getObjects()) {
-                if (g != null) {
-                    if (collides(me, g)) {
+                if (g != null && g.isOnScreen()) {
+                    if (collides(ent, g)) {
                         return false;
                     }
                 }
             }
             foreach (Entity e in level.getNpcs()) {
-                if (e != null && e != me) {
-                    if (collides(me, e)) {
+                if (e != null && e != ent && e.isOnScreen()) {
+                    if (collides(ent, e)) {
                         return false;
                     }
                 }
@@ -94,17 +89,13 @@ namespace KineticCamp {
             return true;
         }
 
-        public bool isValid(GameObject me) {
+        /*
+         * Returns true if an object's destination is valid and does not collide; otherwise, false
+         */
+        public bool isValid(GameObject obj) {
             foreach (GameObject g in level.getObjects()) {
-                if (g != null && g != me) {
-                    if (collides(me, g)) {
-                        return false;
-                    }
-                }
-            }
-            foreach (Entity e in level.getNpcs()) {
-                if (e != null) {
-                    if (collides(me, e)) {
+                if (g != null && g != obj && g.isOnScreen()) {
+                    if (collides(obj, g)) {
                         return false;
                     }
                 }

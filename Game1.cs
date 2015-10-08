@@ -84,14 +84,11 @@ namespace KineticCamp {
             return stepSize;
         }
 
-        public int getMode()
-        {
-            return mode; 
-        }
-
-        public void setMode(int m)
-        {
-            mode = m; 
+        /*
+         * Returns the mouse state
+         */
+        public MouseState getMouse() {
+            return mouse;
         }
 
         /// <summary>
@@ -123,6 +120,7 @@ namespace KineticCamp {
             midY = (graphics.PreferredBackBufferHeight - playerTexture.Height) / 2;
             player = new Entity(playerTexture, new Projectile(Content.Load<Texture2D>("bullet"), new Vector2(midX, midY), 7, 250, 0.5f), new Vector2(midX, midY), Direction.EAST, GraphicsDevice.Viewport.Bounds, 50, 5);
             npc = new Entity(Content.Load<Texture2D>("npc"), null, new Vector2(midX + 148, midY + 148), Direction.EAST, GraphicsDevice.Viewport.Bounds, 50, 5);
+            npc.setPath(new AIPath(npc, new int[] { midX - 100, midY - 100, midX + 100, midY + 100 }, new int[] { 0, 0, 0, 0 }, new Direction[] { Direction.WEST, Direction.NORTH, Direction.EAST, Direction.SOUTH }));
             obj = new GameObject(Content.Load<Texture2D>("sprite"), null, new Vector2(midX + 100, midY + 100), GraphicsDevice.Viewport.Bounds, true);
             playerManager = new PlayerManager(player, new DisplayBar(Content.Load<Texture2D>("HealthBarTexture"), new Vector2(20, 20), Color.Red, Content.Load<Texture2D>("BackBarTexture")));
             obj2 = new GameObject(Content.Load<Texture2D>("GreenMushroom"), null, new Vector2(midX + 50, midY + 120), GraphicsDevice.Viewport.Bounds, true);
@@ -170,15 +168,11 @@ namespace KineticCamp {
             base.Draw(gameTime);
             GraphicsDevice.Clear(Color.Black);
             spriteBatch.Begin();
-            level.draw(spriteBatch, mode);
+            level.draw(spriteBatch);
             if (mouse != null) {
                 spriteBatch.Draw(cursor, new Vector2(mouse.X, mouse.Y), Color.White);
             }
             spriteBatch.End();
-        }
-
-        public MouseState getMouse() {
-            return mouse;
         }
     }
 }
