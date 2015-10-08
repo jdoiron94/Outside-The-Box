@@ -1,0 +1,9 @@
+# Files
+*.suo
+*.doc
+Thumbs.db
+
+# Directories
+.vs
+bin
+obj
