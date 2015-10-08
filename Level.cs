@@ -16,9 +16,10 @@ namespace KineticCamp {
         private List<Entity> npcs;
         private List<GameObject> objects;
         private List<Projectile> projectiles;
+        private List<DisplayBar> displayBars; 
         private GameObject selectedObject;
 
-        public Level(Entity player, Texture2D map, Entity[] npcs, GameObject[] objects) {
+        public Level(Entity player, Texture2D map, Entity[] npcs, GameObject[] objects, DisplayBar[] displayBars) {
             this.player = player;
             this.map = map;
             this.npcs = new List<Entity>(npcs.Length);
@@ -27,6 +28,8 @@ namespace KineticCamp {
             this.objects.AddRange(objects);
             projectiles = new List<Projectile>();
             this.selectedObject = null;
+            this.displayBars = new List<DisplayBar>(displayBars.Length);
+            this.displayBars.AddRange(displayBars);
         }
 
         /*
@@ -151,7 +154,7 @@ namespace KineticCamp {
         /*
          * Draws the level's map, player, NPCs, and objects currently on screen in the game
          */
-        public void draw(SpriteBatch batch) {
+        public void draw(SpriteBatch batch, int mode) {
             //batch.Draw(map, new Rectangle((int) player.getLocation().X, (int) player.getLocation().Y, map.Width, map.Height), Color.White);
             batch.Draw(map, new Vector2(0, 0), Color.White);
 
@@ -162,13 +165,50 @@ namespace KineticCamp {
             }
             foreach (GameObject obj in objects) {
                 if (obj != null && obj.isOnScreen()) {
-                    obj.draw(batch);
+                    if (mode == 0)
+                    {
+                        obj.draw(batch);
+                    }
+                    else if (mode == 1)
+                    {
+                        if (obj.isLiftable())
+                        {
+                            obj.drawSelectable(batch);
+                        }
+                        else
+                        {
+                            obj.draw(batch);
+                        }
+                    }
+                    else
+                    {
+                        if (obj.isSelected())
+                        {
+                            obj.drawSelected(batch);
+                        }
+                        else if(obj.isLiftable())
+                        {
+                            obj.drawSelectable(batch);
+                        }
+                        else
+                        {
+                            obj.draw(batch);
+                        }
+                    }
                 }
             }
             batch.Draw(player.getTexture(), player.getBounds(), Color.White);
             foreach (Entity e in npcs) {
                 if (e != null && e.isOnScreen()) {
                     e.draw(batch);
+                }
+            }
+
+            foreach (DisplayBar d in displayBars)
+            {
+                if(d!=null)
+                {
+                    d.draw(batch);
                 }
             }
         }

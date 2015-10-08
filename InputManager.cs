@@ -18,6 +18,7 @@ namespace KineticCamp {
         private Level level;
         private CollisionManager collisionManager;
         private ScreenManager screenManager;
+        private PlayerManager playerManager; 
 
         private ButtonState lastState;
         private ButtonState state;
@@ -26,11 +27,13 @@ namespace KineticCamp {
         private int midX;
         private int midY;
 
-        public InputManager(Game1 game, Entity player, Level level, List<Screen> screens) {
+        public InputManager(Game1 game, Entity player, Level level, PlayerManager playerManager, List<Screen> screens)
+        {
             this.game = game;
             this.player = player;
             this.selectedObject = null;
             this.level = level;
+            this.playerManager = playerManager; 
             collisionManager = new CollisionManager(player, level);
             screenManager = new ScreenManager(screens[1], screens);
             stepSize = game.getStepSize();
@@ -41,23 +44,35 @@ namespace KineticCamp {
         /*
          * Returns the game instance
          */
-        public Game1 getGame() {
+        public Game1 getGame()
+        {
             return game;
         }
 
         /*
          * Returns the player instance
          */
-        public Entity getPlayer() {
+        public Entity getPlayer()
+        {
             return player;
         }
 
         /*
          * Returns the level instance
          */
-        public Level getLevel() {
+        public Level getLevel()
+        {
             return level;
         }
+
+        /*
+        *   Returns PlayerManager
+        */
+        public PlayerManager getPlayerManager()
+        {
+            return playerManager;
+        }
+
 
         /*
          * Handles all user input to the game, depending on the keyboard/mouse states and the screen's state.
@@ -68,6 +83,10 @@ namespace KineticCamp {
 
             /* Normal gameplay (player has control of character's movement*/
             if (screenManager.getActiveScreen().getName() == "Normal") {
+                if(playerManager.getHealthCoolDown() == 35)
+                {
+                    playerManager.healthRegen(); 
+                }
                 if (kbs.IsKeyDown(Keys.Escape)) {
                     game.Exit();
                 } else if (kbs.IsKeyDown(Keys.W)) {
@@ -107,9 +126,11 @@ namespace KineticCamp {
                         Console.WriteLine("u wanna go east? nty");
                     }
                 }
-                if (kbs.IsKeyDown(Keys.Space)) {
+                if (kbs.IsKeyDown(Keys.Space))
+                {
                     double totalMilliseconds = time.TotalGameTime.TotalMilliseconds;
-                    if (player.getLastFired() == -1 || totalMilliseconds - player.getLastFired() >= player.getProjectile().getCooldown()) {
+                    if (player.getLastFired() == -1 || totalMilliseconds - player.getLastFired() >= player.getProjectile().getCooldown())
+                    {
                         level.addProjectile(player.createProjectile(totalMilliseconds));
                     }
                     /*foreach (Entity e in level.getNpcs()) {
@@ -125,12 +146,19 @@ namespace KineticCamp {
                     screenManager.setActiveScreen(2);
                     Console.WriteLine("Entered telekinesis mode!");
                 }
+
+                if(kbs.IsKeyDown(Keys.P))
+                {
+                    playerManager.damagePlayer(2); 
+                }
             }
 
             /* Just entered telekinesis mode (player uses mouse to select a liftable object)*/
             else if (screenManager.getActiveScreen().getName() == "Telekinesis-Select") {
+                game.setMode(1); 
                 lastState = state;
                 state = Mouse.GetState().LeftButton;
+
                 if (lastState == ButtonState.Pressed && state == ButtonState.Released) {
                     foreach (GameObject obj in level.getObjects()) {
                         if (obj != null && obj.isLiftable()) {
@@ -149,12 +177,14 @@ namespace KineticCamp {
                 } else if (kbs.IsKeyDown(Keys.X)) {
                     //switch to telekinesis-select mode (player clicks a liftable object to select it)
                     screenManager.setActiveScreen(1);
+                    game.setMode(0);
                     Console.WriteLine("Entered telekinesis mode!");
                 }
             }
 
             /* Telekinetic lifting mode (player controls the selected object's movement)*/
             else if (screenManager.getActiveScreen().getName() == "Telekinesis-Move") {
+                game.setMode(2);
                 if (kbs.IsKeyDown(Keys.Escape)) {
                     game.Exit();
                 } else if (kbs.IsKeyDown(Keys.W)) {
