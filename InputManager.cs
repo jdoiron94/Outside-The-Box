@@ -27,6 +27,9 @@ namespace KineticCamp {
         private readonly int midX;
         private readonly int midY;
 
+        private KeyboardState lastKeyState;
+        private KeyboardState currentKeyState;
+
         public InputManager(Game1 game, Player player, Level level, PlayerManager playerManager, Screen[] screens) {
             this.game = game;
             this.player = player;
@@ -38,6 +41,8 @@ namespace KineticCamp {
             velocity = player.getVelocity();
             midX = game.getMidX();
             midY = game.getMidY();
+            lastKeyState = new KeyboardState();
+            currentKeyState = new KeyboardState();
         }
 
         /*
@@ -72,33 +77,34 @@ namespace KineticCamp {
          * Handles all user input to the game, depending on the keyboard/mouse states and the screen's state.
          */
         public void update(GameTime time) {
-            KeyboardState kbs = Keyboard.GetState();
+            lastKeyState = currentKeyState;
+            currentKeyState = Keyboard.GetState();
             /* Normal gameplay (player has control of character's movement*/
             if (screenManager.getActiveScreen().getName() == "Normal") {
                 if (playerManager.getHealthCooldown() == 35) {
                     playerManager.regenerateHealth();
                 }
-                if (kbs.IsKeyDown(Keys.Escape)) {
+                if (currentKeyState.IsKeyDown(Keys.Escape)) {
                     game.Exit();
-                } else if (kbs.IsKeyDown(Keys.W)) {
+                } else if (currentKeyState.IsKeyDown(Keys.W)) {
                     player.setDirection(Direction.NORTH);
                     player.setDestination(new Vector2(player.getLocation().X, player.getLocation().Y - velocity));
                     if (player.getLocation().Y + velocity > 0 && collisionManager.isValid(player)) {
                         player.deriveY(-velocity);
                     }
-                } else if (kbs.IsKeyDown(Keys.S)) {
+                } else if (currentKeyState.IsKeyDown(Keys.S)) {
                     player.setDirection(Direction.SOUTH);
                     player.setDestination(new Vector2(player.getLocation().X, player.getLocation().Y + velocity));
                     if (player.getLocation().Y + velocity < midY * 2 && collisionManager.isValid(player)) {
                         player.deriveY(velocity);
                     }
-                } else if (kbs.IsKeyDown(Keys.A)) {
+                } else if (currentKeyState.IsKeyDown(Keys.A)) {
                     player.setDirection(Direction.WEST);
                     player.setDestination(new Vector2(player.getLocation().X - velocity, player.getLocation().Y));
                     if (player.getLocation().X + velocity > 0 && collisionManager.isValid(player)) {
                         player.deriveX(-velocity);
                     }
-                } else if (kbs.IsKeyDown(Keys.D)) {
+                } else if (currentKeyState.IsKeyDown(Keys.D)) {
                     player.setDirection(Direction.EAST);
                     player.setDestination(new Vector2(player.getLocation().X + velocity, player.getLocation().Y));
                     if (player.getLocation().X + velocity < midX * 2 && collisionManager.isValid(player)) {
@@ -107,18 +113,18 @@ namespace KineticCamp {
                 } else {
                     player.setDestination(player.getLocation()); //if no movement keys are pressed, destination is same as location
                 }
-                if (kbs.IsKeyDown(Keys.Space)) {
+                if (currentKeyState.IsKeyDown(Keys.Space)) {
                     double totalMilliseconds = time.TotalGameTime.TotalMilliseconds;
                     if (player.getLastFired() == -1 || totalMilliseconds - player.getLastFired() >= player.getProjectile().getCooldown()) {
                         level.addProjectile(player.createProjectile(totalMilliseconds));
                     }
                 } 
-                if (kbs.IsKeyDown(Keys.X)) {
+                if (lastKeyState.IsKeyDown(Keys.X) && currentKeyState.IsKeyUp(Keys.X)) {
                     //switch to telekinesis-select mode (player clicks a liftable object to select it)
                     screenManager.setActiveScreen(2);
                     Console.WriteLine("Entered telekinesis mode!");
                 }
-                if (kbs.IsKeyDown(Keys.P)) {
+                if (currentKeyState.IsKeyDown(Keys.P)) {
                     playerManager.damagePlayer(2);
                 }
             }
@@ -132,46 +138,43 @@ namespace KineticCamp {
                         if (obj != null && obj.isLiftable()) {
                             Point p = new Point(Mouse.GetState().X, Mouse.GetState().Y);
                             if (p != null && obj.getBounds().Contains(p)) {
-                                //select object
                                 obj.setSelected(true);
                                 selectedObject = obj;
-                                //switch screen state to telekinesis-move (control over selected object)
                                 screenManager.setActiveScreen(3);
                             }
                         }
                     }
-                } else if (kbs.IsKeyDown(Keys.X)) {
-                    //switch to telekinesis-select mode (player clicks a liftable object to select it)
+                } else if (lastKeyState.IsKeyDown(Keys.X) && currentKeyState.IsKeyUp(Keys.X)) {
+                    // player is exiting telekinesis mode
                     screenManager.setActiveScreen(1);
                     level.setMode(0);
-                    Console.WriteLine("Entered telekinesis mode!");
+                    Console.WriteLine("Exited telekinesis mode.");
                 }
             }
-
             /* Telekinetic lifting mode (player controls the selected object's movement)*/
             else if (screenManager.getActiveScreen().getName() == "Telekinesis-Move") {
                 level.setMode(2);
-                if (kbs.IsKeyDown(Keys.Escape)) {
+                if (currentKeyState.IsKeyDown(Keys.Escape)) {
                     game.Exit();
-                } else if (kbs.IsKeyDown(Keys.W)) {
+                } else if (currentKeyState.IsKeyDown(Keys.W)) {
                     selectedObject.setDirection(Direction.NORTH);
                     selectedObject.setDestination(new Vector2(selectedObject.getLocation().X, selectedObject.getLocation().Y - velocity));
                     if (selectedObject.getLocation().Y + velocity > 0 && collisionManager.isValid(selectedObject)) {
                         selectedObject.deriveY(-velocity);
                     }
-                } else if (kbs.IsKeyDown(Keys.S)) {
+                } else if (currentKeyState.IsKeyDown(Keys.S)) {
                     selectedObject.setDirection(Direction.SOUTH);
                     selectedObject.setDestination(new Vector2(selectedObject.getLocation().X, selectedObject.getLocation().Y + velocity));
                     if (selectedObject.getLocation().Y - velocity < midY * 2 && collisionManager.isValid(selectedObject)) {
                         selectedObject.deriveY(velocity);
                     }
-                } else if (kbs.IsKeyDown(Keys.A)) {
+                } else if (currentKeyState.IsKeyDown(Keys.A)) {
                     selectedObject.setDirection(Direction.WEST);
                     selectedObject.setDestination(new Vector2(selectedObject.getLocation().X - velocity, selectedObject.getLocation().Y));
                     if (selectedObject.getLocation().X + velocity > 0 && collisionManager.isValid(selectedObject)) {
                         selectedObject.deriveX(-velocity);
                     }
-                } else if (kbs.IsKeyDown(Keys.D)) {
+                } else if (currentKeyState.IsKeyDown(Keys.D)) {
                     selectedObject.setDirection(Direction.EAST);
                     selectedObject.setDestination(new Vector2(selectedObject.getLocation().X + velocity, selectedObject.getLocation().Y));
                     if (selectedObject.getLocation().X - velocity < midX * 2 && collisionManager.isValid(selectedObject)) {
@@ -180,15 +183,16 @@ namespace KineticCamp {
                 } else {
                     selectedObject.setDestination(selectedObject.getLocation()); //if no movement keys are pressed, destination is same as location
                 }
-                if (kbs.IsKeyDown(Keys.Space)) {
+                if (currentKeyState.IsKeyDown(Keys.Space)) {
                     //throw object
                 } 
-                if (kbs.IsKeyDown(Keys.X)) {
+                if (lastKeyState.IsKeyDown(Keys.X) && currentKeyState.IsKeyUp(Keys.X)) {
                     //deselect object
                     selectedObject.setSelected(false);
                     selectedObject = null;
                     //switch back to normal screen state (control over character)
                     screenManager.setActiveScreen(1);
+                    level.setMode(0);
                     Console.WriteLine("Exited telekinesis mode.");
                 }
             }
