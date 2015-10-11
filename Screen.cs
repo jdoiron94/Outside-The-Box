@@ -9,7 +9,8 @@ namespace KineticCamp {
          * Class which is meant to represent a given screen.
          */
 
-        private string name;
+        private readonly string name;
+
         private bool active;
 
         public Screen(string name, bool active) {
@@ -17,15 +18,11 @@ namespace KineticCamp {
             this.active = active;
         }
 
-
-        public string getName()
-        {
+        /*
+         * Returns the screen's name
+         */
+        public string getName() {
             return name;
-        }
-
-        public void setName(string name)
-        {
-            this.name = name;
         }
 
         /*

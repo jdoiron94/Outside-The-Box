@@ -1,8 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using System.Collections.Generic;
-
 namespace KineticCamp {
 
     public class ScreenManager {
@@ -12,12 +10,11 @@ namespace KineticCamp {
          */
 
         private Screen activeScreen;
-        private List<Screen> screens;
 
-        public ScreenManager(Screen activeScreen, List<Screen> screens) {
+        private readonly Screen[] screens;
+
+        public ScreenManager(Screen activeScreen, Screen[] screens) {
             this.activeScreen = activeScreen;
-           //this.screens = new List<Screen>(screens.Count);
-            //this.screens.AddRange(screens);
             this.screens = screens; 
         }
 
@@ -31,7 +28,7 @@ namespace KineticCamp {
         /*
          * Returns a list of all game screens
          */
-        public List<Screen> getScreens() {
+        public Screen[] getScreens() {
             return screens;
         }
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+
 using System;
 using System.Collections.Generic;
 
@@ -13,32 +14,39 @@ namespace KineticCamp {
 
         private byte mode;
 
-        private Entity player;
-        private Texture2D map;
+        private readonly Game1 game;
+        private readonly Player player;
+        private readonly Texture2D map;
         private GameObject selectedObject;
 
-        private List<Entity> npcs;
-        private List<GameObject> objects;
-        private List<Projectile> projectiles;
-        private List<DisplayBar> displayBars;
+        private readonly List<Npc> npcs;
+        private readonly List<GameObject> objects;
+        private readonly List<DisplayBar> displayBars;
 
-        public Level(Entity player, Texture2D map, Entity[] npcs, GameObject[] objects, DisplayBar[] displayBars) {
+        private List<Projectile> projectiles;
+
+        public Level(Game1 game, Player player, Texture2D map, Npc[] npcs, GameObject[] objects, DisplayBar[] displayBars) {
+            this.game = game;
             this.player = player;
             this.map = map;
-            this.npcs = new List<Entity>(npcs.Length);
+            this.npcs = new List<Npc>(npcs.Length);
             this.npcs.AddRange(npcs);
             this.objects = new List<GameObject>(objects.Length);
             this.objects.AddRange(objects);
-            projectiles = new List<Projectile>();
-            this.selectedObject = null;
             this.displayBars = new List<DisplayBar>(displayBars.Length);
             this.displayBars.AddRange(displayBars);
+            selectedObject = null;
+            projectiles = new List<Projectile>();
+        }
+
+        public Game1 getGame() {
+            return game;
         }
 
         /*
          * Returns the player instance
          */
-        public Entity getPlayer() {
+        public Player getPlayer() {
             return player;
         }
 
@@ -52,7 +60,7 @@ namespace KineticCamp {
         /*
          * Returns a list of all npcs in the level
          */
-        public List<Entity> getNpcs() {
+        public List<Npc> getNpcs() {
             return npcs;
         }
 
@@ -108,7 +116,7 @@ namespace KineticCamp {
                     g.deriveX(x);
                 }
             }
-            foreach (Entity e in npcs) {
+            foreach (Npc e in npcs) {
                 if (e != null) {
                     e.deriveX(x);
                 }
@@ -125,7 +133,7 @@ namespace KineticCamp {
                     g.deriveY(y);
                 }
             }
-            foreach (Entity e in npcs) {
+            foreach (Npc e in npcs) {
                 if (e != null) {
                     e.deriveY(y);
                 }
@@ -146,22 +154,22 @@ namespace KineticCamp {
             for (int i = 0; i < projectiles.Count; i++) {
                 Projectile projectile = projectiles[i];
                 if (projectile != null) {
-                    projectile.update(player);
+                    projectile.update(game, player);
                     if (projectile.isActive()) {
-                        foreach (Entity e in npcs) {
-                            if (e != null && e.isOnScreen()) {
+                        foreach (Npc e in npcs) {
+                            if (e != null && e.isOnScreen(game)) {
                                 Rectangle pos = new Rectangle((int)projectile.getPosition().X, (int)projectile.getPosition().Y, projectile.getTexture().Width, projectile.getTexture().Height);
                                 if (pos.Intersects(new Rectangle((int)e.getDestination().X + (e.getTexture().Width / 2), (int)e.getDestination().Y, e.getTexture().Width, e.getTexture().Height))) {
                                     projectile.setActive(false);
                                     e.deriveHealth(-5);
-                                    Console.WriteLine("entity health: " + e.getHealth());
+                                    Console.WriteLine("npc health: " + e.getCurrentHealth());
                                     break;
                                 }
                             }
                         }
                         if (projectile.isActive()) {
                             foreach (GameObject e in objects) {
-                                if (e != null && e.isOnScreen()) {
+                                if (e != null && e.isOnScreen(game)) {
                                     Rectangle pos = new Rectangle((int)projectile.getPosition().X, (int)projectile.getPosition().Y, projectile.getTexture().Width, projectile.getTexture().Height);
                                     if (pos.Intersects(new Rectangle((int)e.getDestination().X + (e.getTexture().Width / 2), (int)e.getDestination().Y, e.getTexture().Width, e.getTexture().Height))) {
                                         projectile.setActive(false);
@@ -184,7 +192,7 @@ namespace KineticCamp {
          */
         public void updateNpcs() {
             for (int i = 0; i < npcs.Count; i++) {
-                Entity npc = npcs[i];
+                Npc npc = npcs[i];
                 if (npc != null) {
                     if (npc.isDead()) {
                         npcs.RemoveAt(i);
@@ -202,24 +210,23 @@ namespace KineticCamp {
          * Draws the level's map, player, NPCs, and objects currently on screen in the game
          */
         public void draw(SpriteBatch batch) {
-            batch.Draw(map, new Vector2(0, 0), Color.White);
+            batch.Draw(map, Vector2.Zero, Color.White);
             foreach (Projectile projectile in projectiles) {
                 if (projectile != null) {
                     projectile.draw(batch);
                 }
             }
             foreach (GameObject obj in objects) {
-                if (obj != null && obj.isOnScreen()) {
+                if (obj != null && obj.isOnScreen(game)) {
                     obj.draw(batch, mode);
                 }
             }
-            batch.Draw(player.getTexture(), player.getBounds(), Color.White);
-            foreach (Entity e in npcs) {
-                if (e != null && e.isOnScreen()) {
+            foreach (Npc e in npcs) {
+                if (e != null && e.isOnScreen(game)) {
                     e.draw(batch);
                 }
             }
-
+            batch.Draw(player.getTexture(), player.getBounds(), Color.White);
             foreach (DisplayBar d in displayBars) {
                 if (d != null) {
                     d.draw(batch);

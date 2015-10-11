@@ -9,33 +9,37 @@ namespace KineticCamp {
          * Class which represents various objects within the game, including doors, alarms, etc.
          */
 
-        private Texture2D texture;
+        private readonly Texture2D texture;
+
         private Projectile projectile;
         private Vector2 location;
         private Vector2 destination;
         private Direction direction;
         private Rectangle bounds;
-        private Rectangle windowBounds;
-        private bool liftable;
-        private bool selected;
 
+        private readonly bool liftable;
+
+        private bool selected;
         private double lastFired;
 
-        public GameObject(Texture2D texture, Projectile projectile, Vector2 location, Direction direction, Rectangle windowBounds, bool liftable) {
+        public GameObject(Texture2D texture, Projectile projectile, Vector2 location, Direction direction, bool liftable) {
             this.texture = texture;
             this.projectile = projectile;
             this.location = location;
-            this.destination = location;
             this.direction = direction;
-            this.windowBounds = windowBounds;
             this.liftable = liftable;
-            this.selected = false; 
+            destination = location;
+            selected = false; 
             bounds = new Rectangle((int) location.X, (int) location.Y, texture.Width, texture.Height);
             lastFired = -1;
         }
 
-        public GameObject(Texture2D texture, Projectile projectile, Vector2 location, Rectangle windowBounds, bool liftable) :
-            this(texture, projectile, location, Direction.NONE, windowBounds, liftable) {
+        public GameObject(Texture2D texture, Vector2 location, bool liftable) :
+            this(texture, null, location, Direction.NONE, liftable) {
+        }
+
+        public GameObject(Texture2D texture, Vector2 location) :
+            this(texture, location, false) {
         }
 
         /* Returns the object's texture
@@ -83,13 +87,6 @@ namespace KineticCamp {
          */
         public Rectangle getBounds() {
             return bounds;
-        }
-
-        /*
-         * Returns the game's window bounds
-         */
-        public Rectangle getWindowBounds() {
-            return windowBounds;
         }
 
         /*
@@ -161,8 +158,8 @@ namespace KineticCamp {
         /*
          * Returns true if the object is currently on the screen; otherwise, false
          */
-        public bool isOnScreen() {
-            return location.X >= -texture.Width && location.X <= windowBounds.Width && location.Y >= -texture.Height && location.Y <= windowBounds.Height;
+        public bool isOnScreen(Game1 game) {
+            return location.X >= -texture.Width && location.X <= game.getWidth() && location.Y >= -texture.Height && location.Y <= game.getHeight();
         }
 
         /*

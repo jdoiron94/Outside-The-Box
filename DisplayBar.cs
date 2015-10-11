@@ -1,96 +1,73 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework.Input;
 
 namespace KineticCamp
 {
-    public class DisplayBar
-    {
-        private Texture2D texture;
-        private Texture2D borderText; 
-        private Vector2 location;
+    public class DisplayBar {
+
+        private readonly Texture2D texture;
+        private readonly Texture2D gradient; 
+        private readonly Vector2 location;
+        private readonly Rectangle backBar;
+        private readonly Rectangle outlineBar;
+        private readonly Rectangle bounds;
+        private readonly Color displayColor;
+
         private Rectangle displayBar;
-        private Rectangle backBar;
-        private Rectangle OutlineBar; 
-        private Rectangle bounds; 
-        private Color displayColor;
 
-        #region Constructors
-
-        public DisplayBar(Texture2D texture, Vector2 location, Color displayColor, Texture2D borderText)
-        {
+        public DisplayBar(Texture2D texture, Vector2 location, Color displayColor, Texture2D gradient) {
             this.texture = texture;
-            this.borderText = borderText;
+            this.gradient = gradient;
             this.location = location;
-            this.displayBar = new Rectangle((int)location.X, (int)location.Y+5, 200, 10);
-            this.backBar = new Rectangle((int)location.X, (int)location.Y+5, 200, 10);
-            this.OutlineBar = new Rectangle((int)location.X-10, (int)location.Y, 220, 20);
+            displayBar = new Rectangle((int) location.X, (int) location.Y + 5, 200, 10);
+            backBar = new Rectangle((int) location.X, (int) location.Y + 5, 200, 10);
+            outlineBar = new Rectangle((int) location.X - 10, (int) location.Y, 220, 20);
             this.displayColor = displayColor;
-            bounds = new Rectangle((int)location.X, (int)location.Y, 1, 1);
+            bounds = new Rectangle((int) location.X, (int) location.Y, 1, 1);
         }
 
-        #endregion
-
-        #region get Methods
-
-        public Texture2D getTexture()
-        {
+        /*
+         * Returns the display bar's texture
+         */
+        public Texture2D getTexture() {
             return texture; 
         } 
 
-        public Vector2 getLocation()
-        {
+        /*
+         * Returns the display bar's location
+         */
+        public Vector2 getLocation() {
             return location; 
         }
 
-        public Rectangle getDisplayBar()
-        {
+        /*
+         * Returns the display bar's bounding box
+         */
+        public Rectangle getDisplayBar() {
             return displayBar; 
         }
 
-        public Color getDisplayColor()
-        {
+        /*
+         * Returns the display bar's color
+         */
+        public Color getDisplayColor() {
             return displayColor; 
         }
 
-        #endregion
-
-        #region set Methods
-
-        public void setTexture(Texture2D texture)
-        {
-            this.texture = texture; 
+        /*
+         * Sets the display bar's width
+         */
+        public void setWidth(int width) {
+            displayBar.Width = width;
         }
 
-        public void setLocation(Vector2 location)
-        {
-            this.location = location; 
-        }
-
-        public void setDisplayBar(Rectangle displayBar)
-        {
-            this.displayBar = displayBar; 
-        }
-
-        public void setDisplayColor(Color displayColor)
-        {
-            this.displayColor = displayColor;
-        }
-
-        #endregion
-
-        #region ScreenManagement
-
-        public void draw(SpriteBatch batch)
-        {
-            batch.Draw(borderText, OutlineBar, Color.White);
+        /*
+         * Draws the display bar, given a SpriteBatch
+         */
+        public void draw(SpriteBatch batch) {
+            batch.Draw(gradient, outlineBar, Color.White);
             batch.Draw(texture, backBar, Color.Black);
             batch.Draw(texture, displayBar, Color.White);
         }
-        #endregion
     }
 }

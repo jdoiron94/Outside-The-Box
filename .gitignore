@@ -1,7 +1,7 @@
 # Files
 *.suo
 *.doc
-Content/Thumbs.db
+Thumbs.db
 
 # Directories
 .vs

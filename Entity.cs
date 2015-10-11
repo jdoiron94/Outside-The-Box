@@ -1,14 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using System;
-
 namespace KineticCamp {
 
-    public class Entity {
+    public abstract class Entity {
 
         /*
-         * Class meant to represent any NPCs, the player, etc. Contains all pertinent information as a
+         * Base class which is extended by NPC and Player. Contains all pertinent information as a
          * storage container.
          */
 
@@ -16,37 +14,30 @@ namespace KineticCamp {
         private Projectile projectile;
         private Vector2 location;
         private Vector2 destination;
-        private Vector2 moved;
         private Direction direction;
-        private AIPath path;
         private Rectangle bounds;
-        private Rectangle windowBounds;
 
-        private int health;
-        private int speed;
-        private int stepSize;
-        private int movedX;
-        private int movedY;
+        private readonly int maxHealth;
+
+        private int velocity;
+        private int currentHealth;
         private double lastFired;
 
-        public Entity(Texture2D texture, Projectile projectile, Vector2 location, Direction direction, Rectangle bounds, Rectangle windowBounds, int health, int speed, int stepSize) {
+        public Entity(Texture2D texture, Projectile projectile, Vector2 location, Direction direction, int maxHealth, int velocity) {
             this.texture = texture;
             this.projectile = projectile;
             this.location = location;
-            this.destination = location;
             this.direction = direction;
-            this.bounds = bounds;
-            this.windowBounds = windowBounds;
-            this.health = health;
-            this.speed = speed;
-            this.stepSize = stepSize;
-            moved = new Vector2(0f, 0f);
-            path = null;
+            this.maxHealth = maxHealth;
+            this.velocity = velocity;
+            destination = location;
+            bounds = new Rectangle((int)location.X, (int)location.Y, texture.Width, texture.Height);
+            currentHealth = maxHealth;
             lastFired = -1;
         }
 
-        public Entity(Texture2D texture, Projectile projectile, Vector2 location, Direction direction, Rectangle windowBounds, int health, int speed) :
-            this(texture, projectile, location, direction, new Rectangle((int) location.X, (int) location.Y, texture.Width, texture.Height), windowBounds, health, speed, 4) {
+        public Entity(Texture2D texture, Vector2 location, Direction direction, int health, int velocity) :
+            this(texture, null, location, direction, health, velocity) {
         }
 
         // will need to change to texture2d array for all directions
@@ -59,6 +50,13 @@ namespace KineticCamp {
          */
         public Texture2D getTexture() {
             return texture;
+        }
+
+        /*
+         * Returns the entity's velocity
+         */
+        public int getVelocity() {
+            return velocity;
         }
 
         /*
@@ -90,24 +88,10 @@ namespace KineticCamp {
         }
 
         /*
-         * Returns the entity's distance moved in both x/y directions
-         */
-        public Vector2 getMoved() {
-            return moved;
-        }
-
-        /*
          * Returns the entity's current direction
          */
         public Direction getDirection() {
             return direction;
-        }
-
-        /*
-         * Returns the entity's static AI path
-         */
-        public AIPath getPath() {
-            return path;
         }
 
         /*
@@ -118,31 +102,17 @@ namespace KineticCamp {
         }
 
         /*
-         * Returns the game's window bounds
+         * Returns the entity's max health
          */
-        public Rectangle getWindowBounds() {
-            return windowBounds;
+        public int getMaxHealth() {
+            return maxHealth;
         }
 
         /*
-         * Returns the entity's current health level
+         * Returns the entity's current health
          */
-        public int getHealth() {
-            return health;
-        }
-
-        /*
-         * Returns the entity's moving speed
-         */
-        public int getSpeed() {
-            return speed;
-        }
-
-        /*
-         * Returns the entity's step size
-         */
-        public int getStepSize() {
-            return stepSize;
+        public int getCurrentHealth() {
+            return currentHealth;
         }
 
         /*
@@ -150,10 +120,6 @@ namespace KineticCamp {
          */
         public double getLastFired() {
             return lastFired;
-        }
-
-        public void setPath(AIPath path) {
-            this.path = path;
         }
 
         /*
@@ -168,23 +134,8 @@ namespace KineticCamp {
          */
         public void deriveX(int x) {
             location.X += x;
-            movedX = x;
             bounds.X += x;
             destination.X += x;
-        }
-
-        /*
-         * Returns the entity's distance moved on the x axis
-         */
-        public int getMovedX() {
-            return movedX;
-        }
-
-        /*
-         * Returns the entity's distance moved on the y axis
-         */
-        public int getMovedY() {
-            return movedY;
         }
 
         /*
@@ -192,7 +143,6 @@ namespace KineticCamp {
          */
         public void deriveY(int y) {
             location.Y += y;
-            movedY = y;
             bounds.Y += y;
             destination.Y += y;
         }
@@ -210,14 +160,14 @@ namespace KineticCamp {
          * Derives the entity's health, allowing for health regen or degredation
          */
         public void deriveHealth(int health) {
-            this.health += health;
+            currentHealth += health;
         }
 
         /*
          * Returns a new projectile, updating the lastFired time and creates a new projectile
          */
         public Projectile createProjectile(double lastFired) {
-            this.lastFired = lastFired; 
+            this.lastFired = lastFired;
             return new Projectile(projectile.getTexture(), location, projectile.getVelocity(), projectile.getCooldown(), projectile.getRotationSpeed());
         }
 
@@ -225,14 +175,14 @@ namespace KineticCamp {
          * Returns true if the entity is dead; otherwise, false
          */
         public bool isDead() {
-            return health <= 0;
+            return currentHealth <= 0;
         }
 
         /*
          * Returns true if the entity is currently on the screen; otherwise, false
          */
-        public bool isOnScreen() {
-            return location.X >= -texture.Width && location.X <= windowBounds.Width && location.Y >= -texture.Height && location.Y <= windowBounds.Height;
+        public bool isOnScreen(Game1 game) {
+            return location.X >= -texture.Width && location.X <= game.getWidth() && location.Y >= -texture.Height && location.Y <= game.getHeight();
         }
 
         /*

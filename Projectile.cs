@@ -9,14 +9,16 @@ namespace KineticCamp {
          * Class which holds all information necessary to represent a projectile.
          */
 
-        private Texture2D texture;
+        private readonly Texture2D texture;
+        private readonly Vector2 origin;
+
         private Vector2 position;
-        private Vector2 origin;
         private Direction direction;
 
-        private int velocity;
-        private int cooldown;
-        private float rotationSpeed;
+        private readonly int velocity;
+        private readonly int cooldown;
+        private readonly float rotationSpeed;
+
         private float rotation;
         private bool active;
         
@@ -113,28 +115,28 @@ namespace KineticCamp {
         /*
          * Returns true if the projectile is currently on the screen; otherwise, false
          */
-        public bool isOnScreen(Entity entity) {
-            return position.X >= -texture.Width && position.X <= entity.getWindowBounds().Width && position.Y >= -texture.Height && position.Y <= entity.getWindowBounds().Height;
+        public bool isOnScreen(Game1 game) {
+            return position.X >= -texture.Width && position.X <= game.getWidth() && position.Y >= -texture.Height && position.Y <= game.getHeight();
         }
 
         /*
          * Sets the projectile's direction and updates its location, rotation, and active status
          */
-        public void update(Entity entity) {
+        public void update(Game1 game, Entity entity) {
             if (direction == Direction.NONE) {
                 direction = entity.getDirection();
             }
             if (direction == Direction.NORTH) {
-                deriveY(-1 * velocity);
+                deriveY(-velocity);
             } else if (direction == Direction.SOUTH) {
                 deriveY(velocity);
             } else if (direction == Direction.WEST) {
-                deriveX(-1 * velocity);
+                deriveX(-velocity);
             } else if (direction == Direction.EAST) {
                 deriveX(velocity);
             }
             rotation = rotation + rotationSpeed;
-            active = isOnScreen(entity);
+            active = isOnScreen(game);
         }
 
         /*

@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
-using System.Collections.Generic;
 
 namespace KineticCamp {
 
@@ -12,30 +11,31 @@ namespace KineticCamp {
          * in the future.
          */
 
-        private Game1 game;
-        private Entity player;
+        private readonly Game1 game;
+        private readonly Player player;
+        private readonly Level level;
+        private readonly PlayerManager playerManager;
+        private readonly CollisionManager collisionManager;
+        private readonly ScreenManager screenManager;
+
         private GameObject selectedObject;
-        private Level level;
-        private CollisionManager collisionManager;
-        private ScreenManager screenManager;
-        private PlayerManager playerManager;
 
         private ButtonState lastState;
         private ButtonState state;
 
-        private int stepSize;
-        private int midX;
-        private int midY;
+        private readonly int velocity;
+        private readonly int midX;
+        private readonly int midY;
 
-        public InputManager(Game1 game, Entity player, Level level, PlayerManager playerManager, List<Screen> screens) {
+        public InputManager(Game1 game, Player player, Level level, PlayerManager playerManager, Screen[] screens) {
             this.game = game;
             this.player = player;
-            this.selectedObject = null;
             this.level = level;
             this.playerManager = playerManager; 
             collisionManager = new CollisionManager(player, level);
             screenManager = new ScreenManager(screens[1], screens);
-            stepSize = game.getStepSize();
+            selectedObject = null;
+            velocity = player.getVelocity();
             midX = game.getMidX();
             midY = game.getMidY();
         }
@@ -50,7 +50,7 @@ namespace KineticCamp {
         /*
          * Returns the player instance
          */
-        public Entity getPlayer() {
+        public Player getPlayer() {
             return player;
         }
 
@@ -64,8 +64,7 @@ namespace KineticCamp {
         /*
         * Returns the Player Manager
         */
-        public PlayerManager getPlayerManager()
-        {
+        public PlayerManager getPlayerManager() {
             return playerManager;
         }
 
@@ -74,81 +73,60 @@ namespace KineticCamp {
          */
         public void update(GameTime time) {
             KeyboardState kbs = Keyboard.GetState();
-
             /* Normal gameplay (player has control of character's movement*/
             if (screenManager.getActiveScreen().getName() == "Normal") {
-
-                if (playerManager.getHealthCoolDown() == 35)
-                {
-                    playerManager.healthRegen();
+                if (playerManager.getHealthCooldown() == 35) {
+                    playerManager.regenerateHealth();
                 }
-
                 if (kbs.IsKeyDown(Keys.Escape)) {
                     game.Exit();
                 } else if (kbs.IsKeyDown(Keys.W)) {
-                    Console.WriteLine("player: " + player.getLocation().ToString());
                     player.setDirection(Direction.NORTH);
-                    player.setDestination(new Vector2(player.getLocation().X, player.getLocation().Y - stepSize));
-                    if (player.getLocation().Y + stepSize > 0 && collisionManager.isValid(player)) {
-                        player.deriveY(-stepSize);
+                    player.setDestination(new Vector2(player.getLocation().X, player.getLocation().Y - velocity));
+                    if (player.getLocation().Y + velocity > 0 && collisionManager.isValid(player)) {
+                        player.deriveY(-velocity);
                     }
                 } else if (kbs.IsKeyDown(Keys.S)) {
-                    Console.WriteLine("player: " + player.getLocation().ToString());
                     player.setDirection(Direction.SOUTH);
-                    player.setDestination(new Vector2(player.getLocation().X, player.getLocation().Y + stepSize));
-                    if (player.getLocation().Y + stepSize < midY * 2 && collisionManager.isValid(player)) {
-                        player.deriveY(stepSize);
+                    player.setDestination(new Vector2(player.getLocation().X, player.getLocation().Y + velocity));
+                    if (player.getLocation().Y + velocity < midY * 2 && collisionManager.isValid(player)) {
+                        player.deriveY(velocity);
                     }
                 } else if (kbs.IsKeyDown(Keys.A)) {
-                    Console.WriteLine("player: " + player.getLocation().ToString());
                     player.setDirection(Direction.WEST);
-                    player.setDestination(new Vector2(player.getLocation().X - stepSize, player.getLocation().Y));
-                    if (player.getLocation().X + stepSize > 0 && collisionManager.isValid(player)) {
-                        player.deriveX(-stepSize);
+                    player.setDestination(new Vector2(player.getLocation().X - velocity, player.getLocation().Y));
+                    if (player.getLocation().X + velocity > 0 && collisionManager.isValid(player)) {
+                        player.deriveX(-velocity);
                     }
                 } else if (kbs.IsKeyDown(Keys.D)) {
-                    Console.WriteLine("player: " + player.getLocation().ToString());
                     player.setDirection(Direction.EAST);
-                    player.setDestination(new Vector2(player.getLocation().X + stepSize, player.getLocation().Y));
-                    if (player.getLocation().X + stepSize < midX * 2 && collisionManager.isValid(player)) {
-                        player.deriveX(stepSize);
+                    player.setDestination(new Vector2(player.getLocation().X + velocity, player.getLocation().Y));
+                    if (player.getLocation().X + velocity < midX * 2 && collisionManager.isValid(player)) {
+                        player.deriveX(velocity);
                     }
                 } else {
                     player.setDestination(player.getLocation()); //if no movement keys are pressed, destination is same as location
                 }
-
                 if (kbs.IsKeyDown(Keys.Space)) {
                     double totalMilliseconds = time.TotalGameTime.TotalMilliseconds;
                     if (player.getLastFired() == -1 || totalMilliseconds - player.getLastFired() >= player.getProjectile().getCooldown()) {
                         level.addProjectile(player.createProjectile(totalMilliseconds));
                     }
-                    /*foreach (Entity e in level.getNpcs()) {
-                        if (e != null) {
-                            npc.deriveHealth(-50);
-                            // handle projectile interaction with npcs
-                            // if hit, derive npc health by -1 * skilltree power
-                            Console.WriteLine("Health: " + npc.getHealth());
-                        }
-                    }*/
                 } 
                 if (kbs.IsKeyDown(Keys.X)) {
                     //switch to telekinesis-select mode (player clicks a liftable object to select it)
                     screenManager.setActiveScreen(2);
                     Console.WriteLine("Entered telekinesis mode!");
                 }
-
-                if (kbs.IsKeyDown(Keys.P))
-                {
+                if (kbs.IsKeyDown(Keys.P)) {
                     playerManager.damagePlayer(2);
                 }
             }
-
             /* Just entered telekinesis mode (player uses mouse to select a liftable object)*/
             else if (screenManager.getActiveScreen().getName() == "Telekinesis-Select") {
                 level.setMode(1); 
                 lastState = state;
                 state = Mouse.GetState().LeftButton;
-
                 if (lastState == ButtonState.Pressed && state == ButtonState.Released) {
                     foreach (GameObject obj in level.getObjects()) {
                         if (obj != null && obj.isLiftable()) {
@@ -159,11 +137,9 @@ namespace KineticCamp {
                                 selectedObject = obj;
                                 //switch screen state to telekinesis-move (control over selected object)
                                 screenManager.setActiveScreen(3);
-                                Console.WriteLine("obj contains mouse!");
                             }
                         }
                     }
-                    Console.WriteLine("Mouse pressed");
                 } else if (kbs.IsKeyDown(Keys.X)) {
                     //switch to telekinesis-select mode (player clicks a liftable object to select it)
                     screenManager.setActiveScreen(1);
@@ -178,41 +154,35 @@ namespace KineticCamp {
                 if (kbs.IsKeyDown(Keys.Escape)) {
                     game.Exit();
                 } else if (kbs.IsKeyDown(Keys.W)) {
-                    Console.WriteLine("selectedObject: " + selectedObject.getLocation().ToString());
                     selectedObject.setDirection(Direction.NORTH);
-                    selectedObject.setDestination(new Vector2(selectedObject.getLocation().X, selectedObject.getLocation().Y - stepSize));
-                    if (selectedObject.getLocation().Y + stepSize > 0 && collisionManager.isValid(selectedObject)) {
-                        selectedObject.deriveY(-stepSize);
+                    selectedObject.setDestination(new Vector2(selectedObject.getLocation().X, selectedObject.getLocation().Y - velocity));
+                    if (selectedObject.getLocation().Y + velocity > 0 && collisionManager.isValid(selectedObject)) {
+                        selectedObject.deriveY(-velocity);
                     }
                 } else if (kbs.IsKeyDown(Keys.S)) {
-                    Console.WriteLine("selectedObject: " + selectedObject.getLocation().ToString());
                     selectedObject.setDirection(Direction.SOUTH);
-                    selectedObject.setDestination(new Vector2(selectedObject.getLocation().X, selectedObject.getLocation().Y + stepSize));
-                    if (selectedObject.getLocation().Y - stepSize < midY * 2 && collisionManager.isValid(selectedObject)) {
-                        selectedObject.deriveY(stepSize);
+                    selectedObject.setDestination(new Vector2(selectedObject.getLocation().X, selectedObject.getLocation().Y + velocity));
+                    if (selectedObject.getLocation().Y - velocity < midY * 2 && collisionManager.isValid(selectedObject)) {
+                        selectedObject.deriveY(velocity);
                     }
                 } else if (kbs.IsKeyDown(Keys.A)) {
-                    Console.WriteLine("selectedObject: " + selectedObject.getLocation().ToString());
                     selectedObject.setDirection(Direction.WEST);
-                    selectedObject.setDestination(new Vector2(selectedObject.getLocation().X - stepSize, selectedObject.getLocation().Y));
-                    if (selectedObject.getLocation().X + stepSize > 0 && collisionManager.isValid(selectedObject)) {
-                        selectedObject.deriveX(-stepSize);
+                    selectedObject.setDestination(new Vector2(selectedObject.getLocation().X - velocity, selectedObject.getLocation().Y));
+                    if (selectedObject.getLocation().X + velocity > 0 && collisionManager.isValid(selectedObject)) {
+                        selectedObject.deriveX(-velocity);
                     }
                 } else if (kbs.IsKeyDown(Keys.D)) {
-                    Console.WriteLine("selectedObject: " + selectedObject.getLocation().ToString());
                     selectedObject.setDirection(Direction.EAST);
-                    selectedObject.setDestination(new Vector2(selectedObject.getLocation().X + stepSize, selectedObject.getLocation().Y));
-                    if (selectedObject.getLocation().X - stepSize < midX * 2 && collisionManager.isValid(selectedObject)) {
-                        selectedObject.deriveX(stepSize);
+                    selectedObject.setDestination(new Vector2(selectedObject.getLocation().X + velocity, selectedObject.getLocation().Y));
+                    if (selectedObject.getLocation().X - velocity < midX * 2 && collisionManager.isValid(selectedObject)) {
+                        selectedObject.deriveX(velocity);
                     }
                 } else {
                     selectedObject.setDestination(selectedObject.getLocation()); //if no movement keys are pressed, destination is same as location
                 }
-
                 if (kbs.IsKeyDown(Keys.Space)) {
                     //throw object
                 } 
-
                 if (kbs.IsKeyDown(Keys.X)) {
                     //deselect object
                     selectedObject.setSelected(false);
@@ -222,7 +192,6 @@ namespace KineticCamp {
                     Console.WriteLine("Exited telekinesis mode.");
                 }
             }
-
         }
     }
 }

@@ -1,154 +1,75 @@
-﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System;
 
-namespace KineticCamp
-{
-    public class PlayerManager
-    {
-        private Entity Player_Entity;
-        private DisplayBar HealthBar;
-        //private DisplayBar ManaBar; 
-        private int Health;
-        private int Mana;
-        private int Total_XP;
-        private int Current_XP;
-        private const int Total_Health = 100;
-        private int HealthCoolDown;
+namespace KineticCamp {
 
-        #region Constructors
-        public PlayerManager(Entity Player_Entity, int Health, int Mana, int Total_XP, int Current_XP, DisplayBar HealthBar)
-        {
-            this.Player_Entity = Player_Entity;
-            this.Health = Health;
-            this.Mana = Mana;
-            this.Total_XP = Total_XP;
-            this.Current_XP = Current_XP; 
-            this.HealthBar = HealthBar;
-            HealthCoolDown = 0; 
+    public class PlayerManager {
+
+        private readonly Player player;
+        private readonly DisplayBar healthBar;
+        //private DisplayBar ManaBar;
+
+        private int health;
+        private int mana;
+        private int totalExp;
+        private int currentExp;
+        private int healthCooldown;
+
+        private const byte MAX_HEALTH = 0x64;
+
+        public PlayerManager(Player player, int health, int mana, int totalExp, int currentExp, DisplayBar healthBar) {
+            this.player = player;
+            this.health = health;
+            this.mana = mana;
+            this.totalExp = totalExp;
+            this.currentExp = currentExp; 
+            this.healthBar = healthBar;
+            healthCooldown = 0; 
         }
 
-        public PlayerManager(Entity Player_Entity, DisplayBar HealthBar)
-        {
-            this.Player_Entity = Player_Entity;
-            this.Health = 100;
-            this.Mana = 100; 
-            this.Total_XP = 0;
-            this.Current_XP = 0;
-            this.HealthBar = HealthBar;
-            HealthCoolDown = 0; 
-        }
-        #endregion
-
-        #region get Methods
-
-        public Entity getPlayerEntity()
-        {
-            return Player_Entity;
+        public PlayerManager(Player player, DisplayBar healthBar) :
+            this(player, 100, 100, 0, 0, healthBar) {
         }
 
-        public int getHealth()
-        {
-            return Health;
+        public Player getPlayerEntity() {
+            return player;
         }
 
-        public int getMana()
-        {
-            return Mana;
+        public int getHealth() {
+            return health;
         }
 
-        public int getTotalExperience()
-        {
-            return Total_XP;
+        public int getMana() {
+            return mana;
         }
 
-        public int getCurrentExperience()
-        {
-            return Current_XP;
+        public int getTotalExperience() {
+            return totalExp;
         }
 
-        public DisplayBar getHealthBar()
-        {
-            return HealthBar; 
+        public int getCurrentExperience() {
+            return currentExp;
         }
 
-        public int getHealthCoolDown()
-        {
-            return HealthCoolDown; 
+        public DisplayBar getHealthBar() {
+            return healthBar; 
         }
 
-        #endregion
-
-        #region set Methods
-
-        public void setPlayerEntity(Entity Player_Entity)
-        {
-            this.Player_Entity = Player_Entity;
-        } 
-
-        public void setHealth(int Health)
-        {
-            this.Health = Health; 
+        public int getHealthCooldown() {
+            return healthCooldown; 
         }
 
-        public void setMana(int Mana)
-        {
-            this.Mana = Mana; 
+        public void damagePlayer(int damage) {
+            health = Math.Max(0, health - damage);
+            healthBar.setWidth(Math.Max(0, (healthBar.getDisplayBar().Width - ((int) (damage * (200D / MAX_HEALTH))))));
         }
 
-        public void setTotalExperience(int Total_XP)
-        {
-            this.Total_XP = Total_XP;
+        public void regenerateHealth() {
+            health = Math.Min(MAX_HEALTH, health + 1);
+            healthBar.setWidth(Math.Min(health * 2, (healthBar.getDisplayBar().Width + ((int) (1 * (200D / MAX_HEALTH))))));
         }
 
-        public void setCurrentExperience(int Current_XP)
-        {
-            this.Current_XP = Current_XP;
+        public void updateHealthCooldown() {
+            healthCooldown = (healthCooldown + 1) % 36;
         }
-        
-        public void setHealthBar(DisplayBar HealthBar)
-        {
-            this.HealthBar = HealthBar; 
-        }
-
-        #endregion
-
-        #region Player Management
-
-        public void damagePlayer(int damage)
-        {
-            this.Health = this.Health - damage;
-            double HealthBar_Ratio = ((double)200 / (double)Total_Health);  
-            Rectangle newBar = HealthBar.getDisplayBar();
-            newBar.Width = (int) (newBar.Width-((int)(damage*HealthBar_Ratio)));
-            this.HealthBar.setDisplayBar(newBar);
-        }
-
-        public void healthRegen()
-        {
-            if(this.Health<Total_Health)
-            {
-                this.Health += 1;
-                double HealthBar_Ratio = ((double)200 / (double)Total_Health);
-                Rectangle newBar = HealthBar.getDisplayBar();
-                newBar.Width = (int)(newBar.Width + ((int)(1 * HealthBar_Ratio)));
-                this.HealthBar.setDisplayBar(newBar);
-            }
-        }
-
-        public void updateHealthCooldown()
-        {
-            HealthCoolDown += 1;
-            if (HealthCoolDown > 35)
-            {
-                HealthCoolDown = 0;
-            }
-        }
-
-
-
-        #endregion
     }
 }
