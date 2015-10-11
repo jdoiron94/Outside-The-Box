@@ -18,6 +18,10 @@ namespace KineticCamp {
             this.active = active;
         }
 
+        public Screen(string name) :
+            this(name, false) {
+        }
+
         /*
          * Returns the screen's name
          */

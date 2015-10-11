@@ -103,7 +103,7 @@ namespace KineticCamp {
             playerManager = new PlayerManager(player, new DisplayBar(Content.Load<Texture2D>("HealthBarTexture"), new Vector2(20, 20), Color.Red, Content.Load<Texture2D>("BackBarTexture")));
             obj2 = new GameObject(Content.Load<Texture2D>("GreenMushroom"), new Vector2(midX + 50, midY + 120), true);
             level = new Level(this, player, Content.Load<Texture2D>("map"), new Npc[] { npc }, new GameObject[] { obj, obj2}, new DisplayBar[] {playerManager.getHealthBar()});
-            inputManager = new InputManager(this, player, level, playerManager, new Screen[] { new Screen("Menu", false), new Screen("Normal", true), new Screen("Telekinesis-Select", false), new Screen("Telekinesis-Move", false) });
+            inputManager = new InputManager(this, player, level, playerManager, new Screen[] { new Screen("Menu"), new Screen("Normal", true), new Screen("Telekinesis-Select"), new Screen("Telekinesis-Move") });
             cursor = Content.Load<Texture2D>("cursor");
         }
 
