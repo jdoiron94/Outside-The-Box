@@ -100,9 +100,9 @@ namespace KineticCamp {
             npc = new Npc(Content.Load<Texture2D>("npc"), new Vector2(midX + 148, midY + 148), Direction.EAST, new NpcDefinition("Goku", new string[] { "a", "b", "c" }, new int[] { 0, 1, 2 }), 100, 5);
             npc.setPath(new AIPath(npc, new int[] { midX - 100, midY - 100, midX + 100, midY + 100 }, new int[] { 0, 0, 0, 0 }, new Direction[] { Direction.WEST, Direction.NORTH, Direction.EAST, Direction.SOUTH }));
             obj = new GameObject(Content.Load<Texture2D>("sprite"), new Vector2(midX + 100, midY + 100), true);
-            playerManager = new PlayerManager(player, new DisplayBar(Content.Load<Texture2D>("HealthBarTexture"), new Vector2(20, 20), Color.Red, Content.Load<Texture2D>("BackBarTexture")));
+            playerManager = new PlayerManager(player, new DisplayBar(Content.Load<Texture2D>("HealthBarTexture"), new Vector2(20, 20), Color.Red, Content.Load<Texture2D>("BackBarTexture")), new DisplayBar(Content.Load<Texture2D>("ManaBarTexture"), new Vector2(20, 50), Color.Blue, Content.Load<Texture2D>("BackBarTexture")));
             obj2 = new GameObject(Content.Load<Texture2D>("GreenMushroom"), new Vector2(midX + 50, midY + 120), true);
-            level = new Level(this, player, Content.Load<Texture2D>("map"), new Npc[] { npc }, new GameObject[] { obj, obj2}, new DisplayBar[] {playerManager.getHealthBar()});
+            level = new Level(this, player, Content.Load<Texture2D>("map"), new Npc[] { npc }, new GameObject[] { obj, obj2}, new DisplayBar[] {playerManager.getHealthBar(), playerManager.getManaBar()});
             inputManager = new InputManager(this, player, level, playerManager, new Screen[] { new Screen("Menu"), new Screen("Normal", true), new Screen("Telekinesis-Select"), new Screen("Telekinesis-Move") });
             cursor = Content.Load<Texture2D>("cursor");
         }

@@ -83,6 +83,7 @@ namespace KineticCamp {
             if (screenManager.getActiveScreen().getName() == "Normal") {
                 if (playerManager.getHealthCooldown() == 35) {
                     playerManager.regenerateHealth();
+                    playerManager.regenerateMana(); 
                 }
                 if (currentKeyState.IsKeyDown(Keys.Escape)) {
                     game.Exit();
@@ -115,8 +116,9 @@ namespace KineticCamp {
                 }
                 if (currentKeyState.IsKeyDown(Keys.Space)) {
                     double totalMilliseconds = time.TotalGameTime.TotalMilliseconds;
-                    if (player.getLastFired() == -1 || totalMilliseconds - player.getLastFired() >= player.getProjectile().getCooldown()) {
+                    if ((player.getLastFired() == -1 || totalMilliseconds - player.getLastFired() >= player.getProjectile().getCooldown()) && playerManager.getMana()>=5) {
                         level.addProjectile(player.createProjectile(totalMilliseconds));
+                        playerManager.depleteMana(5);
                     }
                 } 
                 if (lastKeyState.IsKeyDown(Keys.X) && currentKeyState.IsKeyUp(Keys.X)) {
@@ -133,6 +135,9 @@ namespace KineticCamp {
                 level.setMode(1); 
                 lastState = state;
                 state = Mouse.GetState().LeftButton;
+
+                playerManager.setManaDrainRate(5);
+
                 if (lastState == ButtonState.Pressed && state == ButtonState.Released) {
                     foreach (GameObject obj in level.getObjects()) {
                         if (obj != null && obj.isLiftable()) {
@@ -153,7 +158,16 @@ namespace KineticCamp {
             }
             /* Telekinetic lifting mode (player controls the selected object's movement)*/
             else if (screenManager.getActiveScreen().getName() == "Telekinesis-Move") {
+
                 level.setMode(2);
+
+                playerManager.updateManaDrainRate();
+
+                if (playerManager.getManaDrainRate()==5)
+                {
+                    playerManager.depleteMana(1);
+                }
+                
                 if (currentKeyState.IsKeyDown(Keys.Escape)) {
                     game.Exit();
                 } else if (currentKeyState.IsKeyDown(Keys.W)) {
@@ -162,11 +176,19 @@ namespace KineticCamp {
                     if (selectedObject.getLocation().Y + velocity > 0 && collisionManager.isValid(selectedObject)) {
                         selectedObject.deriveY(-velocity);
                     }
+                    if (playerManager.getManaDrainRate() == 5)
+                    {
+                        playerManager.depleteMana(2);
+                    }
                 } else if (currentKeyState.IsKeyDown(Keys.S)) {
                     selectedObject.setDirection(Direction.SOUTH);
                     selectedObject.setDestination(new Vector2(selectedObject.getLocation().X, selectedObject.getLocation().Y + velocity));
                     if (selectedObject.getLocation().Y - velocity < midY * 2 && collisionManager.isValid(selectedObject)) {
                         selectedObject.deriveY(velocity);
+                    }
+                    if (playerManager.getManaDrainRate() == 5)
+                    {
+                        playerManager.depleteMana(2);
                     }
                 } else if (currentKeyState.IsKeyDown(Keys.A)) {
                     selectedObject.setDirection(Direction.WEST);
@@ -174,11 +196,19 @@ namespace KineticCamp {
                     if (selectedObject.getLocation().X + velocity > 0 && collisionManager.isValid(selectedObject)) {
                         selectedObject.deriveX(-velocity);
                     }
+                    if (playerManager.getManaDrainRate() == 5)
+                    {
+                        playerManager.depleteMana(2);
+                    }
                 } else if (currentKeyState.IsKeyDown(Keys.D)) {
                     selectedObject.setDirection(Direction.EAST);
                     selectedObject.setDestination(new Vector2(selectedObject.getLocation().X + velocity, selectedObject.getLocation().Y));
                     if (selectedObject.getLocation().X - velocity < midX * 2 && collisionManager.isValid(selectedObject)) {
                         selectedObject.deriveX(velocity);
+                    }
+                    if (playerManager.getManaDrainRate() == 5)
+                    {
+                        playerManager.depleteMana(2);
                     }
                 } else {
                     selectedObject.setDestination(selectedObject.getLocation()); //if no movement keys are pressed, destination is same as location
@@ -186,7 +216,7 @@ namespace KineticCamp {
                 if (currentKeyState.IsKeyDown(Keys.Space)) {
                     //throw object
                 } 
-                if (lastKeyState.IsKeyDown(Keys.X) && currentKeyState.IsKeyUp(Keys.X)) {
+                if (lastKeyState.IsKeyDown(Keys.X) && currentKeyState.IsKeyUp(Keys.X) || playerManager.getMana()==0) {
                     //deselect object
                     selectedObject.setSelected(false);
                     selectedObject = null;
