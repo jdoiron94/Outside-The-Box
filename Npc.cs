@@ -82,14 +82,12 @@ namespace KineticCamp {
          * Handles the npc's reaction to the player's presence
          */
         public void react(GameTime time, Player player) {
-            if (isWithin(player)) {
-                if (Math.Abs(player.getLocation().X - location.X) <= texture.Width) {
-                    setDirection(player.getLocation().Y >= location.Y ? Direction.SOUTH : Direction.NORTH);
-                } else if (player.getLocation().X < location.X) {
-                    setDirection(Direction.WEST);
-                } else {
-                    setDirection(Direction.EAST);
-                }
+            if (Math.Abs(player.getLocation().X - location.X) <= texture.Width) {
+                setDirection(player.getLocation().Y >= location.Y ? Direction.SOUTH : Direction.NORTH);
+            } else if (player.getLocation().X < location.X) {
+                setDirection(Direction.WEST);
+            } else {
+                setDirection(Direction.EAST);
             }
             double totalMilliseconds = time.TotalGameTime.TotalMilliseconds;
             if (getLastFired() == -1 || totalMilliseconds - getLastFired() >= getProjectile().getCooldown()) {

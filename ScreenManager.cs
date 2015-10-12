@@ -26,7 +26,7 @@ namespace KineticCamp {
         }
 
         /*
-         * Returns a list of all game screens
+         * Returns an array of all game screens
          */
         public Screen[] getScreens() {
             return screens;

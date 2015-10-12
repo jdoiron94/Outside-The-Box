@@ -20,6 +20,7 @@ namespace KineticCamp {
 
         private GameObject selectedObject;
         private InputManager inputManager;
+        private PlayerManager playerManager;
 
         private readonly List<Npc> npcs;
         private readonly List<GameObject> objects;
@@ -150,6 +151,7 @@ namespace KineticCamp {
          */
         public void setInputManager(InputManager inputManager) {
             this.inputManager = inputManager;
+            playerManager = inputManager.getPlayerManager();
         }
 
         /*
@@ -173,8 +175,8 @@ namespace KineticCamp {
                                 Rectangle pos = new Rectangle((int) projectile.getPosition().X, (int) projectile.getPosition().Y, projectile.getTexture().Width, projectile.getTexture().Height);
                                 if (pos.Intersects(new Rectangle((int) player.getLocation().X + (player.getTexture().Width / 2), (int) player.getLocation().Y + (player.getTexture().Height / 2), player.getTexture().Width, player.getTexture().Height))) {
                                     projectile.setActive(false);
-                                    inputManager.getPlayerManager().damagePlayer(5);
-                                    Console.WriteLine(inputManager.getPlayerManager().getHealth());
+                                    playerManager.damagePlayer(5);
+                                    Console.WriteLine(playerManager.getHealth());
                                 }
                                 break;
                             }
