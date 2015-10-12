@@ -112,16 +112,14 @@ namespace KineticCamp {
          * Damaes the player with the appropriate amount of damage
          */
         public void damagePlayer(int damage) {
-            health = Math.Max(0, health - damage);
-            healthBar.setWidth(Math.Max(0, (healthBar.getDisplayBar().Width - ((int) (damage * (200D / MAX_HEALTH))))));
+            healthBar.setWidth((health = Math.Max(0, health - damage)) * 2);
         }
 
         /*
          * Regenerates the player's health accordingly
          */
         public void regenerateHealth() {
-            health = Math.Min(MAX_HEALTH, health + 1);
-            healthBar.setWidth(Math.Min(health * 2, (healthBar.getDisplayBar().Width + ((int) (1 * (200D / MAX_HEALTH))))));
+            healthBar.setWidth((health = Math.Min(MAX_HEALTH, health + 1 + Math.Min(9, totalExp / 100))) * 2);
         }
 
         /*
@@ -135,16 +133,14 @@ namespace KineticCamp {
          * Depletes the player's mana according to the passed parameter
          */
         public void depleteMana(int mana) {
-            this.mana = Math.Max(0, this.mana - mana);
-            manaBar.setWidth(Math.Max(0, (manaBar.getDisplayBar().Width - ((int) (mana * (200D / MAX_HEALTH))))));
+            manaBar.setWidth((this.mana = Math.Max(0, this.mana - mana)) * 2);
         }
 
         /*
          * Regenerates the player's mana accordingly
          */
         public void regenerateMana() {
-            mana = Math.Min(totalMana, mana + 1);
-            manaBar.setWidth(Math.Min(mana * 2, (manaBar.getDisplayBar().Width + ((int) (1 * (200D / totalMana))))));
+            manaBar.setWidth((mana = Math.Min(totalMana, mana + 1 + Math.Min(9, totalExp / 100))) * 2);
         }
 
         /*
