@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace KineticCamp {
 
@@ -169,6 +170,30 @@ namespace KineticCamp {
         public Projectile createProjectile(double lastFired) {
             this.lastFired = lastFired;
             return new Projectile(projectile.getOwner(), projectile.getTexture(), projectile.getVelocity(), projectile.getCooldown(), projectile.getRotationSpeed());
+        }
+
+        /*
+         * Returns the two-dimensional Euclidean distance between this entity and the specified entity
+         */
+        public int getDistance(Entity entity) {
+            return (int) Math.Sqrt(Math.Pow(entity.getLocation().X - location.X, 2D) + Math.Pow(entity.getLocation().Y - location.Y, 2D));
+        }
+
+        /*
+         * Returns one-dimensional vertical Euclidean distance to the specified entity
+         */
+        public int getVDistance(Entity entity) {
+            return (int) Math.Sqrt(Math.Pow(entity.getLocation().Y - location.Y, 2D));
+        }
+
+        /*
+         * Returns true if the entity is facing the specified entity; otherwise, false
+         */
+        public bool isFacing(Entity entity) {
+            if (Math.Abs(entity.getLocation().X - location.X) <= texture.Width) {
+                return entity.getLocation().Y >= location.Y ? direction == Direction.SOUTH : direction == Direction.NORTH;
+            }
+            return entity.getLocation().X >= location.X ? direction == Direction.EAST : direction == Direction.WEST;
         }
 
         /*

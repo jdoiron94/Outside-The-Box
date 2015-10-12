@@ -11,22 +11,37 @@ namespace KineticCamp {
          * Class which represents a non-playing character
          */
 
-        // TODO: Have it react with reactTime, minimize chances of friendly fire, minimize pre-fire
+        // TODO: Have it react with reactTime
 
         private readonly Game1 game;
         private readonly NpcDefinition def;
 
+        private readonly int[] offsets;
         private readonly int radius;
         private readonly byte reactTime;
+        private readonly bool wander;
+
+        private int ticks;
 
         private AIPath path;
 
-        public Npc(Game1 game, Texture2D texture, Vector2 location, Direction direction, NpcDefinition def, int maxHealth, int velocity, int radius, byte reactTime) :
+        public Npc(Game1 game, Texture2D texture, Vector2 location, Direction direction, NpcDefinition def, int[] offsets, int maxHealth, int velocity, int radius, byte reactTime, bool wander) :
             base(texture, location, direction, maxHealth, velocity) {
             this.game = game;
             this.def = def;
+            this.offsets = offsets;
             this.radius = radius;
             this.reactTime = reactTime;
+            this.wander = wander;
+            ticks = 0;
+        }
+
+        public Npc(Game1 game, Texture2D texture, Vector2 location, Direction direction, NpcDefinition def, int[] offsets, int radius, byte reactTime, bool wander) :
+            this(game, texture, location, direction, def, offsets, 100, 5, radius, reactTime, wander) {
+        }
+
+        public Npc(Game1 game, Texture2D texture, Vector2 location, Direction direction, NpcDefinition def, int radius, byte reactTime) :
+            this(game, texture, location, direction, def, new int[0], 100, 5, radius, reactTime, false) {
         }
 
         /*
@@ -41,6 +56,13 @@ namespace KineticCamp {
          */
         public NpcDefinition getDefinition() {
             return def;
+        }
+
+        /*
+         * Returns the npc's wanderable offsets
+         */
+        public int[] getOffsets() {
+            return offsets;
         }
 
         /*
@@ -62,6 +84,13 @@ namespace KineticCamp {
          */
         public AIPath getPath() {
             return path;
+        }
+
+        /*
+         * Returns true if the npc is allowed to wander; otherwise, false
+         */
+        public bool isWanderer() {
+            return wander;
         }
 
         /*
@@ -89,9 +118,18 @@ namespace KineticCamp {
             } else {
                 setDirection(Direction.EAST);
             }
-            double totalMilliseconds = time.TotalGameTime.TotalMilliseconds;
-            if (getLastFired() == -1 || totalMilliseconds - getLastFired() >= getProjectile().getCooldown()) {
-                game.addProjectile(createProjectile(totalMilliseconds));
+            if (getDistance(player) <= 100) {
+                foreach (Npc n in game.getLevel().getNpcs()) {
+                    if (n != null && n != this && n.isOnScreen(game)) {
+                        if (getVDistance(n) <= n.getTexture().Height * 2 && isFacing(n)) {
+                            return;
+                        }
+                    }
+                }
+                double totalMilliseconds = time.TotalGameTime.TotalMilliseconds;
+                if (getLastFired() == -1 || totalMilliseconds - getLastFired() >= getProjectile().getCooldown()) {
+                    game.addProjectile(createProjectile(totalMilliseconds));
+                }
             }
         }
 

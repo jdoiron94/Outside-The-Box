@@ -8,3 +8,4 @@ Content/obj/Windows/.mgcontent
 .vs
 bin
 obj
+Content/obj/Windows/**

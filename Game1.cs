@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using System;
 
 namespace KineticCamp {
 
@@ -75,6 +76,13 @@ namespace KineticCamp {
         }
 
         /*
+         * Returns an instance of the current level
+         */
+        public Level getLevel() {
+            return level;
+        }
+
+        /*
          * Allows npcs to add projectiles (they can't get a non-nulled level instance due to structure)
          */
         public void addProjectile(Projectile projectile) {
@@ -110,10 +118,10 @@ namespace KineticCamp {
             midY = (graphics.PreferredBackBufferHeight - playerTexture.Height) / 2;
             player = new Player(playerTexture, Vector2.Zero, Direction.SOUTH, 100, 50, 0, 5);
             player.setProjectile(new Projectile(player, Content.Load<Texture2D>("bullet"), 5, 250));
-            npc = new Npc(this, Content.Load<Texture2D>("npc"), new Vector2(midX + 148, midY + 148), Direction.EAST, new NpcDefinition("Goku", new string[] { "a", "b", "c" }, new int[] { 0, 1, 2 }), 100, 5, 100, 0x5);
-            npc.setPath(new AIPath(npc, new int[] { midX - 100, midY - 100, midX + 100, midY + 100 }, new int[] { 0, 0, 0, 0 }, new Direction[] { Direction.WEST, Direction.NORTH, Direction.EAST, Direction.SOUTH }));
-            npc2 = new Npc(this, Content.Load<Texture2D>("npc"), new Vector2(midX, midY), Direction.EAST, new NpcDefinition("Goku2", new string[] { }, new int[] { }), 100, 5, 250, 0x5);
-            npc2.setProjectile(new Projectile(npc2, Content.Load<Texture2D>("bullet"), 5, 250));
+            npc = new Npc(this, Content.Load<Texture2D>("npc"), new Vector2(midX + 148, midY + 148), Direction.EAST, new NpcDefinition("Goku", new string[0], new int[0]), 150, 0x5);
+            npc.setPath(new AIPath(npc, new int[] { midX - 100, midY - 100, midX + 100, midY + 100 }, new int[0], new Direction[] { Direction.WEST, Direction.NORTH, Direction.EAST, Direction.SOUTH }));
+            npc2 = new Npc(this, Content.Load<Texture2D>("npc"), new Vector2(midX, midY), Direction.EAST, new NpcDefinition("Goku2", new string[0], new int[0]), 150, 0x5);
+            npc2.setProjectile(new Projectile(npc2, Content.Load<Texture2D>("bullet"), 5, 500));
             obj = new GameObject(Content.Load<Texture2D>("sprite"), new Vector2(midX + 100, midY + 100), true);
             playerManager = new PlayerManager(player, new DisplayBar(Content.Load<Texture2D>("HealthBarTexture"), new Vector2(20, 20), Color.Red, Content.Load<Texture2D>("BackBarTexture")), new DisplayBar(Content.Load<Texture2D>("ManaBarTexture"), new Vector2(20, 50), Color.Blue, Content.Load<Texture2D>("BackBarTexture")));
             obj2 = new GameObject(Content.Load<Texture2D>("GreenMushroom"), new Vector2(midX + 50, midY + 120), true);
@@ -145,7 +153,7 @@ namespace KineticCamp {
             playerManager.updateHealthCooldown();
             inputManager.update(gameTime);
             level.updateProjectiles();
-            level.updateNpcs(gameTime); 
+            level.updateNpcs(gameTime);
             mouse = Mouse.GetState();
         }
 
