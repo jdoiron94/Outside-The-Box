@@ -152,7 +152,7 @@ namespace KineticCamp {
          */
         public Projectile createProjectile(double lastFired) {
             this.lastFired = lastFired;
-            return new Projectile(projectile.getTexture(), projectile.getPosition(), projectile.getVelocity(), projectile.getCooldown(), projectile.getRotationSpeed());
+            return new Projectile(projectile.getOwner(), projectile.getTexture(), projectile.getVelocity(), projectile.getCooldown(), projectile.getRotationSpeed());
         }
 
         /*

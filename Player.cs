@@ -5,6 +5,10 @@ namespace KineticCamp {
 
     public class Player : Entity {
 
+        /*
+         * Class representing the player
+         */
+
         private readonly int maxMana;
 
         private int experience;
@@ -17,14 +21,23 @@ namespace KineticCamp {
             currentMana = maxMana;
         }
 
+        /*
+         * Returns the player's maximum mana
+         */
         public int getMaxMana() {
             return maxMana;
         }
 
+        /*
+         * Returns the palayer's experience
+         */
         public int getExperience() {
             return experience;
         }
 
+        /*
+         * Returns the player's current mana
+         */
         public int getCurrentMana() {
             return currentMana;
         }

@@ -9,6 +9,7 @@ namespace KineticCamp {
          * Class which holds all information necessary to represent a projectile.
          */
 
+        private readonly Entity owner;
         private readonly Texture2D texture;
         private readonly Vector2 origin;
 
@@ -22,20 +23,28 @@ namespace KineticCamp {
         private float rotation;
         private bool active;
         
-        public Projectile(Texture2D texture, Vector2 position, int velocity, int cooldown, float rotationSpeed) {
+        public Projectile(Entity owner, Texture2D texture, int velocity, int cooldown, float rotationSpeed) {
+            this.owner = owner;
             this.texture = texture;
-            this.position = position;
             this.velocity = velocity;
             this.cooldown = cooldown;
             this.rotationSpeed = rotationSpeed;
             origin = new Vector2(texture.Width / 2, texture.Height / 2);
+            position = new Vector2(owner.getLocation().X, owner.getLocation().Y);
             direction = Direction.NONE;
             rotation = 0f;
             active = true;
         }
 
-        public Projectile(Texture2D texture, Vector2 position, int velocity, int cooldown) :
-            this(texture, position, velocity, cooldown, 0f) {
+        public Projectile(Entity owner, Texture2D texture, int velocity, int cooldown) :
+            this(owner, texture, velocity, cooldown, 0f) {
+        }
+
+        /*
+         * Returns the owner of the projectile
+         */
+        public Entity getOwner() {
+            return owner;
         }
 
         /*
@@ -94,6 +103,9 @@ namespace KineticCamp {
             return active;
         }
 
+        /*
+         * Sets the projectile's active status according to the parameter
+         */
         public void setActive(bool active) {
             this.active = active;
         }

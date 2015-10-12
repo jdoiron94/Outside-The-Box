@@ -2,6 +2,10 @@
 
     public class NpcDefinition {
 
+        /*
+         * Class which can define an npc's name and helpful hints
+         */
+
         private readonly string name;
         private readonly string[] hints;
 
@@ -13,14 +17,23 @@
             this.hintLevels = hintLevels;
         }
 
+        /*
+         * Returns the definition's name
+         */
         public string getName() {
             return name;
         }
 
+        /*
+         * Returns the definition's hints
+         */
         public string[] getHints() {
             return hints;
         }
 
+        /*
+         * Returns the levels needed to view the hints
+         */
         public int[] getHintLevels() {
             return hintLevels;
         }

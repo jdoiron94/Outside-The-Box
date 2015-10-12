@@ -17,7 +17,9 @@ namespace KineticCamp {
         private readonly Game1 game;
         private readonly Player player;
         private readonly Texture2D map;
+
         private GameObject selectedObject;
+        private InputManager inputManager;
 
         private readonly List<Npc> npcs;
         private readonly List<GameObject> objects;
@@ -39,6 +41,9 @@ namespace KineticCamp {
             projectiles = new List<Projectile>();
         }
 
+        /*
+         * Returns an instance of the game
+         */
         public Game1 getGame() {
             return game;
         }
@@ -141,6 +146,13 @@ namespace KineticCamp {
         }
 
         /*
+         * Sets the level's input manager
+         */
+        public void setInputManager(InputManager inputManager) {
+            this.inputManager = inputManager;
+        }
+
+        /*
          * Adds an active projectile to the level
          */
         public void addProjectile(Projectile projectile) {
@@ -154,12 +166,21 @@ namespace KineticCamp {
             for (int i = 0; i < projectiles.Count; i++) {
                 Projectile projectile = projectiles[i];
                 if (projectile != null) {
-                    projectile.update(game, player);
+                    projectile.update(game, projectile.getOwner());
                     if (projectile.isActive()) {
                         foreach (Npc e in npcs) {
+                            if (projectile.getOwner() == e) {
+                                Rectangle pos = new Rectangle((int) projectile.getPosition().X, (int) projectile.getPosition().Y, projectile.getTexture().Width, projectile.getTexture().Height);
+                                if (pos.Intersects(new Rectangle((int) player.getLocation().X + (player.getTexture().Width / 2), (int) player.getLocation().Y + (player.getTexture().Height / 2), player.getTexture().Width, player.getTexture().Height))) {
+                                    projectile.setActive(false);
+                                    inputManager.getPlayerManager().damagePlayer(5);
+                                    Console.WriteLine(inputManager.getPlayerManager().getHealth());
+                                }
+                                break;
+                            }
                             if (e != null && e.isOnScreen(game)) {
-                                Rectangle pos = new Rectangle((int)projectile.getPosition().X, (int)projectile.getPosition().Y, projectile.getTexture().Width, projectile.getTexture().Height);
-                                if (pos.Intersects(new Rectangle((int)e.getDestination().X + (e.getTexture().Width / 2), (int)e.getDestination().Y, e.getTexture().Width, e.getTexture().Height))) {
+                                Rectangle pos = new Rectangle((int) projectile.getPosition().X, (int) projectile.getPosition().Y, projectile.getTexture().Width, projectile.getTexture().Height);
+                                if (pos.Intersects(new Rectangle((int) e.getDestination().X + (e.getTexture().Width / 2), (int) e.getDestination().Y + (e.getTexture().Height / 2), e.getTexture().Width, e.getTexture().Height))) {
                                     projectile.setActive(false);
                                     e.deriveHealth(-5);
                                     Console.WriteLine("npc health: " + e.getCurrentHealth());
@@ -170,8 +191,8 @@ namespace KineticCamp {
                         if (projectile.isActive()) {
                             foreach (GameObject e in objects) {
                                 if (e != null && e.isOnScreen(game)) {
-                                    Rectangle pos = new Rectangle((int)projectile.getPosition().X, (int)projectile.getPosition().Y, projectile.getTexture().Width, projectile.getTexture().Height);
-                                    if (pos.Intersects(new Rectangle((int)e.getDestination().X + (e.getTexture().Width / 2), (int)e.getDestination().Y, e.getTexture().Width, e.getTexture().Height))) {
+                                    Rectangle pos = new Rectangle((int) projectile.getPosition().X, (int) projectile.getPosition().Y, projectile.getTexture().Width, projectile.getTexture().Height);
+                                    if (pos.Intersects(new Rectangle((int) e.getDestination().X + (e.getTexture().Width / 2), (int) e.getDestination().Y + (e.getTexture().Height / 2), e.getTexture().Width, e.getTexture().Height))) {
                                         projectile.setActive(false);
                                         break;
                                     }
@@ -190,7 +211,7 @@ namespace KineticCamp {
         /*
          * Updates the list of npcs, removing dead npcs from the list
          */
-        public void updateNpcs() {
+        public void updateNpcs(GameTime time) {
             for (int i = 0; i < npcs.Count; i++) {
                 Npc npc = npcs[i];
                 if (npc != null) {
@@ -200,6 +221,10 @@ namespace KineticCamp {
                     } else {
                         if (npc.getPath() != null) {
                             npc.getPath().update();
+                        } else {
+                            if (npc.isWithin(player)) {
+                                npc.react(time, player);
+                            }
                         }
                     }
                 }

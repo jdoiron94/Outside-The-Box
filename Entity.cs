@@ -10,9 +10,9 @@ namespace KineticCamp {
          * storage container.
          */
 
-        private Texture2D texture;
+        protected Texture2D texture;
         private Projectile projectile;
-        private Vector2 location;
+        protected Vector2 location;
         private Vector2 destination;
         private Direction direction;
         private Rectangle bounds;
@@ -168,7 +168,7 @@ namespace KineticCamp {
          */
         public Projectile createProjectile(double lastFired) {
             this.lastFired = lastFired;
-            return new Projectile(projectile.getTexture(), location, projectile.getVelocity(), projectile.getCooldown(), projectile.getRotationSpeed());
+            return new Projectile(projectile.getOwner(), projectile.getTexture(), projectile.getVelocity(), projectile.getCooldown(), projectile.getRotationSpeed());
         }
 
         /*
