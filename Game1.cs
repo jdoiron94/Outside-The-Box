@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using System;
+using System.Collections.Generic;
 
 namespace KineticCamp {
 
@@ -27,6 +28,8 @@ namespace KineticCamp {
         private Texture2D cursor;
         private MouseState mouse;
 
+        private Texture2D white;
+
         private Song song;
         private SoundEffect effect;
 
@@ -40,53 +43,80 @@ namespace KineticCamp {
             Content.RootDirectory = "Content";
         }
 
-        /*
-         * Returns the center x coordinate of the game
-         */
+        /// <summary>
+        /// Returns the center x coordinate of the game
+        /// </summary>
+        /// <returns>Returns the center x coordinate of the game, with respect to the player</returns>
         public int getMidX() {
             return midX;
         }
 
-        /*
-         * Returns the center y coordinate of the game
-         */
+        /// <summary>
+        /// Returns the center y coordinate of the game
+        /// </summary>
+        /// <returns>Returns the center y coordinate of the game, with respect to the player</returns>
         public int getMidY() {
             return midY;
         }
 
-        /*
-         * Returns the game's width
-         */
+        /// <summary>
+        /// Returns the width of the game
+        /// </summary>
+        /// <returns>Returns the width of the game</returns>
         public int getWidth() {
             return width;
         }
 
-        /*
-         * Returns the game's height
-         */
+        /// <summary>
+        /// Returns the height of the game
+        /// </summary>
+        /// <returns>Returns the height of the game</returns>
         public int getHeight() {
             return height;
         }
 
-        /*
-         * Returns the mouse state
-         */
+        /// <summary>
+        /// Returns the mouse state of the game
+        /// </summary>
+        /// <returns>Returns the mouse state of the game</returns>
         public MouseState getMouse() {
             return mouse;
         }
 
-        /*
-         * Returns an instance of the current level
-         */
+        /// <summary>
+        /// Returns an instance of the current level
+        /// </summary>
+        /// <returns>Returns an instance of the current level</returns>
         public Level getLevel() {
             return level;
         }
 
-        /*
-         * Allows npcs to add projectiles (they can't get a non-nulled level instance due to structure)
-         */
+        /// <summary>
+        /// Returns an instance of the player
+        /// </summary>
+        /// <returns>Returns an instance of the player</returns>
+        public Player getPlayer() {
+            return player;
+        }
+
+        /// <summary>
+        /// Adds a projectile to the game from an NPC
+        /// </summary>
+        /// <param name="projectile">The projectile to be added</param>
         public void addProjectile(Projectile projectile) {
             level.addProjectile(projectile);
+        }
+
+        /// <summary>
+        /// Draws an outline of the bounds of a specified area
+        /// </summary>
+        /// <param name="batch">The SpriteBatch to draw with</param>
+        /// <param name="area">The area to be drawn</param>
+        public void outline(SpriteBatch batch, Rectangle area) {
+            batch.Draw(white, new Rectangle(area.X, area.Y, area.Width, 1), Color.Green);
+            batch.Draw(white, new Rectangle(area.X, area.Y, 1, area.Height), Color.Green);
+            batch.Draw(white, new Rectangle(area.X + area.Width - 1, area.Y, 1, area.Height), Color.Green);
+            batch.Draw(white, new Rectangle(area.X, area.Y + area.Height - 1, area.Width, 1), Color.Green);
         }
 
         /// <summary>
@@ -130,6 +160,8 @@ namespace KineticCamp {
             inputManager = new InputManager(this, player, level, playerManager, new Screen[] { new Screen("Menu"), new Screen("Normal", true), new Screen("Telekinesis-Select"), new Screen("Telekinesis-Move") });
             level.setInputManager(inputManager);
             cursor = Content.Load<Texture2D>("cursor");
+            white = new Texture2D(GraphicsDevice, 1, 1);
+            white.SetData(new Color[] { Color.White });
             //effect = Content.Load<SoundEffect>("gun");
         }
 
@@ -154,6 +186,7 @@ namespace KineticCamp {
             inputManager.update(gameTime);
             level.updateProjectiles();
             level.updateNpcs(gameTime);
+            //Console.WriteLine("h dist: " + npc2.getHDistance(npc));
             mouse = Mouse.GetState();
         }
 

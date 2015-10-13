@@ -17,23 +17,26 @@
             this.hintLevels = hintLevels;
         }
 
-        /*
-         * Returns the definition's name
-         */
+        /// <summary>
+        /// Returns the npc's name
+        /// </summary>
+        /// <returns>Returns the npc's name</returns>
         public string getName() {
             return name;
         }
 
-        /*
-         * Returns the definition's hints
-         */
+        /// <summary>
+        /// Returns the hints from the definition
+        /// </summary>
+        /// <returns>Returns a string array of helpful hints</returns>
         public string[] getHints() {
             return hints;
         }
 
-        /*
-         * Returns the levels needed to view the hints
-         */
+        /// <summary>
+        /// Returns the levels required to view the hints
+        /// </summary>
+        /// <returns>Returns an integer array of required levels to view the corresponding level hints</returns>
         public int[] getHintLevels() {
             return hintLevels;
         }

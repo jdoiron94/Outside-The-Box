@@ -29,44 +29,49 @@
             ticks = 0;
         }
 
-        /*
-         * Returns the npc instance
-         */
+        /// <summary>
+        /// Returns an instance of the npc
+        /// </summary>
+        /// <returns>Returns an instance of the npc</returns>
         public Npc getNpc() {
             return npc;
         }
 
-        /*
-         * Returns the given path
-         */
+        /// <summary>
+        /// Returns the path followed by the npc
+        /// </summary>
+        /// <returns>Returns the integer array path followed by the npc</returns>
         public int[] getPath() {
             return path;
         }
 
-        /*
-         * Returns the delays between finishing the path in each direction
-         */
+        /// <summary>
+        /// Returns the delays followed by the npc
+        /// </summary>
+        /// <returns>Returns the integer array of delays between directions, followed by the npc</returns>
         public int[] getDelays() {
             return delays;
         }
 
-        /*
-         * Returns the directions used in the path
-         */
+        /// <summary>
+        /// Returns the directions followed by the npc
+        /// </summary>
+        /// <returns>Returns the direction array followed by the npc</returns>
         public Direction[] getDirections() {
             return directions;
         }
 
-        /*
-         * Returns the number of frames skipped between walking
-         */
+        /// <summary>
+        /// Returns the number of frames skipped between movements
+        /// </summary>
+        /// <returns>Returns 4</returns>
         public byte getSkippedFrames() {
             return SKIPPED_FRAMES;
         }
 
-        /*
-         * Controls the walking of the path
-         */
+        /// <summary>
+        /// Updates the npc's direction and movement, if it has been sufficient time between interactions
+        /// </summary>
         public void update() {
             npc.setDirection(directions[state]);
             switch (npc.getDirection()) {
@@ -78,7 +83,6 @@
                         } else {
                             ticks++;
                         }
-
                     }
                     state = npc.getLocation().Y <= path[state] ? (state + 1) % path.Length : state;
                     break;

@@ -18,23 +18,26 @@ namespace KineticCamp {
             this.screens = screens; 
         }
 
-        /*
-         * Returns the active screen
-         */
+        /// <summary>
+        /// Returns the active screen
+        /// </summary>
+        /// <returns>Returns the active screen</returns>
         public Screen getActiveScreen() {
             return activeScreen;
         }
 
-        /*
-         * Returns an array of all game screens
-         */
+        /// <summary>
+        /// Returns all of the screens
+        /// </summary>
+        /// <returns>Returns a screen array of the screens it manages</returns>
         public Screen[] getScreens() {
             return screens;
         }
 
-        /*
-         * Sets the active screen to the screen at the specified index
-         */
+        /// <summary>
+        /// Sets the active screen to the screen found at the specified index
+        /// </summary>
+        /// <param name="index">The screen's index to be set</param>
         public void setActiveScreen(int index) {
             if (!activeScreen.Equals(screens[index])) {
                 activeScreen.setActive(false);
@@ -42,16 +45,19 @@ namespace KineticCamp {
                 activeScreen.setActive(true);
             }
         }
-        /*
-         * Updates the active screen
-         */
+        
+        /// <summary>
+        /// Updates the active screen
+        /// </summary>
+        /// <param name="time">The game time to respect</param>
         public void update(GameTime time) {
             activeScreen.update(time);
         }
 
-        /*
-         * Draws the active screen
-         */
+        /// <summary>
+        /// Draws the active screen
+        /// </summary>
+        /// <param name="batch">The SpriteBatch to draw with</param>
         public void draw(SpriteBatch batch) {
             activeScreen.draw(batch);
         }

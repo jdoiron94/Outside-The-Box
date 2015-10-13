@@ -21,23 +21,26 @@ namespace KineticCamp {
             currentMana = maxMana;
         }
 
-        /*
-         * Returns the player's maximum mana
-         */
+        /// <summary>
+        /// Returns the player's maximum mana
+        /// </summary>
+        /// <returns>Returns the player's maximum mana</returns>
         public int getMaxMana() {
             return maxMana;
         }
 
-        /*
-         * Returns the palayer's experience
-         */
+        /// <summary>
+        /// Returns the player's experience
+        /// </summary>
+        /// <returns>Returns the player's experience</returns>
         public int getExperience() {
             return experience;
         }
 
-        /*
-         * Returns the player's current mana
-         */
+        /// <summary>
+        /// Returns the player's current mana
+        /// </summary>
+        /// <returns>Returns the player's current mana</returns>
         public int getCurrentMana() {
             return currentMana;
         }

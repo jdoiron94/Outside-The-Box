@@ -42,129 +42,152 @@ namespace KineticCamp {
             this(texture, location, false) {
         }
 
-        /* Returns the object's texture
-         */
+        /// <summary>
+        /// Returns the game object's texture
+        /// </summary>
+        /// <returns>Returns the game object's texture</returns>
         public Texture2D getTexture() {
             return texture;
         }
 
-        /*
-         * Returns the object's projectile
-         */
+        /// <summary>
+        /// Returns the game object's projectile
+        /// </summary>
+        /// <returns>Returns the game object's texture</returns>
         public Projectile getProjectile() {
             return projectile;
         }
 
-        /*
-         * Returns the object's current location
-         */
+        /// <summary>
+        /// Returns the game object's location
+        /// </summary>
+        /// <returns>Returns the game object's location</returns>
         public Vector2 getLocation() {
             return location;
         }
 
-        /*
-         * Returns the object's destination
-         */
+        /// <summary>
+        /// Returns the game object's destination
+        /// </summary>
+        /// <returns>Returns the game object's destination</returns>
         public Vector2 getDestination() {
             return destination;
         }
 
-        /*
-         * Sets the object's destination
-         */
+        /// <summary>
+        /// Sets the game object's destination
+        /// </summary>
+        /// <param name="destination">The destination to be set</param>
         public void setDestination(Vector2 destination) {
             this.destination = destination;
         }
 
-        /* Returns the object's direction
-         */
+        /// <summary>
+        /// Returns the game object's direction
+        /// </summary>
+        /// <returns>Returns the game object's direction</returns>
         public Direction getDirection() {
             return direction;
         }
 
-        /*
-         * Returns the objects bounding box
-         */
+        /// <summary>
+        /// Returns the game object's bounds
+        /// </summary>
+        /// <returns></returns>
         public Rectangle getBounds() {
             return bounds;
         }
 
-        /*
-         * Returns if the object is liftable
-         */
+        /// <summary>
+        /// Returns if the game object can be lifted
+        /// </summary>
+        /// <returns>Returns true if the game object is liftable; otherwise, false</returns>
         public bool isLiftable() {
             return liftable;
         }
 
-        /*
-         * Returns if the object is currently selected
-         */
+        /// <summary>
+        /// Returns if the game object is currently selected
+        /// </summary>
+        /// <returns>Returns true if the game object is currently selected; otherwise, false</returns>
         public bool isSelected() {
             return selected;
         }
 
-        /*
-         * Sets the object's selected boolean to the parameter
-         */
+        /// <summary>
+        /// Sets the game object's selected state to the specified boolean
+        /// </summary>
+        /// <param name="selected">The selected state to be set</param>
         public void setSelected(bool selected) {
             this.selected = selected;
         }
 
-        /*
-         * Returns the object's last projectile fire time in ms
-         */
+        /// <summary>
+        /// Returns the game object's last projectile fire time
+        /// </summary>
+        /// <returns>Returns the game object's last projectile fire time</returns>
         public double getLastFired() {
             return lastFired;
         }
 
-        /*
-         * Sets the object's projectile to the given projectile
-         */
+        /// <summary>
+        /// Sets the game object's projectile to the specified projectile
+        /// </summary>
+        /// <param name="projectile">The projectile to be set</param>
         public void setProjectile(Projectile projectile) {
             this.projectile = projectile;
         }
 
-        /*
-         * Derives the object's location in terms of its x coordinate
-         */
+        /// <summary>
+        /// Derives the game object's x coordinate in location and bounds by the specified x amount
+        /// </summary>
+        /// <param name="x">The x amount to be derived by</param>
         public void deriveX(int x) {
             location.X += x;
             bounds.X += x;
         }
 
-        /*
-         * Derives the object's location in terms of its y coordinate
-         */
+        /// <summary>
+        /// Derives the game object's y coordinate in location and bounds by the specified y amount
+        /// </summary>
+        /// <param name="y">The y amount to be derived by</param>
         public void deriveY(int y) {
             location.Y += y;
             bounds.Y += y;
         }
 
-        /*
-         * Sets the object's moving direction
-         */
+        /// <summary>
+        /// Sets the game object's direction
+        /// </summary>
+        /// <param name="direction">The direction to be set</param>
         public void setDirection(Direction direction) {
             this.direction = direction;
         }
 
-        /*
-         * Returns a new projectile, updating the lastFired time and creates a new projectile
-         */
+        /// <summary>
+        /// Returns a new projectile for the game object
+        /// </summary>
+        /// <param name="lastFired">The last time the game object fired a projectile</param>
+        /// <returns>Returns a projectile with a new memory address for the game object</returns>
         public Projectile createProjectile(double lastFired) {
             this.lastFired = lastFired;
             return new Projectile(projectile.getOwner(), projectile.getTexture(), projectile.getVelocity(), projectile.getCooldown(), projectile.getRotationSpeed());
         }
 
-        /*
-         * Returns true if the object is currently on the screen; otherwise, false
-         */
+        /// <summary>
+        /// Returns whether or not the game object is currently on the screen
+        /// </summary>
+        /// <param name="game">The game instance to check its viewport bounds</param>
+        /// <returns>Returns true if the game object is currently on the screen; otherwise, false</returns>
         public bool isOnScreen(Game1 game) {
             return location.X >= -texture.Width && location.X <= game.getWidth() && location.Y >= -texture.Height && location.Y <= game.getHeight();
         }
 
-        /*
-         * Draws the object on the screen, given a SpriteBatch
-         */
+        /// <summary>
+        /// Draws the game object
+        /// </summary>
+        /// <param name="batch">The SpriteBatch to draw with</param>
+        /// <param name="mode">The game's telekinesis mode to draw with respect to</param>
         public void draw(SpriteBatch batch, byte mode) {
             if (mode == 0) {
                 batch.Draw(texture, location, Color.White);

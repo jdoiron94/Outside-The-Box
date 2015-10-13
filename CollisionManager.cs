@@ -17,50 +17,63 @@ namespace KineticCamp {
             this.level = level;
         }
 
-        /*
-         * Returns the player instance
-         */
+        /// <summary>
+        /// Returns an instance of the player
+        /// </summary>
+        /// <returns>Returns an instance of the player</returns>
         public Player getPlayer() {
             return player;
         }
 
-        /*
-         * Returns the level instance
-         */
+        /// <summary>
+        /// Returns an instance of the level
+        /// </summary>
+        /// <returns>Returns an instance of the level</returns>
         public Level getLevel() {
             return level;
         }
 
-        /*
-         * Returns true if two entities collide; otherwise, false
-         */
+        /// <summary>
+        /// Returns whether or not two entities collide
+        /// </summary>
+        /// <param name="e0">The first entity</param>
+        /// <param name="e1">The second entity</param>
+        /// <returns>Returns true if the two entities collide; otherwise, false</returns>
         public bool collides(Entity e0, Entity e1) {
             Rectangle e0Rect = new Rectangle((int) e0.getDestination().X, (int) e0.getDestination().Y, e0.getTexture().Width, e0.getTexture().Height);
             Rectangle e1Rect = new Rectangle((int) e1.getDestination().X, (int) e1.getDestination().Y, e1.getTexture().Width, e1.getTexture().Height);
             return e0Rect.Intersects(e1Rect); 
         }
 
-        /*
-         * Returns true if an entity and object collide; otherwise, false
-         */
+        /// <summary>
+        /// Returns whether or not an entity collides with a game object
+        /// </summary>
+        /// <param name="e0">The entity</param>
+        /// <param name="e1">The game object</param>
+        /// <returns>Returns true if the entity collides with the game object; otherwise, false</returns>
         public bool collides(Entity e0, GameObject e1) {
             Rectangle e0Rect = new Rectangle((int) e0.getDestination().X, (int) e0.getDestination().Y, e0.getTexture().Width, e0.getTexture().Height);
             Rectangle e1Rect = new Rectangle((int) e1.getDestination().X, (int) e1.getDestination().Y, e1.getTexture().Width, e1.getTexture().Height);
             return e0Rect.Intersects(e1Rect);
         }
 
-        /*
-         * Returns true if two objects collide; otherwise, false
-         */
+        /// <summary>
+        /// Returns whether or not two game objects collide
+        /// </summary>
+        /// <param name="e0">The first game object</param>
+        /// <param name="e1">The second game object</param>
+        /// <returns>Returns true if the two game objects collide; otherwise, false</returns>
         public bool collides(GameObject e0, GameObject e1) {
             Rectangle e0Rect = new Rectangle((int) e0.getDestination().X, (int) e0.getDestination().Y, e0.getTexture().Width, e0.getTexture().Height);
             Rectangle e1Rect = new Rectangle((int) e1.getDestination().X, (int) e1.getDestination().Y, e1.getTexture().Width, e1.getTexture().Height);
             return e0Rect.Intersects(e1Rect);
         }
 
-        /*
-         * Returns true if an entity's destination is valid and does not collide; otherwise, false
-         */
+        /// <summary>
+        /// Returns whether or not an entity's movement is valid
+        /// </summary>
+        /// <param name="ent">The entity</param>
+        /// <returns>Returns true if the entity's movement does not collide; otherwise, false</returns>
         public bool isValid(Entity ent) {
             foreach (GameObject g in level.getObjects()) {
                 if (g != null && g.isOnScreen(level.getGame())) {
@@ -79,9 +92,11 @@ namespace KineticCamp {
             return true;
         }
 
-        /*
-         * Returns true if an object's destination is valid and does not collide; otherwise, false
-         */
+        /// <summary>
+        /// Returns whether or not a game object's movement is valid
+        /// </summary>
+        /// <param name="obj">The game object</param>
+        /// <returns>Returns true if the game object's movement does not collide; otherwise, false</returns>
         public bool isValid(GameObject obj) {
             foreach (GameObject g in level.getObjects()) {
                 if (g != null && g != obj && g.isOnScreen(level.getGame())) {

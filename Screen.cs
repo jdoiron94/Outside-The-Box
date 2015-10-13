@@ -33,57 +33,65 @@ namespace KineticCamp {
             this(name, false) {
         }
 
-        /*
-         * Returns the screen's name
-         */
+        /// <summary>
+        /// Returns the screen's name
+        /// </summary>
+        /// <returns>Returns the screen's name</returns>
         public string getName() {
             return name;
         }
 
-        /*
-         * Returns the screen's song
-         */
+        /// <summary>
+        /// Returns the screen's song
+        /// </summary>
+        /// <returns>Returns the screen's song</returns>
         public Song getSong() {
             return song;
         }
 
-        /*
-         * Returns true if the screen is currently active; otherwise, false
-         */
+        /// <summary>
+        /// Returns whether or not the screen is currently active
+        /// </summary>
+        /// <returns>Returns true if the screen is currently active; otherwise, false</returns>
         public bool isActive() {
             return active;
         }
 
-        /*
-         * Returns true if a song is playing; otherwise, false
-         */
+        /// <summary>
+        /// Returns whether or not the screen is playing its song
+        /// </summary>
+        /// <returns>Returns true if the screen's song is playing; otherwise, false</returns>
         public bool isSongPlaying() {
             return songPlaying;
         }
 
-        /*
-         * Sets the screen's active status to the given boolean
-         */
+        /// <summary>
+        /// Sets the screen's active status to the specified boolean
+        /// </summary>
+        /// <param name="active">The active status to set</param>
         public void setActive(bool active) {
             this.active = active;
         }
 
-        /*
-         * Sets the songPlaying boolean according to the parameter
-         */
+        /// <summary>
+        /// Sets the screen's song playing status to the specified boolean
+        /// </summary>
+        /// <param name="songPlaying">The song playing status to set</param>
         public void setSongPlaying(bool songPlaying) {
             this.songPlaying = songPlaying;
         }
 
-        /*
-         * Overridable method which handles updating the screen
-         */
+        /// <summary>
+        /// Overridable update method to handle screen updates
+        /// </summary>
+        /// <param name="time">The game time to respect</param>
         public virtual void update(GameTime time) {
         }
 
-        /*
-         * Overridable method which handles drawing the screen
-         */
+        /// <summary>
+        /// Overridable draw method to handle drawing of the screen
+        /// </summary>
+        /// <param name="batch">The SpriteBatch to draw with</param>
         public virtual void draw(SpriteBatch batch) {
         }
     }

@@ -47,37 +47,42 @@ namespace KineticCamp {
             currentKeyState = new KeyboardState();
         }
 
-        /*
-         * Returns the game instance
-         */
+        /// <summary>
+        /// Returns an instance of the game
+        /// </summary>
+        /// <returns>Returns an instance of the game</returns>
         public Game1 getGame() {
             return game;
         }
 
-        /*
-         * Returns the player instance
-         */
+        /// <summary>
+        /// Returns an instance of the player
+        /// </summary>
+        /// <returns>Returns an instance of the player</returns>
         public Player getPlayer() {
             return player;
         }
 
-        /*
-         * Returns the level instance
-         */
+        /// <summary>
+        /// Returns an instance of the level
+        /// </summary>
+        /// <returns>Returns an instance of the level</returns>
         public Level getLevel() {
             return level;
         }
 
-        /*
-        * Returns the Player Manager
-        */
+        /// <summary>
+        /// Returns an instance of the player manager
+        /// </summary>
+        /// <returns>Returns an instance of the player manager</returns>
         public PlayerManager getPlayerManager() {
             return playerManager;
         }
 
-        /*
-         * Handles all user input to the game, depending on the keyboard/mouse states and the screen's state.
-         */
+        /// <summary>
+        /// Controls updating of the game based on the current screen state and mouse/keyboard input
+        /// </summary>
+        /// <param name="time">The GameTime to update with respect to</param>
         public void update(GameTime time) {
             lastKeyState = currentKeyState;
             currentKeyState = Keyboard.GetState();
@@ -87,7 +92,10 @@ namespace KineticCamp {
                 MediaPlayer.Play(active.getSong());
                 active.setSongPlaying(true);
             }
-            if (screenManager.getActiveScreen().getName() == "Normal") {
+            if (lastKeyState.IsKeyDown(Keys.F1) && currentKeyState.IsKeyUp(Keys.F1)) {
+                level.toggleDebug();
+            }
+            if (active.getName() == "Normal") {
                 if (playerManager.getHealthCooldown() == 35) {
                     playerManager.regenerateHealth();
                     playerManager.regenerateMana();
@@ -136,7 +144,7 @@ namespace KineticCamp {
                 if (currentKeyState.IsKeyDown(Keys.P)) {
                     playerManager.damagePlayer(2);
                 }
-            } else if (screenManager.getActiveScreen().getName() == "Telekinesis-Select") {
+            } else if (active.getName() == "Telekinesis-Select") {
                 lastState = state;
                 state = Mouse.GetState().LeftButton;
                 playerManager.setManaDrainRate(5);
@@ -159,7 +167,7 @@ namespace KineticCamp {
                     screenManager.setActiveScreen(1);
                     Console.WriteLine("Exited telekinesis mode.");
                 }
-            } else if (screenManager.getActiveScreen().getName() == "Telekinesis-Move") {
+            } else if (active.getName() == "Telekinesis-Move") {
                 playerManager.updateManaDrainRate();
                 if (playerManager.getManaDrainRate() == 5) {
                     playerManager.depleteMana(1);

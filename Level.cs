@@ -26,8 +26,10 @@ namespace KineticCamp {
         private readonly List<GameObject> objects;
         private readonly List<DisplayBar> displayBars;
 
-        private List<Projectile> projectiles;
+        private bool debug;
 
+        private List<Projectile> projectiles;
+       
         public Level(Game1 game, Player player, Texture2D map, Npc[] npcs, GameObject[] objects, DisplayBar[] displayBars) {
             this.game = game;
             this.player = player;
@@ -39,82 +41,94 @@ namespace KineticCamp {
             this.displayBars = new List<DisplayBar>(displayBars.Length);
             this.displayBars.AddRange(displayBars);
             selectedObject = null;
+            debug = false;
             projectiles = new List<Projectile>();
         }
 
-        /*
-         * Returns an instance of the game
-         */
+        /// <summary>
+        /// Returns an instance of the game
+        /// </summary>
+        /// <returns>Returns an instance of the game</returns>
         public Game1 getGame() {
             return game;
         }
 
-        /*
-         * Returns the player instance
-         */
+        /// <summary>
+        /// Returns an instance of the player
+        /// </summary>
+        /// <returns>Returns an instance of the player</returns>
         public Player getPlayer() {
             return player;
         }
 
-        /*
-         * Returns the level's map texture
-         */
+        /// <summary>
+        /// Returns an instance of the level's map
+        /// </summary>
+        /// <returns>Returns an instance of the level's map</returns>
         public Texture2D getMap() {
             return map;
         }
 
-        /*
-         * Returns a list of all npcs in the level
-         */
+        /// <summary>
+        /// Returns all of the level's NPCs
+        /// </summary>
+        /// <returns>Returns a list of all of the NPCs in the level</returns>
         public List<Npc> getNpcs() {
             return npcs;
         }
 
-        /*
-         * Returns a list of all objects in the level
-         */
+        /// <summary>
+        /// Returns all of the level's game objects
+        /// </summary>
+        /// <returns>Returns a list of all of the game objects in the level</returns>
         public List<GameObject> getObjects() {
             return objects;
         }
 
-        /*
-         * Returns a list of all active projectiles in the level
-         */
+        /// <summary>
+        /// Returns all of the level's active projectiles
+        /// </summary>
+        /// <returns>Returns a list of all of the active projectiles in the level</returns>
         public List<Projectile> getProjectiles() {
             return projectiles;
         }
 
-        /*
-         * Returns the currently selected object
-         */
+        /// <summary>
+        /// Returns the currently levitated object
+        /// </summary>
+        /// <returns>Returns the currently levitated object</returns>
         public GameObject getSelectedObject() {
             return selectedObject;
         }
 
-        /*
-         * Sets the selected object
-         */
+        /// <summary>
+        /// Sets the currently levitated object
+        /// </summary>
+        /// <param name="index">The object index to set as selected</param>
         public void setSelectedObject(int index) {
             selectedObject = objects[index];
         }
 
-        /*
-         * Returns the telekinesis mode
-         */
+        /// <summary>
+        /// Returns the current telekinesis mode
+        /// </summary>
+        /// <returns>Returns the current telekinesis mode</returns>
         public byte getMode() {
             return mode;
         }
 
-        /*
-         * Sets the telekinesis mode
-         */
+        /// <summary>
+        /// Sets the telekinesis mode
+        /// </summary>
+        /// <param name="mode">The telekinesis mode to be set</param>
         public void setMode(byte mode) {
             this.mode = mode;
         }
 
-        /*
-         * Derives the player's, NPCs', and objects' locations in terms of their x coordinates
-         */
+        /// <summary>
+        /// Derives the player, all objects, and NPCs by the specified x amount
+        /// </summary>
+        /// <param name="x">The x amount to be derived by</param>
         public void deriveX(int x) {
             player.deriveX(x);
             foreach (GameObject g in objects) {
@@ -129,9 +143,10 @@ namespace KineticCamp {
             }
         }
 
-        /*
-         * Derives the player's, NPCs', and objects' locations in terms of their y coordinates
-         */
+        /// <summary>
+        /// Derives the player, all objects, and NPCs by the specified y amount
+        /// </summary>
+        /// <param name="y">The y amount to be derived by</param>
         public void deriveY(int y) {
             player.deriveY(y);
             foreach (GameObject g in objects) {
@@ -146,24 +161,34 @@ namespace KineticCamp {
             }
         }
 
-        /*
-         * Sets the level's input manager
-         */
+        /// <summary>
+        /// Sets the input manager and player manager for the level
+        /// </summary>
+        /// <param name="inputManager">The InputManager instance to be set for the level</param>
         public void setInputManager(InputManager inputManager) {
             this.inputManager = inputManager;
             playerManager = inputManager.getPlayerManager();
         }
 
-        /*
-         * Adds an active projectile to the level
-         */
+        /// <summary>
+        /// Toggles the debug setting to its inverse
+        /// </summary>
+        public void toggleDebug() {
+            debug = !debug;
+        }
+
+        /// <summary>
+        /// Adds a new projectile to the level's list of active projectiles
+        /// </summary>
+        /// <param name="projectile">The projectile to add to the projectile list</param>
         public void addProjectile(Projectile projectile) {
             projectiles.Add(projectile);
         }
 
-        /*
-         * Updates the list of projectiles, removing inactive projectiles from the list 
-         */
+        /// <summary>
+        /// Updates the list of active projectiles, checking for collisions with objects, NPCs, and the player,
+        /// while also removing inactive projectiles
+        /// </summary>
         public void updateProjectiles() {
             for (int i = 0; i < projectiles.Count; i++) {
                 Projectile projectile = projectiles[i];
@@ -210,9 +235,11 @@ namespace KineticCamp {
             }
         }
 
-        /*
-         * Updates the list of npcs, removing dead npcs from the list
-         */
+        /// <summary>
+        /// Updates the list of NPCs, removing dead ones and walking static AIPaths or reacting to the player,
+        /// if they are of the right state
+        /// </summary>
+        /// <param name="time">The GameTime instance with which to make decisions regarding NPC behavior</param>
         public void updateNpcs(GameTime time) {
             for (int i = 0; i < npcs.Count; i++) {
                 Npc npc = npcs[i];
@@ -221,39 +248,46 @@ namespace KineticCamp {
                         npcs.RemoveAt(i);
                         i--;
                     } else {
-                        if (npc.getPath() != null) {
-                            npc.getPath().update();
-                        } else {
-                            if (npc.isWithin(player)) {
-                                npc.react(time, player);
-                            }
-                        }
+                        npc.update(time);
                     }
                 }
             }
         }
 
-        /*
-         * Draws the level's map, player, NPCs, and objects currently on screen in the game
-         */
+        /// <summary>
+        /// Draws the level's map, player, NPCs, and objects currently on screen
+        /// </summary>
+        /// <param name="batch">The SpriteBatch to perform the drawing</param>
         public void draw(SpriteBatch batch) {
             batch.Draw(map, Vector2.Zero, Color.White);
-            foreach (Projectile projectile in projectiles) {
-                if (projectile != null) {
-                    projectile.draw(batch);
+            foreach (Projectile p in projectiles) {
+                if (p != null) {
+                    p.draw(batch);
+                    if (debug) {
+                        game.outline(batch, p.getBounds());
+                    }
                 }
             }
-            foreach (GameObject obj in objects) {
-                if (obj != null && obj.isOnScreen(game)) {
-                    obj.draw(batch, mode);
+            foreach (GameObject o in objects) {
+                if (o != null && o.isOnScreen(game)) {
+                    o.draw(batch, mode);
+                    if (debug) {
+                        game.outline(batch, o.getBounds());
+                    }
                 }
             }
             foreach (Npc e in npcs) {
                 if (e != null && e.isOnScreen(game)) {
                     e.draw(batch);
+                    if (debug) {
+                        game.outline(batch, e.getBounds());
+                    }
                 }
             }
             batch.Draw(player.getTexture(), player.getBounds(), Color.White);
+            if (debug) {
+                game.outline(batch, player.getBounds());
+            }
             foreach (DisplayBar d in displayBars) {
                 if (d != null) {
                     d.draw(batch);

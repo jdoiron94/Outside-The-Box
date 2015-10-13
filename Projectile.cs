@@ -15,6 +15,7 @@ namespace KineticCamp {
 
         private Vector2 position;
         private Direction direction;
+        private Rectangle bounds;
 
         private readonly int velocity;
         private readonly int cooldown;
@@ -22,7 +23,7 @@ namespace KineticCamp {
 
         private float rotation;
         private bool active;
-        
+
         public Projectile(Entity owner, Texture2D texture, int velocity, int cooldown, float rotationSpeed) {
             this.owner = owner;
             this.texture = texture;
@@ -32,6 +33,7 @@ namespace KineticCamp {
             origin = new Vector2(texture.Width / 2, texture.Height / 2);
             position = new Vector2(owner.getLocation().X, owner.getLocation().Y);
             direction = Direction.NONE;
+            bounds = new Rectangle((int) position.X, (int) position.Y, texture.Width, texture.Height);
             rotation = 0f;
             active = true;
         }
@@ -40,120 +42,149 @@ namespace KineticCamp {
             this(owner, texture, velocity, cooldown, 0f) {
         }
 
-        /*
-         * Returns the owner of the projectile
-         */
+        /// <summary>
+        /// Returns the owner of the projectile
+        /// </summary>
+        /// <returns>Returns the owner of the projectile</returns>
         public Entity getOwner() {
             return owner;
         }
 
-        /*
-         * Returns the projectile's texture
-         */
+        /// <summary>
+        /// Returns the projectile's texture
+        /// </summary>
+        /// <returns>Returns the projectile's texture</returns>
         public Texture2D getTexture() {
             return texture;
         }
 
-        /*
-         * Returns the projectile's current position
-         */
+        /// <summary>
+        /// Returns the projectile's position
+        /// </summary>
+        /// <returns>Returns the projectile's position</returns>
         public Vector2 getPosition() {
             return position;
         }
 
-        /*
-         * Returns the projectile's origin
-         */
+        /// <summary>
+        /// Returns the bounds for the projectile
+        /// </summary>
+        /// <returns>Returns the bounds for the projectile</returns>
+        public Rectangle getBounds() {
+            return bounds;
+        }
+
+        /// <summary>
+        /// Returns the origin of the projectile
+        /// </summary>
+        /// <returns>Returns the projectile's origin</returns>
         public Vector2 getOrigin() {
             return origin;
         }
 
-        /*
-         * Returns the projectile's velocity
-         */
+        /// <summary>
+        /// Returns the projectile's velocity
+        /// </summary>
+        /// <returns>Returns the projectile's velocity</returns>
         public int getVelocity() {
             return velocity;
         }
 
-        /*
-         * Returns the projectile's cooldown time
-         */
+        /// <summary>
+        /// Returns the projectile's cooldown time
+        /// </summary>
+        /// <returns>Returns the projectile's cooldown time</returns>
         public int getCooldown() {
             return cooldown;
         }
 
-        /*
-         * Returns the projectile's rotational speed
-         */
+        /// <summary>
+        /// Returns the projectile's rotation speed
+        /// </summary>
+        /// <returns>Returns the projectile's rotation speed</returns>
         public float getRotationSpeed() {
             return rotationSpeed;
         }
 
-        /*
-         * Returns the projectile's current rotation
-         */
+        /// <summary>
+        /// Returns the projectile's current rotation
+        /// </summary>
+        /// <returns>Returns the projectile's current rotation</returns>
         public float getRotation() {
             return rotation;
         }
 
-        /*
-         * Returns true if the projectile is active; otherwise, false
-         */
+        /// <summary>
+        /// Returns the projectile's active status
+        /// </summary>
+        /// <returns>Returns true if the projectile is currently ative; otherwise, false</returns>
         public bool isActive() {
             return active;
         }
 
-        /*
-         * Sets the projectile's active status according to the parameter
-         */
+        /// <summary>
+        /// Sets the projectile's active status to the specified boolean
+        /// </summary>
+        /// <param name="active">The active status to set</param>
         public void setActive(bool active) {
             this.active = active;
         }
 
-        /*
-         * Derives the projectile's location in terms of its x coordinate
-         */
+        /// <summary>
+        /// Derives the projectile's x coordinate by the specified x amount
+        /// </summary>
+        /// <param name="x">The x amount to be derived by</param>
         public void deriveX(int x) {
             position.X += x;
         }
 
-        /*
-         * Derives the projectile's location in terms of its y coordinate
-         */
+        /// <summary>
+        /// Derives the projectile's y coordinate by the specified y amount
+        /// </summary>
+        /// <param name="y">The y amount to by derived by</param>
         public void deriveY(int y) {
             position.Y += y;
         }
 
-        /*
-         * Returns true if the projectile is currently on the screen; otherwise, false
-         */
+        /// <summary>
+        /// Returns whether or not the projectile is currently on the screen
+        /// </summary>
+        /// <param name="game">The game instance to check viewport bounds from</param>
+        /// <returns>Returns true if the projectile is currently on screen; otherwise, false</returns>
         public bool isOnScreen(Game1 game) {
             return position.X >= -texture.Width && position.X <= game.getWidth() && position.Y >= -texture.Height && position.Y <= game.getHeight();
         }
 
-        /*
-         * Sets the projectile's direction and updates its location, rotation, and active status
-         */
+        /// <summary>
+        /// Updates the projectile's direction, position, bounds, and active status
+        /// </summary>
+        /// <param name="game">The game instance</param>
+        /// <param name="entity">The entity to inherit direction from</param>
         public void update(Game1 game, Entity entity) {
             if (direction == Direction.NONE) {
                 direction = entity.getDirection();
             }
             if (direction == Direction.NORTH) {
                 deriveY(-velocity);
+                bounds.Y += -velocity;
             } else if (direction == Direction.SOUTH) {
                 deriveY(velocity);
+                bounds.Y += velocity;
             } else if (direction == Direction.WEST) {
                 deriveX(-velocity);
+                bounds.X += -velocity;
             } else if (direction == Direction.EAST) {
                 deriveX(velocity);
+                bounds.X += velocity;
             }
             rotation = rotation + rotationSpeed;
             active = isOnScreen(game);
         }
 
-        /*
-         * Draws the projectile, given a SpriteBatch
-         */
+        /// <summary>
+        /// Draws the projectile
+        /// </summary>
+        /// <param name="batch">The SpriteBatch to draw with</param>
         public void draw(SpriteBatch batch) {
             batch.Draw(texture, Vector2.Add(position, origin), null, Color.White, rotation, origin, 1f, SpriteEffects.None, 0f);
         }

@@ -44,84 +44,93 @@ namespace KineticCamp {
             this(game, texture, location, direction, def, new int[0], 100, 5, radius, reactTime, false) {
         }
 
-        /*
-         * Returns the game instance
-         */
+        /// <summary>
+        /// Returns an instance of the game
+        /// </summary>
+        /// <returns></returns>
         public Game getGame() {
             return game;
         }
 
-        /*
-         * Returns the npc's definition
-         */
+        /// <summary>
+        /// Returns an instance of the npc's definition
+        /// </summary>
+        /// <returns>Returns the npc's definition</returns>
         public NpcDefinition getDefinition() {
             return def;
         }
 
-        /*
-         * Returns the npc's wanderable offsets
-         */
+        /// <summary>
+        /// Returns the npc's wanderable offsets
+        /// </summary>
+        /// <returns>Returns an integer array of the npc's wanderable offsets from its origin</returns>
         public int[] getOffsets() {
             return offsets;
         }
 
-        /*
-         * Returns the npc's react radius
-         */
+        /// <summary>
+        /// Returns the acting radius of the npc
+        /// </summary>
+        /// <returns>Returns the radius by which the npc responds to player presence</returns>
         public int getRadius() {
             return radius;
         }
 
-        /*
-         * Returns the npc's reaction time, in terms of number of frames skipped between interaction
-         */
+        /// <summary>
+        /// Returns the npc's reaction time
+        /// </summary>
+        /// <returns>Returns the npc's reaction time</returns>
         public byte getReactTime() {
             return reactTime;
         }
 
-        /*
-         * Returns the entity's static AI path
-         */
+        /// <summary>
+        /// Returns the npc's static ai pathing
+        /// </summary>
+        /// <returns>Returns the npc's static ai pathing</returns>
         public AIPath getPath() {
             return path;
         }
 
-        /*
-         * Returns true if the npc is allowed to wander; otherwise, false
-         */
+        /// <summary>
+        /// Returns whether or not the npc is allowed to wander around
+        /// </summary>
+        /// <returns>Returns true if the npc is allowed to wander; otherwise, false</returns>
         public bool isWanderer() {
             return wander;
         }
 
-        /*
-         * Sets the npc's static pathing
-         */
+        /// <summary>
+        /// Sets the npc's static ai path
+        /// </summary>
+        /// <param name="path">The path to be set</param>
         public void setPath(AIPath path) {
             this.path = path;
         }
 
-        /*
-         * Returns true if the player is within react distance of the npc; otherwise, false
-         */
+        /// <summary>
+        /// Returns whether or not the npc is within reaction distance of the player
+        /// </summary>
+        /// <param name="player">The player to check against</param>
+        /// <returns>Returns true if the player is within reaction distance; otherwise, false</returns>
         public bool isWithin(Player player) {
             return Math.Abs(player.getLocation().Y - location.Y) <= radius && Math.Abs(location.X - player.getLocation().X) <= radius;
         }
 
-        /*
-         * Handles the npc's reaction to the player's presence
-         */
+        public void dodge() {
+        }
+
+       /// <summary>
+       /// Handles the npc's reaction to the player
+       /// </summary>
+       /// <param name="time">The game time to respect</param>
+       /// <param name="player">The player to react to</param>
         public void react(GameTime time, Player player) {
-            if (Math.Abs(player.getLocation().X - location.X) <= texture.Width) {
-                setDirection(player.getLocation().Y >= location.Y ? Direction.SOUTH : Direction.NORTH);
-            } else if (player.getLocation().X < location.X) {
-                setDirection(Direction.WEST);
-            } else {
-                setDirection(Direction.EAST);
-            }
+            setFacing(player);
             if (getDistance(player) <= 100) {
                 foreach (Npc n in game.getLevel().getNpcs()) {
                     if (n != null && n != this && n.isOnScreen(game)) {
-                        if (getVDistance(n) <= n.getTexture().Height * 2 && isFacing(n)) {
+                        if (isFacing(n, 1.75F) && (getHDistance(n) <= n.getTexture().Width * 2 || getVDistance(n) <= n.getTexture().Height * 2)) {
                             return;
                         }
                     }
@@ -133,7 +142,16 @@ namespace KineticCamp {
             }
         }
 
-        public virtual void update(GameTime time) {
+        /// <summary>
+        /// Updates the npc's movements and reactions
+        /// </summary>
+        /// <param name="time">The game time to respect</param>
+        public void update(GameTime time) {
+            if (path != null) {
+                path.update();
+            } else if (isWithin(game.getPlayer())) {
+                react(time, game.getPlayer());
+            }
         }
     }
 }

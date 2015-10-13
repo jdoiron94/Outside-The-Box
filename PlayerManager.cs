@@ -37,122 +37,134 @@ namespace KineticCamp {
             this(player, 100, 100, 0, 0, healthBar, manaBar) {
         }
 
-        /*
-         * Returns the player instance
-         */
-        public Player getPlayerEntity() {
+        /// <summary>
+        /// Returns an instance of the player
+        /// </summary>
+        /// <returns>Returns an instance of the player</returns>
+        public Player getPlayer() {
             return player;
         }
 
-        /*
-         * Returns the player's health
-         */
+        /// <summary>
+        /// Returns the player's health
+        /// </summary>
+        /// <returns>Returns the player's health</returns>
         public int getHealth() {
             return health;
         }
 
-        /*
-         * Returns the player's mana
-         */
+        /// <summary>
+        /// Returns the player's mana
+        /// </summary>
+        /// <returns>Returns the player's mana</returns>
         public int getMana() {
             return mana;
         }
 
-        /*
-         * Returns the player's total experience
-         */
+        /// <summary>
+        /// Returns the player's total experience
+        /// </summary>
+        /// <returns>Returns the player's total experience</returns>
         public int getTotalExperience() {
             return totalExp;
         }
 
-        /*
-         * Returns the player's current experience
-         */
+        /// <summary>
+        /// Returns the player's current experience
+        /// </summary>
+        /// <returns>Returns the player's current experience</returns>
         public int getCurrentExperience() {
             return currentExp;
         }
 
-        /*
-         * Returns the health bar
-         */
+        /// <summary>
+        /// Returns the player's health bar
+        /// </summary>
+        /// <returns>Returns the player's health bar</returns>
         public DisplayBar getHealthBar() {
             return healthBar; 
         }
 
-        /*
-         * Returns the mana bar
-         */
+        /// <summary>
+        /// Returns the player's manabar
+        /// </summary>
+        /// <returns>Returns the player's mana bar</returns>
         public DisplayBar getManaBar() {
             return manaBar;
         }
 
-        /*
-         * Returns the health cooldown
-         */
+        /// <summary>
+        /// Returns the player's health cooldown
+        /// </summary>
+        /// <returns>Returns the player's health cooldown</returns>
         public int getHealthCooldown() {
             return healthCooldown; 
         }
 
-        /*
-         * Returns the mana drain rate
-         */
+        /// <summary>
+        /// Returns the player's mana drain rate
+        /// </summary>
+        /// <returns>Returns the player's mana drain rate</returns>
         public int getManaDrainRate() {
             return manaDrainRate;
         }
 
-        /*
-         * Sets the mana drain rate to the given rate
-         */
+        /// <summary>
+        /// Sets the player's mana drain rate
+        /// </summary>
+        /// <param name="manaDrainRate">The mana drain rate to be set</param>
         public void setManaDrainRate(int manaDrainRate) {
             this.manaDrainRate = manaDrainRate;
             manaDrainMax = manaDrainRate + 1;
         }
 
-        /*
-         * Damaes the player with the appropriate amount of damage
-         */
+        /// <summary>
+        /// Damages the player by the specified amount
+        /// </summary>
+        /// <param name="damage">The amount of damage to inflict</param>
         public void damagePlayer(int damage) {
             healthBar.setWidth((health = Math.Max(0, health - damage)) * 2);
         }
 
-        /*
-         * Regenerates the player's health accordingly
-         */
+        /// <summary>
+        /// Regenerates the appropriate amount of health for the player, based on their total experience
+        /// </summary>
         public void regenerateHealth() {
             healthBar.setWidth((health = Math.Min(MAX_HEALTH, health + 1 + Math.Min(9, totalExp / 100))) * 2);
         }
 
-        /*
-         * Updates the player's heath cooldown
-         */
+        /// <summary>
+        /// Updates the player's health cooldown
+        /// </summary>
         public void updateHealthCooldown() {
             healthCooldown = (healthCooldown + 1) % 36;
         }
 
-        /*
-         * Depletes the player's mana according to the passed parameter
-         */
+        /// <summary>
+        /// Depletes the specified amount of mana
+        /// </summary>
+        /// <param name="mana">The amount of mana to deplete</param>
         public void depleteMana(int mana) {
             manaBar.setWidth((this.mana = Math.Max(0, this.mana - mana)) * 2);
         }
 
-        /*
-         * Regenerates the player's mana accordingly
-         */
+        /// <summary>
+        /// Regenerates the appropriate amount of mana for the player, based on their total experience
+        /// </summary>
         public void regenerateMana() {
             manaBar.setWidth((mana = Math.Min(totalMana, mana + 1 + Math.Min(9, totalExp / 100))) * 2);
         }
 
-        /*
-         * Updates the mana cooldown
-         */
+        /// <summary>
+        /// Updates the player's mana cooldown
+        /// </summary>
         public void updateManaCooldown() {
             manaCooldown = (manaCooldown + 1) % 36; 
         }
 
-        /*
-         * Updates the mana drain rate accordingly
-         */
+        /// <summary>
+        /// Updates the player's mana drain rate
+        /// </summary>
         public void updateManaDrainRate() {
             manaDrainRate = (manaDrainRate + 1) % manaDrainMax; 
         }

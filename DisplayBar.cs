@@ -26,44 +26,50 @@ namespace KineticCamp
             bounds = new Rectangle((int) location.X, (int) location.Y, 1, 1);
         }
 
-        /*
-         * Returns the display bar's texture
-         */
+        /// <summary>
+        /// Returns the display bar's texture
+        /// </summary>
+        /// <returns>Returns the display bar's texture</returns>
         public Texture2D getTexture() {
             return texture; 
         } 
 
-        /*
-         * Returns the display bar's location
-         */
+        /// <summary>
+        /// Returns the display bar's location
+        /// </summary>
+        /// <returns>Returns the display bar's location</returns>
         public Vector2 getLocation() {
             return location; 
         }
 
-        /*
-         * Returns the display bar's bounding box
-         */
+        /// <summary>
+        /// Returns the display bar's bounds
+        /// </summary>
+        /// <returns>Returns the display bar's bounds</returns>
         public Rectangle getDisplayBar() {
             return displayBar; 
         }
 
-        /*
-         * Returns the display bar's color
-         */
+        /// <summary>
+        /// Returns the display bar's color
+        /// </summary>
+        /// <returns>Returns the display bar's color</returns>
         public Color getDisplayColor() {
             return displayColor; 
         }
 
-        /*
-         * Sets the display bar's width
-         */
+        /// <summary>
+        /// Sets the display bar's width
+        /// </summary>
+        /// <param name="width">The width to set</param>
         public void setWidth(int width) {
             displayBar.Width = width;
         }
 
-        /*
-         * Draws the display bar, given a SpriteBatch
-         */
+        /// <summary>
+        /// Draws the display bar
+        /// </summary>
+        /// <param name="batch">The SpriteBatch to draw with</param>
         public void draw(SpriteBatch batch) {
             batch.Draw(gradient, outlineBar, Color.White);
             batch.Draw(texture, backBar, Color.Black);

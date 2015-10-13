@@ -2,7 +2,6 @@
 *.suo
 *.doc
 Content/Thumbs.db
-Content/obj/Windows/.mgcontent
 
 # Directories
 .vs
