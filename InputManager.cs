@@ -127,7 +127,7 @@ namespace KineticCamp {
                     if (player.getDestination().X > 0 && collisionManager.isValid(player)) {
                         player.deriveX(-velocity);
                     }
-                } else if (lastKeyState.IsKeyDown(Keys.A) && currentKeyState.IsKeyUp(Keys.S)) {
+                } else if (lastKeyState.IsKeyDown(Keys.A) && currentKeyState.IsKeyUp(Keys.A)) {
                     player.updateStill();
                 } else if (currentKeyState.IsKeyDown(Keys.D)) {
                     player.setDirection(Direction.EAST);
