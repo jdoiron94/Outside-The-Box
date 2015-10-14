@@ -3,8 +3,6 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-using System;
-using System.Collections.Generic;
 
 namespace KineticCamp {
 
@@ -28,7 +26,7 @@ namespace KineticCamp {
         private Texture2D cursor;
         private MouseState mouse;
 
-        private Texture2D white;
+        private Texture2D pixel;
 
         private Song song;
         private SoundEffect effect;
@@ -113,10 +111,10 @@ namespace KineticCamp {
         /// <param name="batch">The SpriteBatch to draw with</param>
         /// <param name="area">The area to be drawn</param>
         public void outline(SpriteBatch batch, Rectangle area) {
-            batch.Draw(white, new Rectangle(area.X, area.Y, area.Width, 1), Color.Green);
-            batch.Draw(white, new Rectangle(area.X, area.Y, 1, area.Height), Color.Green);
-            batch.Draw(white, new Rectangle(area.X + area.Width - 1, area.Y, 1, area.Height), Color.Green);
-            batch.Draw(white, new Rectangle(area.X, area.Y + area.Height - 1, area.Width, 1), Color.Green);
+            batch.Draw(pixel, new Rectangle(area.X, area.Y, area.Width, 1), Color.Green);
+            batch.Draw(pixel, new Rectangle(area.X, area.Y, 1, area.Height), Color.Green);
+            batch.Draw(pixel, new Rectangle(area.X + area.Width - 1, area.Y, 1, area.Height), Color.Green);
+            batch.Draw(pixel, new Rectangle(area.X, area.Y + area.Height - 1, area.Width, 1), Color.Green);
         }
 
         /// <summary>
@@ -143,7 +141,7 @@ namespace KineticCamp {
         protected override void LoadContent() {
             base.LoadContent();
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            playerTexture = Content.Load<Texture2D>("player");
+            playerTexture = Content.Load<Texture2D>("Standing1");
             midX = (graphics.PreferredBackBufferWidth - playerTexture.Width) / 2;
             midY = (graphics.PreferredBackBufferHeight - playerTexture.Height) / 2;
             player = new Player(playerTexture, Vector2.Zero, Direction.SOUTH, 100, 50, 0, 5);
@@ -160,8 +158,9 @@ namespace KineticCamp {
             inputManager = new InputManager(this, player, level, playerManager, new Screen[] { new Screen("Menu"), new Screen("Normal", true), new Screen("Telekinesis-Select"), new Screen("Telekinesis-Move") });
             level.setInputManager(inputManager);
             cursor = Content.Load<Texture2D>("cursor");
-            white = new Texture2D(GraphicsDevice, 1, 1);
-            white.SetData(new Color[] { Color.White });
+            pixel = new Texture2D(GraphicsDevice, 1, 1);
+            pixel.SetData(new Color[] { Color.White });
+            player.loadTextures(Content);
             //effect = Content.Load<SoundEffect>("gun");
         }
 
@@ -186,7 +185,6 @@ namespace KineticCamp {
             inputManager.update(gameTime);
             level.updateProjectiles();
             level.updateNpcs(gameTime);
-            //Console.WriteLine("h dist: " + npc2.getHDistance(npc));
             mouse = Mouse.GetState();
         }
 

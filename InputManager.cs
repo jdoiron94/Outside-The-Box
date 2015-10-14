@@ -104,28 +104,40 @@ namespace KineticCamp {
                     game.Exit();
                 } else if (currentKeyState.IsKeyDown(Keys.W)) {
                     player.setDirection(Direction.NORTH);
+                    player.updateMovement();
                     player.setDestination(new Vector2(player.getLocation().X, player.getLocation().Y - velocity));
                     if (player.getDestination().Y > 0 && collisionManager.isValid(player)) {
                         player.deriveY(-velocity);
                     }
+                } else if (lastKeyState.IsKeyDown(Keys.W) && currentKeyState.IsKeyUp(Keys.W)) {
+                    player.updateStill();
                 } else if (currentKeyState.IsKeyDown(Keys.S)) {
                     player.setDirection(Direction.SOUTH);
+                    player.updateMovement();
                     player.setDestination(new Vector2(player.getLocation().X, player.getLocation().Y + velocity));
                     if (player.getDestination().Y < midY * 2 && collisionManager.isValid(player)) {
                         player.deriveY(velocity);
                     }
+                } else if (lastKeyState.IsKeyDown(Keys.S) && currentKeyState.IsKeyUp(Keys.S)) {
+                    player.updateStill();
                 } else if (currentKeyState.IsKeyDown(Keys.A)) {
                     player.setDirection(Direction.WEST);
+                    player.updateMovement();
                     player.setDestination(new Vector2(player.getLocation().X - velocity, player.getLocation().Y));
                     if (player.getDestination().X > 0 && collisionManager.isValid(player)) {
                         player.deriveX(-velocity);
                     }
+                } else if (lastKeyState.IsKeyDown(Keys.A) && currentKeyState.IsKeyUp(Keys.S)) {
+                    player.updateStill();
                 } else if (currentKeyState.IsKeyDown(Keys.D)) {
                     player.setDirection(Direction.EAST);
+                    player.updateMovement();
                     player.setDestination(new Vector2(player.getLocation().X + velocity, player.getLocation().Y));
                     if (player.getDestination().X < midX * 2 && collisionManager.isValid(player)) {
                         player.deriveX(velocity);
                     }
+                } else if (lastKeyState.IsKeyDown(Keys.D) && currentKeyState.IsKeyUp(Keys.D)) {
+                    player.updateStill();
                 } else {
                     player.setDestination(player.getLocation());
                 }

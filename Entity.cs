@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
@@ -18,11 +19,20 @@ namespace KineticCamp {
         private Direction direction;
         private Rectangle bounds;
 
+        private Texture2D[] northFacing;
+        private Texture2D[] southFacing;
+        private Texture2D[] westFacing;
+        private Texture2D[] eastFacing;
+
         private readonly int maxHealth;
 
         private int velocity;
         private int currentHealth;
         private double lastFired;
+        private int[] frames;
+        private int ticks;
+
+        private const byte WAIT = 10;
 
         public Entity(Texture2D texture, Projectile projectile, Vector2 location, Direction direction, int maxHealth, int velocity) {
             this.texture = texture;
@@ -33,12 +43,71 @@ namespace KineticCamp {
             this.velocity = velocity;
             destination = location;
             bounds = new Rectangle((int) location.X, (int) location.Y, texture.Width, texture.Height);
+            northFacing = new Texture2D[4];
+            southFacing = new Texture2D[4];
+            westFacing = new Texture2D[4];
+            eastFacing = new Texture2D[4];
             currentHealth = maxHealth;
             lastFired = -1;
+            frames = new int[4];
+            ticks = 0;
         }
 
         public Entity(Texture2D texture, Vector2 location, Direction direction, int health, int velocity) :
             this(texture, null, location, direction, health, velocity) {
+        }
+
+        /// <summary>
+        /// Loads the necessary textures to show entity animation
+        /// </summary>
+        /// <param name="cm">The ContentManager to load sprites</param>
+        public void loadTextures(ContentManager cm) {
+            string[] names = { "Forward", "Back", "Left", "Right" };
+            foreach (string s in names) {
+                Texture2D[] array = s == "Forward" ? southFacing : s == "Back" ? northFacing : s == "Left" ? westFacing : eastFacing;
+                for (int i = 1; i <= 4; i++) {
+                    array[i - 1] = cm.Load<Texture2D>(s + i);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Updates the entity's texture depending on the direction it's facing, using a busy wait
+        /// </summary>
+        public void updateMovement() {
+            if (ticks >= WAIT) {
+                if (direction == Direction.SOUTH) {
+                    frames[0] = (frames[0] + 1) % 4;
+                    texture = southFacing[frames[0]];
+                } else if (direction == Direction.NORTH) {
+                    frames[1] = (frames[1] + 1) % 4;
+                    texture = northFacing[frames[1]];
+                } else if (direction == Direction.WEST) {
+                    frames[2] = (frames[2] + 1) % 4;
+                    texture = westFacing[frames[2]];
+                } else {
+                    frames[3] = (frames[3] + 1) % 4;
+                    texture = eastFacing[frames[3]];
+                }
+                ticks = 0;
+            } else {
+                ticks++;
+            }
+        }
+
+        /// <summary>
+        /// Sets the entity's standing still texture, so that they are not legs spread apart while unmoving
+        /// </summary>
+        public void updateStill() {
+            if (direction == Direction.SOUTH) {
+                texture = southFacing[1];
+            } else if (direction == Direction.NORTH) {
+                texture = northFacing[1];
+            } else if (direction == Direction.WEST) {
+                texture = westFacing[0];
+            } else {
+                texture = eastFacing[1];
+            }
         }
 
         // will need to change to texture2d array for all directions
