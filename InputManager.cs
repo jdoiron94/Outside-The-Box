@@ -86,6 +86,10 @@ namespace KineticCamp {
             return playerManager;
         }
 
+        public CollisionManager getCollisionManager() {
+            return collisionManager;
+        }
+
         /// <summary>
         /// Controls updating of the game based on the current screen state and mouse/keyboard input
         /// </summary>
@@ -113,8 +117,10 @@ namespace KineticCamp {
                     player.setDirection(Direction.NORTH);
                     player.updateMovement();
                     player.setDestination(new Vector2(player.getLocation().X, player.getLocation().Y - velocity));
-                    if (player.getDestination().Y > 0 && collisionManager.isValid(player)) {
+                    if (player.getDestination().Y >= 0 && collisionManager.isValid(player)) {
                         player.deriveY(-velocity);
+                    } else {
+                        Console.WriteLine("can't walk to " + player.getDestination());
                     }
                 } else if (lastKeyState.IsKeyDown(Keys.W) && currentKeyState.IsKeyUp(Keys.W)) {
                     stagnant = true;
@@ -122,7 +128,7 @@ namespace KineticCamp {
                     player.setDirection(Direction.SOUTH);
                     player.updateMovement();
                     player.setDestination(new Vector2(player.getLocation().X, player.getLocation().Y + velocity));
-                    if (player.getDestination().Y < midY * 2 && collisionManager.isValid(player)) {
+                    if (player.getDestination().Y <= midY * 2 && collisionManager.isValid(player)) {
                         player.deriveY(velocity);
                     }
                 } else if (lastKeyState.IsKeyDown(Keys.S) && currentKeyState.IsKeyUp(Keys.S)) {
@@ -131,7 +137,7 @@ namespace KineticCamp {
                     player.setDirection(Direction.WEST);
                     player.updateMovement();
                     player.setDestination(new Vector2(player.getLocation().X - velocity, player.getLocation().Y));
-                    if (player.getDestination().X > 0 && collisionManager.isValid(player)) {
+                    if (player.getDestination().X >= 0 && collisionManager.isValid(player)) {
                         player.deriveX(-velocity);
                     }
                 } else if (lastKeyState.IsKeyDown(Keys.A) && currentKeyState.IsKeyUp(Keys.A)) {
@@ -140,7 +146,7 @@ namespace KineticCamp {
                     player.setDirection(Direction.EAST);
                     player.updateMovement();
                     player.setDestination(new Vector2(player.getLocation().X + velocity, player.getLocation().Y));
-                    if (player.getDestination().X < midX * 2 && collisionManager.isValid(player)) {
+                    if (player.getDestination().X <= midX * 2 && collisionManager.isValid(player)) {
                         player.deriveX(velocity);
                     }
                 } else if (lastKeyState.IsKeyDown(Keys.D) && currentKeyState.IsKeyUp(Keys.D)) {
@@ -157,7 +163,6 @@ namespace KineticCamp {
                 }
                 if (stagnant) {
                     if (ticks >= WAIT) {
-                        Console.WriteLine("update mi pepperone");
                         player.updateStill();
                         ticks = 0;
                         stagnant = false;

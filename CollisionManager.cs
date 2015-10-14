@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
 
 namespace KineticCamp {
 
@@ -89,7 +90,7 @@ namespace KineticCamp {
                     }
                 }
             }
-            return true;
+            return ent != player ? !collides(ent, player) : true;
         }
 
         /// <summary>

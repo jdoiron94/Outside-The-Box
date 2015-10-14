@@ -37,11 +37,11 @@ namespace KineticCamp {
         }
 
         public Npc(Game1 game, Texture2D texture, Vector2 location, Direction direction, NpcDefinition def, int[] offsets, int radius, byte reactTime, bool wander) :
-            this(game, texture, location, direction, def, offsets, 100, 5, radius, reactTime, wander) {
+            this(game, texture, location, direction, def, offsets, 100, 3, radius, reactTime, wander) {
         }
 
         public Npc(Game1 game, Texture2D texture, Vector2 location, Direction direction, NpcDefinition def, int radius, byte reactTime) :
-            this(game, texture, location, direction, def, new int[0], 100, 5, radius, reactTime, false) {
+            this(game, texture, location, direction, def, new int[0], 100, 3, radius, reactTime, false) {
         }
 
         /// <summary>
