@@ -32,7 +32,7 @@ namespace KineticCamp {
         private int[] frames;
         private int ticks;
 
-        private const byte WAIT = 10;
+        private const byte WAIT = 5;
 
         public Entity(Texture2D texture, Projectile projectile, Vector2 location, Direction direction, int maxHealth, int velocity) {
             this.texture = texture;

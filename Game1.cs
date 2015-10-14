@@ -144,7 +144,7 @@ namespace KineticCamp {
             playerTexture = Content.Load<Texture2D>("Standing1");
             midX = (graphics.PreferredBackBufferWidth - playerTexture.Width) / 2;
             midY = (graphics.PreferredBackBufferHeight - playerTexture.Height) / 2;
-            player = new Player(playerTexture, Vector2.Zero, Direction.SOUTH, 100, 50, 0, 5);
+            player = new Player(playerTexture, Vector2.Zero, Direction.SOUTH, 100, 50, 0, 3);
             player.setProjectile(new Projectile(player, Content.Load<Texture2D>("bullet"), 5, 250));
             npc = new Npc(this, Content.Load<Texture2D>("npc"), new Vector2(midX + 148, midY + 148), Direction.EAST, new NpcDefinition("Goku", new string[0], new int[0]), 150, 0x5);
             npc.setPath(new AIPath(npc, new int[] { midX - 100, midY - 100, midX + 100, midY + 100 }, new int[0], new Direction[] { Direction.WEST, Direction.NORTH, Direction.EAST, Direction.SOUTH }));

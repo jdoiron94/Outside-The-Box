@@ -32,6 +32,11 @@ namespace KineticCamp {
         private KeyboardState lastKeyState;
         private KeyboardState currentKeyState;
 
+        private int ticks;
+        private bool stagnant;
+
+        private const byte WAIT = 0x4;
+
         public InputManager(Game1 game, Player player, Level level, PlayerManager playerManager, Screen[] screens) {
             this.game = game;
             this.player = player;
@@ -45,6 +50,8 @@ namespace KineticCamp {
             midY = game.getMidY();
             lastKeyState = new KeyboardState();
             currentKeyState = new KeyboardState();
+            ticks = 0;
+            stagnant = false;
         }
 
         /// <summary>
@@ -110,7 +117,7 @@ namespace KineticCamp {
                         player.deriveY(-velocity);
                     }
                 } else if (lastKeyState.IsKeyDown(Keys.W) && currentKeyState.IsKeyUp(Keys.W)) {
-                    player.updateStill();
+                    stagnant = true;
                 } else if (currentKeyState.IsKeyDown(Keys.S)) {
                     player.setDirection(Direction.SOUTH);
                     player.updateMovement();
@@ -119,7 +126,7 @@ namespace KineticCamp {
                         player.deriveY(velocity);
                     }
                 } else if (lastKeyState.IsKeyDown(Keys.S) && currentKeyState.IsKeyUp(Keys.S)) {
-                    player.updateStill();
+                    stagnant = true;
                 } else if (currentKeyState.IsKeyDown(Keys.A)) {
                     player.setDirection(Direction.WEST);
                     player.updateMovement();
@@ -128,7 +135,7 @@ namespace KineticCamp {
                         player.deriveX(-velocity);
                     }
                 } else if (lastKeyState.IsKeyDown(Keys.A) && currentKeyState.IsKeyUp(Keys.A)) {
-                    player.updateStill();
+                    stagnant = true;
                 } else if (currentKeyState.IsKeyDown(Keys.D)) {
                     player.setDirection(Direction.EAST);
                     player.updateMovement();
@@ -137,7 +144,7 @@ namespace KineticCamp {
                         player.deriveX(velocity);
                     }
                 } else if (lastKeyState.IsKeyDown(Keys.D) && currentKeyState.IsKeyUp(Keys.D)) {
-                    player.updateStill();
+                    stagnant = true;
                 } else {
                     player.setDestination(player.getLocation());
                 }
@@ -147,7 +154,17 @@ namespace KineticCamp {
                         level.addProjectile(player.createProjectile(totalMilliseconds));
                         playerManager.depleteMana(5);
                     }
-                } 
+                }
+                if (stagnant) {
+                    if (ticks >= WAIT) {
+                        Console.WriteLine("update mi pepperone");
+                        player.updateStill();
+                        ticks = 0;
+                        stagnant = false;
+                    } else {
+                        ticks++;
+                    }
+                }
                 if (lastKeyState.IsKeyDown(Keys.X) && currentKeyState.IsKeyUp(Keys.X)) {
                     level.setMode(1);
                     screenManager.setActiveScreen(2);
@@ -221,7 +238,7 @@ namespace KineticCamp {
                         }
                     }
                 } else {
-                    selectedObject.setDestination(selectedObject.getLocation()); //if no movement keys are pressed, destination is same as location
+                    selectedObject.setDestination(selectedObject.getLocation());
                 }
                 if (currentKeyState.IsKeyDown(Keys.Space)) {
                     //throw object
