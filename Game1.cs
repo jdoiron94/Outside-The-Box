@@ -28,7 +28,7 @@ namespace KineticCamp {
 
         private Texture2D pixel;
 
-        private Song song;
+        private Song factorysong;
         private SoundEffect effect;
 
         private int midX;
@@ -157,7 +157,9 @@ namespace KineticCamp {
             playerManager = new PlayerManager(player, new DisplayBar(Content.Load<Texture2D>("HealthBarTexture"), new Vector2(20, 20), Color.Red, Content.Load<Texture2D>("BackBarTexture")), new DisplayBar(Content.Load<Texture2D>("ManaBarTexture"), new Vector2(20, 50), Color.Blue, Content.Load<Texture2D>("BackBarTexture")));
             obj2 = new GameObject(Content.Load<Texture2D>("GreenMushroom"), new Vector2(midX + 42, midY + 100), true);
             level = new Level(this, player, Content.Load<Texture2D>("map"), new Npc[] { npc, npc2 }, new GameObject[] { obj, obj2 }, new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() });
-            //song = Content.Load<Song>("Rhinoceros");
+            factorysong = Content.Load<Song>("Factory");
+            MediaPlayer.IsRepeating = true;
+            MediaPlayer.Play(factorysong);
             inputManager = new InputManager(this, player, level, playerManager, new Screen[] { new Screen("Menu"), new Screen("Normal", true), new Screen("Telekinesis-Select"), new Screen("Telekinesis-Move") });
             level.setInputManager(inputManager);
             npc.setPath(new AIPath(npc, this, new int[] { midX - 100, midY - 100, midX + 100, midY + 150 }, new int[0], new Direction[] { Direction.WEST, Direction.NORTH, Direction.EAST, Direction.SOUTH }));
