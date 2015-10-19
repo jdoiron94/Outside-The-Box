@@ -36,9 +36,31 @@ namespace KineticCamp
             return bounds;
         }
 
-        public void exitMenu(ScreenManager screenManager)
+        public void exitMenu(InputManager inputManager)
         {
-            screenManager.setActiveScreen(1);
+            inputManager.getScreenManager().setActiveScreen(1);
+            inputManager.getMenu().setActive(false);
+            inputManager.getLevel().setActive(true);
+        }
+
+        /// <summary>
+        /// unlock a power, if you have enough EXP, otherwise do nothing
+        /// should be passed a Power object in the future
+        /// </summary>
+        /// <param name="inputManager"></param>
+        public void unlockPower(InputManager inputManager)
+        {
+            int amount = 500; 
+
+            if (!inputManager.getPlayerManager().spendExperience(amount))
+            {
+                return;
+            }
+            else
+            {
+                //
+            }
+
         }
 
 

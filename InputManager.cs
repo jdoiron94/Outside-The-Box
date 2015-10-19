@@ -81,6 +81,11 @@ namespace KineticCamp {
             return level;
         }
 
+        public Menu getMenu()
+        {
+            return pauseMenu;
+        }
+
         /// <summary>
         /// Returns an instance of the player manager
         /// </summary>
@@ -202,6 +207,7 @@ namespace KineticCamp {
                 if (lastKeyState.IsKeyDown(Keys.M) && currentKeyState.IsKeyUp(Keys.M))
                 {
                     screenManager.setActiveScreen(0);
+                    level.setActive(false);
                     pauseMenu.setActive(true);
                     Console.WriteLine("Entered menu.");
                 }
@@ -287,10 +293,20 @@ namespace KineticCamp {
 
             } else if (active.getName() == "Menu")
             {
+                lastState = state;
+                state = Mouse.GetState().LeftButton;
+
+                if (lastState == ButtonState.Pressed && state == ButtonState.Released)
+                {
+                    pauseMenu.reactToMouseClick();
+                }
+
+
                 if (lastKeyState.IsKeyDown(Keys.M) && currentKeyState.IsKeyUp(Keys.M))
                 {
                     screenManager.setActiveScreen(1);
                     pauseMenu.setActive(false);
+                    level.setActive(true);
                     Console.WriteLine("Exited menu.");
                 }
             }

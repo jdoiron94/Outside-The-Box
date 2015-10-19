@@ -183,15 +183,18 @@ namespace KineticCamp {
             token2 = new Token(Content.Load<Texture2D>("SilverCoinFront"), new Vector2(midX + 180, midY + 180), TokenType.SILVER, side2);
             token3 = new Token(Content.Load<Texture2D>("GoldCoinFront"), new Vector2(midX + 200, midY + 200), TokenType.GOLD, side3);
 
-            level = new Level(this, player, Content.Load<Texture2D>("map"), new Npc[] { npc, npc2 }, new GameObject[] { obj, obj2 }, new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() }, new Token[] { token1, token2, token3 });
+            level = new Level(this, player, Content.Load<Texture2D>("box2"), new Npc[] { npc, npc2 }, new GameObject[] { obj, obj2 }, new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() }, new Token[] { token1, token2, token3 });
 
-            pauseMenu = new Menu(Content.Load<Texture2D>("menu_background"), new Button[] { new Button(Content.Load<Texture2D>("resume_button"), new Vector2(100, 200)) });
+            Button[] menuButtons = { new Button(Content.Load<Texture2D>("resume_button"), new Vector2(50, 120)), 
+                                       new Button(Content.Load<Texture2D>("mind_read_button"), new Vector2(200, 200)) };
+            pauseMenu = new Menu(Content.Load<Texture2D>("menu_background"), menuButtons );
 
             factorysong = Content.Load<Song>("Factory");
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Play(factorysong);
 
-            inputManager = new InputManager(this, player, level, pauseMenu, playerManager, new Screen[] { new Screen("Menu"), new Screen("Normal", true), new Screen("Telekinesis-Select"), new Screen("Telekinesis-Move") });
+            Screen[] screens = { new Screen("Menu"), new Screen("Normal", true), new Screen("Telekinesis-Select"), new Screen("Telekinesis-Move") };
+            inputManager = new InputManager(this, player, level, pauseMenu, playerManager, screens);
             level.setInputManager(inputManager);
             pauseMenu.setInputManager(inputManager);
             
@@ -222,13 +225,14 @@ namespace KineticCamp {
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime) {
             
-            Console.WriteLine("hello");
-            
             base.Update(gameTime);
             playerManager.updateHealthCooldown();
             inputManager.update(gameTime);
-            level.updateProjectiles();
-            level.updateNpcs(gameTime);
+            if (level.isActive())
+            {
+                level.updateProjectiles();
+                level.updateNpcs(gameTime);
+            }
             mouse = Mouse.GetState();
         }
 

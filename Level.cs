@@ -13,6 +13,7 @@ namespace KineticCamp {
          */
 
         private byte mode;
+        private bool active;
 
         private readonly Game1 game;
         private readonly Player player;
@@ -44,6 +45,7 @@ namespace KineticCamp {
             this.displayBars.AddRange(displayBars);
             this.Tokens = new List<Token>(Tokens.Length);
             this.Tokens.AddRange(Tokens);
+            active = true;
             selectedObject = null;
             debug = false;
             projectiles = new List<Projectile>();
@@ -129,6 +131,16 @@ namespace KineticCamp {
         /// <returns>Returns the current telekinesis mode</returns>
         public byte getMode() {
             return mode;
+        }
+
+        public bool isActive()
+        {
+            return active;
+        }
+
+        public void setActive(bool active)
+        {
+            this.active = active;
         }
 
         /// <summary>
@@ -278,7 +290,7 @@ namespace KineticCamp {
         /// </summary>
         /// <param name="batch">The SpriteBatch to perform the drawing</param>
         public void draw(SpriteBatch batch) {
-            batch.Draw(map, Vector2.Zero, Color.White);
+            batch.Draw(map, new Vector2(-300, -250), Color.White);
             foreach (Projectile p in projectiles) {
                 if (p != null) {
                     p.draw(batch);

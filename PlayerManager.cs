@@ -202,5 +202,24 @@ namespace KineticCamp {
             double percentageValue = (double)bonus / (double)totalExp;
             levelMana(percentageValue);
         }
+
+        /// <summary>
+        /// Depletes spendable EXP if you have enough; returns false if you're short EXP
+        /// </summary>
+        /// <param name="amount"></param>
+        /// <returns></returns>
+        public bool spendExperience(int amount)
+        {
+            if ((currentExp - amount) < 0)
+            {
+                Console.WriteLine("Not enough EXP to spend");
+                return false;
+            }
+            else
+            {
+                currentExp -= amount;
+                return true;
+            }
+        }
 }
 }
