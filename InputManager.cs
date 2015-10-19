@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
 using System;
+using System.Collections.Generic;
 
 namespace KineticCamp {
 
@@ -119,6 +120,17 @@ namespace KineticCamp {
                     playerManager.regenerateHealth();
                     playerManager.regenerateMana();
                 }
+
+                List<Token> temp = level.getTokens();
+                for (int i = 0; i < temp.Count; i++)
+                {
+                    if (collisionManager.collides(player, temp[i]))
+                    {
+                        playerManager.incrementExperience(temp[i].getExp());
+                        level.removeToken(temp[i]);
+                    }
+                }
+
                 if (currentKeyState.IsKeyDown(Keys.Escape)) {
                     game.Exit();
                 } else if (currentKeyState.IsKeyDown(Keys.W)) {

@@ -58,6 +58,11 @@ namespace KineticCamp
             return displayColor; 
         }
 
+        public int getWidth()
+        {
+            return displayBar.Width;
+        }
+
         /// <summary>
         /// Sets the display bar's width
         /// </summary>

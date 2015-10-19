@@ -26,11 +26,13 @@ namespace KineticCamp {
         private readonly List<GameObject> objects;
         private readonly List<DisplayBar> displayBars;
 
+        private List<Token> Tokens;
+
         private bool debug;
 
         private List<Projectile> projectiles;
        
-        public Level(Game1 game, Player player, Texture2D map, Npc[] npcs, GameObject[] objects, DisplayBar[] displayBars) {
+        public Level(Game1 game, Player player, Texture2D map, Npc[] npcs, GameObject[] objects, DisplayBar[] displayBars, Token[] Tokens) {
             this.game = game;
             this.player = player;
             this.map = map;
@@ -40,6 +42,8 @@ namespace KineticCamp {
             this.objects.AddRange(objects);
             this.displayBars = new List<DisplayBar>(displayBars.Length);
             this.displayBars.AddRange(displayBars);
+            this.Tokens = new List<Token>(Tokens.Length);
+            this.Tokens.AddRange(Tokens);
             selectedObject = null;
             debug = false;
             projectiles = new List<Projectile>();
@@ -93,6 +97,16 @@ namespace KineticCamp {
             return projectiles;
         }
 
+
+        /// <summary>
+        /// Returns all of the level's game tokens
+        /// </summary>
+        /// <returns>Returns a list of all of the game objects in the level</returns>
+        public List<Token> getTokens()
+        {
+            return Tokens;
+        }
+
         /// <summary>
         /// Returns the currently levitated object
         /// </summary>
@@ -123,6 +137,11 @@ namespace KineticCamp {
         /// <param name="mode">The telekinesis mode to be set</param>
         public void setMode(byte mode) {
             this.mode = mode;
+        }
+
+        public void removeToken(Token t)
+        {
+            Tokens.Remove(t);
         }
 
         /// <summary>
@@ -292,6 +311,14 @@ namespace KineticCamp {
                 if (d != null) {
                     d.draw(batch);
                 }
+
+            foreach (Token t in Tokens)
+            {
+                 if (t != null)
+                 {
+                    t.draw(batch);
+                 }
+            }
             }
         }
     }

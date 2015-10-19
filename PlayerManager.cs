@@ -101,6 +101,16 @@ namespace KineticCamp {
             return healthCooldown; 
         }
 
+        public int getTotalMana()
+        {
+            return totalMana; 
+        }
+
+        public void setTotalMana(int totalMana)
+        {
+            this.totalMana = totalMana; 
+        }
+
         /// <summary>
         /// Returns the player's mana drain rate
         /// </summary>
@@ -144,15 +154,25 @@ namespace KineticCamp {
         /// Depletes the specified amount of mana
         /// </summary>
         /// <param name="mana">The amount of mana to deplete</param>
-        public void depleteMana(int mana) {
-            manaBar.setWidth((this.mana = Math.Max(0, this.mana - mana)) * 2);
+        public void depleteMana(int damage)
+        {
+            //manaBar.setWidth((this.mana = Math.Max(0, this.mana - mana)) * 2);
+            mana = Math.Max(0, mana - damage);
+            int w_mod = (int) (200D * damage) / totalMana;
+            int width = manaBar.getWidth(); 
+            manaBar.setWidth(Math.Max(0, (width) - w_mod));
         }
 
         /// <summary>
         /// Regenerates the appropriate amount of mana for the player, based on their total experience
         /// </summary>
-        public void regenerateMana() {
-            manaBar.setWidth((mana = Math.Min(totalMana, mana + 1 + Math.Min(9, totalExp / 100))) * 2);
+        public void regenerateMana()
+        {
+            /*if(manaBar.getWidth() < 100)
+                manaBar.setWidth((mana = Math.Min(totalMana, mana + 1 + Math.Min(9, totalExp / 100))) * 2);*/
+            int regeneration = (int) (totalMana * .01); 
+            mana = Math.Min(totalMana, mana + regeneration);
+            manaBar.setWidth(Math.Min(200, (manaBar.getWidth() + ((int)(regeneration * (200D / totalMana))))));
         }
 
         /// <summary>
@@ -168,5 +188,19 @@ namespace KineticCamp {
         public void updateManaDrainRate() {
             manaDrainRate = (manaDrainRate + 1) % manaDrainMax; 
         }
-    }
+
+        public void levelMana(double percentageValue)
+        {
+            int newValue = totalMana + (int)(totalMana * percentageValue);
+            setTotalMana(newValue);
+        }
+
+        public void incrementExperience(int bonus)
+        {
+            totalExp += bonus;
+            currentExp += bonus;
+            double percentageValue = (double)bonus / (double)totalExp;
+            levelMana(percentageValue);
+        }
+}
 }

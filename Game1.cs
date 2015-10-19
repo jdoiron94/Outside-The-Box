@@ -28,8 +28,17 @@ namespace KineticCamp {
         private Menu pauseMenu;
         private Texture2D cursor;
         private MouseState mouse;
+        private Texture2D target;
 
         private Texture2D pixel;
+
+        private Token token1;
+        private Token token2;
+        private Token token3;
+
+        private Texture2D side1;
+        private Texture2D side2;
+        private Texture2D side3;
 
         private Song factorysong;
         private SoundEffect effect;
@@ -166,7 +175,15 @@ namespace KineticCamp {
             obj = new GameObject(Content.Load<Texture2D>("sprite"), new Vector2(midX + 50, midY + 220), true);
             obj2 = new GameObject(Content.Load<Texture2D>("GreenMushroom"), new Vector2(midX + 42, midY + 100), true);
 
-            level = new Level(this, player, Content.Load<Texture2D>("map"), new Npc[] { npc, npc2 }, new GameObject[] { obj, obj2 }, new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() });
+            side1 = Content.Load<Texture2D>("BronzeCoinSide");
+            side2 = Content.Load<Texture2D>("SilverCoinSide");
+            side3 = Content.Load<Texture2D>("GoldCoinSide");
+
+            token1 = new Token(Content.Load<Texture2D>("BronzeCoinFront"), new Vector2(midX + 120, midY + 120), TokenType.BRONZE, side1);
+            token2 = new Token(Content.Load<Texture2D>("SilverCoinFront"), new Vector2(midX + 180, midY + 180), TokenType.SILVER, side2);
+            token3 = new Token(Content.Load<Texture2D>("GoldCoinFront"), new Vector2(midX + 200, midY + 200), TokenType.GOLD, side3);
+
+            level = new Level(this, player, Content.Load<Texture2D>("map"), new Npc[] { npc, npc2 }, new GameObject[] { obj, obj2 }, new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() }, new Token[] { token1, token2, token3 });
 
             pauseMenu = new Menu(Content.Load<Texture2D>("menu_background"), new Button[] { new Button(Content.Load<Texture2D>("resume_button"), new Vector2(100, 200)) });
 
@@ -179,6 +196,8 @@ namespace KineticCamp {
             pauseMenu.setInputManager(inputManager);
             
             cursor = Content.Load<Texture2D>("cursor");
+            target = Content.Load<Texture2D>("TargetingCursor");
+
             pixel = new Texture2D(GraphicsDevice, 1, 1);
             pixel.SetData(new Color[] { Color.White });
             npc.setPath(new AIPath(npc, this, new int[] { midX - 100, midY - 100, midX + 100, midY + 150 }, new int[0], new Direction[] { Direction.WEST, Direction.NORTH, Direction.EAST, Direction.SOUTH })); 
@@ -226,7 +245,14 @@ namespace KineticCamp {
                 pauseMenu.draw(spriteBatch);
             }
             if (mouse != null) {
-                spriteBatch.Draw(cursor, new Vector2(mouse.X, mouse.Y), Color.White);
+                if (level.getMode() < 1)
+                {
+                    spriteBatch.Draw(cursor, new Vector2(mouse.X, mouse.Y), Color.White);
+                }
+                else
+                {
+                    spriteBatch.Draw(target, new Vector2(mouse.X, mouse.Y), Color.White);
+                }
             }
             spriteBatch.End();
         }
