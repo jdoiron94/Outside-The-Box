@@ -191,7 +191,7 @@ namespace KineticCamp {
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Play(factorysong);
 
-            inputManager = new InputManager(this, player, level, playerManager, new Screen[] { new Screen("Menu"), new Screen("Normal", true), new Screen("Telekinesis-Select"), new Screen("Telekinesis-Move") });
+            inputManager = new InputManager(this, player, level, pauseMenu, playerManager, new Screen[] { new Screen("Menu"), new Screen("Normal", true), new Screen("Telekinesis-Select"), new Screen("Telekinesis-Move") });
             level.setInputManager(inputManager);
             pauseMenu.setInputManager(inputManager);
             
