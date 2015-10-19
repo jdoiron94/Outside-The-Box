@@ -16,6 +16,7 @@ namespace KineticCamp {
         private readonly Game1 game;
         private readonly Player player;
         private readonly Level level;
+        private readonly Menu pauseMenu;
         private readonly PlayerManager playerManager;
         private readonly CollisionManager collisionManager;
         private readonly ScreenManager screenManager;
@@ -90,6 +91,11 @@ namespace KineticCamp {
             return collisionManager;
         }
 
+        public ScreenManager getScreenManager()
+        {
+            return screenManager;
+        }
+
         /// <summary>
         /// Controls updating of the game based on the current screen state and mouse/keyboard input
         /// </summary>
@@ -103,9 +109,11 @@ namespace KineticCamp {
                 MediaPlayer.Play(active.getSong());
                 active.setSongPlaying(true);
             }
+
             if (lastKeyState.IsKeyDown(Keys.F1) && currentKeyState.IsKeyUp(Keys.F1)) {
                 level.toggleDebug();
             }
+
             if (active.getName() == "Normal") {
                 if (playerManager.getHealthCooldown() == 35) {
                     playerManager.regenerateHealth();
@@ -178,6 +186,13 @@ namespace KineticCamp {
                 if (currentKeyState.IsKeyDown(Keys.P)) {
                     playerManager.damagePlayer(2);
                 }
+                if (lastKeyState.IsKeyDown(Keys.M) && currentKeyState.IsKeyUp(Keys.M))
+                {
+                    //screenManager.setActiveScreen(0);
+                    //pauseMenu.setActive(true);
+                    Console.WriteLine("Entered menu.");
+                }
+
             } else if (active.getName() == "Telekinesis-Select") {
                 lastState = state;
                 state = Mouse.GetState().LeftButton;
@@ -201,6 +216,7 @@ namespace KineticCamp {
                     screenManager.setActiveScreen(1);
                     Console.WriteLine("Exited telekinesis mode.");
                 }
+
             } else if (active.getName() == "Telekinesis-Move") {
                 playerManager.updateManaDrainRate();
                 if (playerManager.getManaDrainRate() == 5) {
@@ -255,7 +271,13 @@ namespace KineticCamp {
                     screenManager.setActiveScreen(1);
                     Console.WriteLine("Exited telekinesis mode.");
                 }
+
+            } else if (active.getName() == "Menu")
+            {
+
             }
+
+
         }
     }
 }

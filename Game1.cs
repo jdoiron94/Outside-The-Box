@@ -4,6 +4,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
+using System;
+
 namespace KineticCamp {
 
     /// <summary>
@@ -23,6 +25,7 @@ namespace KineticCamp {
         private Level level;
         private PlayerManager playerManager;
         private InputManager inputManager;
+        private Menu pauseMenu;
         private Texture2D cursor;
         private MouseState mouse;
 
@@ -145,28 +148,41 @@ namespace KineticCamp {
         protected override void LoadContent() {
             base.LoadContent();
             spriteBatch = new SpriteBatch(GraphicsDevice);
+           
             playerTexture = Content.Load<Texture2D>("Standing1");
+
             midX = (graphics.PreferredBackBufferWidth - playerTexture.Width) / 2;
             midY = (graphics.PreferredBackBufferHeight - playerTexture.Height) / 2;
+           
             player = new Player(playerTexture, Vector2.Zero, Direction.SOUTH, 100, 50, 0, 3);
             player.setProjectile(new Projectile(player, Content.Load<Texture2D>("bullet"), 5, 250));
+            playerManager = new PlayerManager(player, new DisplayBar(Content.Load<Texture2D>("HealthBarTexture"), new Vector2(20, 20), Color.Red, Content.Load<Texture2D>("BackBarTexture")), new DisplayBar(Content.Load<Texture2D>("ManaBarTexture"), new Vector2(20, 50), Color.Blue, Content.Load<Texture2D>("BackBarTexture")));
+            player.loadTextures(Content);
+
             npc = new Npc(this, Content.Load<Texture2D>("enemy"), new Vector2(midX + 148, midY + 148), Direction.EAST, new NpcDefinition("Goku", new string[0], new int[0]), 150, 0x5);
             npc2 = new Npc(this, Content.Load<Texture2D>("npc"), new Vector2(midX, midY), Direction.EAST, new NpcDefinition("Goku2", new string[0], new int[0]), 150, 0x5);
             npc2.setProjectile(new Projectile(npc2, Content.Load<Texture2D>("bullet"), 5, 500));
+
             obj = new GameObject(Content.Load<Texture2D>("sprite"), new Vector2(midX + 50, midY + 220), true);
-            playerManager = new PlayerManager(player, new DisplayBar(Content.Load<Texture2D>("HealthBarTexture"), new Vector2(20, 20), Color.Red, Content.Load<Texture2D>("BackBarTexture")), new DisplayBar(Content.Load<Texture2D>("ManaBarTexture"), new Vector2(20, 50), Color.Blue, Content.Load<Texture2D>("BackBarTexture")));
             obj2 = new GameObject(Content.Load<Texture2D>("GreenMushroom"), new Vector2(midX + 42, midY + 100), true);
+
             level = new Level(this, player, Content.Load<Texture2D>("map"), new Npc[] { npc, npc2 }, new GameObject[] { obj, obj2 }, new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() });
+
+            pauseMenu = new Menu(Content.Load<Texture2D>("menu_background"), new Button[] { new Button(Content.Load<Texture2D>("resume_button"), new Vector2(100, 200)) });
+
             factorysong = Content.Load<Song>("Factory");
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Play(factorysong);
+
             inputManager = new InputManager(this, player, level, playerManager, new Screen[] { new Screen("Menu"), new Screen("Normal", true), new Screen("Telekinesis-Select"), new Screen("Telekinesis-Move") });
             level.setInputManager(inputManager);
-            npc.setPath(new AIPath(npc, this, new int[] { midX - 100, midY - 100, midX + 100, midY + 150 }, new int[0], new Direction[] { Direction.WEST, Direction.NORTH, Direction.EAST, Direction.SOUTH }));
+            pauseMenu.setInputManager(inputManager);
+            
             cursor = Content.Load<Texture2D>("cursor");
             pixel = new Texture2D(GraphicsDevice, 1, 1);
             pixel.SetData(new Color[] { Color.White });
-            player.loadTextures(Content);
+            npc.setPath(new AIPath(npc, this, new int[] { midX - 100, midY - 100, midX + 100, midY + 150 }, new int[0], new Direction[] { Direction.WEST, Direction.NORTH, Direction.EAST, Direction.SOUTH })); 
+
             //effect = Content.Load<SoundEffect>("gun");
         }
 
@@ -186,6 +202,9 @@ namespace KineticCamp {
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime) {
+            
+            Console.WriteLine("hello");
+            
             base.Update(gameTime);
             playerManager.updateHealthCooldown();
             inputManager.update(gameTime);
@@ -203,6 +222,9 @@ namespace KineticCamp {
             GraphicsDevice.Clear(Color.Black);
             spriteBatch.Begin();
             level.draw(spriteBatch);
+            if (pauseMenu.isActive()) {
+                pauseMenu.draw(spriteBatch);
+            }
             if (mouse != null) {
                 spriteBatch.Draw(cursor, new Vector2(mouse.X, mouse.Y), Color.White);
             }

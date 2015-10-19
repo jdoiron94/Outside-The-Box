@@ -219,7 +219,7 @@ namespace KineticCamp {
         public void deriveX(int x) {
             location.X += x;
             bounds.X += x;
-            destination.X += x;
+            //destination.X += x;
         }
 
         /// <summary>
@@ -229,7 +229,7 @@ namespace KineticCamp {
         public void deriveY(int y) {
             location.Y += y;
             bounds.Y += y;
-            destination.Y += y;
+            //destination.Y += y;
         }
 
         // update sprite to respective sprite facing the correct direction
