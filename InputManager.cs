@@ -39,10 +39,11 @@ namespace KineticCamp {
 
         private const byte WAIT = 0x4;
 
-        public InputManager(Game1 game, Player player, Level level, PlayerManager playerManager, Screen[] screens) {
+        public InputManager(Game1 game, Player player, Level level, Menu pauseMenu, PlayerManager playerManager, Screen[] screens) {
             this.game = game;
             this.player = player;
             this.level = level;
+            this.pauseMenu = pauseMenu;
             this.playerManager = playerManager; 
             collisionManager = new CollisionManager(player, level);
             screenManager = new ScreenManager(screens[1], screens);
@@ -200,8 +201,8 @@ namespace KineticCamp {
                 }
                 if (lastKeyState.IsKeyDown(Keys.M) && currentKeyState.IsKeyUp(Keys.M))
                 {
-                    //screenManager.setActiveScreen(0);
-                    //pauseMenu.setActive(true);
+                    screenManager.setActiveScreen(0);
+                    pauseMenu.setActive(true);
                     Console.WriteLine("Entered menu.");
                 }
 
@@ -286,10 +287,13 @@ namespace KineticCamp {
 
             } else if (active.getName() == "Menu")
             {
-
+                if (lastKeyState.IsKeyDown(Keys.M) && currentKeyState.IsKeyUp(Keys.M))
+                {
+                    screenManager.setActiveScreen(1);
+                    pauseMenu.setActive(false);
+                    Console.WriteLine("Exited menu.");
+                }
             }
-
-
         }
     }
 }
