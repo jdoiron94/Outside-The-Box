@@ -71,7 +71,7 @@ namespace KineticCamp
 
         public void draw(SpriteBatch batch)
         {
-            batch.Draw(background, new Vector2(50, 100), Color.White);
+            batch.Draw(background, new Vector2(0, 0), Color.White);
 
             foreach (Button butt in buttons) {
                 batch.Draw(butt.getTexture(), butt.getLocation(), Color.White);

@@ -210,9 +210,9 @@ namespace KineticCamp {
             playerManager = new PlayerManager(player, new DisplayBar(Content.Load<Texture2D>("HealthBarTexture"), new Vector2(20, 20), Color.Red, Content.Load<Texture2D>("BackBarTexture")), new DisplayBar(Content.Load<Texture2D>("ManaBarTexture"), new Vector2(20, 50), Color.Blue, Content.Load<Texture2D>("BackBarTexture")));
             player.loadTextures(Content);
 
-            npc = new Npc(this, Content.Load<Texture2D>("enemy"), new Vector2(midX + 148, midY + 148), Direction.EAST, new NpcDefinition("Goku", new string[0], new int[0]), 150, 0x5);
-            npc2 = new Npc(this, Content.Load<Texture2D>("npc"), new Vector2(midX, midY), Direction.EAST, new NpcDefinition("Goku2", new string[0], new int[0]), 150, 0x5);
-            npc3 = new Npc(this, Content.Load<Texture2D>("sprite"), new Vector2(midX + 240, midY + 123), Direction.NORTH, new NpcDefinition("Goku3", new string[0], new int[0]), 150, 0x5);
+            npc = new Npc(this, Content.Load<Texture2D>("NormieMaleStand1"), new Vector2(midX + 148, midY + 148), Direction.EAST, new NpcDefinition("Normie", new string[0], new int[0]), 150, 0x5);
+            npc2 = new Npc(this, Content.Load<Texture2D>("NormieMaleStand1"), new Vector2(midX, midY), Direction.EAST, new NpcDefinition("Normie2", new string[0], new int[0]), 150, 0x5);
+            npc3 = new Npc(this, Content.Load<Texture2D>("NormieMaleStand2"), new Vector2(midX + 240, midY + 123), Direction.NORTH, new NpcDefinition("Normie3", new string[0], new int[0]), 150, 0x5);
             npc2.setProjectile(new Projectile(npc2, Content.Load<Texture2D>("bullet"), 5, 500));
             npc3.setProjectile(new Projectile(npc3, Content.Load<Texture2D>("GoldCoinFront"), 10, 500));
 
@@ -241,9 +241,9 @@ namespace KineticCamp {
             level = levels[0];
             levelIndex = 0; 
 
-            Button[] menuButtons = { new Button(Content.Load<Texture2D>("resume_button"), new Vector2(50, 120)), 
+            Button[] menuButtons = { new Button(Content.Load<Texture2D>("resume_button"), new Vector2(0, 415)), 
                                        new Button(Content.Load<Texture2D>("mind_read_button"), new Vector2(200, 200)) };
-            pauseMenu = new Menu(Content.Load<Texture2D>("menu_background"), menuButtons );
+            pauseMenu = new Menu(Content.Load<Texture2D>("PausePlaceholderScreen"), menuButtons );
 
             factorysong = Content.Load<Song>("Factory");
             MediaPlayer.IsRepeating = true;
