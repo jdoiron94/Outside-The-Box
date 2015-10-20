@@ -19,6 +19,11 @@ namespace KineticCamp
             
         }
 
+        public Rectangle getWallBounds()
+        {
+            return rect; 
+        }
+
         public void draw(SpriteBatch batch)
         {
             batch.Draw(getTexture(), rect, Color.White);

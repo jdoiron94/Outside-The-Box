@@ -64,6 +64,13 @@ namespace KineticCamp {
             return e0Rect.Intersects(e1Rect);
         }
 
+        public bool collides(Entity e0, Wall e1)
+        {
+            Rectangle e0Rect = new Rectangle((int)e0.getDestination().X, (int)e0.getDestination().Y, e0.getTexture().Width, e0.getTexture().Height);
+            Rectangle e1Rect = e1.getWallBounds(); 
+            return e0Rect.Intersects(e1Rect);
+        }
+
         /// <summary>
         /// Returns whether or not two game objects collide
         /// </summary>
