@@ -28,12 +28,14 @@ namespace KineticCamp {
         private readonly List<DisplayBar> displayBars;
 
         private List<Token> Tokens;
+        private List<Door> Doors;
+        private readonly List<Wall> walls;
 
         private bool debug;
-
+        private int index; 
         private List<Projectile> projectiles;
        
-        public Level(Game1 game, Player player, Texture2D map, Npc[] npcs, GameObject[] objects, DisplayBar[] displayBars, Token[] Tokens) {
+        public Level(Game1 game, Player player, Texture2D map, Npc[] npcs, GameObject[] objects, DisplayBar[] displayBars, Token[] Tokens, Door[] Doors, Wall[] walls, int index) {
             this.game = game;
             this.player = player;
             this.map = map;
@@ -45,10 +47,15 @@ namespace KineticCamp {
             this.displayBars.AddRange(displayBars);
             this.Tokens = new List<Token>(Tokens.Length);
             this.Tokens.AddRange(Tokens);
+            this.Doors = new List<Door>(Doors.Length);
+            this.Doors.AddRange(Doors);
+            this.walls = new List<Wall>(walls.Length);
+            this.walls.AddRange(walls);
             active = true;
             selectedObject = null;
             debug = false;
             projectiles = new List<Projectile>();
+            this.index = index; 
         }
 
         /// <summary>
@@ -107,6 +114,16 @@ namespace KineticCamp {
         public List<Token> getTokens()
         {
             return Tokens;
+        }
+
+        public List<Door> getDoors()
+        {
+            return Doors; 
+        }
+
+        public List<Wall> getWalls()
+        {
+            return walls; 
         }
 
         /// <summary>
@@ -201,6 +218,7 @@ namespace KineticCamp {
             playerManager = inputManager.getPlayerManager();
         }
 
+
         /// <summary>
         /// Toggles the debug setting to its inverse
         /// </summary>
@@ -290,7 +308,12 @@ namespace KineticCamp {
         /// </summary>
         /// <param name="batch">The SpriteBatch to perform the drawing</param>
         public void draw(SpriteBatch batch) {
-            batch.Draw(map, new Vector2(-300, -250), Color.White);
+            if(index == 1)
+                batch.Draw(map, new Vector2(-300, -200), Color.White);
+            else if(index == 2)
+                batch.Draw(map, new Vector2(0, 0), Color.White);
+
+
             foreach (Projectile p in projectiles) {
                 if (p != null) {
                     p.draw(batch);
@@ -331,6 +354,21 @@ namespace KineticCamp {
                     t.draw(batch);
                  }
             }
+
+            foreach (Door door in Doors)
+            {
+                 if (door != null)
+                 {
+                    door.draw(batch);
+                 }
+           }
+
+            foreach (Wall wall in walls)
+                {
+                    if (wall != null)
+                        wall.draw(batch);
+                }
+
             }
         }
     }

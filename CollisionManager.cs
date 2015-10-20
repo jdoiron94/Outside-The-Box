@@ -11,7 +11,7 @@ namespace KineticCamp {
          */
 
         private readonly Player player;
-        private readonly Level level;
+        private Level level;
         
         public CollisionManager(Player player, Level level) {
             this.player = player;
@@ -33,6 +33,12 @@ namespace KineticCamp {
         public Level getLevel() {
             return level;
         }
+
+        public void setLevel(Level level)
+        {
+            this.level = level; 
+        }
+
 
         /// <summary>
         /// Returns whether or not two entities collide
@@ -90,6 +96,16 @@ namespace KineticCamp {
                     }
                 }
             }
+            foreach (Wall w in level.getWalls())
+            {
+                if(w !=null && w.isOnScreen(level.getGame()))
+                {
+                    if(collides(ent, w))
+                    {
+                        return false; 
+                    }
+                }
+            }
             return ent != player ? !collides(ent, player) : true;
         }
 
@@ -102,6 +118,16 @@ namespace KineticCamp {
             foreach (GameObject g in level.getObjects()) {
                 if (g != null && g != obj && g.isOnScreen(level.getGame())) {
                     if (collides(obj, g)) {
+                        return false;
+                    }
+                }
+            }
+            foreach (Wall w in level.getWalls())
+            {
+                if (w != null && w.isOnScreen(level.getGame()))
+                {
+                    if (collides(obj, w))
+                    {
                         return false;
                     }
                 }

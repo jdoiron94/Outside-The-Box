@@ -16,7 +16,7 @@ namespace KineticCamp {
 
         private readonly Game1 game;
         private readonly Player player;
-        private readonly Level level;
+        private Level level;
         private readonly Menu pauseMenu;
         private readonly PlayerManager playerManager;
         private readonly CollisionManager collisionManager;
@@ -135,6 +135,68 @@ namespace KineticCamp {
                         playerManager.incrementExperience(temp[i].getExp());
                         level.removeToken(temp[i]);
                     }
+                }
+
+                List<Door> doors = level.getDoors(); 
+                for (int i = 0; i < doors.Count; i++)
+                {
+                    if (collisionManager.collides(player, doors[i]))
+                    {
+                        if(doors[i].getNext()==true)
+                        {
+                            level.setActive(false);
+                            game.setLevelIndex(game.getLevelIndex() + 1);
+                            level = game.getLevelByIndex(game.getLevelIndex());
+                        }
+                        else
+                        {
+                           level.setActive(false);
+                           game.setLevelIndex(game.getLevelIndex() - 1);
+                           level = game.getLevelByIndex(game.getLevelIndex());  
+                        }
+
+                        level.setActive(true);
+                        level.setInputManager(this);
+                        game.getLevel().setActive(false);
+                        game.setLevel(level);
+                        collisionManager.getLevel().setActive(false);
+                        collisionManager.setLevel(level);
+
+                        if (doors[i].getDirection() == Direction.EAST)
+                            player.setX(30);
+                        else if (doors[i].getDirection() == Direction.WEST)
+                            player.setX(700);
+                        else if (doors[i].getDirection() == Direction.NORTH)
+                            player.setY(30);
+                        else
+                            player.setY(400);
+                    }
+                }
+
+                if (lastKeyState.IsKeyDown(Keys.H) && currentKeyState.IsKeyUp(Keys.H))
+                {
+                    player.setX(0);
+                    level.setActive(false);
+                    level = game.getLevelByIndex(1);
+                    level.setActive(true);
+                    level.setInputManager(this);
+                    game.getLevel().setActive(false);
+                    game.setLevel(level);
+                    collisionManager.getLevel().setActive(false);
+                    collisionManager.setLevel(level);
+                }
+
+                if (lastKeyState.IsKeyDown(Keys.G) && currentKeyState.IsKeyUp(Keys.G))
+                {
+                    level.setActive(false);
+                    level = game.getLevelByIndex(0);
+                    level.setActive(true);
+                    level.setInputManager(this);
+                    game.getLevel().setActive(false);
+                    game.setLevel(level);
+                    collisionManager.getLevel().setActive(false);
+                    collisionManager.setLevel(level);
+                    
                 }
 
                 if (currentKeyState.IsKeyDown(Keys.Escape)) {

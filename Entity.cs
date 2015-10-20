@@ -232,6 +232,18 @@ namespace KineticCamp {
             //destination.Y += y;
         }
 
+        public void setY(int y)
+        {
+            location.Y = y;
+            bounds.Y = y; 
+        }
+
+        public void setX(int x)
+        {
+            location.X = x;
+            bounds.X = x; 
+        }
+
         // update sprite to respective sprite facing the correct direction
 
         /// <summary>

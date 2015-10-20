@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
 using System;
+using System.Collections.Generic;
 
 namespace KineticCamp {
 
@@ -20,9 +21,15 @@ namespace KineticCamp {
         private Player player;
         private Npc npc;
         private Npc npc2;
+        private Npc npc3; 
         private GameObject obj;
         private GameObject obj2;
         private Level level;
+        private Level level1; 
+        private Level level2;
+        private List<Level> levels;
+        private Door door;
+        private Door door2; 
         private PlayerManager playerManager;
         private InputManager inputManager;
         private Menu pauseMenu;
@@ -36,6 +43,8 @@ namespace KineticCamp {
         private Token token2;
         private Token token3;
 
+        private Wall wall1; 
+
         private Texture2D side1;
         private Texture2D side2;
         private Texture2D side3;
@@ -47,6 +56,8 @@ namespace KineticCamp {
         private int midY;
         private int width;
         private int height;
+
+        private int levelIndex; 
 
         public Game1() {
             graphics = new GraphicsDeviceManager(this);
@@ -101,6 +112,27 @@ namespace KineticCamp {
             return level;
         }
 
+        public void setLevel(Level level)
+        {
+            this.level = level; 
+        }
+
+        public Level getLevelByIndex(int i)
+        {
+            try
+            {
+                return levels[i];
+            }
+            catch(Exception)
+            {
+                return level; 
+            }
+        }
+
+        public List<Level> getLevelList()
+        {
+            return levels; 
+        }
         /// <summary>
         /// Returns an instance of the player
         /// </summary>
@@ -111,6 +143,16 @@ namespace KineticCamp {
 
         public InputManager getInputManager() {
             return inputManager;
+        }
+
+        public void setLevelIndex(int index)
+        {
+            levelIndex = index; 
+        }
+
+        public int getLevelIndex()
+        {
+            return levelIndex; 
         }
 
         /// <summary>
@@ -170,11 +212,15 @@ namespace KineticCamp {
 
             npc = new Npc(this, Content.Load<Texture2D>("enemy"), new Vector2(midX + 148, midY + 148), Direction.EAST, new NpcDefinition("Goku", new string[0], new int[0]), 150, 0x5);
             npc2 = new Npc(this, Content.Load<Texture2D>("npc"), new Vector2(midX, midY), Direction.EAST, new NpcDefinition("Goku2", new string[0], new int[0]), 150, 0x5);
+            npc3 = new Npc(this, Content.Load<Texture2D>("sprite"), new Vector2(midX + 240, midY + 123), Direction.NORTH, new NpcDefinition("Goku3", new string[0], new int[0]), 150, 0x5);
             npc2.setProjectile(new Projectile(npc2, Content.Load<Texture2D>("bullet"), 5, 500));
+            npc3.setProjectile(new Projectile(npc3, Content.Load<Texture2D>("GoldCoinFront"), 10, 500));
 
             obj = new GameObject(Content.Load<Texture2D>("sprite"), new Vector2(midX + 50, midY + 220), true);
             obj2 = new GameObject(Content.Load<Texture2D>("GreenMushroom"), new Vector2(midX + 42, midY + 100), true);
 
+            door = new Door(Content.Load<Texture2D>("DoorTexture"), null, new Vector2(midX + 420, midY + 200), Direction.EAST, false, true, 20, 60);
+            door2 = new Door(Content.Load<Texture2D>("DoorTexture"), null, new Vector2(0, midY + 200), Direction.WEST, false, false, 20, 60);
             side1 = Content.Load<Texture2D>("BronzeCoinSide");
             side2 = Content.Load<Texture2D>("SilverCoinSide");
             side3 = Content.Load<Texture2D>("GoldCoinSide");
@@ -183,7 +229,17 @@ namespace KineticCamp {
             token2 = new Token(Content.Load<Texture2D>("SilverCoinFront"), new Vector2(midX + 180, midY + 180), TokenType.SILVER, side2);
             token3 = new Token(Content.Load<Texture2D>("GoldCoinFront"), new Vector2(midX + 200, midY + 200), TokenType.GOLD, side3);
 
-            level = new Level(this, player, Content.Load<Texture2D>("box2"), new Npc[] { npc, npc2 }, new GameObject[] { obj, obj2 }, new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() }, new Token[] { token1, token2, token3 });
+            Texture2D wallText = Content.Load<Texture2D>("WallTexture");
+
+            wall1 = new Wall(wallText, null, new Vector2(30, 200), Direction.EAST, false, false, 120, 20);
+
+            level1 = new Level(this, player, Content.Load<Texture2D>("box2"), new Npc[] { npc, npc2 }, new GameObject[] { obj, obj2 }, new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() }, new Token[] { token1, token2, token3 }, new Door[] {door}, new Wall[] { }, 1);
+            level2 = new Level(this, player, Content.Load<Texture2D>("Leve1Map"), new Npc[] {npc3}, new GameObject[] { }, new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() }, new Token[] {token3 }, new Door[] {door2}, new Wall[] {wall1}, 2);
+            levels = new List<Level>(); 
+            levels.Add(level1);
+            levels.Add(level2);
+            level = levels[0];
+            levelIndex = 0; 
 
             Button[] menuButtons = { new Button(Content.Load<Texture2D>("resume_button"), new Vector2(50, 120)), 
                                        new Button(Content.Load<Texture2D>("mind_read_button"), new Vector2(200, 200)) };
@@ -203,7 +259,8 @@ namespace KineticCamp {
 
             pixel = new Texture2D(GraphicsDevice, 1, 1);
             pixel.SetData(new Color[] { Color.White });
-            npc.setPath(new AIPath(npc, this, new int[] { midX - 100, midY - 100, midX + 100, midY + 150 }, new int[0], new Direction[] { Direction.WEST, Direction.NORTH, Direction.EAST, Direction.SOUTH })); 
+            npc.setPath(new AIPath(npc, this, new int[] { midX - 100, midY - 100, midX + 100, midY + 150 }, new int[0], new Direction[] { Direction.WEST, Direction.NORTH, Direction.EAST, Direction.SOUTH }));
+            npc3.setPath(new AIPath(npc3, this, new int[] { midX - 100, midY - 100, midX + 100, midY + 150 }, new int[0], new Direction[] { Direction.WEST, Direction.NORTH, Direction.EAST, Direction.SOUTH }));
 
             //effect = Content.Load<SoundEffect>("gun");
         }

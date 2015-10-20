@@ -34,6 +34,19 @@ namespace KineticCamp {
             lastFired = -1;
         }
 
+        public GameObject(Texture2D texture, Projectile projectile, Vector2 location, Direction direction, bool liftable, int x, int y)
+        {
+            this.texture = texture;
+            this.projectile = projectile;
+            this.location = location;
+            this.direction = direction;
+            this.liftable = liftable;
+            destination = location;
+            selected = false;
+            bounds = new Rectangle((int)location.X, (int)location.Y, x, y);
+            lastFired = -1;
+        }
+
         public GameObject(Texture2D texture, Vector2 location, bool liftable) :
             this(texture, null, location, Direction.NONE, liftable) {
         }
@@ -98,6 +111,11 @@ namespace KineticCamp {
             return bounds;
         }
 
+        public void setBounds(int y, int x)
+        {
+            bounds.Height = y;
+            bounds.Width = x; 
+        }
         /// <summary>
         /// Returns if the game object can be lifted
         /// </summary>
