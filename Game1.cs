@@ -36,6 +36,7 @@ namespace KineticCamp {
         private Texture2D cursor;
         private MouseState mouse;
         private Texture2D target;
+        private Target targetReticle;
 
         private Texture2D pixel;
 
@@ -244,13 +245,13 @@ namespace KineticCamp {
             Button[] menuButtons = { new Button(Content.Load<Texture2D>("resume_button"), new Vector2(0, 415)), 
                                        new Button(Content.Load<Texture2D>("mind_read_button"), new Vector2(200, 200)) };
             pauseMenu = new Menu(Content.Load<Texture2D>("PausePlaceholderScreen"), menuButtons );
-
+            targetReticle = new Target(Content.Load<Texture2D>("TargetingCursor"));
             factorysong = Content.Load<Song>("Factory");
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Play(factorysong);
 
             Screen[] screens = { new Screen("Menu"), new Screen("Normal", true), new Screen("Telekinesis-Select"), new Screen("Telekinesis-Move") };
-            inputManager = new InputManager(this, player, level, pauseMenu, playerManager, screens);
+            inputManager = new InputManager(this, player, level, pauseMenu, targetReticle, playerManager, screens);
             level.setInputManager(inputManager);
             pauseMenu.setInputManager(inputManager);
             
@@ -304,6 +305,10 @@ namespace KineticCamp {
             level.draw(spriteBatch);
             if (pauseMenu.isActive()) {
                 pauseMenu.draw(spriteBatch);
+            }
+            if (targetReticle.isActive())
+            {
+                targetReticle.draw(spriteBatch);
             }
             if (mouse != null) {
                 if (level.getMode() < 1)

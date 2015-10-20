@@ -21,6 +21,7 @@ namespace KineticCamp {
         private readonly PlayerManager playerManager;
         private readonly CollisionManager collisionManager;
         private readonly ScreenManager screenManager;
+        private readonly Target target;
 
         private GameObject selectedObject;
 
@@ -39,11 +40,12 @@ namespace KineticCamp {
 
         private const byte WAIT = 0x4;
 
-        public InputManager(Game1 game, Player player, Level level, Menu pauseMenu, PlayerManager playerManager, Screen[] screens) {
+        public InputManager(Game1 game, Player player, Level level, Menu pauseMenu, Target target, PlayerManager playerManager, Screen[] screens) {
             this.game = game;
             this.player = player;
             this.level = level;
             this.pauseMenu = pauseMenu;
+            this.target = target;
             this.playerManager = playerManager; 
             collisionManager = new CollisionManager(player, level);
             screenManager = new ScreenManager(screens[1], screens);
@@ -261,7 +263,8 @@ namespace KineticCamp {
                 if (lastKeyState.IsKeyDown(Keys.X) && currentKeyState.IsKeyUp(Keys.X)) {
                     level.setMode(1);
                     screenManager.setActiveScreen(2);
-                    Console.WriteLine("Entered telekinesis mode!");
+                    target.setActive(true);
+                    Console.WriteLine("Entered telekinesis mode!");     
                 }
                 if (currentKeyState.IsKeyDown(Keys.P)) {
                     playerManager.damagePlayer(2);
