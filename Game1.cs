@@ -203,7 +203,7 @@ namespace KineticCamp {
         protected override void LoadContent() {
             base.LoadContent();
             spriteBatch = new SpriteBatch(GraphicsDevice);
-           
+
             playerTexture = Content.Load<Texture2D>("Standing1");
 
             midX = (graphics.PreferredBackBufferWidth - playerTexture.Width) / 2;
@@ -335,6 +335,7 @@ namespace KineticCamp {
                     spriteBatch.Draw(target, new Vector2(mouse.X, mouse.Y), Color.White);
                 }
             }
+
             spriteBatch.End();
         }
     }

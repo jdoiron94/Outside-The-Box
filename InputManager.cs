@@ -128,6 +128,7 @@ namespace KineticCamp {
         /// </summary>
         /// <param name="time">The GameTime to update with respect to</param>
         public void update(GameTime time) {
+
             lastKeyState = currentKeyState;
             currentKeyState = Keyboard.GetState();
             Screen active = screenManager.getActiveScreen();
@@ -135,6 +136,13 @@ namespace KineticCamp {
                 MediaPlayer.IsRepeating = true;
                 MediaPlayer.Play(active.getSong());
                 active.setSongPlaying(true);
+            }
+
+            if (player.isDead() || collisionManager.playerSpotted(level))
+            {
+                player.setX(10);
+                player.setY(10);
+                player.deriveHealth(10);
             }
 
             if (lastKeyState.IsKeyDown(Keys.F1) && currentKeyState.IsKeyUp(Keys.F1)) {
@@ -217,7 +225,7 @@ namespace KineticCamp {
                 }
 
                 //SLOW TIME
-                SlowTime slowmo = (SlowTime)playerManager.getPowers()[0];
+                SlowTime slowmo = (SlowTime) playerManager.getPowers()[0];
                 if (lastKeyState.IsKeyDown(Keys.L) && currentKeyState.IsKeyUp(Keys.L))
                 {
                     if (slowmo.isUnlocked() && !slowmo.isActivated())
@@ -233,7 +241,7 @@ namespace KineticCamp {
                 //SLOW TIME
 
                 //DASH
-                Dash dash = (Dash)playerManager.getPowers()[1];
+                Dash dash = (Dash) playerManager.getPowers()[1];
                 if (lastKeyState.IsKeyDown(Keys.K) && currentKeyState.IsKeyUp(Keys.K))
                 {
                     if (dash.isUnlocked())
@@ -247,6 +255,22 @@ namespace KineticCamp {
                 }
                 dash.doStuff(level);
                 //DASH
+
+                //CONFUSE
+                Confuse confuse = (Confuse) playerManager.getPowers()[2];
+                if (lastKeyState.IsKeyDown(Keys.C) && currentKeyState.IsKeyUp(Keys.C))
+                {
+                    if (confuse.isUnlocked())
+                    {
+                        if (confuse.isCooldown() && !confuse.isActivated())
+                        {
+                            confuse.activatePower(true);
+                            playerManager.depleteMana(confuse.getManaCost());
+                        }
+                    }
+                }
+                confuse.doStuff(level);
+                //CONFUSE
 
                 if (currentKeyState.IsKeyDown(Keys.Escape)) {
                     game.Exit();
@@ -313,9 +337,11 @@ namespace KineticCamp {
                     target.setActive(true);
                     Console.WriteLine("Entered telekinesis mode!");     
                 }
+
                 if (currentKeyState.IsKeyDown(Keys.P)) {
                     playerManager.damagePlayer(2);
                 }
+
                 if (lastKeyState.IsKeyDown(Keys.M) && currentKeyState.IsKeyUp(Keys.M))
                 {
                     screenManager.setActiveScreen(0);

@@ -39,6 +39,21 @@ namespace KineticCamp {
             this.level = level; 
         }
 
+        public bool playerSpotted(Level level)
+        {
+            Player player = level.getPlayer();
+            Rectangle playerRec = player.getBounds();
+
+            foreach (Npc npc in level.getNpcs())
+            {
+                Rectangle lineOfSight = npc.getLineOfSight();
+                if (playerRec.Intersects(lineOfSight))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
 
         /// <summary>
         /// Returns whether or not two entities collide

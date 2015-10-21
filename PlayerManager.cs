@@ -33,7 +33,7 @@ namespace KineticCamp {
             healthCooldown = 0;
             manaCooldown = 0;
             totalMana = 100;
-            powers = new List<BasePower> {new SlowTime(true, false), new Dash(true, false) /*, new Mindread(true, false, inputManager)*/};
+            powers = new List<BasePower> {new SlowTime(true, false), new Dash(true, false), new Confuse(true, false) /*, new Mindread(true, false, inputManager)*/};
         }
 
         public PlayerManager(Player player, DisplayBar healthBar, DisplayBar manaBar) :
@@ -141,6 +141,7 @@ namespace KineticCamp {
         /// </summary>
         /// <param name="damage">The amount of damage to inflict</param>
         public void damagePlayer(int damage) {
+            player.deriveHealth(-2);
             healthBar.setWidth((health = Math.Max(0, health - damage)) * 2);
         }
 
@@ -148,6 +149,7 @@ namespace KineticCamp {
         /// Regenerates the appropriate amount of health for the player, based on their total experience
         /// </summary>
         public void regenerateHealth() {
+            player.deriveHealth(2);
             healthBar.setWidth((health = Math.Min(MAX_HEALTH, health + 1 + Math.Min(9, totalExp / 100))) * 2);
         }
 

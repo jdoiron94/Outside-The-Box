@@ -19,3 +19,9 @@
 /processorParam:Quality=Best
 /build:Factory.mp3
 
+#begin font1.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:TextureFormat=Compressed
+/build:font1.spritefont
+

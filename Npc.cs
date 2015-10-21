@@ -112,6 +112,11 @@ namespace KineticCamp {
             this.path = path;
         }
 
+        public void setLineOfSight(Rectangle lineOfSight)
+        {
+            this.lineOfSight = lineOfSight;
+        }
+
         public Rectangle getLineOfSight()
         {
             return lineOfSight;
@@ -168,8 +173,11 @@ namespace KineticCamp {
                 case Direction.EAST:
                     lineOfSight = new Rectangle((int) location.X, (int) location.Y, texture.Width * 3, texture.Height);
                     break;
-                default:
+                case Direction.NONE:
                     lineOfSight = new Rectangle((int) location.X, (int) location.Y, texture.Width, texture.Height);
+                    break;
+                default:
+                    lineOfSight = new Rectangle((int)location.X, (int)location.Y, texture.Width, texture.Height);
                     break;
             }
         }
