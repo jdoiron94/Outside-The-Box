@@ -225,8 +225,8 @@ namespace KineticCamp {
             Npc npc4 = new Npc(this, Content.Load<Texture2D>("NormieMaleStand2"), new Vector2(50, 50), Direction.WEST, new NpcDefinition("Normie4", new string[0], new int[0]), 150, 0x5);
             Npc npc5 = new Npc(this, Content.Load<Texture2D>("NormieMaleStand2"), new Vector2(150, 150), Direction.SOUTH, new NpcDefinition("Normie5", new string[0], new int[0]), 150, 0x5);
 
-            obj = new GameObject(Content.Load<Texture2D>("sprite"), new Vector2(midX + 50, midY + 220), true);
-            obj2 = new GameObject(Content.Load<Texture2D>("GreenMushroom"), new Vector2(midX + 42, midY + 100), true);
+            obj = new GameObject(Content.Load<Texture2D>("CardboardBox"), new Vector2(midX + 50, midY + 220), true);
+            obj2 = new GameObject(Content.Load<Texture2D>("CardboardBox"), new Vector2(midX + 42, midY + 100), true);
 
             door = new Door(Content.Load<Texture2D>("DoorTexture"), null, new Vector2(midX + 420, midY + 200), Direction.EAST, false, true, 20, 60);
             door2 = new Door(Content.Load<Texture2D>("DoorTexture"), null, new Vector2(0, midY + 200), Direction.WEST, false, false, 20, 60);
@@ -253,7 +253,7 @@ namespace KineticCamp {
             Wall wall8 = new Wall(wallText, null, new Vector2(100, 250), Direction.EAST, false, false, 120, 20);
 
             Wall[] walls1 = { wall1, wall2, wall3, wall4, wall5, wall6 };
-            level1 = new Level(this, player, Content.Load<Texture2D>("box2"), new Npc[] { npc, npc2, npc5 }, new GameObject[] { obj, obj2 }, new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() }, new Token[] { token1, token2, token3 }, new Door[] {door}, new Wall[] { }, new ThoughtBubble[] { }, 1);
+            level1 = new Level(this, player, Content.Load<Texture2D>("Level1"), new Npc[] { npc, npc2, npc5 }, new GameObject[] { obj, obj2 }, new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() }, new Token[] { token1, token2, token3 }, new Door[] {door}, new Wall[] { }, new ThoughtBubble[] { }, 1);
             level2 = new Level(this, player, Content.Load<Texture2D>("Leve1Map"), new Npc[] { npc3 , npc4}, new GameObject[] { }, new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() }, new Token[] { token3 }, new Door[] { door2 }, walls1, new ThoughtBubble[]{new ThoughtBubble(Content.Load<Texture2D>("PassBubble1"), new Vector2(0,0), npc3, false, false)},2);
             levels = new List<Level>(); 
             levels.Add(level1);
