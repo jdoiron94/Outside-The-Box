@@ -18,6 +18,7 @@ namespace KineticCamp {
             base(texture, location, direction, maxHealth, velocity) {
             this.maxMana = maxMana;
             this.experience = experience;
+            this.location = location;
             currentMana = maxMana;
         }
 
@@ -29,6 +30,11 @@ namespace KineticCamp {
             return maxMana;
         }
 
+        public void setLocation(Vector2 location)
+        {
+            this.location = location;
+        }
+        
         /// <summary>
         /// Returns the player's experience
         /// </summary>
