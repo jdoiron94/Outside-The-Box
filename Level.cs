@@ -367,18 +367,27 @@ namespace KineticCamp {
             foreach (Token t in Tokens) {
                 if (t != null) {
                     t.draw(batch);
+                    if (debug) {
+                        game.outline(batch, t.getBounds());
+                    }
                 }
             }
 
             foreach (Door door in Doors) {
                 if (door != null) {
                     door.draw(batch);
+                    if (debug) {
+                        game.outline(batch, door.getBounds());
+                    }
                 }
             }
 
             foreach (Wall wall in walls) {
                 if (wall != null) {
                     wall.draw(batch);
+                    if (debug) {
+                        game.outline(batch, wall.getBounds());
+                    }
                 }
             }
 
