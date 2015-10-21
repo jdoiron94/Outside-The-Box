@@ -44,10 +44,10 @@ namespace KineticCamp {
         private Token token2;
         private Token token3;
 
-        private Wall wall1;
-        private Wall wall2;
-        private Wall wall3;
-        private Wall wall4;  
+        //private Wall wall1;
+        //private Wall wall2;
+        //private Wall wall3;
+        //private Wall wall4;  
 
         private Texture2D side1;
         private Texture2D side2;
@@ -219,6 +219,8 @@ namespace KineticCamp {
             npc3 = new Npc(this, Content.Load<Texture2D>("NormieMaleStand2"), new Vector2(midX + 240, midY + 123), Direction.NORTH, new NpcDefinition("Normie3", new string[0], new int[0]), 150, 0x5);
             npc2.setProjectile(new Projectile(npc2, Content.Load<Texture2D>("bullet"), 5, 500));
             npc3.setProjectile(new Projectile(npc3, Content.Load<Texture2D>("GoldCoinFront"), 10, 500));
+            Npc npc4 = new Npc(this, Content.Load<Texture2D>("NormieMaleStand2"), new Vector2(50, 50), Direction.WEST, new NpcDefinition("Normie4", new string[0], new int[0]), 150, 0x5);
+            Npc npc5 = new Npc(this, Content.Load<Texture2D>("NormieMaleStand2"), new Vector2(150, 150), Direction.SOUTH, new NpcDefinition("Normie5", new string[0], new int[0]), 150, 0x5);
 
             obj = new GameObject(Content.Load<Texture2D>("sprite"), new Vector2(midX + 50, midY + 220), true);
             obj2 = new GameObject(Content.Load<Texture2D>("GreenMushroom"), new Vector2(midX + 42, midY + 100), true);
@@ -237,13 +239,19 @@ namespace KineticCamp {
 
             Texture2D wallText = Content.Load<Texture2D>("WallTexture");
 
-            wall1 = new Wall(wallText, null, new Vector2(100, 250), Direction.EAST, false, false, 120, 20);
-            wall2 = new Wall(wallText, null, new Vector2(100, 370), Direction.EAST, false, false, 120, 20);
-            wall3 = new Wall(wallText, null, new Vector2(100, 250), Direction.EAST, false, false, 20, 120);
-            //wall4 = new Wall(wallText, null, new Vector2(30, 200), Direction.EAST, false, false, 120, 20);
+            Wall wall1 = new Wall(wallText, null, new Vector2(100, 250), Direction.EAST, false, false, 120, 20); 
+            Wall wall2 = new Wall(wallText, null, new Vector2(100, 370), Direction.EAST, false, false, 120, 20);
+            Wall wall3 = new Wall(wallText, null, new Vector2(100, 250), Direction.EAST, false, false, 20, 120);
+            Wall wall4 = new Wall(wallText, null, new Vector2(650, 100), Direction.EAST, false, false, 120, 20);
+            Wall wall5 = new Wall(wallText, null, new Vector2(650, 220), Direction.EAST, false, false, 120, 20);
+            Wall wall6 = new Wall(wallText, null, new Vector2(770, 100), Direction.EAST, false, false, 20, 120);
 
-            level1 = new Level(this, player, Content.Load<Texture2D>("cubicalRoom"), new Npc[] { npc, npc2 }, new GameObject[] { obj, obj2 }, new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() }, new Token[] { token1, token2, token3 }, new Door[] {door}, new Wall[] { }, new ThoughtBubble[] { }, 1);
-            level2 = new Level(this, player, Content.Load<Texture2D>("Leve1Map"), new Npc[] { npc3 }, new GameObject[] { }, new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() }, new Token[] { token3 }, new Door[] { door2 }, new Wall[] { wall1, wall2, wall3 }, new ThoughtBubble[]{new ThoughtBubble(Content.Load<Texture2D>("PassBubble1"), new Vector2(0,0), npc3, false, false)},2);
+            Wall wall7 = new Wall(wallText, null, new Vector2(100, 250), Direction.EAST, false, false, 120, 20);
+            Wall wall8 = new Wall(wallText, null, new Vector2(100, 250), Direction.EAST, false, false, 120, 20);
+
+            Wall[] walls1 = { wall1, wall2, wall3, wall4, wall5, wall6 };
+            level1 = new Level(this, player, Content.Load<Texture2D>("box2"), new Npc[] { npc, npc2, npc5 }, new GameObject[] { obj, obj2 }, new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() }, new Token[] { token1, token2, token3 }, new Door[] {door}, new Wall[] { }, new ThoughtBubble[] { }, 1);
+            level2 = new Level(this, player, Content.Load<Texture2D>("Leve1Map"), new Npc[] { npc3 , npc4}, new GameObject[] { }, new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() }, new Token[] { token3 }, new Door[] { door2 }, walls1, new ThoughtBubble[]{new ThoughtBubble(Content.Load<Texture2D>("PassBubble1"), new Vector2(0,0), npc3, false, false)},2);
             levels = new List<Level>(); 
             levels.Add(level1);
             levels.Add(level2);
@@ -279,6 +287,8 @@ namespace KineticCamp {
             pixel.SetData(new Color[] { Color.White });
             npc.setPath(new AIPath(npc, this, new int[] { midX - 100, midY - 100, midX + 100, midY + 150 }, new int[0], new Direction[] { Direction.WEST, Direction.NORTH, Direction.EAST, Direction.SOUTH }));
             npc3.setPath(new AIPath(npc3, this, new int[] { midX - 100, midY - 100, midX + 100, midY + 150 }, new int[0], new Direction[] { Direction.WEST, Direction.NORTH, Direction.EAST, Direction.SOUTH }));
+            npc4.setPath(new AIPath(npc4, this, new int[] { 200, 50, 50, 60 }, new int[0], new Direction[] { Direction.EAST, Direction.SOUTH, Direction.WEST, Direction.NORTH }));
+            npc5.setPath(new AIPath(npc5, this, new int[] { 150, 180, 300, 150 }, new int[0], new Direction[] { Direction.SOUTH, Direction.EAST, Direction.NORTH, Direction.WEST }));
 
             //effect = Content.Load<SoundEffect>("gun");
         }
