@@ -163,6 +163,13 @@ namespace KineticCamp {
         public void update(Game1 game, Entity entity) {
             if (direction == Direction.NONE) {
                 direction = entity.getDirection();
+                if (direction == Direction.NORTH) {
+                    rotation = MathHelper.ToRadians(-90f);
+                } else if (direction == Direction.SOUTH) {
+                    rotation = MathHelper.ToRadians(90f);
+                } else if (direction == Direction.WEST) {
+                    rotation = MathHelper.ToRadians(-180f);
+                }
             }
             if (direction == Direction.NORTH) {
                 deriveY(-velocity);
