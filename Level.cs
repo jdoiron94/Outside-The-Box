@@ -24,17 +24,10 @@ namespace KineticCamp {
         private CollisionManager collisionManager;
         private PlayerManager playerManager;
 
-<<<<<<< HEAD
         private List<Npc> npcs;
         private List<GameObject> objects;
         private List<DisplayBar> displayBars;
         private List<ThoughtBubble> thoughts; 
-=======
-        private readonly List<Npc> npcs;
-        private readonly List<GameObject> objects;
-        private readonly List<DisplayBar> displayBars;
-        private readonly List<ThoughtBubble> thoughts;
->>>>>>> origin/master
 
         private List<Token> Tokens;
         private List<Door> Doors;
@@ -373,15 +366,9 @@ namespace KineticCamp {
         /// </summary>
         /// <param name="batch">The SpriteBatch to perform the drawing</param>
         public void draw(SpriteBatch batch) {
-<<<<<<< HEAD
             if(index == 1)
                 batch.Draw(map, new Vector2(0, 0), Color.White);
             else if(index == 2)
-=======
-            if (index == 1)
-                batch.Draw(map, new Vector2(-300, -200), Color.White);
-            else if (index == 2)
->>>>>>> origin/master
                 batch.Draw(map, new Vector2(0, 0), Color.White);
 
 
