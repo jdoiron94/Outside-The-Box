@@ -44,11 +44,14 @@ namespace KineticCamp {
         private Token token2;
         private Token token3;
 
-        private Wall wall1; 
+        private Wall wall1;
+        private Wall wall2;
+        private Wall wall3;
+        private Wall wall4;  
 
         private Texture2D side1;
         private Texture2D side2;
-        private Texture2D side3;
+        private Texture2D side3; 
 
         private Song factorysong;
         private SoundEffect effect;
@@ -226,16 +229,21 @@ namespace KineticCamp {
             side2 = Content.Load<Texture2D>("SilverCoinSide");
             side3 = Content.Load<Texture2D>("GoldCoinSide");
 
+
+
             token1 = new Token(Content.Load<Texture2D>("BronzeCoinFront"), new Vector2(midX + 120, midY + 120), TokenType.BRONZE, side1);
             token2 = new Token(Content.Load<Texture2D>("SilverCoinFront"), new Vector2(midX + 180, midY + 180), TokenType.SILVER, side2);
-            token3 = new Token(Content.Load<Texture2D>("GoldCoinFront"), new Vector2(midX + 200, midY + 200), TokenType.GOLD, side3);
+            token3 = new Token(Content.Load<Texture2D>("GoldCoinFront"), new Vector2(200, 200), TokenType.GOLD, side3);
 
             Texture2D wallText = Content.Load<Texture2D>("WallTexture");
 
-            wall1 = new Wall(wallText, null, new Vector2(30, 200), Direction.EAST, false, false, 120, 20);
+            wall1 = new Wall(wallText, null, new Vector2(100, 250), Direction.EAST, false, false, 120, 20);
+            wall2 = new Wall(wallText, null, new Vector2(100, 370), Direction.EAST, false, false, 120, 20);
+            wall3 = new Wall(wallText, null, new Vector2(100, 250), Direction.EAST, false, false, 20, 120);
+            //wall4 = new Wall(wallText, null, new Vector2(30, 200), Direction.EAST, false, false, 120, 20);
 
-            level1 = new Level(this, player, Content.Load<Texture2D>("box2"), new Npc[] { npc, npc2 }, new GameObject[] { obj, obj2 }, new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() }, new Token[] { token1, token2, token3 }, new Door[] {door}, new Wall[] { }, 1);
-            level2 = new Level(this, player, Content.Load<Texture2D>("Leve1Map"), new Npc[] {npc3}, new GameObject[] { }, new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() }, new Token[] {token3 }, new Door[] {door2}, new Wall[] {wall1}, 2);
+            level1 = new Level(this, player, Content.Load<Texture2D>("box2"), new Npc[] { npc, npc2 }, new GameObject[] { obj, obj2 }, new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() }, new Token[] { token1, token2, token3 }, new Door[] {door}, new Wall[] { }, new ThoughtBubble[] { }, 1);
+            level2 = new Level(this, player, Content.Load<Texture2D>("Leve1Map"), new Npc[] { npc3 }, new GameObject[] { }, new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() }, new Token[] { token3 }, new Door[] { door2 }, new Wall[] { wall1, wall2, wall3 }, new ThoughtBubble[]{new ThoughtBubble(Content.Load<Texture2D>("PassBubble1"), new Vector2(0,0), npc3, false, false)},2);
             levels = new List<Level>(); 
             levels.Add(level1);
             levels.Add(level2);
@@ -251,7 +259,7 @@ namespace KineticCamp {
             MediaPlayer.Play(factorysong);
 
             Screen[] screens = { new Screen("Menu"), new Screen("Normal", true), new Screen("Telekinesis-Select"), new Screen("Telekinesis-Move") };
-            inputManager = new InputManager(this, player, level, pauseMenu, targetReticle, playerManager, screens);
+            inputManager = new InputManager(this, player, level, pauseMenu, targetReticle, playerManager, screens, new Mindread(Content.Load<Texture2D>("PassBubble1")));
             level.setInputManager(inputManager);
             pauseMenu.setInputManager(inputManager);
             

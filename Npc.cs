@@ -19,7 +19,7 @@ namespace KineticCamp {
         private readonly int[] offsets;
         private readonly int radius;
         private readonly byte reactTime;
-        private readonly bool wander;
+        private readonly bool wander; 
 
         private int ticks;
 

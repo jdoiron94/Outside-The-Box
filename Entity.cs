@@ -41,7 +41,7 @@ namespace KineticCamp {
             this.location = location;
             this.direction = direction;
             this.maxHealth = maxHealth;
-            this.velocity = velocity;
+            this.velocity = velocity; 
             destination = location;
             bounds = new Rectangle((int) location.X, (int) location.Y, texture.Width, texture.Height);
             northFacing = new Texture2D[4];

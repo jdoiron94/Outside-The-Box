@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,6 @@ namespace KineticCamp
         void activatePower(bool activate);
         bool isActivated();
         bool isUnlocked();
-        void behavior(); 
+        void behavior(GameTime gametime); 
     }
 }

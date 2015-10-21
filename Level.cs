@@ -26,16 +26,19 @@ namespace KineticCamp {
         private readonly List<Npc> npcs;
         private readonly List<GameObject> objects;
         private readonly List<DisplayBar> displayBars;
+        private readonly List<ThoughtBubble> thoughts; 
 
         private List<Token> Tokens;
         private List<Door> Doors;
         private readonly List<Wall> walls;
 
         private bool debug;
-        private int index; 
+        private int index;
+        private bool Key; 
+
         private List<Projectile> projectiles;
        
-        public Level(Game1 game, Player player, Texture2D map, Npc[] npcs, GameObject[] objects, DisplayBar[] displayBars, Token[] Tokens, Door[] Doors, Wall[] walls, int index) {
+        public Level(Game1 game, Player player, Texture2D map, Npc[] npcs, GameObject[] objects, DisplayBar[] displayBars, Token[] Tokens, Door[] Doors, Wall[] walls, ThoughtBubble[] thoughts, int index) {
             this.game = game;
             this.player = player;
             this.map = map;
@@ -51,6 +54,8 @@ namespace KineticCamp {
             this.Doors.AddRange(Doors);
             this.walls = new List<Wall>(walls.Length);
             this.walls.AddRange(walls);
+            this.thoughts = new List<ThoughtBubble>(thoughts.Length);
+            this.thoughts.AddRange(thoughts);
             active = true;
             selectedObject = null;
             debug = false;
@@ -88,6 +93,11 @@ namespace KineticCamp {
         /// <returns>Returns a list of all of the NPCs in the level</returns>
         public List<Npc> getNpcs() {
             return npcs;
+        }
+
+        public List<ThoughtBubble> getThoughts()
+        {
+            return thoughts;
         }
 
         /// <summary>
@@ -368,6 +378,12 @@ namespace KineticCamp {
                     if (wall != null)
                         wall.draw(batch);
                 }
+
+          foreach (ThoughtBubble thought in thoughts)
+          {
+             if (thought != null)
+                thought.draw(batch);
+          }
 
             }
         }

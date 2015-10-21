@@ -25,6 +25,9 @@ namespace KineticCamp {
 
         private GameObject selectedObject;
 
+        private Mindread mindRead;
+        private bool powerReveal; 
+
         private ButtonState lastState;
         private ButtonState state;
 
@@ -40,13 +43,16 @@ namespace KineticCamp {
 
         private const byte WAIT = 0x4;
 
-        public InputManager(Game1 game, Player player, Level level, Menu pauseMenu, Target target, PlayerManager playerManager, Screen[] screens) {
+        public InputManager(Game1 game, Player player, Level level, Menu pauseMenu, Target target, PlayerManager playerManager, Screen[] screens, Mindread mindRead) {
             this.game = game;
             this.player = player;
             this.level = level;
             this.pauseMenu = pauseMenu;
             this.target = target;
-            this.playerManager = playerManager; 
+            this.playerManager = playerManager;
+            this.mindRead = mindRead;
+
+            powerReveal = false; 
             collisionManager = new CollisionManager(player, level);
             screenManager = new ScreenManager(screens[1], screens);
             selectedObject = null;
@@ -57,6 +63,7 @@ namespace KineticCamp {
             currentKeyState = new KeyboardState();
             ticks = 0;
             stagnant = false;
+            
         }
 
         /// <summary>
@@ -105,6 +112,17 @@ namespace KineticCamp {
             return screenManager;
         }
 
+        public bool getPowerReveal()
+        {
+            return powerReveal;
+        }
+
+        public void setPowerReveal(bool reveal)
+        {
+            powerReveal = reveal; 
+        }
+
+
         /// <summary>
         /// Controls updating of the game based on the current screen state and mouse/keyboard input
         /// </summary>
@@ -127,6 +145,20 @@ namespace KineticCamp {
                 if (playerManager.getHealthCooldown() == 35) {
                     playerManager.regenerateHealth();
                     playerManager.regenerateMana();
+                }
+
+                mindRead.behavior(time);
+                List<ThoughtBubble> thoughts = level.getThoughts();
+                for(int i = 0; i<thoughts.Count; i++)
+                {
+                    if(mindRead.isActivated())
+                    {
+                        thoughts[i].reveal(true);
+                    }else
+                    {
+                        thoughts[i].reveal(false);
+                    }
+                    thoughts[i].updateLocation(); 
                 }
 
                 List<Token> temp = level.getTokens();
@@ -177,28 +209,11 @@ namespace KineticCamp {
 
                 if (lastKeyState.IsKeyDown(Keys.H) && currentKeyState.IsKeyUp(Keys.H))
                 {
-                    player.setX(0);
-                    level.setActive(false);
-                    level = game.getLevelByIndex(1);
-                    level.setActive(true);
-                    level.setInputManager(this);
-                    game.getLevel().setActive(false);
-                    game.setLevel(level);
-                    collisionManager.getLevel().setActive(false);
-                    collisionManager.setLevel(level);
-                }
-
-                if (lastKeyState.IsKeyDown(Keys.G) && currentKeyState.IsKeyUp(Keys.G))
-                {
-                    level.setActive(false);
-                    level = game.getLevelByIndex(0);
-                    level.setActive(true);
-                    level.setInputManager(this);
-                    game.getLevel().setActive(false);
-                    game.setLevel(level);
-                    collisionManager.getLevel().setActive(false);
-                    collisionManager.setLevel(level);
-                    
+                    if(mindRead.isCooldown())
+                    {
+                        mindRead.activatePower(true);
+                        playerManager.depleteMana(mindRead.getManaCost());
+                    }
                 }
 
                 if (currentKeyState.IsKeyDown(Keys.Escape)) {

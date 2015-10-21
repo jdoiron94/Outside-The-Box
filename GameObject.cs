@@ -95,6 +95,10 @@ namespace KineticCamp {
             this.destination = destination;
         }
 
+        public void setLocation(Vector2 location)
+        {
+            this.location = location; 
+        }
         /// <summary>
         /// Returns the game object's direction
         /// </summary>

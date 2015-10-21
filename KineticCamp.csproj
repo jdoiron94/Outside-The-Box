@@ -78,6 +78,7 @@
     <Compile Include="Screen.cs" />
     <Compile Include="ScreenManager.cs" />
     <Compile Include="Target.cs" />
+    <Compile Include="ThoughtBubble.cs" />
     <Compile Include="Token.cs" />
     <Compile Include="TokenType.cs" />
     <Compile Include="Wall.cs" />
