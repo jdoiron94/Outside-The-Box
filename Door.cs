@@ -43,9 +43,9 @@ namespace KineticCamp
             return unlocked; 
         }
 
-        public void unlockDoor()
+        public void unlockDoor(bool value)
         {
-            unlocked = true; 
+            unlocked = value; 
         }
 
         public void draw(SpriteBatch batch)

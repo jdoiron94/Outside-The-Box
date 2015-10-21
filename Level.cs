@@ -15,22 +15,22 @@ namespace KineticCamp {
         private byte mode;
         private bool active;
 
-        private readonly Game1 game;
-        private readonly Player player;
-        private readonly Texture2D map;
+        private Game1 game;
+        private Player player;
+        private Texture2D map;
 
         private GameObject selectedObject;
         private InputManager inputManager;
         private PlayerManager playerManager;
 
-        private readonly List<Npc> npcs;
-        private readonly List<GameObject> objects;
-        private readonly List<DisplayBar> displayBars;
-        private readonly List<ThoughtBubble> thoughts; 
+        private List<Npc> npcs;
+        private List<GameObject> objects;
+        private List<DisplayBar> displayBars;
+        private List<ThoughtBubble> thoughts; 
 
         private List<Token> Tokens;
         private List<Door> Doors;
-        private readonly List<Wall> walls;
+        private List<Wall> walls;
 
         private bool debug;
         private int index;
@@ -116,6 +116,10 @@ namespace KineticCamp {
             return projectiles;
         }
 
+        public void resetProjectiles()
+        {
+            projectiles = new List<Projectile>(); 
+        }
 
         /// <summary>
         /// Returns all of the level's game tokens
@@ -168,6 +172,45 @@ namespace KineticCamp {
         public void setActive(bool active)
         {
             this.active = active;
+        }
+
+        public void resetNpcs(List<Npc> reset, List<Vector2> locations)
+        {
+            npcs = new List<Npc>();
+            for(int i = 0; i < reset.Count; i++)
+            {
+                reset[i].resetHealth();
+                reset[i].setX((int)locations[i].X);
+                reset[i].setY((int)locations[i].Y);
+                npcs.Add(reset[i]);
+            }
+
+        }
+
+        public void resetObjects(List<Vector2> locations)
+        {
+            for (int i = 0; i < objects.Count; i++)
+            {
+                objects[i].setLocation(locations[i]);
+            }
+
+        }
+
+        public void resetDoors(List<bool> values)
+        {
+            for (int i = 0; i < Doors.Count; i++)
+            {
+                Doors[i].unlockDoor(values[i]);
+            }
+
+        }
+
+        public void resetTokens()
+        {
+            for(int i = 0; i<Tokens.Count; i++)
+            {
+                Tokens[i].setCollected(false);
+            }
         }
 
         /// <summary>
@@ -319,7 +362,7 @@ namespace KineticCamp {
         /// <param name="batch">The SpriteBatch to perform the drawing</param>
         public void draw(SpriteBatch batch) {
             if(index == 1)
-                batch.Draw(map, new Vector2(-300, -200), Color.White);
+                batch.Draw(map, new Vector2(0, 0), Color.White);
             else if(index == 2)
                 batch.Draw(map, new Vector2(0, 0), Color.White);
 

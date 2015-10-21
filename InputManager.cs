@@ -24,6 +24,7 @@ namespace KineticCamp {
         private readonly Target target;
 
         private GameObject selectedObject;
+        private DeathManager Deathmanager; 
 
         private Mindread mindRead;
         private bool powerReveal; 
@@ -122,6 +123,11 @@ namespace KineticCamp {
             powerReveal = reveal; 
         }
 
+        public void setDeathManager(DeathManager Deathmanager)
+        {
+            this.Deathmanager = Deathmanager; 
+        }
+
 
         /// <summary>
         /// Controls updating of the game based on the current screen state and mouse/keyboard input
@@ -155,6 +161,11 @@ namespace KineticCamp {
                     playerManager.regenerateMana();
                 }
 
+                if(playerManager.getHealth()<=0)
+                {
+                    Deathmanager.resetGame(); 
+                }
+
                 mindRead.behavior(time);
                 List<ThoughtBubble> thoughts = level.getThoughts();
                 for(int i = 0; i<thoughts.Count; i++)
@@ -174,8 +185,8 @@ namespace KineticCamp {
                 {
                     if (collisionManager.collides(player, temp[i]))
                     {
+                        temp[i].setCollected(true);
                         playerManager.incrementExperience(temp[i].getExp());
-                        level.removeToken(temp[i]);
                     }
                 }
 
@@ -189,12 +200,16 @@ namespace KineticCamp {
                             level.setActive(false);
                             game.setLevelIndex(game.getLevelIndex() + 1);
                             level = game.getLevelByIndex(game.getLevelIndex());
+                            Deathmanager = new DeathManager(this);
+                            setDeathManager(Deathmanager);
                         }
                         else
                         {
                            level.setActive(false);
                            game.setLevelIndex(game.getLevelIndex() - 1);
-                           level = game.getLevelByIndex(game.getLevelIndex());  
+                           level = game.getLevelByIndex(game.getLevelIndex());
+                           Deathmanager = new DeathManager(this);
+                           setDeathManager(Deathmanager);
                         }
 
                         level.setActive(true);
@@ -203,6 +218,7 @@ namespace KineticCamp {
                         game.setLevel(level);
                         collisionManager.getLevel().setActive(false);
                         collisionManager.setLevel(level);
+                        
 
                         if (doors[i].getDirection() == Direction.EAST)
                             player.setX(30);
@@ -212,6 +228,8 @@ namespace KineticCamp {
                             player.setY(30);
                         else
                             player.setY(400);
+
+                        
                     }
                 }
 

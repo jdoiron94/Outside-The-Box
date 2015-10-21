@@ -58,6 +58,7 @@
     <Compile Include="Button.cs" />
     <Compile Include="Confuse.cs" />
     <Compile Include="Dash.cs" />
+    <Compile Include="DeathManager.cs" />
     <Compile Include="SlowTime.cs" />
     <Compile Include="Door.cs" />
     <Compile Include="DrainPower.cs" />
@@ -154,6 +155,9 @@
     <Content Include="Content\ComputerDesk.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\cubicalRoom.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\cursor.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -207,6 +211,9 @@
     </Content>
     <Content Include="Content\Leve1Map.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Lobby.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\ManaBarTexture.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -279,6 +286,9 @@
     </Content>
     <Content Include="Content\Standing1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\StorageRoom.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TargetingCursor.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

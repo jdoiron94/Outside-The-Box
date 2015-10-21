@@ -160,6 +160,26 @@ namespace KineticCamp {
             healthCooldown = (healthCooldown + 1) % 36;
         }
 
+        public void setTotalExp(int exp)
+        {
+            totalExp = exp; 
+        }
+
+        public void setCurrentExp(int exp)
+        {
+            currentExp = exp;
+        }
+
+        public void setHealth(int h)
+        {
+            health = h;
+        }
+
+        public void setMana(int m)
+        {
+            mana = m; 
+        }
+
         /// <summary>
         /// Depletes the specified amount of mana
         /// </summary>

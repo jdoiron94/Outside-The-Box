@@ -11,13 +11,15 @@ namespace KineticCamp
     {
         private TokenType Type;
         private int expValue;
-        private Texture2D side; 
+        private Texture2D side;
+        private bool isCollected; 
 
         public Token(Texture2D texture, Vector2 location, TokenType Type, Texture2D side):base(texture, location)
         {
             this.Type = Type;
             expValue = setExp(Type);
-            this.side = side; 
+            this.side = side;
+            isCollected = false; 
         }
 
         public int setExp(TokenType Type)
@@ -40,9 +42,15 @@ namespace KineticCamp
             return expValue; 
         }
 
+        public void setCollected(bool value)
+        {
+            isCollected = value; 
+        }
+
         public void draw(SpriteBatch batch)
         {
-            batch.Draw(getTexture(), getLocation(), Color.White);
+            if(isCollected==false)
+                batch.Draw(getTexture(), getLocation(), Color.White);
         }
     }
 }

@@ -242,7 +242,7 @@ namespace KineticCamp {
             wall3 = new Wall(wallText, null, new Vector2(100, 250), Direction.EAST, false, false, 20, 120);
             //wall4 = new Wall(wallText, null, new Vector2(30, 200), Direction.EAST, false, false, 120, 20);
 
-            level1 = new Level(this, player, Content.Load<Texture2D>("box2"), new Npc[] { npc, npc2 }, new GameObject[] { obj, obj2 }, new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() }, new Token[] { token1, token2, token3 }, new Door[] {door}, new Wall[] { }, new ThoughtBubble[] { }, 1);
+            level1 = new Level(this, player, Content.Load<Texture2D>("cubicalRoom"), new Npc[] { npc, npc2 }, new GameObject[] { obj, obj2 }, new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() }, new Token[] { token1, token2, token3 }, new Door[] {door}, new Wall[] { }, new ThoughtBubble[] { }, 1);
             level2 = new Level(this, player, Content.Load<Texture2D>("Leve1Map"), new Npc[] { npc3 }, new GameObject[] { }, new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() }, new Token[] { token3 }, new Door[] { door2 }, new Wall[] { wall1, wall2, wall3 }, new ThoughtBubble[]{new ThoughtBubble(Content.Load<Texture2D>("PassBubble1"), new Vector2(0,0), npc3, false, false)},2);
             levels = new List<Level>(); 
             levels.Add(level1);
@@ -269,7 +269,9 @@ namespace KineticCamp {
             inputManager = new InputManager(this, player, level, pauseMenu, targetReticle, playerManager, screens, new Mindread(Content.Load<Texture2D>("PassBubble1")));
             level.setInputManager(inputManager);
             pauseMenu.setInputManager(inputManager);
-            
+            DeathManager Deathmanager = new DeathManager(inputManager);
+            inputManager.setDeathManager(Deathmanager);
+             
             cursor = Content.Load<Texture2D>("cursor");
             target = Content.Load<Texture2D>("TargetingCursor");
 

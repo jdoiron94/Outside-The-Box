@@ -86,6 +86,14 @@ namespace KineticCamp {
             return e0Rect.Intersects(e1Rect);
         }
 
+        public bool collides(Projectile p, Entity e) {
+            return p.getBounds().Intersects(e.getBounds());
+        }
+
+        public bool collides(Projectile p, GameObject g) {
+            return p.getBounds().Intersects(g.getBounds());
+        }
+
         /// <summary>
         /// Returns whether or not two game objects collide
         /// </summary>

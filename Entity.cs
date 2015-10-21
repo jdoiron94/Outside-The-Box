@@ -267,6 +267,11 @@ namespace KineticCamp {
             currentHealth += health;
         }
 
+        public void resetHealth()
+        {
+            currentHealth = maxHealth;
+        }
+
         /// <summary>
         /// Returns a new projectile for the entity
         /// </summary>
