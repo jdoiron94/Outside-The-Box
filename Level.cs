@@ -21,12 +21,20 @@ namespace KineticCamp {
 
         private GameObject selectedObject;
         private InputManager inputManager;
+        private CollisionManager collisionManager;
         private PlayerManager playerManager;
 
+<<<<<<< HEAD
         private List<Npc> npcs;
         private List<GameObject> objects;
         private List<DisplayBar> displayBars;
         private List<ThoughtBubble> thoughts; 
+=======
+        private readonly List<Npc> npcs;
+        private readonly List<GameObject> objects;
+        private readonly List<DisplayBar> displayBars;
+        private readonly List<ThoughtBubble> thoughts;
+>>>>>>> origin/master
 
         private List<Token> Tokens;
         private List<Door> Doors;
@@ -34,10 +42,10 @@ namespace KineticCamp {
 
         private bool debug;
         private int index;
-        private bool Key; 
+        private bool Key;
 
         private List<Projectile> projectiles;
-       
+
         public Level(Game1 game, Player player, Texture2D map, Npc[] npcs, GameObject[] objects, DisplayBar[] displayBars, Token[] Tokens, Door[] Doors, Wall[] walls, ThoughtBubble[] thoughts, int index) {
             this.game = game;
             this.player = player;
@@ -60,7 +68,7 @@ namespace KineticCamp {
             selectedObject = null;
             debug = false;
             projectiles = new List<Projectile>();
-            this.index = index; 
+            this.index = index;
         }
 
         /// <summary>
@@ -95,8 +103,7 @@ namespace KineticCamp {
             return npcs;
         }
 
-        public List<ThoughtBubble> getThoughts()
-        {
+        public List<ThoughtBubble> getThoughts() {
             return thoughts;
         }
 
@@ -125,19 +132,16 @@ namespace KineticCamp {
         /// Returns all of the level's game tokens
         /// </summary>
         /// <returns>Returns a list of all of the game objects in the level</returns>
-        public List<Token> getTokens()
-        {
+        public List<Token> getTokens() {
             return Tokens;
         }
 
-        public List<Door> getDoors()
-        {
-            return Doors; 
+        public List<Door> getDoors() {
+            return Doors;
         }
 
-        public List<Wall> getWalls()
-        {
-            return walls; 
+        public List<Wall> getWalls() {
+            return walls;
         }
 
         /// <summary>
@@ -164,13 +168,11 @@ namespace KineticCamp {
             return mode;
         }
 
-        public bool isActive()
-        {
+        public bool isActive() {
             return active;
         }
 
-        public void setActive(bool active)
-        {
+        public void setActive(bool active) {
             this.active = active;
         }
 
@@ -221,8 +223,7 @@ namespace KineticCamp {
             this.mode = mode;
         }
 
-        public void removeToken(Token t)
-        {
+        public void removeToken(Token t) {
             Tokens.Remove(t);
         }
 
@@ -268,6 +269,7 @@ namespace KineticCamp {
         /// <param name="inputManager">The InputManager instance to be set for the level</param>
         public void setInputManager(InputManager inputManager) {
             this.inputManager = inputManager;
+            collisionManager = inputManager.getCollisionManager();
             playerManager = inputManager.getPlayerManager();
         }
 
@@ -298,18 +300,15 @@ namespace KineticCamp {
                     projectile.update(game, projectile.getOwner());
                     if (projectile.isActive()) {
                         foreach (Npc e in npcs) {
-                            if (projectile.getOwner() == e) {
-                                Rectangle pos = new Rectangle((int) projectile.getPosition().X, (int) projectile.getPosition().Y, projectile.getTexture().Width, projectile.getTexture().Height);
-                                if (pos.Intersects(new Rectangle((int) player.getLocation().X + (player.getTexture().Width / 2), (int) player.getLocation().Y + (player.getTexture().Height / 2), player.getTexture().Width, player.getTexture().Height))) {
-                                    projectile.setActive(false);
-                                    playerManager.damagePlayer(5);
-                                    Console.WriteLine(playerManager.getHealth());
-                                }
-                                break;
-                            }
                             if (e != null && e.isOnScreen(game)) {
-                                Rectangle pos = new Rectangle((int) projectile.getPosition().X, (int) projectile.getPosition().Y, projectile.getTexture().Width, projectile.getTexture().Height);
-                                if (pos.Intersects(new Rectangle((int) e.getDestination().X + (e.getTexture().Width / 2), (int) e.getDestination().Y + (e.getTexture().Height / 2), e.getTexture().Width, e.getTexture().Height))) {
+                                if (projectile.getOwner() == e) {
+                                    if (collisionManager.collides(projectile, player)) {
+                                        projectile.setActive(false);
+                                        playerManager.damagePlayer(5);
+                                        Console.WriteLine(playerManager.getHealth());
+                                    }
+                                    break;
+                                } else if (collisionManager.collides(projectile, e)) {
                                     projectile.setActive(false);
                                     e.deriveHealth(-5);
                                     Console.WriteLine("npc health: " + e.getCurrentHealth());
@@ -319,12 +318,25 @@ namespace KineticCamp {
                         }
                         if (projectile.isActive()) {
                             foreach (GameObject e in objects) {
-                                if (e != null && e.isOnScreen(game)) {
-                                    Rectangle pos = new Rectangle((int) projectile.getPosition().X, (int) projectile.getPosition().Y, projectile.getTexture().Width, projectile.getTexture().Height);
-                                    if (pos.Intersects(new Rectangle((int) e.getDestination().X + (e.getTexture().Width / 2), (int) e.getDestination().Y + (e.getTexture().Height / 2), e.getTexture().Width, e.getTexture().Height))) {
-                                        projectile.setActive(false);
-                                        break;
-                                    }
+                                if (e != null && e.isOnScreen(game) && collisionManager.collides(projectile, e)) {
+                                    projectile.setActive(false);
+                                    break;
+                                }
+                            }
+                        }
+                        if (projectile.isActive()) {
+                            foreach (Wall w in walls) {
+                                if (w != null && w.isOnScreen(game) && collisionManager.collides(projectile, w)) {
+                                    projectile.setActive(false);
+                                    break;
+                                }
+                            }
+                        }
+                        if (projectile.isActive()) {
+                            foreach (Door d in Doors) {
+                                if (d != null && d.isOnScreen(game) && collisionManager.collides(projectile, d)) {
+                                    projectile.setActive(false);
+                                    break;
                                 }
                             }
                         }
@@ -361,9 +373,15 @@ namespace KineticCamp {
         /// </summary>
         /// <param name="batch">The SpriteBatch to perform the drawing</param>
         public void draw(SpriteBatch batch) {
+<<<<<<< HEAD
             if(index == 1)
                 batch.Draw(map, new Vector2(0, 0), Color.White);
             else if(index == 2)
+=======
+            if (index == 1)
+                batch.Draw(map, new Vector2(-300, -200), Color.White);
+            else if (index == 2)
+>>>>>>> origin/master
                 batch.Draw(map, new Vector2(0, 0), Color.White);
 
 
@@ -400,35 +418,39 @@ namespace KineticCamp {
                 if (d != null) {
                     d.draw(batch);
                 }
-
-            foreach (Token t in Tokens)
-            {
-                 if (t != null)
-                 {
-                    t.draw(batch);
-                 }
             }
 
-            foreach (Door door in Doors)
-            {
-                 if (door != null)
-                 {
-                    door.draw(batch);
-                 }
-           }
-
-            foreach (Wall wall in walls)
-                {
-                    if (wall != null)
-                        wall.draw(batch);
+            foreach (Token t in Tokens) {
+                if (t != null) {
+                    t.draw(batch);
+                    if (debug) {
+                        game.outline(batch, t.getBounds());
+                    }
                 }
+            }
 
-          foreach (ThoughtBubble thought in thoughts)
-          {
-             if (thought != null)
-                thought.draw(batch);
-          }
+            foreach (Door door in Doors) {
+                if (door != null) {
+                    door.draw(batch);
+                    if (debug) {
+                        game.outline(batch, door.getBounds());
+                    }
+                }
+            }
 
+            foreach (Wall wall in walls) {
+                if (wall != null) {
+                    wall.draw(batch);
+                    if (debug) {
+                        game.outline(batch, wall.getBounds());
+                    }
+                }
+            }
+
+            foreach (ThoughtBubble thought in thoughts) {
+                if (thought != null) {
+                    thought.draw(batch);
+                }
             }
         }
     }
