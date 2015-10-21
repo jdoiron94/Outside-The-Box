@@ -1,15 +1,13 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
 using System;
 using System.Collections.Generic;
 
-namespace KineticCamp
-{
+namespace KineticCamp {
 
-    public class InputManager
-    {
+    public class InputManager {
 
         /*
          * Class which handles all input given to the game. To be handled according to the ScreenManager's current screen state,
@@ -28,7 +26,7 @@ namespace KineticCamp
         private GameObject selectedObject;
 
         private Mindread mindRead;
-        private bool powerReveal;
+        private bool powerReveal; 
 
         private ButtonState lastState;
         private ButtonState state;
@@ -45,8 +43,7 @@ namespace KineticCamp
 
         private const byte WAIT = 0x4;
 
-        public InputManager(Game1 game, Player player, Level level, Menu pauseMenu, Target target, PlayerManager playerManager, Screen[] screens, Mindread mindRead)
-        {
+        public InputManager(Game1 game, Player player, Level level, Menu pauseMenu, Target target, PlayerManager playerManager, Screen[] screens, Mindread mindRead) {
             this.game = game;
             this.player = player;
             this.level = level;
@@ -55,7 +52,7 @@ namespace KineticCamp
             this.playerManager = playerManager;
             this.mindRead = mindRead;
 
-            powerReveal = false;
+            powerReveal = false; 
             collisionManager = new CollisionManager(player, level);
             screenManager = new ScreenManager(screens[1], screens);
             selectedObject = null;
@@ -66,15 +63,14 @@ namespace KineticCamp
             currentKeyState = new KeyboardState();
             ticks = 0;
             stagnant = false;
-
+            
         }
 
         /// <summary>
         /// Returns an instance of the game
         /// </summary>
         /// <returns>Returns an instance of the game</returns>
-        public Game1 getGame()
-        {
+        public Game1 getGame() {
             return game;
         }
 
@@ -82,8 +78,7 @@ namespace KineticCamp
         /// Returns an instance of the player
         /// </summary>
         /// <returns>Returns an instance of the player</returns>
-        public Player getPlayer()
-        {
+        public Player getPlayer() {
             return player;
         }
 
@@ -91,8 +86,7 @@ namespace KineticCamp
         /// Returns an instance of the level
         /// </summary>
         /// <returns>Returns an instance of the level</returns>
-        public Level getLevel()
-        {
+        public Level getLevel() {
             return level;
         }
 
@@ -105,13 +99,11 @@ namespace KineticCamp
         /// Returns an instance of the player manager
         /// </summary>
         /// <returns>Returns an instance of the player manager</returns>
-        public PlayerManager getPlayerManager()
-        {
+        public PlayerManager getPlayerManager() {
             return playerManager;
         }
 
-        public CollisionManager getCollisionManager()
-        {
+        public CollisionManager getCollisionManager() {
             return collisionManager;
         }
 
@@ -127,7 +119,7 @@ namespace KineticCamp
 
         public void setPowerReveal(bool reveal)
         {
-            powerReveal = reveal;
+            powerReveal = reveal; 
         }
 
 
@@ -135,44 +127,38 @@ namespace KineticCamp
         /// Controls updating of the game based on the current screen state and mouse/keyboard input
         /// </summary>
         /// <param name="time">The GameTime to update with respect to</param>
-        public void update(GameTime time)
-        {
+        public void update(GameTime time) {
             lastKeyState = currentKeyState;
             currentKeyState = Keyboard.GetState();
             Screen active = screenManager.getActiveScreen();
-            if (active.getSong() != null && !active.isSongPlaying())
-            {
+            if (active.getSong() != null && !active.isSongPlaying()) {
                 MediaPlayer.IsRepeating = true;
                 MediaPlayer.Play(active.getSong());
                 active.setSongPlaying(true);
             }
 
-            if (lastKeyState.IsKeyDown(Keys.F1) && currentKeyState.IsKeyUp(Keys.F1))
-            {
+            if (lastKeyState.IsKeyDown(Keys.F1) && currentKeyState.IsKeyUp(Keys.F1)) {
                 level.toggleDebug();
             }
 
-            if (active.getName() == "Normal")
-            {
-                if (playerManager.getHealthCooldown() == 35)
-                {
+            if (active.getName() == "Normal") {
+                if (playerManager.getHealthCooldown() == 35) {
                     playerManager.regenerateHealth();
                     playerManager.regenerateMana();
                 }
 
                 mindRead.behavior(time);
                 List<ThoughtBubble> thoughts = level.getThoughts();
-                for (int i = 0; i < thoughts.Count; i++)
+                for(int i = 0; i<thoughts.Count; i++)
                 {
-                    if (mindRead.isActivated())
+                    if(mindRead.isActivated())
                     {
                         thoughts[i].reveal(true);
-                    }
-                    else
+                    }else
                     {
                         thoughts[i].reveal(false);
                     }
-                    thoughts[i].updateLocation();
+                    thoughts[i].updateLocation(); 
                 }
 
                 List<Token> temp = level.getTokens();
@@ -185,12 +171,12 @@ namespace KineticCamp
                     }
                 }
 
-                List<Door> doors = level.getDoors();
+                List<Door> doors = level.getDoors(); 
                 for (int i = 0; i < doors.Count; i++)
                 {
                     if (collisionManager.collides(player, doors[i]))
                     {
-                        if (doors[i].getNext() == true)
+                        if(doors[i].getNext()==true)
                         {
                             level.setActive(false);
                             game.setLevelIndex(game.getLevelIndex() + 1);
@@ -198,9 +184,9 @@ namespace KineticCamp
                         }
                         else
                         {
-                            level.setActive(false);
-                            game.setLevelIndex(game.getLevelIndex() - 1);
-                            level = game.getLevelByIndex(game.getLevelIndex());
+                           level.setActive(false);
+                           game.setLevelIndex(game.getLevelIndex() - 1);
+                           level = game.getLevelByIndex(game.getLevelIndex());  
                         }
 
                         level.setActive(true);
@@ -223,112 +209,111 @@ namespace KineticCamp
 
                 if (lastKeyState.IsKeyDown(Keys.H) && currentKeyState.IsKeyUp(Keys.H))
                 {
-                    if (mindRead.isCooldown())
+                    if(mindRead.isCooldown())
                     {
                         mindRead.activatePower(true);
                         playerManager.depleteMana(mindRead.getManaCost());
                     }
                 }
 
-                if (currentKeyState.IsKeyDown(Keys.Escape))
+                //SLOW TIME
+                SlowTime slowmo = (SlowTime)playerManager.getPowers()[0];
+                if (lastKeyState.IsKeyDown(Keys.L) && currentKeyState.IsKeyUp(Keys.L))
                 {
-                    game.Exit();
+                    if (slowmo.isUnlocked() && !slowmo.isActivated())
+                    {
+                        if (slowmo.isCooldown())
+                        {
+                            slowmo.activatePower(true);
+                            playerManager.depleteMana(slowmo.getManaCost());
+                        }
+                    }
                 }
-                else if (currentKeyState.IsKeyDown(Keys.W))
+                slowmo.doStuff(level);
+                //SLOW TIME
+
+                //DASH
+                Dash dash = (Dash)playerManager.getPowers()[1];
+                if (lastKeyState.IsKeyDown(Keys.K) && currentKeyState.IsKeyUp(Keys.K))
                 {
+                    if (dash.isUnlocked())
+                    {
+                        if (dash.isCooldown() && !dash.isActivated())
+                        {
+                            dash.activatePower(true);
+                            playerManager.depleteMana(dash.getManaCost());
+                        }
+                    }
+                }
+                dash.doStuff(level);
+                //DASH
+
+                if (currentKeyState.IsKeyDown(Keys.Escape)) {
+                    game.Exit();
+                } else if (currentKeyState.IsKeyDown(Keys.W)) {
                     player.setDirection(Direction.NORTH);
                     player.updateMovement();
                     player.setDestination(new Vector2(player.getLocation().X, player.getLocation().Y - velocity));
-                    if (player.getDestination().Y >= 0 && collisionManager.isValid(player))
-                    {
+                    if (player.getDestination().Y >= 0 && collisionManager.isValid(player)) {
                         player.deriveY(-velocity);
-                    }
-                    else
-                    {
+                    } else {
                         Console.WriteLine("can't walk to " + player.getDestination());
                     }
-                }
-                else if (lastKeyState.IsKeyDown(Keys.W) && currentKeyState.IsKeyUp(Keys.W))
-                {
+                } else if (lastKeyState.IsKeyDown(Keys.W) && currentKeyState.IsKeyUp(Keys.W)) {
                     stagnant = true;
-                }
-                else if (currentKeyState.IsKeyDown(Keys.S))
-                {
+                } else if (currentKeyState.IsKeyDown(Keys.S)) {
                     player.setDirection(Direction.SOUTH);
                     player.updateMovement();
                     player.setDestination(new Vector2(player.getLocation().X, player.getLocation().Y + velocity));
-                    if (player.getDestination().Y <= midY * 2 && collisionManager.isValid(player))
-                    {
+                    if (player.getDestination().Y <= midY * 2 && collisionManager.isValid(player)) {
                         player.deriveY(velocity);
                     }
-                }
-                else if (lastKeyState.IsKeyDown(Keys.S) && currentKeyState.IsKeyUp(Keys.S))
-                {
+                } else if (lastKeyState.IsKeyDown(Keys.S) && currentKeyState.IsKeyUp(Keys.S)) {
                     stagnant = true;
-                }
-                else if (currentKeyState.IsKeyDown(Keys.A))
-                {
+                } else if (currentKeyState.IsKeyDown(Keys.A)) {
                     player.setDirection(Direction.WEST);
                     player.updateMovement();
                     player.setDestination(new Vector2(player.getLocation().X - velocity, player.getLocation().Y));
-                    if (player.getDestination().X >= 0 && collisionManager.isValid(player))
-                    {
+                    if (player.getDestination().X >= 0 && collisionManager.isValid(player)) {
                         player.deriveX(-velocity);
                     }
-                }
-                else if (lastKeyState.IsKeyDown(Keys.A) && currentKeyState.IsKeyUp(Keys.A))
-                {
+                } else if (lastKeyState.IsKeyDown(Keys.A) && currentKeyState.IsKeyUp(Keys.A)) {
                     stagnant = true;
-                }
-                else if (currentKeyState.IsKeyDown(Keys.D))
-                {
+                } else if (currentKeyState.IsKeyDown(Keys.D)) {
                     player.setDirection(Direction.EAST);
                     player.updateMovement();
                     player.setDestination(new Vector2(player.getLocation().X + velocity, player.getLocation().Y));
-                    if (player.getDestination().X <= midX * 2 && collisionManager.isValid(player))
-                    {
+                    if (player.getDestination().X <= midX * 2 && collisionManager.isValid(player)) {
                         player.deriveX(velocity);
                     }
-                }
-                else if (lastKeyState.IsKeyDown(Keys.D) && currentKeyState.IsKeyUp(Keys.D))
-                {
+                } else if (lastKeyState.IsKeyDown(Keys.D) && currentKeyState.IsKeyUp(Keys.D)) {
                     stagnant = true;
-                }
-                else
-                {
+                } else {
                     player.setDestination(player.getLocation());
                 }
-                if (currentKeyState.IsKeyDown(Keys.Space))
-                {
+                if (currentKeyState.IsKeyDown(Keys.Space)) {
                     double totalMilliseconds = time.TotalGameTime.TotalMilliseconds;
-                    if ((player.getLastFired() == -1 || totalMilliseconds - player.getLastFired() >= player.getProjectile().getCooldown()) && playerManager.getMana() >= 5)
-                    {
+                    if ((player.getLastFired() == -1 || totalMilliseconds - player.getLastFired() >= player.getProjectile().getCooldown()) && playerManager.getMana() >= 5) {
                         level.addProjectile(player.createProjectile(totalMilliseconds));
                         playerManager.depleteMana(5);
                     }
                 }
-                if (stagnant)
-                {
-                    if (ticks >= WAIT)
-                    {
+                if (stagnant) {
+                    if (ticks >= WAIT) {
                         player.updateStill();
                         ticks = 0;
                         stagnant = false;
-                    }
-                    else
-                    {
+                    } else {
                         ticks++;
                     }
                 }
-                if (lastKeyState.IsKeyDown(Keys.X) && currentKeyState.IsKeyUp(Keys.X))
-                {
+                if (lastKeyState.IsKeyDown(Keys.X) && currentKeyState.IsKeyUp(Keys.X)) {
                     level.setMode(1);
                     screenManager.setActiveScreen(2);
                     target.setActive(true);
-                    Console.WriteLine("Entered telekinesis mode!");
+                    Console.WriteLine("Entered telekinesis mode!");     
                 }
-                if (currentKeyState.IsKeyDown(Keys.P))
-                {
+                if (currentKeyState.IsKeyDown(Keys.P)) {
                     playerManager.damagePlayer(2);
                 }
                 if (lastKeyState.IsKeyDown(Keys.M) && currentKeyState.IsKeyUp(Keys.M))
@@ -339,68 +324,31 @@ namespace KineticCamp
                     Console.WriteLine("Entered menu.");
                 }
 
-            }
-            else if (active.getName() == "Telekinesis-Select")
-            {
+            } else if (active.getName() == "Telekinesis-Select") {
                 lastState = state;
                 state = Mouse.GetState().LeftButton;
                 playerManager.setManaDrainRate(5);
-                if (currentKeyState.IsKeyDown(Keys.Escape))
-                {
+                if (currentKeyState.IsKeyDown(Keys.Escape)) {
                     game.Exit();
-                }
-                else if (currentKeyState.IsKeyDown(Keys.W))
-                {
-                    target.setDirection(Direction.NORTH);
-                    target.setDestination(new Vector2(target.getLocation().X, target.getLocation().Y - velocity));
-
-                }
-                else if (currentKeyState.IsKeyDown(Keys.S))
-                {
-                    target.setDirection(Direction.SOUTH);
-                    target.setDestination(new Vector2(target.getLocation().X, target.getLocation().Y + velocity));
-
-                }
-                else if (currentKeyState.IsKeyDown(Keys.A))
-                {
-                    target.setDirection(Direction.WEST);
-                    target.setDestination(new Vector2(target.getLocation().X - velocity, target.getLocation().Y));
-
-                }
-                else if (currentKeyState.IsKeyDown(Keys.D))
-                {
-                    target.setDirection(Direction.EAST);
-                    target.setDestination(new Vector2(target.getLocation().X + velocity, target.getLocation().Y));
-                }
-                else
-                {
-                    target.setDestination(target.getLocation());
-                }
-            }
-            else if (lastState == ButtonState.Pressed && state == ButtonState.Released)
-            {
-                foreach (GameObject obj in level.getObjects())
-                {
-                    if (obj != null && obj.isLiftable())
-                    {
-                        if (p != null && obj.getBounds().Contains(target.getBounds()))
-                        {
-                            obj.setSelected(true);
-                            selectedObject = obj;
-                            level.setMode(2);
-                            screenManager.setActiveScreen(3);
+                } else if (lastState == ButtonState.Pressed && state == ButtonState.Released) {
+                    foreach (GameObject obj in level.getObjects()) {
+                        if (obj != null && obj.isLiftable()) {
+                            Point p = new Point(Mouse.GetState().X, Mouse.GetState().Y);
+                            if (p != null && obj.getBounds().Contains(p)) {
+                                obj.setSelected(true);
+                                selectedObject = obj;
+                                level.setMode(2);
+                                screenManager.setActiveScreen(3);
+                            }
                         }
                     }
+                } else if (lastKeyState.IsKeyDown(Keys.X) && currentKeyState.IsKeyUp(Keys.X)) {
+                    level.setMode(0);
+                    screenManager.setActiveScreen(1);
+                    Console.WriteLine("Exited telekinesis mode.");
                 }
-            }
-            else if (lastKeyState.IsKeyDown(Keys.X) && currentKeyState.IsKeyUp(Keys.X))
-            {
-                level.setMode(0);
-                screenManager.setActiveScreen(1);
-                Console.WriteLine("Exited telekinesis mode.");
-            }
 
-         else if (active.getName() == "Telekinesis-Move") {
+            } else if (active.getName() == "Telekinesis-Move") {
                 playerManager.updateManaDrainRate();
                 if (playerManager.getManaDrainRate() == 5) {
                     playerManager.depleteMana(1);
@@ -416,7 +364,7 @@ namespace KineticCamp
                 } else if (currentKeyState.IsKeyDown(Keys.S)) {
                     selectedObject.setDirection(Direction.SOUTH);
                     selectedObject.setDestination(new Vector2(selectedObject.getLocation().X, selectedObject.getLocation().Y + velocity));
-                    if (selectedObject.getDestination().Y<midY* 2 && collisionManager.isValid(selectedObject)) {
+                    if (selectedObject.getDestination().Y < midY * 2 && collisionManager.isValid(selectedObject)) {
                         selectedObject.deriveY(velocity);
                         if (playerManager.getManaDrainRate() == 5) {
                             playerManager.depleteMana(2);
@@ -435,7 +383,7 @@ namespace KineticCamp
                 } else if (currentKeyState.IsKeyDown(Keys.D)) {
                     selectedObject.setDirection(Direction.EAST);
                     selectedObject.setDestination(new Vector2(selectedObject.getLocation().X + velocity, selectedObject.getLocation().Y));
-                    if (selectedObject.getDestination().X<midX* 2 && collisionManager.isValid(selectedObject)) {
+                    if (selectedObject.getDestination().X < midX * 2 && collisionManager.isValid(selectedObject)) {
                         selectedObject.deriveX(velocity);
                         if (playerManager.getManaDrainRate() == 5) {
                             playerManager.depleteMana(2);
@@ -452,7 +400,6 @@ namespace KineticCamp
                     selectedObject = null;
                     level.setMode(0);
                     screenManager.setActiveScreen(1);
-                    target.setActive(false);
                     Console.WriteLine("Exited telekinesis mode.");
                 }
 
