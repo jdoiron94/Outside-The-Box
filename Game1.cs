@@ -353,7 +353,7 @@ namespace KineticCamp {
 
             if (inputManager.getScreenManager().getActiveScreen().getName() == "Start")
             {
-                spriteBatch.Draw(startMenu, new Vector2(-300, -100), Color.White);
+                spriteBatch.Draw(startMenu, new Vector2(-290, -100), Color.White);
             }
 
             spriteBatch.End();
