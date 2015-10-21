@@ -31,7 +31,7 @@ namespace KineticCamp {
             this.cooldown = cooldown;
             this.rotationSpeed = rotationSpeed;
             origin = new Vector2(texture.Width / 2, texture.Height / 2);
-            position = new Vector2(owner.getLocation().X, owner.getLocation().Y);
+            position = new Vector2(owner.getLocation().X, owner.getLocation().Y + (owner.getTexture().Height - texture.Height) / 2);
             direction = Direction.NONE;
             bounds = new Rectangle((int) position.X, (int) position.Y, texture.Width, texture.Height);
             rotation = 0f;
@@ -177,7 +177,7 @@ namespace KineticCamp {
                 deriveX(velocity);
                 bounds.X += velocity;
             }
-            rotation = rotation + rotationSpeed;
+            rotation += rotationSpeed;
             active = isOnScreen(game);
         }
 
