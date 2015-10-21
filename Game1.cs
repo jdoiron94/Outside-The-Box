@@ -253,7 +253,7 @@ namespace KineticCamp {
             Button[] menuButtons = { new Button(Content.Load<Texture2D>("resume_button"), new Vector2(0, 415)), 
                                        new Button(Content.Load<Texture2D>("mind_read_button"), new Vector2(200, 200)) };
             pauseMenu = new Menu(Content.Load<Texture2D>("PausePlaceholderScreen"), menuButtons );
-            targetReticle = new Target(Content.Load<Texture2D>("TargetingCursor"));
+            targetReticle = new Target(Content.Load<Texture2D>("TargetingCursor"), player, new Vector2(player.getLocation().X, player.getLocation().Y), Direction.NORTH);
             factorysong = Content.Load<Song>("Factory");
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Play(factorysong);
