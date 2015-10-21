@@ -260,7 +260,7 @@ namespace KineticCamp {
                                        new Button(Content.Load<Texture2D>("button_ice_bolt"), new Vector2(445, 220)), 
                                        new Button(Content.Load<Texture2D>("button_lightning_bolt"), new Vector2(445, 310)) };
             pauseMenu = new Menu(Content.Load<Texture2D>("PausePlaceholderScreen"), menuButtons );
-            targetReticle = new Target(Content.Load<Texture2D>("TargetingCursor"), player, new Vector2(player.getLocation().X, player.getLocation().Y), Direction.NORTH);
+            targetReticle = new Target(Content.Load<Texture2D>("TargetingCursor"));
             factorysong = Content.Load<Song>("Factory");
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Play(factorysong);
