@@ -37,6 +37,7 @@ namespace KineticCamp {
         private MouseState mouse;
         private Texture2D target;
         private Target targetReticle;
+        private Texture2D startMenu;
 
         private Texture2D pixel;
 
@@ -204,6 +205,8 @@ namespace KineticCamp {
             base.LoadContent();
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            startMenu = Content.Load<Texture2D>("start_menu");
+
             playerTexture = Content.Load<Texture2D>("Standing1");
 
             midX = (graphics.PreferredBackBufferWidth - playerTexture.Width) / 2;
@@ -273,7 +276,7 @@ namespace KineticCamp {
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Play(factorysong);
 
-            Screen[] screens = { new Screen("Menu"), new Screen("Normal", true), new Screen("Telekinesis-Select"), new Screen("Telekinesis-Move") };
+            Screen[] screens = { new Screen("Menu"), new Screen("Normal", true), new Screen("Telekinesis-Select"), new Screen("Telekinesis-Move"), new Screen("Start") };
             inputManager = new InputManager(this, player, level, pauseMenu, targetReticle, playerManager, screens, new Mindread(Content.Load<Texture2D>("PassBubble1")));
             level.setInputManager(inputManager);
             pauseMenu.setInputManager(inputManager);
@@ -346,6 +349,11 @@ namespace KineticCamp {
                 {
                     spriteBatch.Draw(target, new Vector2(mouse.X, mouse.Y), Color.White);
                 }
+            }
+
+            if (inputManager.getScreenManager().getActiveScreen().getName() == "Start")
+            {
+                spriteBatch.Draw(startMenu, new Vector2(-300, -100), Color.White);
             }
 
             spriteBatch.End();

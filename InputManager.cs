@@ -55,7 +55,7 @@ namespace KineticCamp {
 
             powerReveal = false; 
             collisionManager = new CollisionManager(player, level);
-            screenManager = new ScreenManager(screens[1], screens);
+            screenManager = new ScreenManager(screens[4], screens);
             selectedObject = null;
             velocity = player.getVelocity();
             midX = game.getMidX();
@@ -153,6 +153,16 @@ namespace KineticCamp {
 
             if (lastKeyState.IsKeyDown(Keys.F1) && currentKeyState.IsKeyUp(Keys.F1)) {
                 level.toggleDebug();
+            }
+
+            if (active.getName() == "Start")
+            {
+                if (currentKeyState.IsKeyDown(Keys.Space))
+                {
+                    level.setMode(0);
+                    screenManager.setActiveScreen(1);
+                }
+
             }
 
             if (active.getName() == "Normal") {
