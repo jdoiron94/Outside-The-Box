@@ -248,10 +248,17 @@ namespace KineticCamp {
             levels.Add(level1);
             levels.Add(level2);
             level = levels[0];
-            levelIndex = 0; 
+            levelIndex = 0;
 
-            Button[] menuButtons = { new Button(Content.Load<Texture2D>("resume_button"), new Vector2(0, 415)), 
-                                       new Button(Content.Load<Texture2D>("mind_read_button"), new Vector2(200, 200)) };
+            Button[] menuButtons = { new Button(Content.Load<Texture2D>("button_mind_read"), new Vector2(270, 140)), 
+                                       new Button(Content.Load<Texture2D>("button_clairvoyance"), new Vector2(270, 220)), 
+                                       new Button(Content.Load<Texture2D>("button_confusion"), new Vector2(270, 310)), 
+                                       new Button(Content.Load<Texture2D>("button_dash"), new Vector2(355, 140)), 
+                                       new Button(Content.Load<Texture2D>("button_slow_time"), new Vector2(355, 220)), 
+                                       new Button(Content.Load<Texture2D>("button_invisibility"), new Vector2(355, 310)), 
+                                       new Button(Content.Load<Texture2D>("button_fire_bolt"), new Vector2(445, 140)), 
+                                       new Button(Content.Load<Texture2D>("button_ice_bolt"), new Vector2(445, 220)), 
+                                       new Button(Content.Load<Texture2D>("button_lightning_bolt"), new Vector2(445, 310)) };
             pauseMenu = new Menu(Content.Load<Texture2D>("PausePlaceholderScreen"), menuButtons );
             targetReticle = new Target(Content.Load<Texture2D>("TargetingCursor"));
             factorysong = Content.Load<Song>("Factory");

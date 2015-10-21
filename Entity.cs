@@ -244,6 +244,11 @@ namespace KineticCamp {
             bounds.X = x; 
         }
 
+        public void setVelocity(int velocity)
+        {
+            this.velocity = velocity;
+        }
+
         // update sprite to respective sprite facing the correct direction
 
         /// <summary>

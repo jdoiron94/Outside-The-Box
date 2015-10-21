@@ -216,6 +216,38 @@ namespace KineticCamp {
                     }
                 }
 
+                //SLOW TIME
+                SlowTime slowmo = (SlowTime)playerManager.getPowers()[0];
+                if (lastKeyState.IsKeyDown(Keys.L) && currentKeyState.IsKeyUp(Keys.L))
+                {
+                    if (slowmo.isUnlocked() && !slowmo.isActivated())
+                    {
+                        if (slowmo.isCooldown())
+                        {
+                            slowmo.activatePower(true);
+                            playerManager.depleteMana(slowmo.getManaCost());
+                        }
+                    }
+                }
+                slowmo.doStuff(level);
+                //SLOW TIME
+
+                //DASH
+                Dash dash = (Dash)playerManager.getPowers()[1];
+                if (lastKeyState.IsKeyDown(Keys.K) && currentKeyState.IsKeyUp(Keys.K))
+                {
+                    if (dash.isUnlocked())
+                    {
+                        if (dash.isCooldown() && !dash.isActivated())
+                        {
+                            dash.activatePower(true);
+                            playerManager.depleteMana(dash.getManaCost());
+                        }
+                    }
+                }
+                dash.doStuff(level);
+                //DASH
+
                 if (currentKeyState.IsKeyDown(Keys.Escape)) {
                     game.Exit();
                 } else if (currentKeyState.IsKeyDown(Keys.W)) {

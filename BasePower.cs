@@ -6,7 +6,7 @@ using System.Text;
 
 namespace KineticCamp
 {
-    interface BasePower
+    public interface BasePower
     {
         int getManaCost();
         int getXPCost();

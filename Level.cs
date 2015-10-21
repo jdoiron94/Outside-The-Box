@@ -345,6 +345,7 @@ namespace KineticCamp {
                     e.draw(batch);
                     if (debug) {
                         game.outline(batch, e.getBounds());
+                        game.outline(batch, e.getLineOfSight());
                     }
                 }
             }

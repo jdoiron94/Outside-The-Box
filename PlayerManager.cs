@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace KineticCamp {
 
@@ -7,6 +8,7 @@ namespace KineticCamp {
         private readonly Player player;
         private readonly DisplayBar healthBar;
         private readonly DisplayBar manaBar;
+        private List<BasePower> powers;
 
         private int health;
         private int mana;
@@ -31,6 +33,7 @@ namespace KineticCamp {
             healthCooldown = 0;
             manaCooldown = 0;
             totalMana = 100;
+            powers = new List<BasePower> {new SlowTime(true, false), new Dash(true, false) /*, new Mindread(true, false, inputManager)*/};
         }
 
         public PlayerManager(Player player, DisplayBar healthBar, DisplayBar manaBar) :
@@ -43,6 +46,11 @@ namespace KineticCamp {
         /// <returns>Returns an instance of the player</returns>
         public Player getPlayer() {
             return player;
+        }
+
+        public List<BasePower> getPowers()
+        {
+            return powers;
         }
 
         /// <summary>
