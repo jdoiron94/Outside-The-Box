@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
 
 namespace KineticCamp {
 
@@ -12,7 +11,7 @@ namespace KineticCamp {
 
         private readonly Player player;
         private Level level;
-        
+
         public CollisionManager(Player player, Level level) {
             this.player = player;
             this.level = level;
@@ -34,21 +33,13 @@ namespace KineticCamp {
             return level;
         }
 
-        public void setLevel(Level level)
-        {
-            this.level = level; 
+        public void setLevel(Level level) {
+            this.level = level;
         }
 
-        public bool playerSpotted(Level level)
-        {
-            Player player = level.getPlayer();
-            Rectangle playerRec = player.getBounds();
-
-            foreach (Npc npc in level.getNpcs())
-            {
-                Rectangle lineOfSight = npc.getLineOfSight();
-                if (playerRec.Intersects(lineOfSight))
-                {
+        public bool playerSpotted(Level level) {
+            foreach (Npc npc in level.getNpcs()) {
+                if (npc != null && player.getBounds().Intersects(npc.getLineOfSight())) {
                     return true;
                 }
             }
@@ -64,7 +55,7 @@ namespace KineticCamp {
         public bool collides(Entity e0, Entity e1) {
             Rectangle e0Rect = new Rectangle((int) e0.getDestination().X, (int) e0.getDestination().Y, e0.getTexture().Width, e0.getTexture().Height);
             Rectangle e1Rect = new Rectangle((int) e1.getDestination().X, (int) e1.getDestination().Y, e1.getTexture().Width, e1.getTexture().Height);
-            return e0Rect.Intersects(e1Rect); 
+            return e0Rect.Intersects(e1Rect);
         }
 
         /// <summary>
@@ -79,11 +70,9 @@ namespace KineticCamp {
             return e0Rect.Intersects(e1Rect);
         }
 
-        public bool collides(Entity e0, Wall e1)
-        {
-            Rectangle e0Rect = new Rectangle((int)e0.getDestination().X, (int)e0.getDestination().Y, e0.getTexture().Width, e0.getTexture().Height);
-            Rectangle e1Rect = e1.getWallBounds(); 
-            return e0Rect.Intersects(e1Rect);
+        public bool collides(Entity e0, Wall e1) {
+            Rectangle e0Rect = new Rectangle((int) e0.getDestination().X, (int) e0.getDestination().Y, e0.getTexture().Width, e0.getTexture().Height);
+            return e0Rect.Intersects(e1.getBounds());
         }
 
         public bool collides(Projectile p, Entity e) {
@@ -126,13 +115,10 @@ namespace KineticCamp {
                     }
                 }
             }
-            foreach (Wall w in level.getWalls())
-            {
-                if(w !=null && w.isOnScreen(level.getGame()))
-                {
-                    if(collides(ent, w))
-                    {
-                        return false; 
+            foreach (Wall w in level.getWalls()) {
+                if (w != null && w.isOnScreen(level.getGame())) {
+                    if (collides(ent, w)) {
+                        return false;
                     }
                 }
             }
@@ -152,12 +138,9 @@ namespace KineticCamp {
                     }
                 }
             }
-            foreach (Wall w in level.getWalls())
-            {
-                if (w != null && w.isOnScreen(level.getGame()))
-                {
-                    if (collides(obj, w))
-                    {
+            foreach (Wall w in level.getWalls()) {
+                if (w != null && w.isOnScreen(level.getGame())) {
+                    if (collides(obj, w)) {
                         return false;
                     }
                 }

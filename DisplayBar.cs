@@ -1,12 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace KineticCamp
-{
+namespace KineticCamp {
+
     public class DisplayBar {
 
         private readonly Texture2D texture;
-        private readonly Texture2D gradient; 
+        private readonly Texture2D gradient;
         private readonly Vector2 location;
         private readonly Rectangle backBar;
         private readonly Rectangle outlineBar;
@@ -31,15 +31,15 @@ namespace KineticCamp
         /// </summary>
         /// <returns>Returns the display bar's texture</returns>
         public Texture2D getTexture() {
-            return texture; 
-        } 
+            return texture;
+        }
 
         /// <summary>
         /// Returns the display bar's location
         /// </summary>
         /// <returns>Returns the display bar's location</returns>
         public Vector2 getLocation() {
-            return location; 
+            return location;
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace KineticCamp
         /// </summary>
         /// <returns>Returns the display bar's bounds</returns>
         public Rectangle getDisplayBar() {
-            return displayBar; 
+            return displayBar;
         }
 
         /// <summary>
@@ -55,11 +55,10 @@ namespace KineticCamp
         /// </summary>
         /// <returns>Returns the display bar's color</returns>
         public Color getDisplayColor() {
-            return displayColor; 
+            return displayColor;
         }
 
-        public int getWidth()
-        {
+        public int getWidth() {
             return displayBar.Width;
         }
 

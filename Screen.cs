@@ -14,7 +14,7 @@ namespace KineticCamp {
 
         private readonly string name;
         private readonly Song song;
-        
+
         private bool active;
         private bool songPlaying;
 

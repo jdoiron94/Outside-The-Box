@@ -1,19 +1,15 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace KineticCamp
-{
-    public interface BasePower
-    {
+namespace KineticCamp {
+
+    public interface BasePower {
+
         int getManaCost();
-        int getXPCost();
+        int getExpCost();
         void unlockPower(bool unlock);
         void activatePower(bool activate);
         bool isActivated();
         bool isUnlocked();
-        void behavior(GameTime gametime); 
+        void behavior(GameTime gametime);
     }
 }

@@ -41,7 +41,7 @@ namespace KineticCamp {
             this.location = location;
             this.direction = direction;
             this.maxHealth = maxHealth;
-            this.velocity = velocity; 
+            this.velocity = velocity;
             destination = location;
             bounds = new Rectangle((int) location.X, (int) location.Y, texture.Width, texture.Height);
             northFacing = new Texture2D[4];
@@ -232,20 +232,17 @@ namespace KineticCamp {
             //destination.Y += y;
         }
 
-        public void setY(int y)
-        {
+        public void setY(int y) {
             location.Y = y;
-            bounds.Y = y; 
+            bounds.Y = y;
         }
 
-        public void setX(int x)
-        {
+        public void setX(int x) {
             location.X = x;
-            bounds.X = x; 
+            bounds.X = x;
         }
 
-        public void setVelocity(int velocity)
-        {
+        public void setVelocity(int velocity) {
             this.velocity = velocity;
         }
 
@@ -267,8 +264,7 @@ namespace KineticCamp {
             currentHealth += health;
         }
 
-        public void resetHealth()
-        {
+        public void resetHealth() {
             currentHealth = maxHealth;
         }
 

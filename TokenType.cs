@@ -1,10 +1,12 @@
-﻿namespace KineticCamp
-{
+﻿
+namespace KineticCamp {
+
     /*
     * Enum for differentiating between different types of tokens. 
     */
-    public enum TokenType
-    {
+
+    public enum TokenType {
+
         BRONZE,
         SILVER,
         GOLD,

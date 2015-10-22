@@ -27,13 +27,14 @@ namespace KineticCamp {
         private List<Npc> npcs;
         private List<GameObject> objects;
         private List<DisplayBar> displayBars;
-        private List<ThoughtBubble> thoughts; 
+        private List<ThoughtBubble> thoughts;
 
         private List<Token> Tokens;
         private List<Door> Doors;
         private List<Wall> walls;
 
         private bool debug;
+        private bool songPlaying;
         private int index;
         private bool Key;
 
@@ -60,6 +61,7 @@ namespace KineticCamp {
             active = true;
             selectedObject = null;
             debug = false;
+            songPlaying = false;
             projectiles = new List<Projectile>();
             this.index = index;
         }
@@ -116,9 +118,8 @@ namespace KineticCamp {
             return projectiles;
         }
 
-        public void resetProjectiles()
-        {
-            projectiles = new List<Projectile>(); 
+        public void resetProjectiles() {
+            projectiles = new List<Projectile>();
         }
 
         /// <summary>
@@ -169,42 +170,31 @@ namespace KineticCamp {
             this.active = active;
         }
 
-        public void resetNpcs(List<Npc> reset, List<Vector2> locations)
-        {
+        public void resetNpcs(List<Npc> reset, List<Vector2> locations) {
             npcs = new List<Npc>();
-            for(int i = 0; i < reset.Count; i++)
-            {
+            for (int i = 0; i < reset.Count; i++) {
                 reset[i].resetHealth();
-                reset[i].setX((int)locations[i].X);
-                reset[i].setY((int)locations[i].Y);
+                reset[i].setX((int) locations[i].X);
+                reset[i].setY((int) locations[i].Y);
                 npcs.Add(reset[i]);
             }
-
         }
 
-        public void resetObjects(List<Vector2> locations)
-        {
-            for (int i = 0; i < objects.Count; i++)
-            {
+        public void resetObjects(List<Vector2> locations) {
+            for (int i = 0; i < objects.Count; i++) {
                 objects[i].setLocation(locations[i]);
             }
-
         }
 
-        public void resetDoors(List<bool> values)
-        {
-            for (int i = 0; i < Doors.Count; i++)
-            {
+        public void resetDoors(List<bool> values) {
+            for (int i = 0; i < Doors.Count; i++) {
                 Doors[i].unlockDoor(values[i]);
             }
-
         }
 
-        public void resetTokens()
-        {
-            for(int i = 0; i<Tokens.Count; i++)
-            {
-                Tokens[i].setCollected(false);
+        public void resetTokens() {
+            foreach (Token t in Tokens) {
+                t.setCollected(false);
             }
         }
 
@@ -265,7 +255,6 @@ namespace KineticCamp {
             collisionManager = inputManager.getCollisionManager();
             playerManager = inputManager.getPlayerManager();
         }
-
 
         /// <summary>
         /// Toggles the debug setting to its inverse
@@ -366,22 +355,18 @@ namespace KineticCamp {
         /// </summary>
         /// <param name="batch">The SpriteBatch to perform the drawing</param>
         public void draw(SpriteBatch batch) {
-            if(index == 1)
+            if (index == 1)
                 batch.Draw(map, new Vector2(0, 0), Color.White);
-            else if(index == 2)
+            else if (index == 2)
                 batch.Draw(map, new Vector2(0, 0), Color.White);
-
-
             foreach (Projectile p in projectiles) {
-                if (p != null) {
-                    p.draw(batch);
-                    if (debug) {
-                        game.outline(batch, p.getBounds());
-                    }
+                p.draw(batch);
+                if (debug) {
+                    game.outline(batch, p.getBounds());
                 }
             }
             foreach (GameObject o in objects) {
-                if (o != null && o.isOnScreen(game)) {
+                if (o.isOnScreen(game)) {
                     o.draw(batch, mode);
                     if (debug) {
                         game.outline(batch, o.getBounds());
@@ -389,7 +374,7 @@ namespace KineticCamp {
                 }
             }
             foreach (Npc e in npcs) {
-                if (e != null && e.isOnScreen(game)) {
+                if (e.isOnScreen(game)) {
                     e.draw(batch);
                     if (debug) {
                         game.outline(batch, e.getBounds());
@@ -402,42 +387,28 @@ namespace KineticCamp {
                 game.outline(batch, player.getBounds());
             }
             foreach (DisplayBar d in displayBars) {
-                if (d != null) {
-                    d.draw(batch);
-                }
+                d.draw(batch);
             }
-
             foreach (Token t in Tokens) {
-                if (t != null) {
-                    t.draw(batch);
-                    if (debug) {
-                        game.outline(batch, t.getBounds());
-                    }
+                t.draw(batch);
+                if (debug) {
+                    game.outline(batch, t.getBounds());
                 }
             }
-
             foreach (Door door in Doors) {
-                if (door != null) {
-                    door.draw(batch);
-                    if (debug) {
-                        game.outline(batch, door.getBounds());
-                    }
+                door.draw(batch);
+                if (debug) {
+                    game.outline(batch, door.getBounds());
                 }
             }
-
             foreach (Wall wall in walls) {
-                if (wall != null) {
-                    wall.draw(batch);
-                    if (debug) {
-                        game.outline(batch, wall.getBounds());
-                    }
+                wall.draw(batch);
+                if (debug) {
+                    game.outline(batch, wall.getBounds());
                 }
             }
-
             foreach (ThoughtBubble thought in thoughts) {
-                if (thought != null) {
-                    thought.draw(batch);
-                }
+                thought.draw(batch);
             }
         }
     }

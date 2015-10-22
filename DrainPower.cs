@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿namespace KineticCamp {
 
-namespace KineticCamp
-{
-    interface DrainPower
-    {
+    public interface DrainPower {
+
         int getDrainRate();
         int getDrainCooldown();
-        void updateDrainCooldown(); 
+        void updateDrainCooldown();
     }
 }

@@ -1,34 +1,30 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
 
-using System;
 using System.Collections.Generic;
 
-namespace KineticCamp
-{
-    public class DeathManager
-    {
-        private InputManager inputManager;
-        //Player Values
+namespace KineticCamp {
 
-        private Level level; 
-       
+    public class DeathManager {
+
+        private InputManager inputManager;
+
+        private Level level;
+
         private Vector2 PlayerLocation;
         private int PlayerTotalExp;
         private int PlayerCurrentExp;
         private int PlayerHealth;
         private int PlayerMana;
         private int PlayerTotalMana;
+
         //Level Values
         private int levelMode;
         private List<Npc> Npcs;
-        private List<Vector2> NpcLocations; 
+        private List<Vector2> NpcLocations;
         private List<Vector2> ObjectLocations;
         private List<bool> DoorUnlocked;
 
-        public DeathManager(InputManager inputManager)
-        {
+        public DeathManager(InputManager inputManager) {
             this.inputManager = inputManager;
             PlayerLocation = inputManager.getPlayer().getLocation();
             PlayerTotalExp = inputManager.getPlayerManager().getTotalExperience();
@@ -44,43 +40,35 @@ namespace KineticCamp
             ObjectLocations = new List<Vector2>();
             populateObjectLocationsList();
             DoorUnlocked = new List<bool>();
-            populateDoorsUnlockedList(); 
+            populateDoorsUnlockedList();
 
         }
 
-        public void populateNpcList()
-        {
-            for(int i = 0; i<inputManager.getLevel().getNpcs().Count; i++)
-            {
+        public void populateNpcList() {
+            for (int i = 0; i < inputManager.getLevel().getNpcs().Count; i++) {
                 Npcs.Add(inputManager.getLevel().getNpcs()[i]);
                 NpcLocations.Add(inputManager.getLevel().getNpcs()[i].getLocation());
             }
         }
 
-        public void populateObjectLocationsList()
-        {
-            for (int i = 0; i < inputManager.getLevel().getObjects().Count; i++)
-            {
+        public void populateObjectLocationsList() {
+            for (int i = 0; i < inputManager.getLevel().getObjects().Count; i++) {
                 ObjectLocations.Add(inputManager.getLevel().getObjects()[i].getLocation());
             }
         }
 
-        public void populateDoorsUnlockedList()
-        {
-            for (int i = 0; i < inputManager.getLevel().getDoors().Count; i++)
-            {
+        public void populateDoorsUnlockedList() {
+            for (int i = 0; i < inputManager.getLevel().getDoors().Count; i++) {
                 DoorUnlocked.Add(inputManager.getLevel().getDoors()[i].isUnlocked());
             }
         }
 
-        public void resetGame()
-        {
+        public void resetGame() {
             resetPlayer();
-            resetLevel();   
+            resetLevel();
         }
 
-        public void resetPlayer()
-        {
+        public void resetPlayer() {
             inputManager.getPlayer().setLocation(PlayerLocation);
             inputManager.getPlayerManager().setTotalExp(PlayerTotalExp);
             inputManager.getPlayerManager().setCurrentExp(PlayerCurrentExp);
@@ -89,15 +77,11 @@ namespace KineticCamp
             inputManager.getPlayerManager().setTotalMana(PlayerTotalMana);
         }
 
-        public void resetLevel()
-        {
+        public void resetLevel() {
             inputManager.getLevel().resetNpcs(Npcs, NpcLocations);
             inputManager.getLevel().resetObjects(ObjectLocations);
             inputManager.getLevel().resetDoors(DoorUnlocked);
             inputManager.getLevel().resetTokens();
         }
-
-
-
     }
 }

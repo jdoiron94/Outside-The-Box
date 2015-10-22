@@ -23,7 +23,7 @@ namespace KineticCamp {
         private readonly Player player;
         private readonly CollisionManager collisionManager;
         private readonly Direction[] directions;
-        
+
         public AIPath(Npc npc, Game1 game, int[] path, int[] delays, Direction[] directions) {
             this.npc = npc;
             player = game.getPlayer();
@@ -80,14 +80,11 @@ namespace KineticCamp {
         /// </summary>
         public void update() {
             npc.setDirection(directions[state]);
-            Vector2 destination;
-            Vector2 prevDest = npc.getDestination();
             switch (npc.getDirection()) {
                 case Direction.NORTH:
                     if (npc.getLocation().Y > path[state]) {
                         if (ticks >= SKIPPED_FRAMES) {
-                            destination = new Vector2(npc.getLocation().X, npc.getLocation().Y - npc.getVelocity());
-                            npc.setDestination(destination);
+                            npc.setDestination(new Vector2(npc.getLocation().X, npc.getLocation().Y - npc.getVelocity()));
                             if (collisionManager.isValid(npc)) {
                                 npc.deriveY(-npc.getVelocity());
                             }
@@ -101,8 +98,7 @@ namespace KineticCamp {
                 case Direction.SOUTH:
                     if (npc.getLocation().Y < path[state]) {
                         if (ticks >= SKIPPED_FRAMES) {
-                            destination = new Vector2(npc.getLocation().X, npc.getLocation().Y + npc.getVelocity());
-                            npc.setDestination(destination);
+                            npc.setDestination(new Vector2(npc.getLocation().X, npc.getLocation().Y + npc.getVelocity()));
                             if (collisionManager.isValid(npc)) {
                                 npc.deriveY(npc.getVelocity());
                             }
@@ -116,8 +112,7 @@ namespace KineticCamp {
                 case Direction.WEST:
                     if (npc.getLocation().X > path[state]) {
                         if (ticks >= SKIPPED_FRAMES) {
-                            destination = new Vector2(npc.getLocation().X - npc.getVelocity(), npc.getLocation().Y);
-                            npc.setDestination(destination);
+                            npc.setDestination(new Vector2(npc.getLocation().X - npc.getVelocity(), npc.getLocation().Y));
                             if (collisionManager.isValid(npc)) {
                                 npc.deriveX(-npc.getVelocity());
                             }
@@ -131,8 +126,7 @@ namespace KineticCamp {
                 case Direction.EAST:
                     if (npc.getLocation().X < path[state]) {
                         if (ticks >= SKIPPED_FRAMES) {
-                            destination = new Vector2(npc.getLocation().X + npc.getVelocity(), npc.getLocation().Y);
-                            npc.setDestination(destination);
+                            npc.setDestination(new Vector2(npc.getLocation().X + npc.getVelocity(), npc.getLocation().Y));
                             if (collisionManager.isValid(npc)) {
                                 npc.deriveX(npc.getVelocity());
                             }

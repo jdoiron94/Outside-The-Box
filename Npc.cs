@@ -19,7 +19,7 @@ namespace KineticCamp {
         private readonly int[] offsets;
         private readonly int radius;
         private readonly byte reactTime;
-        private readonly bool wander; 
+        private readonly bool wander;
         private Rectangle lineOfSight;
 
         private int ticks;
@@ -34,18 +34,18 @@ namespace KineticCamp {
             this.radius = radius;
             this.reactTime = reactTime;
             this.wander = wander;
-            lineOfSight = new Rectangle((int)location.X, (int)location.Y, texture.Width, texture.Height);
+            lineOfSight = new Rectangle((int) location.X, (int) location.Y, texture.Width, texture.Height);
             ticks = 0;
         }
 
         public Npc(Game1 game, Texture2D texture, Vector2 location, Direction direction, NpcDefinition def, int[] offsets, int radius, byte reactTime, bool wander) :
             this(game, texture, location, direction, def, offsets, 100, 3, radius, reactTime, wander) {
-                lineOfSight = new Rectangle((int)location.X, (int)location.Y, texture.Width, texture.Height);
+            lineOfSight = new Rectangle((int) location.X, (int) location.Y, texture.Width, texture.Height);
         }
 
         public Npc(Game1 game, Texture2D texture, Vector2 location, Direction direction, NpcDefinition def, int radius, byte reactTime) :
             this(game, texture, location, direction, def, new int[0], 100, 3, radius, reactTime, false) {
-                lineOfSight = new Rectangle((int)location.X, (int)location.Y, texture.Width, texture.Height);
+            lineOfSight = new Rectangle((int) location.X, (int) location.Y, texture.Width, texture.Height);
         }
 
         /// <summary>
@@ -112,13 +112,11 @@ namespace KineticCamp {
             this.path = path;
         }
 
-        public void setLineOfSight(Rectangle lineOfSight)
-        {
+        public void setLineOfSight(Rectangle lineOfSight) {
             this.lineOfSight = lineOfSight;
         }
 
-        public Rectangle getLineOfSight()
-        {
+        public Rectangle getLineOfSight() {
             return lineOfSight;
         }
 
@@ -134,11 +132,11 @@ namespace KineticCamp {
         public void dodge() {
         }
 
-       /// <summary>
-       /// Handles the npc's reaction to the player
-       /// </summary>
-       /// <param name="time">The game time to respect</param>
-       /// <param name="player">The player to react to</param>
+        /// <summary>
+        /// Handles the npc's reaction to the player
+        /// </summary>
+        /// <param name="time">The game time to respect</param>
+        /// <param name="player">The player to react to</param>
         public void react(GameTime time, Player player) {
             setFacing(player);
             if (getDistance(player) <= 100) {
@@ -156,11 +154,8 @@ namespace KineticCamp {
             }
         }
 
-        public void updateLineOfSight()
-        {
-            Direction direction = this.getDirection();
-
-            switch (direction) {
+        public void updateLineOfSight() {
+            switch (getDirection()) {
                 case Direction.NORTH:
                     lineOfSight = new Rectangle((int) location.X, (int) location.Y - texture.Height * 2, texture.Width, texture.Height * 3);
                     break;
@@ -177,7 +172,7 @@ namespace KineticCamp {
                     lineOfSight = new Rectangle((int) location.X, (int) location.Y, texture.Width, texture.Height);
                     break;
                 default:
-                    lineOfSight = new Rectangle((int)location.X, (int)location.Y, texture.Width, texture.Height);
+                    lineOfSight = new Rectangle((int) location.X, (int) location.Y, texture.Width, texture.Height);
                     break;
             }
         }

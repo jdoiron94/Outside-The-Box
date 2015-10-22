@@ -21,15 +21,15 @@ namespace KineticCamp {
         private Player player;
         private Npc npc;
         private Npc npc2;
-        private Npc npc3; 
+        private Npc npc3;
         private GameObject obj;
         private GameObject obj2;
         private Level level;
-        private Level level1; 
+        private Level level1;
         private Level level2;
         private List<Level> levels;
         private Door door;
-        private Door door2; 
+        private Door door2;
         private PlayerManager playerManager;
         private InputManager inputManager;
         private Menu pauseMenu;
@@ -44,15 +44,11 @@ namespace KineticCamp {
         private Token token1;
         private Token token2;
         private Token token3;
-
-        //private Wall wall1;
-        //private Wall wall2;
-        //private Wall wall3;
-        //private Wall wall4;  
+        private Token token4; 
 
         private Texture2D side1;
         private Texture2D side2;
-        private Texture2D side3; 
+        private Texture2D side3;
 
         private Song factorysong;
         private SoundEffect effect;
@@ -62,7 +58,7 @@ namespace KineticCamp {
         private int width;
         private int height;
 
-        private int levelIndex; 
+        private int levelIndex;
 
         public Game1() {
             graphics = new GraphicsDeviceManager(this);
@@ -117,26 +113,20 @@ namespace KineticCamp {
             return level;
         }
 
-        public void setLevel(Level level)
-        {
-            this.level = level; 
+        public void setLevel(Level level) {
+            this.level = level;
         }
 
-        public Level getLevelByIndex(int i)
-        {
-            try
-            {
+        public Level getLevelByIndex(int i) {
+            try {
                 return levels[i];
-            }
-            catch(Exception)
-            {
-                return level; 
+            } catch (Exception) {
+                return level;
             }
         }
 
-        public List<Level> getLevelList()
-        {
-            return levels; 
+        public List<Level> getLevelList() {
+            return levels;
         }
         /// <summary>
         /// Returns an instance of the player
@@ -150,14 +140,12 @@ namespace KineticCamp {
             return inputManager;
         }
 
-        public void setLevelIndex(int index)
-        {
-            levelIndex = index; 
+        public void setLevelIndex(int index) {
+            levelIndex = index;
         }
 
-        public int getLevelIndex()
-        {
-            return levelIndex; 
+        public int getLevelIndex() {
+            return levelIndex;
         }
 
         /// <summary>
@@ -211,22 +199,22 @@ namespace KineticCamp {
 
             midX = (graphics.PreferredBackBufferWidth - playerTexture.Width) / 2;
             midY = (graphics.PreferredBackBufferHeight - playerTexture.Height) / 2;
-           
+
             player = new Player(playerTexture, Vector2.Zero, Direction.SOUTH, 100, 50, 0, 3);
             player.setProjectile(new Projectile(player, Content.Load<Texture2D>("bullet"), 5, 250));
             playerManager = new PlayerManager(player, new DisplayBar(Content.Load<Texture2D>("HealthBarTexture"), new Vector2(20, 20), Color.Red, Content.Load<Texture2D>("BackBarTexture")), new DisplayBar(Content.Load<Texture2D>("ManaBarTexture"), new Vector2(20, 50), Color.Blue, Content.Load<Texture2D>("BackBarTexture")));
             player.loadTextures(Content);
 
-            npc = new Npc(this, Content.Load<Texture2D>("NormieMaleStand1"), new Vector2(midX + 148, midY + 148), Direction.EAST, new NpcDefinition("Normie", new string[0], new int[0]), 150, 0x5);
-            npc2 = new Npc(this, Content.Load<Texture2D>("NormieMaleStand1"), new Vector2(midX, midY), Direction.EAST, new NpcDefinition("Normie2", new string[0], new int[0]), 150, 0x5);
+            npc = new Npc(this, Content.Load<Texture2D>("NormieMaleStand1"), new Vector2(midX + 148, midY + 135), Direction.EAST, new NpcDefinition("Normie", new string[0], new int[0]), 150, 0x5);
+            npc2 = new Npc(this, Content.Load<Texture2D>("NormieMaleStand1"), new Vector2(midX + 350, midY + 100), Direction.EAST, new NpcDefinition("Normie2", new string[0], new int[0]), 150, 0x5);
             npc3 = new Npc(this, Content.Load<Texture2D>("NormieMaleStand2"), new Vector2(midX + 240, midY + 123), Direction.NORTH, new NpcDefinition("Normie3", new string[0], new int[0]), 150, 0x5);
             npc2.setProjectile(new Projectile(npc2, Content.Load<Texture2D>("bullet"), 5, 500));
             npc3.setProjectile(new Projectile(npc3, Content.Load<Texture2D>("GoldCoinFront"), 10, 500));
             Npc npc4 = new Npc(this, Content.Load<Texture2D>("NormieMaleStand2"), new Vector2(50, 50), Direction.WEST, new NpcDefinition("Normie4", new string[0], new int[0]), 150, 0x5);
-            Npc npc5 = new Npc(this, Content.Load<Texture2D>("NormieMaleStand2"), new Vector2(150, 150), Direction.SOUTH, new NpcDefinition("Normie5", new string[0], new int[0]), 150, 0x5);
+            Npc npc5 = new Npc(this, Content.Load<Texture2D>("NormieMaleStand2"), new Vector2(150, 130), Direction.SOUTH, new NpcDefinition("Normie5", new string[0], new int[0]), 150, 0x5);
 
-            obj = new GameObject(Content.Load<Texture2D>("CardboardBox"), new Vector2(midX + 50, midY + 220), true);
-            obj2 = new GameObject(Content.Load<Texture2D>("CardboardBox"), new Vector2(midX + 42, midY + 100), true);
+            obj2 = new GameObject(Content.Load<Texture2D>("CardboardBox"), new Vector2(midX + 20, midY + 65), true);
+            obj = new GameObject(Content.Load<Texture2D>("CardboardBox"), new Vector2(midX + 20, midY + 205), true);
 
             door = new Door(Content.Load<Texture2D>("DoorTexture"), null, new Vector2(midX + 420, midY + 200), Direction.EAST, false, true, 20, 60);
             door2 = new Door(Content.Load<Texture2D>("DoorTexture"), null, new Vector2(0, midY + 200), Direction.WEST, false, false, 20, 60);
@@ -234,44 +222,44 @@ namespace KineticCamp {
             side2 = Content.Load<Texture2D>("SilverCoinSide");
             side3 = Content.Load<Texture2D>("GoldCoinSide");
 
-
-
-            token1 = new Token(Content.Load<Texture2D>("BronzeCoinFront"), new Vector2(midX + 120, midY + 120), TokenType.BRONZE, side1);
-            token2 = new Token(Content.Load<Texture2D>("SilverCoinFront"), new Vector2(midX + 180, midY + 180), TokenType.SILVER, side2);
+            token1 = new Token(Content.Load<Texture2D>("BronzeCoinFront"), new Vector2(midX + 230, midY + 95), TokenType.BRONZE, side1);
+            token2 = new Token(Content.Load<Texture2D>("SilverCoinFront"), new Vector2(midX + 230, midY + 225), TokenType.SILVER, side2);
             token3 = new Token(Content.Load<Texture2D>("GoldCoinFront"), new Vector2(200, 200), TokenType.GOLD, side3);
+            token4 = new Token(Content.Load<Texture2D>("GoldCoinFront"), new Vector2(200, 200), TokenType.GOLD, side3);
 
             Texture2D wallText = Content.Load<Texture2D>("WallTexture");
 
-            Wall wall1 = new Wall(wallText, null, new Vector2(100, 250), Direction.EAST, false, false, 120, 20); 
-            Wall wall2 = new Wall(wallText, null, new Vector2(100, 370), Direction.EAST, false, false, 120, 20);
+            Wall wall1 = new Wall(wallText, null, new Vector2(120, 250), Direction.EAST, false, false, 120, 20);
+            Wall wall2 = new Wall(wallText, null, new Vector2(120, 350), Direction.EAST, false, false, 120, 20);
             Wall wall3 = new Wall(wallText, null, new Vector2(100, 250), Direction.EAST, false, false, 20, 120);
             Wall wall4 = new Wall(wallText, null, new Vector2(650, 100), Direction.EAST, false, false, 120, 20);
-            Wall wall5 = new Wall(wallText, null, new Vector2(650, 220), Direction.EAST, false, false, 120, 20);
+            Wall wall5 = new Wall(wallText, null, new Vector2(650, 200), Direction.EAST, false, false, 120, 20);
             Wall wall6 = new Wall(wallText, null, new Vector2(770, 100), Direction.EAST, false, false, 20, 120);
 
             Wall wall7 = new Wall(wallText, null, new Vector2(100, 250), Direction.EAST, false, false, 120, 20);
             Wall wall8 = new Wall(wallText, null, new Vector2(100, 250), Direction.EAST, false, false, 120, 20);
 
             Wall[] walls1 = { wall1, wall2, wall3, wall4, wall5, wall6 };
-            level1 = new Level(this, player, Content.Load<Texture2D>("Level1"), new Npc[] { npc, npc2, npc5 }, new GameObject[] { obj, obj2 }, new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() }, new Token[] { token1, token2, token3 }, new Door[] {door}, new Wall[] { }, new ThoughtBubble[] { }, 1);
-            level2 = new Level(this, player, Content.Load<Texture2D>("Leve1Map"), new Npc[] { npc3 , npc4}, new GameObject[] { }, new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() }, new Token[] { token3 }, new Door[] { door2 }, walls1, new ThoughtBubble[]{new ThoughtBubble(Content.Load<Texture2D>("PassBubble1"), new Vector2(0,0), npc3, false, false)},2);
-            levels = new List<Level>(); 
+            level1 = new Level(this, player, Content.Load<Texture2D>("Level1"), new Npc[] { npc, npc2, npc5 }, new GameObject[] { obj, obj2 }, new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() }, new Token[] { token1, token2, token3 }, new Door[] { door }, new Wall[] { }, new ThoughtBubble[] { }, 1);
+            level2 = new Level(this, player, Content.Load<Texture2D>("Leve1Map"), new Npc[] { npc3, npc4 }, new GameObject[] { }, new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() }, new Token[] { token4 }, new Door[] { door2 }, walls1, new ThoughtBubble[] { new ThoughtBubble(Content.Load<Texture2D>("PassBubble1"), new Vector2(0, 0), npc3, false, false) }, 2);
+            levels = new List<Level>();
             levels.Add(level1);
             levels.Add(level2);
             level = levels[0];
             levelIndex = 0;
 
-            Button[] menuButtons = { new Button(Content.Load<Texture2D>("button_mind_read"), new Vector2(270, 140)), 
-                                       new Button(Content.Load<Texture2D>("button_clairvoyance"), new Vector2(270, 220)), 
-                                       new Button(Content.Load<Texture2D>("button_confusion"), new Vector2(270, 310)), 
-                                       new Button(Content.Load<Texture2D>("button_dash"), new Vector2(355, 140)), 
-                                       new Button(Content.Load<Texture2D>("button_slow_time"), new Vector2(355, 220)), 
-                                       new Button(Content.Load<Texture2D>("button_invisibility"), new Vector2(355, 310)), 
-                                       new Button(Content.Load<Texture2D>("button_fire_bolt"), new Vector2(445, 140)), 
-                                       new Button(Content.Load<Texture2D>("button_ice_bolt"), new Vector2(445, 220)), 
+            Button[] menuButtons = { new Button(Content.Load<Texture2D>("button_mind_read"), new Vector2(270, 140)),
+                                       new Button(Content.Load<Texture2D>("button_clairvoyance"), new Vector2(270, 220)),
+                                       new Button(Content.Load<Texture2D>("button_confusion"), new Vector2(270, 310)),
+                                       new Button(Content.Load<Texture2D>("button_dash"), new Vector2(355, 140)),
+                                       new Button(Content.Load<Texture2D>("button_slow_time"), new Vector2(355, 220)),
+                                       new Button(Content.Load<Texture2D>("button_invisibility"), new Vector2(355, 310)),
+                                       new Button(Content.Load<Texture2D>("button_fire_bolt"), new Vector2(445, 140)),
+                                       new Button(Content.Load<Texture2D>("button_ice_bolt"), new Vector2(445, 220)),
                                        new Button(Content.Load<Texture2D>("button_lightning_bolt"), new Vector2(445, 310)) };
-            pauseMenu = new Menu(Content.Load<Texture2D>("PausePlaceholderScreen"), menuButtons );
+            pauseMenu = new Menu(Content.Load<Texture2D>("PausePlaceholderScreen"), menuButtons);
             targetReticle = new Target(Content.Load<Texture2D>("TargetingCursor"));
+
             factorysong = Content.Load<Song>("Factory");
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Play(factorysong);
@@ -282,16 +270,16 @@ namespace KineticCamp {
             pauseMenu.setInputManager(inputManager);
             DeathManager Deathmanager = new DeathManager(inputManager);
             inputManager.setDeathManager(Deathmanager);
-             
+
             cursor = Content.Load<Texture2D>("cursor");
             target = Content.Load<Texture2D>("TargetingCursor");
 
             pixel = new Texture2D(GraphicsDevice, 1, 1);
             pixel.SetData(new Color[] { Color.White });
-            npc.setPath(new AIPath(npc, this, new int[] { midX - 100, midY - 100, midX + 100, midY + 150 }, new int[0], new Direction[] { Direction.WEST, Direction.NORTH, Direction.EAST, Direction.SOUTH }));
+            npc.setPath(new AIPath(npc, this, new int[] { midX - 100, midY - 100, midX + 100, midY + 135 }, new int[0], new Direction[] { Direction.WEST, Direction.NORTH, Direction.EAST, Direction.SOUTH }));
             npc3.setPath(new AIPath(npc3, this, new int[] { midX - 100, midY - 100, midX + 100, midY + 150 }, new int[0], new Direction[] { Direction.WEST, Direction.NORTH, Direction.EAST, Direction.SOUTH }));
             npc4.setPath(new AIPath(npc4, this, new int[] { 200, 50, 50, 60 }, new int[0], new Direction[] { Direction.EAST, Direction.SOUTH, Direction.WEST, Direction.NORTH }));
-            npc5.setPath(new AIPath(npc5, this, new int[] { 150, 180, 300, 150 }, new int[0], new Direction[] { Direction.SOUTH, Direction.EAST, Direction.NORTH, Direction.WEST }));
+            npc5.setPath(new AIPath(npc5, this, new int[] { 200, 150 }, new int[0], new Direction[] { Direction.EAST, Direction.WEST }));
 
             //effect = Content.Load<SoundEffect>("gun");
         }
@@ -312,12 +300,11 @@ namespace KineticCamp {
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime) {
-            
+
             base.Update(gameTime);
             playerManager.updateHealthCooldown();
             inputManager.update(gameTime);
-            if (level.isActive())
-            {
+            if (level.isActive()) {
                 level.updateProjectiles();
                 level.updateNpcs(gameTime);
             }
@@ -336,23 +323,18 @@ namespace KineticCamp {
             if (pauseMenu.isActive()) {
                 pauseMenu.draw(spriteBatch);
             }
-            if (targetReticle.isActive())
-            {
+            if (targetReticle.isActive()) {
                 targetReticle.draw(spriteBatch);
             }
             if (mouse != null) {
-                if (level.getMode() < 1)
-                {
+                if (level.getMode() < 1) {
                     spriteBatch.Draw(cursor, new Vector2(mouse.X, mouse.Y), Color.White);
-                }
-                else
-                {
+                } else {
                     spriteBatch.Draw(target, new Vector2(mouse.X, mouse.Y), Color.White);
                 }
             }
 
-            if (inputManager.getScreenManager().getActiveScreen().getName() == "Start")
-            {
+            if (inputManager.getScreenManager().getActiveScreen().getName() == "Start") {
                 spriteBatch.Draw(startMenu, new Vector2(-290, -100), Color.White);
             }
 

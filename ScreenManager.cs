@@ -15,7 +15,7 @@ namespace KineticCamp {
 
         public ScreenManager(Screen activeScreen, Screen[] screens) {
             this.activeScreen = activeScreen;
-            this.screens = screens; 
+            this.screens = screens;
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace KineticCamp {
                 activeScreen.setActive(true);
             }
         }
-        
+
         /// <summary>
         /// Updates the active screen
         /// </summary>

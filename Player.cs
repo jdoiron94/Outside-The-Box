@@ -30,11 +30,10 @@ namespace KineticCamp {
             return maxMana;
         }
 
-        public void setLocation(Vector2 location)
-        {
+        public void setLocation(Vector2 location) {
             this.location = location;
         }
-        
+
         /// <summary>
         /// Returns the player's experience
         /// </summary>

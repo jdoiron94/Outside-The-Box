@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace KineticCamp {
 
     public class PlayerManager {
-
+        
         private readonly Player player;
         private readonly DisplayBar healthBar;
         private readonly DisplayBar manaBar;
@@ -27,13 +27,13 @@ namespace KineticCamp {
             this.health = health;
             this.mana = mana;
             this.totalExp = totalExp;
-            this.currentExp = currentExp; 
+            this.currentExp = currentExp;
             this.healthBar = healthBar;
             this.manaBar = manaBar;
             healthCooldown = 0;
             manaCooldown = 0;
             totalMana = 100;
-            powers = new List<BasePower> {new SlowTime(true, false), new Dash(true, false), new Confuse(true, false) /*, new Mindread(true, false, inputManager)*/};
+            powers = new List<BasePower> { new SlowTime(true, false), new Dash(true, false), new Confuse(true, false) /*, new Mindread(true, false, inputManager)*/};
         }
 
         public PlayerManager(Player player, DisplayBar healthBar, DisplayBar manaBar) :
@@ -48,8 +48,7 @@ namespace KineticCamp {
             return player;
         }
 
-        public List<BasePower> getPowers()
-        {
+        public List<BasePower> getPowers() {
             return powers;
         }
 
@@ -90,7 +89,7 @@ namespace KineticCamp {
         /// </summary>
         /// <returns>Returns the player's health bar</returns>
         public DisplayBar getHealthBar() {
-            return healthBar; 
+            return healthBar;
         }
 
         /// <summary>
@@ -106,17 +105,15 @@ namespace KineticCamp {
         /// </summary>
         /// <returns>Returns the player's health cooldown</returns>
         public int getHealthCooldown() {
-            return healthCooldown; 
+            return healthCooldown;
         }
 
-        public int getTotalMana()
-        {
-            return totalMana; 
+        public int getTotalMana() {
+            return totalMana;
         }
 
-        public void setTotalMana(int totalMana)
-        {
-            this.totalMana = totalMana; 
+        public void setTotalMana(int totalMana) {
+            this.totalMana = totalMana;
         }
 
         /// <summary>
@@ -160,76 +157,68 @@ namespace KineticCamp {
             healthCooldown = (healthCooldown + 1) % 36;
         }
 
-        public void setTotalExp(int exp)
-        {
-            totalExp = exp; 
+        public void setTotalExp(int exp) {
+            totalExp = exp;
         }
 
-        public void setCurrentExp(int exp)
-        {
+        public void setCurrentExp(int exp) {
             currentExp = exp;
         }
 
-        public void setHealth(int h)
-        {
+        public void setHealth(int h) {
             health = h;
         }
 
-        public void setMana(int m)
-        {
-            mana = m; 
+        public void setMana(int m) {
+            mana = m;
         }
 
         /// <summary>
         /// Depletes the specified amount of mana
         /// </summary>
         /// <param name="mana">The amount of mana to deplete</param>
-        public void depleteMana(int damage)
-        {
+        public void depleteMana(int damage) {
             //manaBar.setWidth((this.mana = Math.Max(0, this.mana - mana)) * 2);
             mana = Math.Max(0, mana - damage);
             int w_mod = (int) (200D * damage) / totalMana;
-            int width = manaBar.getWidth(); 
+            int width = manaBar.getWidth();
             manaBar.setWidth(Math.Max(0, (width) - w_mod));
         }
 
         /// <summary>
         /// Regenerates the appropriate amount of mana for the player, based on their total experience
         /// </summary>
-        public void regenerateMana()
-        {
+        public void regenerateMana() {
             /*if(manaBar.getWidth() < 100)
                 manaBar.setWidth((mana = Math.Min(totalMana, mana + 1 + Math.Min(9, totalExp / 100))) * 2);*/
-            int regeneration = (int) (totalMana * .01); 
+            int regeneration = (int) (totalMana * .01);
             mana = Math.Min(totalMana, mana + regeneration);
-            manaBar.setWidth(Math.Min(200, (manaBar.getWidth() + ((int)(regeneration * (200D / totalMana))))));
+            manaBar.setWidth(Math.Min(200, (manaBar.getWidth() + ((int) (regeneration * (200D / totalMana))))));
         }
 
         /// <summary>
         /// Updates the player's mana cooldown
         /// </summary>
         public void updateManaCooldown() {
-            manaCooldown = (manaCooldown + 1) % 36; 
+            manaCooldown = (manaCooldown + 1) % 36;
         }
 
         /// <summary>
         /// Updates the player's mana drain rate
         /// </summary>
         public void updateManaDrainRate() {
-            manaDrainRate = (manaDrainRate + 1) % manaDrainMax; 
+            manaDrainRate = (manaDrainRate + 1) % manaDrainMax;
         }
 
-        public void levelMana(double percentageValue)
-        {
-            int newValue = totalMana + (int)(totalMana * percentageValue);
+        public void levelMana(double percentageValue) {
+            int newValue = totalMana + (int) (totalMana * percentageValue);
             setTotalMana(newValue);
         }
 
-        public void incrementExperience(int bonus)
-        {
+        public void incrementExperience(int bonus) {
             totalExp += bonus;
             currentExp += bonus;
-            double percentageValue = (double)bonus / (double)totalExp;
+            double percentageValue = (double) bonus / (double) totalExp;
             levelMana(percentageValue);
         }
 
@@ -238,18 +227,14 @@ namespace KineticCamp {
         /// </summary>
         /// <param name="amount"></param>
         /// <returns></returns>
-        public bool spendExperience(int amount)
-        {
-            if ((currentExp - amount) < 0)
-            {
+        public bool spendExperience(int amount) {
+            if ((currentExp - amount) < 0) {
                 Console.WriteLine("Not enough EXP to spend");
                 return false;
-            }
-            else
-            {
+            } else {
                 currentExp -= amount;
                 return true;
             }
         }
-}
+    }
 }
