@@ -95,211 +95,187 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Back1.png">
+    <Content Include="Content\sprites\entities\player\Back1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Back2.png">
+    <Content Include="Content\sprites\entities\player\Back2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Back3.png">
+    <Content Include="Content\sprites\entities\player\Back3.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Back4.png">
+    <Content Include="Content\sprites\entities\player\Back4.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\BackBarTexture.png">
+    <Content Include="Content\ui\BackBarTexture.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\box2.jpg">
+    <Content Include="Content\sprites\objects\BronzeCoinFront.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\BronzeCoinFront.png">
+    <Content Include="Content\sprites\objects\BronzeCoinSide.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\BronzeCoinSide.png">
+    <Content Include="Content\sprites\projectiles\Bullet.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\bullet.png">
+    <Content Include="Content\menus\assets\button_clairvoyance.JPG">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\button_clairvoyance.JPG">
+    <Content Include="Content\menus\assets\button_confusion.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\button_confusion.png">
+    <Content Include="Content\menus\assets\button_dash.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\button_dash.png">
+    <Content Include="Content\menus\assets\button_fire_bolt.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\button_fire_bolt.png">
+    <Content Include="Content\menus\assets\button_ice_bolt.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\button_ice_bolt.png">
+    <Content Include="Content\menus\assets\button_invisibility.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\button_invisibility.png">
+    <Content Include="Content\menus\assets\button_lightning_bolt.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\button_lightning_bolt.png">
+    <Content Include="Content\menus\assets\button_mind_read.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\button_mind_read.jpg">
+    <Content Include="Content\menus\assets\button_slow_time.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\button_slow_time.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\CardboardBox.png">
+    <Content Include="Content\sprites\objects\CardboardBox.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\CaseFileToken.png">
+    <Content Include="Content\menus\assets\CaseFileToken.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\ComputerDesk.png">
+    <Content Include="Content\sprites\objects\ComputerDesk.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\cubicalRoom.png">
+    <Content Include="Content\sprites\levels\cubicalRoom.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\cursor.png">
+    <Content Include="Content\sprites\cursors\Cursor.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\DoorTexture.png">
+    <Content Include="Content\sprites\objects\DoorTexture.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\enemy.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\Factory.wma">
+    <Content Include="Content\audio\Songs\Factory.wma">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Forward1.png">
+    <Content Include="Content\sprites\entities\player\Forward1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Forward2.png">
+    <Content Include="Content\sprites\entities\player\Forward2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Forward3.png">
+    <Content Include="Content\sprites\entities\player\Forward3.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Forward4.png">
+    <Content Include="Content\sprites\entities\player\Forward4.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\GoldCoinFront.png">
+    <Content Include="Content\sprites\objects\GoldCoinFront.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\GoldCoinSide.png">
+    <Content Include="Content\sprites\objects\GoldCoinSide.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\GreenMushroom.png">
+    <Content Include="Content\ui\HealthBarTexture.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\gun.wav">
+    <Content Include="Content\sprites\entities\player\Left1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\HealthBarTexture.png">
+    <Content Include="Content\sprites\entities\player\Left2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Left1.png">
+    <Content Include="Content\sprites\entities\player\Left3.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Left2.png">
+    <Content Include="Content\sprites\entities\player\Left4.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Left3.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\Left4.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\Leve1Map.png">
+    <Content Include="Content\sprites\levels\Leve1Map.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Level1.png">
+    <Content Include="Content\sprites\levels\Level1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Lobby.png">
+    <Content Include="Content\menus\Lobby.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\ManaBarTexture.png">
+    <Content Include="Content\ui\ManaBarTexture.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\map.jpg">
+    <Content Include="Content\menus\menu_background.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\menu_background.jpg">
+    <Content Include="Content\menus\assets\mind_read_button.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\mind_read_button.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\NormieMaleStand1.png">
+    <Content Include="Content\sprites\entities\npcs\NormieMaleStand1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\NormieMaleStand2.png">
+    <Content Include="Content\sprites\entities\npcs\NormieMaleStand2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\NormieMWalk1.png">
+    <Content Include="Content\sprites\entities\npcs\NormieMWalk1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\NormieMWalk2.png">
+    <Content Include="Content\sprites\entities\npcs\NormieMWalk2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\NormieMWalk3.png">
+    <Content Include="Content\sprites\entities\npcs\NormieMWalk3.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\NormieMWalk4.png">
+    <Content Include="Content\sprites\entities\npcs\NormieMWalk4.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\npc.png">
+    <Content Include="Content\sprites\thoughts\PassBubble1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\PassBubble1.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\PausePlaceholderScreen.png">
+    <Content Include="Content\menus\PausePlaceholderScreen.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\player.png">
+    <Content Include="Content\menus\assets\resume_button.gif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\resume_button.gif">
+    <Content Include="Content\sprites\entities\player\Right1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Right1.png">
+    <Content Include="Content\sprites\entities\player\Right2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Right2.png">
+    <Content Include="Content\sprites\entities\player\Right3.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Right3.png">
+    <Content Include="Content\sprites\entities\player\Right4.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Right4.png">
+    <Content Include="Content\sprites\objects\SilverCoinFront.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\SilverCoinFront.png">
+    <Content Include="Content\sprites\objects\SilverCoinSide.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\SilverCoinSide.png">
+    <Content Include="Content\sprites\entities\player\Standing1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\sprite.png">
+    <Content Include="Content\menus\start_menu.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Standing1.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\start_menu.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\StorageRoom.png">
+    <Content Include="Content\sprites\levels\StorageRoom.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\TargetingCursor.png">
+    <Content Include="Content\sprites\cursors\TargetingCursor.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\WallTexture.png">
+    <Content Include="Content\sprites\objects\WallTexture.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Icon.ico" />
@@ -327,14 +303,17 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Factory.xnb">
+    <Content Include="Content\audio\Songs\Factory.xnb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Content\font1.spritefont">
+    <None Include="Content\fonts\font1.spritefont">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Content\audio\Sound Effects\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />

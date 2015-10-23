@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
 
 namespace KineticCamp {
 
@@ -39,7 +40,7 @@ namespace KineticCamp {
 
         public bool playerSpotted(Level level) {
             foreach (Npc npc in level.getNpcs()) {
-                if (npc != null && player.getBounds().Intersects(npc.getLineOfSight())) {
+                if (npc != null && level.getPlayer().getBounds().Intersects(npc.getLineOfSight())) {
                     return true;
                 }
             }
