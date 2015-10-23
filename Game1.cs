@@ -50,7 +50,7 @@ namespace KineticCamp {
         private Texture2D side2;
         private Texture2D side3;
 
-        private Song factorysong;
+        private Song factorySong;
         private SoundEffect effect;
 
         private int midX;
@@ -193,7 +193,7 @@ namespace KineticCamp {
             base.LoadContent();
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            startMenu = Content.Load<Texture2D>("menus/start_menu");
+            startMenu = Content.Load<Texture2D>("menus/StartMenu");
 
             playerTexture = Content.Load<Texture2D>("sprites/entities/player/Standing1");
 
@@ -257,16 +257,15 @@ namespace KineticCamp {
             pauseMenu = new Menu(Content.Load<Texture2D>("menus/PausePlaceholderScreen"), menuButtons);
             targetReticle = new Target(Content.Load<Texture2D>("sprites/cursors/TargetingCursor"));
 
-            factorysong = Content.Load<Song>("audio/songs/Factory");
+            factorySong = Content.Load<Song>("audio/songs/Factory");
             MediaPlayer.IsRepeating = true;
-            MediaPlayer.Play(factorysong);
+            MediaPlayer.Play(factorySong);
 
             Screen[] screens = { new Screen("Menu"), new Screen("Normal", true), new Screen("Telekinesis-Select"), new Screen("Telekinesis-Move"), new Screen("Start") };
             inputManager = new InputManager(this, player, level, pauseMenu, targetReticle, playerManager, screens, new Mindread(Content.Load<Texture2D>("sprites/thoughts/PassBubble1")));
             level.setInputManager(inputManager);
             pauseMenu.setInputManager(inputManager);
-            DeathManager Deathmanager = new DeathManager(inputManager);
-            inputManager.setDeathManager(Deathmanager);
+            inputManager.setDeathManager(new DeathManager(inputManager));
 
             cursor = Content.Load<Texture2D>("sprites/cursors/Cursor");
             target = Content.Load<Texture2D>("sprites/cursors/TargetingCursor");
@@ -275,7 +274,7 @@ namespace KineticCamp {
             pixel.SetData(new Color[] { Color.White });
             npc.setPath(new AIPath(npc, this, new int[] { midX - 100, midY - 100, midX + 100, midY + 135 }, new int[0], new Direction[] { Direction.WEST, Direction.NORTH, Direction.EAST, Direction.SOUTH }));
             npc3.setPath(new AIPath(npc3, this, new int[] { midX - 100, midY - 100, midX + 100, midY + 150 }, new int[0], new Direction[] { Direction.WEST, Direction.NORTH, Direction.EAST, Direction.SOUTH }));
-            npc4.setPath(new AIPath(npc4, this, new int[] { 200, 60 }, new int[0], new Direction[] { Direction.EAST, Direction.WEST}));
+            npc4.setPath(new AIPath(npc4, this, new int[] { 200, 60 }, new int[0], new Direction[] { Direction.EAST, Direction.WEST }));
             npc5.setPath(new AIPath(npc5, this, new int[] { 200, 150 }, new int[0], new Direction[] { Direction.EAST, Direction.WEST }));
 
             //effect = Content.Load<SoundEffect>("gun");
@@ -297,7 +296,6 @@ namespace KineticCamp {
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime) {
-
             base.Update(gameTime);
             playerManager.updateHealthCooldown();
             inputManager.update(gameTime);
