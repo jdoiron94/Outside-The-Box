@@ -41,7 +41,7 @@ namespace OutsideTheBox {
         }
 
         public GameObject(Texture2D texture, Vector2 location, bool liftable) :
-            this(texture, null, location, Direction.NONE, liftable) {
+            this(texture, null, location, Direction.None, liftable) {
         }
 
         public GameObject(Texture2D texture, Vector2 location) :

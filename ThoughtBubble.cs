@@ -9,7 +9,7 @@ namespace OutsideTheBox {
 
     public class ThoughtBubble : GameObject {
 
-        private Npc npc;
+        private readonly Npc npc;
 
         private bool revealed;
         private bool key;

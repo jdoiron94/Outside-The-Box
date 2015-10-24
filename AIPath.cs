@@ -81,7 +81,7 @@ namespace OutsideTheBox {
         public void update() {
             npc.setDirection(directions[state]);
             switch (npc.getDirection()) {
-                case Direction.NORTH:
+                case Direction.North:
                     if (npc.getLocation().Y > path[state]) {
                         if (ticks >= SKIPPED_FRAMES) {
                             npc.setDestination(new Vector2(npc.getLocation().X, npc.getLocation().Y - npc.getVelocity()));
@@ -95,7 +95,7 @@ namespace OutsideTheBox {
                     }
                     state = npc.getLocation().Y <= path[state] ? (state + 1) % path.Length : state;
                     break;
-                case Direction.SOUTH:
+                case Direction.South:
                     if (npc.getLocation().Y < path[state]) {
                         if (ticks >= SKIPPED_FRAMES) {
                             npc.setDestination(new Vector2(npc.getLocation().X, npc.getLocation().Y + npc.getVelocity()));
@@ -109,7 +109,7 @@ namespace OutsideTheBox {
                     }
                     state = npc.getLocation().Y >= path[state] ? (state + 1) % path.Length : state;
                     break;
-                case Direction.WEST:
+                case Direction.West:
                     if (npc.getLocation().X > path[state]) {
                         if (ticks >= SKIPPED_FRAMES) {
                             npc.setDestination(new Vector2(npc.getLocation().X - npc.getVelocity(), npc.getLocation().Y));
@@ -123,7 +123,7 @@ namespace OutsideTheBox {
                     }
                     state = npc.getLocation().X <= path[state] ? (state + 1) % path.Length : state;
                     break;
-                case Direction.EAST:
+                case Direction.East:
                     if (npc.getLocation().X < path[state]) {
                         if (ticks >= SKIPPED_FRAMES) {
                             npc.setDestination(new Vector2(npc.getLocation().X + npc.getVelocity(), npc.getLocation().Y));

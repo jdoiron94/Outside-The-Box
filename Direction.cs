@@ -6,10 +6,10 @@
 
     public enum Direction {
 
-        NORTH,
-        SOUTH,
-        WEST,
-        EAST,
-        NONE
+        North,
+        South,
+        West,
+        East,
+        None = -1
     }
 }

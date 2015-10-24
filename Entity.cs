@@ -79,13 +79,13 @@ namespace OutsideTheBox {
         /// </summary>
         public void updateMovement() {
             if (ticks >= WAIT) {
-                if (direction == Direction.SOUTH) {
+                if (direction == Direction.South) {
                     frames[0] = (frames[0] + 1) % 4;
                     texture = southFacing[frames[0]];
-                } else if (direction == Direction.NORTH) {
+                } else if (direction == Direction.North) {
                     frames[1] = (frames[1] + 1) % 4;
                     texture = northFacing[frames[1]];
-                } else if (direction == Direction.WEST) {
+                } else if (direction == Direction.West) {
                     frames[2] = (frames[2] + 1) % 4;
                     texture = westFacing[frames[2]];
                 } else {
@@ -102,11 +102,11 @@ namespace OutsideTheBox {
         /// Sets the entity's standing still texture, so that they are not legs spread apart while unmoving
         /// </summary>
         public void updateStill() {
-            if (direction == Direction.SOUTH) {
+            if (direction == Direction.South) {
                 texture = southFacing[1];
-            } else if (direction == Direction.NORTH) {
+            } else if (direction == Direction.North) {
                 texture = northFacing[1];
-            } else if (direction == Direction.WEST) {
+            } else if (direction == Direction.West) {
                 texture = westFacing[0];
             } else {
                 texture = eastFacing[1];
@@ -341,9 +341,9 @@ namespace OutsideTheBox {
         /// <returns>Returns true if the entity is facing the specified entity; otherwise, false</returns>
         public bool isFacing(Entity e, float scalar) {
             if (Math.Abs(e.getLocation().X - location.X) <= texture.Width * scalar) {
-                return e.getLocation().Y >= location.Y ? direction == Direction.SOUTH : direction == Direction.NORTH;
+                return e.getLocation().Y >= location.Y ? direction == Direction.South : direction == Direction.North;
             }
-            return e.getLocation().X >= location.X ? direction == Direction.EAST : direction == Direction.WEST;
+            return e.getLocation().X >= location.X ? direction == Direction.East : direction == Direction.West;
         }
 
         /// <summary>
@@ -352,11 +352,11 @@ namespace OutsideTheBox {
         /// <param name="e">The entity</param>
         public void setFacing(Entity e) {
             if (Math.Abs(e.getLocation().X - location.X) <= texture.Width) {
-                direction = e.getLocation().Y >= location.Y ? Direction.SOUTH : Direction.NORTH;
+                direction = e.getLocation().Y >= location.Y ? Direction.South : Direction.North;
             } else if (e.getLocation().X < location.X) {
-                direction = Direction.WEST;
+                direction = Direction.West;
             } else {
-                direction = Direction.EAST;
+                direction = Direction.East;
             }
         }
 

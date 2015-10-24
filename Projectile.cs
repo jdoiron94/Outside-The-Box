@@ -13,7 +13,7 @@ namespace OutsideTheBox {
         private readonly Texture2D texture;
         private readonly Vector2 origin;
 
-        private Vector2 position;
+        private Vector2 location;
         private Direction direction;
         private Rectangle bounds;
 
@@ -31,9 +31,9 @@ namespace OutsideTheBox {
             this.cooldown = cooldown;
             this.rotationSpeed = rotationSpeed;
             origin = new Vector2(texture.Width / 2F, texture.Height / 2F);
-            position = new Vector2(owner.getLocation().X + (owner.getTexture().Width - texture.Width) / 2F, owner.getLocation().Y + (owner.getTexture().Height - texture.Height) / 2F);
-            direction = Direction.NONE;
-            bounds = new Rectangle((int) position.X, (int) position.Y, texture.Width, texture.Height);
+            location = new Vector2(owner.getLocation().X + (owner.getTexture().Width - texture.Width) / 2F, owner.getLocation().Y + (owner.getTexture().Height - texture.Height) / 2F);
+            direction = Direction.None;
+            bounds = new Rectangle((int) location.X, (int) location.Y, texture.Width, texture.Height);
             rotation = 0f;
             active = true;
         }
@@ -62,8 +62,8 @@ namespace OutsideTheBox {
         /// Returns the projectile's position
         /// </summary>
         /// <returns>Returns the projectile's position</returns>
-        public Vector2 getPosition() {
-            return position;
+        public Vector2 getLocation() {
+            return location;
         }
 
         /// <summary>
@@ -135,7 +135,7 @@ namespace OutsideTheBox {
         /// </summary>
         /// <param name="x">The x amount to be derived by</param>
         public void deriveX(int x) {
-            position.X += x;
+            location.X += x;
         }
 
         /// <summary>
@@ -143,7 +143,7 @@ namespace OutsideTheBox {
         /// </summary>
         /// <param name="y">The y amount to by derived by</param>
         public void deriveY(int y) {
-            position.Y += y;
+            location.Y += y;
         }
 
         /// <summary>
@@ -152,18 +152,18 @@ namespace OutsideTheBox {
         /// <param name="game">The game instance to check viewport bounds from</param>
         /// <returns>Returns true if the projectile is currently on screen; otherwise, false</returns>
         public bool isOnScreen(Game1 game) {
-            return position.X >= -texture.Width && position.X <= game.getWidth() && position.Y >= -texture.Height && position.Y <= game.getHeight();
+            return location.X >= -texture.Width && location.X <= game.getWidth() && location.Y >= -texture.Height && location.Y <= game.getHeight();
         }
 
         /// <summary>
         /// Rotates the projectile's sprite, depending on the owning entity's direction
         /// </summary>
         private void rotate() {
-            if (direction == Direction.NORTH) {
+            if (direction == Direction.North) {
                 rotation = MathHelper.ToRadians(-90f);
-            } else if (direction == Direction.SOUTH) {
+            } else if (direction == Direction.South) {
                 rotation = MathHelper.ToRadians(90f);
-            } else if (direction == Direction.WEST) {
+            } else if (direction == Direction.West) {
                 rotation = MathHelper.ToRadians(-180f);
             }
         }
@@ -174,20 +174,20 @@ namespace OutsideTheBox {
         /// <param name="game">The game instance</param>
         /// <param name="entity">The entity to inherit direction from</param>
         public void update(Game1 game, Entity entity) {
-            if (direction == Direction.NONE) {
+            if (direction == Direction.None) {
                 direction = entity.getDirection();
                 rotate();
             }
-            if (direction == Direction.NORTH) {
+            if (direction == Direction.North) {
                 deriveY(-velocity);
                 bounds.Y += -velocity;
-            } else if (direction == Direction.SOUTH) {
+            } else if (direction == Direction.South) {
                 deriveY(velocity);
                 bounds.Y += velocity;
-            } else if (direction == Direction.WEST) {
+            } else if (direction == Direction.West) {
                 deriveX(-velocity);
                 bounds.X += -velocity;
-            } else if (direction == Direction.EAST) {
+            } else if (direction == Direction.East) {
                 deriveX(velocity);
                 bounds.X += velocity;
             }
@@ -200,7 +200,7 @@ namespace OutsideTheBox {
         /// </summary>
         /// <param name="batch">The SpriteBatch to draw with</param>
         public void draw(SpriteBatch batch) {
-            batch.Draw(texture, Vector2.Add(position, origin), null, Color.White, rotation, origin, 1F, SpriteEffects.None, 0F);
+            batch.Draw(texture, Vector2.Add(location, origin), null, Color.White, rotation, origin, 1F, SpriteEffects.None, 0F);
         }
     }
 }

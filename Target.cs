@@ -8,7 +8,8 @@ namespace OutsideTheBox {
 
     public class Target {
 
-        private Texture2D texture;
+        private readonly Texture2D texture;
+
         private InputManager inputManager;
 
         private bool active;

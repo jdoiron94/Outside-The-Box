@@ -104,17 +104,17 @@ namespace OutsideTheBox {
         /// <summary>
         /// Returns the level at the specified index
         /// </summary>
-        /// <param name="i">The index to retrieve</param>
+        /// <param name="index">The index to retrieve</param>
         /// <returns>Returns the level at the specified index</returns>
-        public Level getLevelByIndex(int i) {
-            return levels[i];
+        public Level getLevel(int index) {
+            return levels[index];
         }
 
         /// <summary>
         /// Returns the level list
         /// </summary>
         /// <returns>Returns the list of levels</returns>
-        public List<Level> getLevelList() {
+        public List<Level> getLevels() {
             return levels;
         }
 
@@ -138,7 +138,7 @@ namespace OutsideTheBox {
         /// Sets the level index for the game
         /// </summary>
         /// <param name="index">The index to be set</param>
-        public void setLevelIndex(int index) {
+        public void setLevel(int index) {
             levelIndex = index;
         }
 
@@ -203,28 +203,28 @@ namespace OutsideTheBox {
             Texture2D mana = Content.Load<Texture2D>("ui/ManaBarTexture");
             midX = (graphics.PreferredBackBufferWidth - playur.Width) / 2;
             midY = (graphics.PreferredBackBufferHeight - playur.Height) / 2;
-            player = new Player(playur, Vector2.Zero, Direction.SOUTH, 100, 50, 0, 3);
+            player = new Player(playur, Vector2.Zero, Direction.South, 100, 50, 0, 3);
             player.setProjectile(new Projectile(player, bullet, 5, 250));
             playerManager = new PlayerManager(player, new DisplayBar(health, new Vector2(20F, 20F), Color.Red, back), new DisplayBar(mana, new Vector2(20F, 50F), Color.Blue, back));
             player.loadTextures(Content);
 
             Texture2D male1 = Content.Load<Texture2D>("sprites/entities/npcs/NormieMaleStand1");
             Texture2D male2 = Content.Load<Texture2D>("sprites/entities/npcs/NormieMaleStand2");
-            Npc npc = new Npc(this, male1, new Vector2(midX + 148F, midY + 135F), Direction.EAST, new NpcDefinition("Normie", new string[0], new int[0]), 150, 0x5);
-            Npc npc2 = new Npc(this, male1, new Vector2(midX + 350F, midY + 100F), Direction.EAST, new NpcDefinition("Normie2", new string[0], new int[0]), 150, 0x5);
-            Npc npc3 = new Npc(this, male2, new Vector2(midX + 240F, midY + 123F), Direction.NORTH, new NpcDefinition("Normie3", new string[0], new int[0]), 150, 0x5);
+            Npc npc = new Npc(this, male1, new Vector2(midX + 148F, midY + 135F), Direction.East, new NpcDefinition("Normie", new string[0], new int[0]), 150, 0x5);
+            Npc npc2 = new Npc(this, male1, new Vector2(midX + 350F, midY + 100F), Direction.East, new NpcDefinition("Normie2", new string[0], new int[0]), 150, 0x5);
+            Npc npc3 = new Npc(this, male2, new Vector2(midX + 240F, midY + 123F), Direction.North, new NpcDefinition("Normie3", new string[0], new int[0]), 150, 0x5);
             npc2.setProjectile(new Projectile(npc2, bullet, 5, 500));
             npc3.setProjectile(new Projectile(npc3, bullet, 10, 500));
-            Npc npc4 = new Npc(this, male2, new Vector2(50F, 50F), Direction.WEST, new NpcDefinition("Normie4", new string[0], new int[0]), 150, 0x5);
-            Npc npc5 = new Npc(this, male2, new Vector2(150F, 130F), Direction.SOUTH, new NpcDefinition("Normie5", new string[0], new int[0]), 150, 0x5);
+            Npc npc4 = new Npc(this, male2, new Vector2(50F, 50F), Direction.West, new NpcDefinition("Normie4", new string[0], new int[0]), 150, 0x5);
+            Npc npc5 = new Npc(this, male2, new Vector2(150F, 130F), Direction.South, new NpcDefinition("Normie5", new string[0], new int[0]), 150, 0x5);
 
             Texture2D box = Content.Load<Texture2D>("sprites/objects/CardboardBox");
             GameObject obj = new GameObject(box, new Vector2(midX + 20F, midY + 65F), true);
             GameObject obj2 = new GameObject(box, new Vector2(midX + 20F, midY + 205F), true);
 
             Texture2D door = Content.Load<Texture2D>("sprites/objects/DoorTexture");
-            Door door1 = new Door(door, null, new Vector2(width - 10F, height - 89F), Direction.EAST, false, true, 10, 64);
-            Door door2 = new Door(door, null, new Vector2(0F, height - 89F), Direction.WEST, false, false, 10, 64);
+            Door door1 = new Door(door, null, new Vector2(width - 10F, height - 89F), Direction.East, false, true, 10, 64);
+            Door door2 = new Door(door, null, new Vector2(0F, height - 89F), Direction.West, false, false, 10, 64);
 
             Texture2D bronze = Content.Load<Texture2D>("sprites/objects/BronzeCoinFront");
             Texture2D silver = Content.Load<Texture2D>("sprites/objects/SilverCoinFront");
@@ -232,18 +232,18 @@ namespace OutsideTheBox {
             Texture2D side1 = Content.Load<Texture2D>("sprites/objects/BronzeCoinSide");
             Texture2D side2 = Content.Load<Texture2D>("sprites/objects/SilverCoinSide");
             Texture2D side3 = Content.Load<Texture2D>("sprites/objects/GoldCoinSide");
-            Token token1 = new Token(bronze, new Vector2(midX + 230F, midY + 95F), TokenType.BRONZE, side1);
-            Token token2 = new Token(silver, new Vector2(midX + 230F, midY + 225F), TokenType.SILVER, side2);
-            Token token3 = new Token(gold, new Vector2(200F, 200F), TokenType.GOLD, side3);
-            Token token4 = new Token(gold, new Vector2(200F, 200F), TokenType.GOLD, side3);
+            Token token1 = new Token(bronze, side1, new Vector2(midX + 230F, midY + 95F), TokenType.Bronze);
+            Token token2 = new Token(silver, side2, new Vector2(midX + 230F, midY + 225F), TokenType.Silver);
+            Token token3 = new Token(gold, side3, new Vector2(200F, 200F), TokenType.Gold);
+            Token token4 = new Token(gold, side3, new Vector2(200F, 200F), TokenType.Gold);
 
             Texture2D wall = Content.Load<Texture2D>("sprites/objects/WallTexture");
-            Wall wall1 = new Wall(wall, null, new Vector2(120F, 250F), Direction.EAST, false, false, 120, 20);
-            Wall wall2 = new Wall(wall, null, new Vector2(120F, 350F), Direction.EAST, false, false, 120, 20);
-            Wall wall3 = new Wall(wall, null, new Vector2(100F, 250F), Direction.EAST, false, false, 20, 120);
-            Wall wall4 = new Wall(wall, null, new Vector2(650F, 100F), Direction.EAST, false, false, 120, 20);
-            Wall wall5 = new Wall(wall, null, new Vector2(650F, 200F), Direction.EAST, false, false, 120, 20);
-            Wall wall6 = new Wall(wall, null, new Vector2(770F, 100F), Direction.EAST, false, false, 20, 120);
+            Wall wall1 = new Wall(wall, null, new Vector2(120F, 250F), Direction.East, false, false, 120, 20);
+            Wall wall2 = new Wall(wall, null, new Vector2(120F, 350F), Direction.East, false, false, 120, 20);
+            Wall wall3 = new Wall(wall, null, new Vector2(100F, 250F), Direction.East, false, false, 20, 120);
+            Wall wall4 = new Wall(wall, null, new Vector2(650F, 100F), Direction.East, false, false, 120, 20);
+            Wall wall5 = new Wall(wall, null, new Vector2(650F, 200F), Direction.East, false, false, 120, 20);
+            Wall wall6 = new Wall(wall, null, new Vector2(770F, 100F), Direction.East, false, false, 20, 120);
 
             Texture2D l1 = Content.Load<Texture2D>("sprites/levels/Level1");
             Texture2D l2 = Content.Load<Texture2D>("sprites/levels/Level1Map");
@@ -283,7 +283,7 @@ namespace OutsideTheBox {
 
             Screen[] screens = { new Screen("Menu"), new Screen("Normal", true), new Screen("Telekinesis-Select"), new Screen("Telekinesis-Move"), new Screen("Start") };
             inputManager = new InputManager(this, player, level, pauseMenu, target, playerManager, screens, new MindRead(bubble));
-            levels[0].setInputManager(inputManager);
+            level.setInputManager(inputManager);
             pauseMenu.setInputManager(inputManager);
             inputManager.setDeathManager(new DeathManager(inputManager));
 
@@ -291,10 +291,10 @@ namespace OutsideTheBox {
 
             pixel = new Texture2D(GraphicsDevice, 1, 1);
             pixel.SetData(new Color[] { Color.White });
-            npc.setPath(new AIPath(npc, this, new int[] { midX - 100, midY - 100, midX + 100, midY + 135 }, new int[0], new Direction[] { Direction.WEST, Direction.NORTH, Direction.EAST, Direction.SOUTH }));
-            npc3.setPath(new AIPath(npc3, this, new int[] { midX - 100, midY - 100, midX + 100, midY + 150 }, new int[0], new Direction[] { Direction.WEST, Direction.NORTH, Direction.EAST, Direction.SOUTH }));
-            npc4.setPath(new AIPath(npc4, this, new int[] { 200, 60 }, new int[0], new Direction[] { Direction.EAST, Direction.WEST }));
-            npc5.setPath(new AIPath(npc5, this, new int[] { 200, 150 }, new int[0], new Direction[] { Direction.EAST, Direction.WEST }));
+            npc.setPath(new AIPath(npc, this, new int[] { midX - 100, midY - 100, midX + 100, midY + 135 }, new int[0], new Direction[] { Direction.West, Direction.North, Direction.East, Direction.South }));
+            npc3.setPath(new AIPath(npc3, this, new int[] { midX - 100, midY - 100, midX + 100, midY + 150 }, new int[0], new Direction[] { Direction.West, Direction.North, Direction.East, Direction.South }));
+            npc4.setPath(new AIPath(npc4, this, new int[] { 200, 60 }, new int[0], new Direction[] { Direction.East, Direction.West }));
+            npc5.setPath(new AIPath(npc5, this, new int[] { 200, 150 }, new int[0], new Direction[] { Direction.East, Direction.West }));
         }
 
         /// <summary>

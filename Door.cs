@@ -12,12 +12,9 @@ namespace OutsideTheBox {
         private bool next;
         private bool unlocked;
 
-        private Rectangle rect;
-
         public Door(Texture2D texture, Projectile projectile, Vector2 location, Direction direction, bool liftable, bool next, int width, int height) :
             base(texture, projectile, location, direction, liftable, width, height) {
             this.next = next;
-            rect = new Rectangle((int) location.X, (int) location.Y, width, height);
             unlocked = false;
         }
 
@@ -38,14 +35,6 @@ namespace OutsideTheBox {
         }
 
         /// <summary>
-        /// Returns the bounding rectangle for the door
-        /// </summary>
-        /// <returns>Returns the bounding rectangle</returns>
-        public override Rectangle getBounds() {
-            return rect;
-        }
-
-        /// <summary>
         /// Returns whether or not the door is unlocked
         /// </summary>
         /// <returns>Returns true if the door is unlocked; otherwise, false</returns>
@@ -59,14 +48,6 @@ namespace OutsideTheBox {
         /// <param name="value">Bool to determine the door's unlocked property</param>
         public void unlockDoor(bool value) {
             unlocked = value;
-        }
-
-        /// <summary>
-        /// Handles drawing the door
-        /// </summary>
-        /// <param name="batch">The SpriteBatch to draw with</param>
-        public void draw(SpriteBatch batch) {
-            batch.Draw(getTexture(), rect, Color.White);
         }
     }
 }

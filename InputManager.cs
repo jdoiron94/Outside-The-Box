@@ -158,7 +158,9 @@ namespace OutsideTheBox {
                 player.deriveHealth(10);
             }
             if (lastKeyState.IsKeyDown(Keys.F1) && currentKeyState.IsKeyUp(Keys.F1)) {
-                level.toggleDebug();
+                foreach (Level l in game.getLevels()) {
+                    l.toggleDebug();
+                }
             }
             if (active.getName() == "Start") {
                 if (lastKeyState.IsKeyDown(Keys.Space) && currentKeyState.IsKeyUp(Keys.Space)) {
@@ -185,26 +187,26 @@ namespace OutsideTheBox {
                     level.removeToken(t);
                 } else if (gCollision != null && gCollision is Door) {
                     Door d = (Door) gCollision;
-                        int index = (game.getLevelIndex()) + (d.getNext() ? 1 : -1);
-                        level.setActive(false);
-                        game.setLevelIndex(index);
-                        level = game.getLevelByIndex(index);
-                        deathManager = new DeathManager(this);
-                        setDeathManager(deathManager);
-                        collisionManager.getLevel().setActive(false);
-                        level.setActive(true);
-                        level.setInputManager(this);
-                        collisionManager.setLevel(level);
-                        game.setLevel(level);
-                        if (d.getDirection() == Direction.EAST) {
-                            player.setLocation(new Vector2(40F, d.getLocation().Y));
-                        } else if (d.getDirection() == Direction.WEST) {
-                            player.setLocation(new Vector2(696F, d.getLocation().Y));
-                        } else if (d.getDirection() == Direction.NORTH) {
-                            player.setLocation(new Vector2(d.getLocation().X, 376F)); // untested
-                        } else {
-                            player.setLocation(new Vector2(d.getLocation().X, 104F)); // untested
-                        }
+                    int index = (game.getLevelIndex()) + (d.getNext() ? 1 : -1);
+                    level.setActive(false);
+                    game.setLevel(index);
+                    level = game.getLevel(index);
+                    deathManager = new DeathManager(this);
+                    setDeathManager(deathManager);
+                    collisionManager.getLevel().setActive(false);
+                    level.setActive(true);
+                    level.setInputManager(this);
+                    collisionManager.setLevel(level);
+                    game.setLevel(level);
+                    if (d.getDirection() == Direction.East) {
+                        player.setLocation(new Vector2(40F, d.getLocation().Y));
+                    } else if (d.getDirection() == Direction.West) {
+                        player.setLocation(new Vector2(696F, d.getLocation().Y));
+                    } else if (d.getDirection() == Direction.North) {
+                        player.setLocation(new Vector2(d.getLocation().X, 376F)); // untested
+                    } else {
+                        player.setLocation(new Vector2(d.getLocation().X, 104F)); // untested
+                    }
                 }
                 if (lastKeyState.IsKeyDown(Keys.H) && currentKeyState.IsKeyUp(Keys.H)) {
                     if (mindRead.isCooldown()) {
@@ -244,7 +246,7 @@ namespace OutsideTheBox {
                 }
                 confuse.doStuff(level);
                 if (currentKeyState.IsKeyDown(Keys.W)) {
-                    player.setDirection(Direction.NORTH);
+                    player.setDirection(Direction.North);
                     player.updateMovement();
                     player.setDestination(new Vector2(player.getLocation().X, player.getLocation().Y - velocity));
                     if (player.getDestination().Y >= 0 && collisionManager.isValid(player)) {
@@ -253,7 +255,7 @@ namespace OutsideTheBox {
                 } else if (lastKeyState.IsKeyDown(Keys.W) && currentKeyState.IsKeyUp(Keys.W)) {
                     stagnant = true;
                 } else if (currentKeyState.IsKeyDown(Keys.S)) {
-                    player.setDirection(Direction.SOUTH);
+                    player.setDirection(Direction.South);
                     player.updateMovement();
                     player.setDestination(new Vector2(player.getLocation().X, player.getLocation().Y + velocity));
                     if (player.getDestination().Y <= midY * 2 && collisionManager.isValid(player)) {
@@ -262,7 +264,7 @@ namespace OutsideTheBox {
                 } else if (lastKeyState.IsKeyDown(Keys.S) && currentKeyState.IsKeyUp(Keys.S)) {
                     stagnant = true;
                 } else if (currentKeyState.IsKeyDown(Keys.A)) {
-                    player.setDirection(Direction.WEST);
+                    player.setDirection(Direction.West);
                     player.updateMovement();
                     player.setDestination(new Vector2(player.getLocation().X - velocity, player.getLocation().Y));
                     if (player.getDestination().X >= 0 && collisionManager.isValid(player)) {
@@ -271,7 +273,7 @@ namespace OutsideTheBox {
                 } else if (lastKeyState.IsKeyDown(Keys.A) && currentKeyState.IsKeyUp(Keys.A)) {
                     stagnant = true;
                 } else if (currentKeyState.IsKeyDown(Keys.D)) {
-                    player.setDirection(Direction.EAST);
+                    player.setDirection(Direction.East);
                     player.updateMovement();
                     player.setDestination(new Vector2(player.getLocation().X + velocity, player.getLocation().Y));
                     if (player.getDestination().X <= midX * 2 && collisionManager.isValid(player)) {
@@ -334,7 +336,7 @@ namespace OutsideTheBox {
                     playerManager.depleteMana(1);
                 }
                 if (currentKeyState.IsKeyDown(Keys.W)) {
-                    selectedObject.setDirection(Direction.NORTH);
+                    selectedObject.setDirection(Direction.North);
                     selectedObject.setDestination(new Vector2(selectedObject.getLocation().X, selectedObject.getLocation().Y - velocity));
                     if (selectedObject.getDestination().Y > 0 && collisionManager.isValid(selectedObject)) {
                         selectedObject.deriveY(-velocity);
@@ -343,7 +345,7 @@ namespace OutsideTheBox {
                         }
                     }
                 } else if (currentKeyState.IsKeyDown(Keys.S)) {
-                    selectedObject.setDirection(Direction.SOUTH);
+                    selectedObject.setDirection(Direction.South);
                     selectedObject.setDestination(new Vector2(selectedObject.getLocation().X, selectedObject.getLocation().Y + velocity));
                     if (selectedObject.getDestination().Y < midY * 2 && collisionManager.isValid(selectedObject)) {
                         selectedObject.deriveY(velocity);
@@ -352,7 +354,7 @@ namespace OutsideTheBox {
                         }
                     }
                 } else if (currentKeyState.IsKeyDown(Keys.A)) {
-                    selectedObject.setDirection(Direction.WEST);
+                    selectedObject.setDirection(Direction.West);
                     selectedObject.setDestination(new Vector2(selectedObject.getLocation().X - velocity, selectedObject.getLocation().Y));
                     if (selectedObject.getDestination().X > 0 && collisionManager.isValid(selectedObject)) {
                         selectedObject.deriveX(-velocity);
@@ -361,7 +363,7 @@ namespace OutsideTheBox {
                         }
                     }
                 } else if (currentKeyState.IsKeyDown(Keys.D)) {
-                    selectedObject.setDirection(Direction.EAST);
+                    selectedObject.setDirection(Direction.East);
                     selectedObject.setDestination(new Vector2(selectedObject.getLocation().X + velocity, selectedObject.getLocation().Y));
                     if (selectedObject.getDestination().X < midX * 2 && collisionManager.isValid(selectedObject)) {
                         selectedObject.deriveX(velocity);
@@ -374,20 +376,20 @@ namespace OutsideTheBox {
                 }
                 if ((moving || (lastKeyState.IsKeyDown(Keys.Space) && currentKeyState.IsKeyDown(Keys.Space))) && playerManager.getMana() > 0) {
                     moving = true;
-                    if (selectedObject.getDirection() == Direction.NORTH) {
+                    if (selectedObject.getDirection() == Direction.North) {
                         selectedObject.setDestination(new Vector2(selectedObject.getLocation().X, selectedObject.getLocation().Y - velocity));
                         if (selectedObject.getDestination().Y > 0 && collisionManager.isValid(selectedObject)) {
                             selectedObject.deriveY(-velocity);
                         } else {
                             moving = false;
                         }
-                    } else if (selectedObject.getDirection() == Direction.SOUTH) {
+                    } else if (selectedObject.getDirection() == Direction.South) {
                         if (selectedObject.getDestination().Y < midY * 2 && collisionManager.isValid(selectedObject)) {
                             selectedObject.deriveY(velocity);
                         } else {
                             moving = false;
                         }
-                    } else if (selectedObject.getDirection() == Direction.WEST) {
+                    } else if (selectedObject.getDirection() == Direction.West) {
                         if (selectedObject.getDestination().X > 0 && collisionManager.isValid(selectedObject)) {
                             selectedObject.deriveX(-velocity);
                         } else {

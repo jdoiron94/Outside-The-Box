@@ -425,13 +425,13 @@ namespace OutsideTheBox {
                 }
             }
             foreach (Door d in doors) {
-                d.draw(batch);
+                batch.Draw(d.getTexture(), d.getBounds(), Color.White);
                 if (debug) {
                     game.outline(batch, d.getBounds());
                 }
             }
             foreach (Wall w in walls) {
-                w.draw(batch);
+                batch.Draw(w.getTexture(), w.getBounds(), Color.White);
                 if (debug) {
                     game.outline(batch, w.getBounds());
                 }

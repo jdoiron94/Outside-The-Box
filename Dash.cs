@@ -48,16 +48,16 @@ namespace OutsideTheBox {
             if (activated) {
                 if (duration < 15) {
                     switch (level.getPlayer().getDirection()) {
-                        case Direction.NORTH:
+                        case Direction.North:
                             level.getPlayer().deriveY(-6);
                             break;
-                        case Direction.SOUTH:
+                        case Direction.South:
                             level.getPlayer().deriveY(6);
                             break;
-                        case Direction.WEST:
+                        case Direction.West:
                             level.getPlayer().deriveX(-6);
                             break;
-                        case Direction.EAST:
+                        case Direction.East:
                             level.getPlayer().deriveX(6);
                             break;
                         default:
