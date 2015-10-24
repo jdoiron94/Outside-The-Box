@@ -203,8 +203,6 @@ namespace OutsideTheBox {
             //graphics.PreferredBackBufferWidth = x;
             //graphics.PreferredBackBufferHeight = y;
             //graphics.ApplyChanges();
-            width = 800;
-            height = 480;
             Window.Title = "Outside The Box";
         }
 
@@ -214,10 +212,10 @@ namespace OutsideTheBox {
         /// </summary>
         protected override void LoadContent() {
             base.LoadContent();
+            width = 800;
+            height = 480;
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
             startMenu = Content.Load<Texture2D>("menus/StartMenu");
-
             playerTexture = Content.Load<Texture2D>("sprites/entities/player/Standing1");
 
             midX = (graphics.PreferredBackBufferWidth - playerTexture.Width) / 2;
@@ -239,8 +237,8 @@ namespace OutsideTheBox {
             obj2 = new GameObject(Content.Load<Texture2D>("sprites/objects/CardboardBox"), new Vector2(midX + 20, midY + 65), true);
             obj = new GameObject(Content.Load<Texture2D>("sprites/objects/CardboardBox"), new Vector2(midX + 20, midY + 205), true);
 
-            door = new Door(Content.Load<Texture2D>("sprites/objects/DoorTexture"), null, new Vector2(midX + 420, midY + 200), Direction.EAST, false, true, 20, 60);
-            door2 = new Door(Content.Load<Texture2D>("sprites/objects/DoorTexture"), null, new Vector2(0, midY + 200), Direction.WEST, false, false, 20, 60);
+            door = new Door(Content.Load<Texture2D>("sprites/objects/DoorTexture"), null, new Vector2(width - 10, height - 89), Direction.EAST, false, true, 10, 64);
+            door2 = new Door(Content.Load<Texture2D>("sprites/objects/DoorTexture"), null, new Vector2(0, height - 89), Direction.WEST, false, false, 10, 64);
             side1 = Content.Load<Texture2D>("sprites/objects/BronzeCoinSide");
             side2 = Content.Load<Texture2D>("sprites/objects/SilverCoinSide");
             side3 = Content.Load<Texture2D>("sprites/objects/GoldCoinSide");
@@ -299,8 +297,6 @@ namespace OutsideTheBox {
             npc3.setPath(new AIPath(npc3, this, new int[] { midX - 100, midY - 100, midX + 100, midY + 150 }, new int[0], new Direction[] { Direction.WEST, Direction.NORTH, Direction.EAST, Direction.SOUTH }));
             npc4.setPath(new AIPath(npc4, this, new int[] { 200, 60 }, new int[0], new Direction[] { Direction.EAST, Direction.WEST }));
             npc5.setPath(new AIPath(npc5, this, new int[] { 200, 150 }, new int[0], new Direction[] { Direction.EAST, Direction.WEST }));
-
-            //effect = Content.Load<SoundEffect>("gun");
         }
 
         /// <summary>

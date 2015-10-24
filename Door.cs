@@ -11,10 +11,11 @@ namespace OutsideTheBox {
 
         private bool next;
         private bool unlocked;
+
         private Rectangle rect;
 
         public Door(Texture2D texture, Projectile projectile, Vector2 location, Direction direction, bool liftable, bool next, int width, int height) :
-            base(texture, projectile, location, direction, liftable) {
+            base(texture, projectile, location, direction, liftable, width, height) {
             this.next = next;
             rect = new Rectangle((int) location.X, (int) location.Y, width, height);
             unlocked = false;

@@ -18,6 +18,7 @@ namespace OutsideTheBox {
         private Vector2 destination;
         private Direction direction;
         private Rectangle bounds;
+        private Rectangle destinationBounds;
 
         private Texture2D[] northFacing;
         private Texture2D[] southFacing;
@@ -43,6 +44,7 @@ namespace OutsideTheBox {
             this.velocity = velocity;
             destination = location;
             bounds = new Rectangle((int) location.X, (int) location.Y, texture.Width, texture.Height);
+            destinationBounds = new Rectangle(bounds.X, bounds.Y, bounds.Width, bounds.Height);
             northFacing = new Texture2D[4];
             southFacing = new Texture2D[4];
             westFacing = new Texture2D[4];
@@ -157,6 +159,16 @@ namespace OutsideTheBox {
         /// <param name="destination">The destination to set</param>
         public void setDestination(Vector2 destination) {
             this.destination = destination;
+            destinationBounds.X = (int) destination.X;
+            destinationBounds.Y = (int) destination.Y;
+        }
+
+        /// <summary>
+        /// Returns the entity's destination bounds
+        /// </summary>
+        /// <returns>Returns the entity's destination bounds</returns>
+        public Rectangle getDestinationBounds() {
+            return destinationBounds;
         }
 
         /// <summary>
@@ -214,7 +226,6 @@ namespace OutsideTheBox {
         public void deriveX(int x) {
             location.X += x;
             bounds.X += x;
-            //destination.X += x;
         }
 
         /// <summary>
@@ -224,7 +235,15 @@ namespace OutsideTheBox {
         public void deriveY(int y) {
             location.Y += y;
             bounds.Y += y;
-            //destination.Y += y;
+        }
+
+        /// <summary>
+        /// Sets the entity's x coordinate
+        /// </summary>
+        /// <param name="x">The x coordinate to set</param>
+        public void setX(int x) {
+            location.X = x;
+            bounds.X = x;
         }
 
         /// <summary>
@@ -237,12 +256,13 @@ namespace OutsideTheBox {
         }
 
         /// <summary>
-        /// Sets the entity's x coordinate
+        /// Sets the player's location
         /// </summary>
-        /// <param name="x">The x coordinate to set</param>
-        public void setX(int x) {
-            location.X = x;
-            bounds.X = x;
+        /// <param name="location">The location to set</param>
+        public void setLocation(Vector2 location) {
+            this.location = location;
+            bounds.X = (int) location.X;
+            bounds.Y = (int) location.Y;
         }
 
         /// <summary>

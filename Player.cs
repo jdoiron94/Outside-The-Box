@@ -31,14 +31,6 @@ namespace OutsideTheBox {
         }
 
         /// <summary>
-        /// Sets the player's location
-        /// </summary>
-        /// <param name="location">The location to set</param>
-        public void setLocation(Vector2 location) {
-            this.location = location;
-        }
-
-        /// <summary>
         /// Returns the player's experience
         /// </summary>
         /// <returns>Returns the player's experience</returns>

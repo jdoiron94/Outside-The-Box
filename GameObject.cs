@@ -16,13 +16,14 @@ namespace OutsideTheBox {
         private Vector2 destination;
         private Direction direction;
         private Rectangle bounds;
+        private Rectangle destinationBounds;
 
         private readonly bool liftable;
 
         private bool selected;
         private double lastFired;
 
-        public GameObject(Texture2D texture, Projectile projectile, Vector2 location, Direction direction, bool liftable) {
+        public GameObject(Texture2D texture, Projectile projectile, Vector2 location, Direction direction, bool liftable, int width, int height) {
             this.texture = texture;
             this.projectile = projectile;
             this.location = location;
@@ -30,20 +31,13 @@ namespace OutsideTheBox {
             this.liftable = liftable;
             destination = location;
             selected = false;
-            bounds = new Rectangle((int) location.X, (int) location.Y, texture.Width, texture.Height);
+            bounds = new Rectangle((int) location.X, (int) location.Y, width, height);
+            destinationBounds = new Rectangle(bounds.X, bounds.Y, bounds.Width, bounds.Height);
             lastFired = -1;
         }
 
-        public GameObject(Texture2D texture, Projectile projectile, Vector2 location, Direction direction, bool liftable, int x, int y) {
-            this.texture = texture;
-            this.projectile = projectile;
-            this.location = location;
-            this.direction = direction;
-            this.liftable = liftable;
-            destination = location;
-            selected = false;
-            bounds = new Rectangle((int) location.X, (int) location.Y, x, y);
-            lastFired = -1;
+        public GameObject(Texture2D texture, Projectile projectile, Vector2 location, Direction direction, bool liftable) :
+            this(texture, projectile, location, direction, liftable, texture.Width, texture.Height) {
         }
 
         public GameObject(Texture2D texture, Vector2 location, bool liftable) :
@@ -92,6 +86,16 @@ namespace OutsideTheBox {
         /// <param name="destination">The destination to be set</param>
         public void setDestination(Vector2 destination) {
             this.destination = destination;
+            destinationBounds.X = (int) destination.X;
+            destinationBounds.Y = (int) destination.Y;
+        }
+
+        /// <summary>
+        /// Returns the object's destination bounds
+        /// </summary>
+        /// <returns>Returns the object's destination bounds</returns>
+        public Rectangle getDestinationBounds() {
+            return destinationBounds;
         }
 
         /// <summary>

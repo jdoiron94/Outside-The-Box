@@ -22,7 +22,7 @@ namespace OutsideTheBox {
         private readonly Target target;
 
         private GameObject selectedObject;
-        private DeathManager Deathmanager;
+        private DeathManager deathManager;
 
         private MindRead mindRead;
         private bool powerReveal;
@@ -142,7 +142,7 @@ namespace OutsideTheBox {
         /// </summary>
         /// <param name="deathManager">Sets the death manager</param>
         public void setDeathManager(DeathManager deathManager) {
-            this.Deathmanager = deathManager;
+            this.deathManager = deathManager;
         }
 
         /// <summary>
@@ -175,19 +175,12 @@ namespace OutsideTheBox {
                     playerManager.regenerateMana();
                 }
                 if (playerManager.getHealth() <= 0) {
-                    Deathmanager.resetGame();
+                    deathManager.resetGame();
                 }
-                mindRead.behavior(time);
-                List<ThoughtBubble> thoughts = level.getThoughts();
-                for (int i = 0; i < thoughts.Count; i++) {
-                    if (mindRead.isActivated()) {
-                        thoughts[i].reveal(true);
-                    } else {
-                        thoughts[i].reveal(false);
-                    }
-                    thoughts[i].updateLocation();
+                foreach (ThoughtBubble tb in level.getThoughts()) {
+                    tb.reveal(mindRead.isActivated());
+                    tb.updateLocation();
                 }
-
                 List<Token> temp = level.getTokens();
                 for (int i = 0; i < temp.Count; i++) {
                     if (collisionManager.collides(player, temp[i])) {
@@ -197,39 +190,27 @@ namespace OutsideTheBox {
                         i--;
                     }
                 }
-
-                List<Door> doors = level.getDoors();
-                for (int i = 0; i < doors.Count; i++) {
-                    if (collisionManager.collides(player, doors[i])) {
-                        if (doors[i].getNext() == true) {
-                            level.setActive(false);
-                            game.setLevelIndex(game.getLevelIndex() + 1);
-                            level = game.getLevelByIndex(game.getLevelIndex());
-                            Deathmanager = new DeathManager(this);
-                            setDeathManager(Deathmanager);
-                        } else {
-                            level.setActive(false);
-                            game.setLevelIndex(game.getLevelIndex() - 1);
-                            level = game.getLevelByIndex(game.getLevelIndex());
-                            Deathmanager = new DeathManager(this);
-                            setDeathManager(Deathmanager);
-                        }
-
+                foreach (Door d in level.getDoors()) {
+                    if (collisionManager.collides(player, d)) {
+                        int index = (game.getLevelIndex()) + (d.getNext() ? 1 : -1);
+                        level.setActive(false);
+                        game.setLevelIndex(index);
+                        level = game.getLevelByIndex(index);
+                        deathManager = new DeathManager(this);
+                        setDeathManager(deathManager);
+                        collisionManager.getLevel().setActive(false);
                         level.setActive(true);
                         level.setInputManager(this);
-                        game.getLevel().setActive(false);
-                        game.setLevel(level);
-                        collisionManager.getLevel().setActive(false);
                         collisionManager.setLevel(level);
-
-                        if (doors[i].getDirection() == Direction.EAST) {
-                            player.setX(30);
-                        } else if (doors[i].getDirection() == Direction.WEST) {
-                            player.setX(700);
-                        } else if (doors[i].getDirection() == Direction.NORTH) {
-                            player.setY(30);
+                        game.setLevel(level);
+                        if (d.getDirection() == Direction.EAST) {
+                            player.setLocation(new Vector2(40F, d.getLocation().Y));
+                        } else if (d.getDirection() == Direction.WEST) {
+                            player.setLocation(new Vector2(696F, d.getLocation().Y));
+                        } else if (d.getDirection() == Direction.NORTH) {
+                            player.setLocation(new Vector2(d.getLocation().X, 376F)); // untested
                         } else {
-                            player.setY(400);
+                            player.setLocation(new Vector2(d.getLocation().X, 104F)); // untested
                         }
                     }
                 }
@@ -240,6 +221,7 @@ namespace OutsideTheBox {
                         playerManager.depleteMana(mindRead.getManaCost());
                     }
                 }
+                mindRead.behavior(time);
 
                 //SLOW TIME
                 SlowTime slowmo = (SlowTime) playerManager.getPowers()[0];

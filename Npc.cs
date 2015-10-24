@@ -34,18 +34,15 @@ namespace OutsideTheBox {
             this.radius = radius;
             this.reactTime = reactTime;
             this.wander = wander;
-            lineOfSight = new Rectangle((int) location.X, (int) location.Y, texture.Width, texture.Height);
             ticks = 0;
         }
 
         public Npc(Game1 game, Texture2D texture, Vector2 location, Direction direction, NpcDefinition def, int[] offsets, int radius, byte reactTime, bool wander) :
             this(game, texture, location, direction, def, offsets, 100, 3, radius, reactTime, wander) {
-            lineOfSight = new Rectangle((int) location.X, (int) location.Y, texture.Width, texture.Height);
         }
 
         public Npc(Game1 game, Texture2D texture, Vector2 location, Direction direction, NpcDefinition def, int radius, byte reactTime) :
-            this(game, texture, location, direction, def, new int[0], 100, 3, radius, reactTime, false) {
-            lineOfSight = new Rectangle((int) location.X, (int) location.Y, texture.Width, texture.Height);
+            this(game, texture, location, direction, def, new int[0], radius, reactTime, false) {
         }
 
         /// <summary>

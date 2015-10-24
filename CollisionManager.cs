@@ -1,6 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-
-namespace OutsideTheBox {
+﻿namespace OutsideTheBox {
 
     /// <summary>
     /// Collision class which deals with interactions of objects, entities, and projectiles.
@@ -48,7 +46,7 @@ namespace OutsideTheBox {
         /// <returns>Returns true if the player was within the npc's los; otherwise, false</returns>
         public bool playerSpotted(Level level) {
             foreach (Npc npc in level.getNpcs()) {
-                if (npc != null && level.getPlayer().getBounds().Intersects(npc.getLineOfSight())) {
+                if (level.getPlayer().getDestinationBounds().Intersects(npc.getLineOfSight())) {
                     return true;
                 }
             }
@@ -62,9 +60,7 @@ namespace OutsideTheBox {
         /// <param name="e1">The second entity</param>
         /// <returns>Returns true if the two entities collide; otherwise, false</returns>
         public bool collides(Entity e0, Entity e1) {
-            Rectangle e0Rect = new Rectangle((int) e0.getDestination().X, (int) e0.getDestination().Y, e0.getTexture().Width, e0.getTexture().Height);
-            Rectangle e1Rect = new Rectangle((int) e1.getDestination().X, (int) e1.getDestination().Y, e1.getTexture().Width, e1.getTexture().Height);
-            return e0Rect.Intersects(e1Rect);
+            return e0.getDestinationBounds().Intersects(e1.getDestinationBounds());
         }
 
         /// <summary>
@@ -74,9 +70,7 @@ namespace OutsideTheBox {
         /// <param name="e1">The game object</param>
         /// <returns>Returns true if the entity collides with the game object; otherwise, false</returns>
         public bool collides(Entity e0, GameObject e1) {
-            Rectangle e0Rect = new Rectangle((int) e0.getDestination().X, (int) e0.getDestination().Y, e0.getTexture().Width, e0.getTexture().Height);
-            Rectangle e1Rect = new Rectangle((int) e1.getDestination().X, (int) e1.getDestination().Y, e1.getTexture().Width, e1.getTexture().Height);
-            return e0Rect.Intersects(e1Rect);
+            return e0.getDestinationBounds().Intersects(e1.getDestinationBounds());
         }
 
         /// <summary>
@@ -86,8 +80,7 @@ namespace OutsideTheBox {
         /// <param name="e1">The wall</param>
         /// <returns>Returns true if the entity collides with the wall; otherwise, false</returns>
         public bool collides(Entity e0, Wall e1) {
-            Rectangle e0Rect = new Rectangle((int) e0.getDestination().X, (int) e0.getDestination().Y, e0.getTexture().Width, e0.getTexture().Height);
-            return e0Rect.Intersects(e1.getBounds());
+            return e0.getDestinationBounds().Intersects(e1.getBounds());
         }
 
         /// <summary>
@@ -117,9 +110,7 @@ namespace OutsideTheBox {
         /// <param name="e1">The second game object</param>
         /// <returns>Returns true if the two game objects collide; otherwise, false</returns>
         public bool collides(GameObject e0, GameObject e1) {
-            Rectangle e0Rect = new Rectangle((int) e0.getDestination().X, (int) e0.getDestination().Y, e0.getTexture().Width, e0.getTexture().Height);
-            Rectangle e1Rect = new Rectangle((int) e1.getDestination().X, (int) e1.getDestination().Y, e1.getTexture().Width, e1.getTexture().Height);
-            return e0Rect.Intersects(e1Rect);
+            return e0.getDestinationBounds().Intersects(e1.getDestinationBounds());
         }
 
         /// <summary>
@@ -129,21 +120,21 @@ namespace OutsideTheBox {
         /// <returns>Returns true if the entity's movement does not collide; otherwise, false</returns>
         public bool isValid(Entity ent) {
             foreach (GameObject g in level.getObjects()) {
-                if (g != null && g.isOnScreen(level.getGame())) {
+                if (g.isOnScreen(level.getGame())) {
                     if (collides(ent, g)) {
                         return false;
                     }
                 }
             }
             foreach (Entity e in level.getNpcs()) {
-                if (e != null && e != ent && e.isOnScreen(level.getGame())) {
+                if (e != ent && e.isOnScreen(level.getGame())) {
                     if (collides(ent, e)) {
                         return false;
                     }
                 }
             }
             foreach (Wall w in level.getWalls()) {
-                if (w != null && w.isOnScreen(level.getGame())) {
+                if (w.isOnScreen(level.getGame())) {
                     if (collides(ent, w)) {
                         return false;
                     }
@@ -159,14 +150,14 @@ namespace OutsideTheBox {
         /// <returns>Returns true if the game object's movement does not collide; otherwise, false</returns>
         public bool isValid(GameObject obj) {
             foreach (GameObject g in level.getObjects()) {
-                if (g != null && g != obj && g.isOnScreen(level.getGame())) {
+                if (g != obj && g.isOnScreen(level.getGame())) {
                     if (collides(obj, g)) {
                         return false;
                     }
                 }
             }
             foreach (Wall w in level.getWalls()) {
-                if (w != null && w.isOnScreen(level.getGame())) {
+                if (w.isOnScreen(level.getGame())) {
                     if (collides(obj, w)) {
                         return false;
                     }

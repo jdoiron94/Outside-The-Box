@@ -1,10 +1,10 @@
 ﻿namespace OutsideTheBox {
 
-    public class NpcDefinition {
+    /// <summary>
+    /// Class which allows defining an npc's name and helpful hints
+    /// </summary>
 
-        /*
-         * Class which can define an npc's name and helpful hints
-         */
+    public class NpcDefinition {
 
         private readonly string name;
         private readonly string[] hints;
