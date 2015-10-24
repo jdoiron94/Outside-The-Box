@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
 
-namespace KineticCamp {
+namespace OutsideTheBox {
 
     public class CollisionManager {
 

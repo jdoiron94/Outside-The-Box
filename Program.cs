@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace KineticCamp {
+namespace OutsideTheBox {
 
 #if WINDOWS || LINUX
     /// <summary>

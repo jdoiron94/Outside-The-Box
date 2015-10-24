@@ -8,8 +8,8 @@
     <ProjectGuid>{1F90E5E5-29E7-477E-BCB0-3D4FB9A5DE1D}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>KineticCamp</RootNamespace>
-    <AssemblyName>KineticCamp</AssemblyName>
+    <RootNamespace>OutsideTheBox</RootNamespace>
+    <AssemblyName>OutsideTheBox</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MonoGamePlatform>Windows</MonoGamePlatform>
     <MonoGameContentBuilderExe>

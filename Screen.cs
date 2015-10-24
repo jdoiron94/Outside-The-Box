@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
 
-namespace KineticCamp {
+namespace OutsideTheBox {
 
     public class Screen {
 

@@ -1,4 +1,4 @@
-﻿namespace KineticCamp {
+﻿namespace OutsideTheBox {
 
     public interface DrainPower {
 

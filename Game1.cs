@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
 
-namespace KineticCamp {
+namespace OutsideTheBox {
 
     /// <summary>
     /// This is the main type for your game.

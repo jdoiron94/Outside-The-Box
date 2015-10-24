@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace KineticCamp {
+namespace OutsideTheBox {
 
     public class PlayerManager {
         

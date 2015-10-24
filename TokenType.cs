@@ -1,5 +1,4 @@
-﻿
-namespace KineticCamp {
+﻿namespace OutsideTheBox {
 
     /*
     * Enum for differentiating between different types of tokens. 

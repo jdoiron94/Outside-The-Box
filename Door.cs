@@ -1,14 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace KineticCamp {
+namespace OutsideTheBox {
 
     public class Door : GameObject {
 
         private bool next;
         private bool unlocked;
         private Rectangle rect;
-
 
         public Door(Texture2D texture, Projectile projectile, Vector2 location, Direction direction, bool liftable, bool next, int width, int height) :
         base(texture, projectile, location, direction, liftable) {

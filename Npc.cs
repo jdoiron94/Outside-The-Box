@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using System;
 
-namespace KineticCamp {
+namespace OutsideTheBox {
 
     public class Npc : Entity {
 
