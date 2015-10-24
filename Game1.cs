@@ -213,10 +213,12 @@ namespace OutsideTheBox {
             Npc npc = new Npc(this, male1, new Vector2(midX + 148F, midY + 135F), Direction.East, new NpcDefinition("Normie", new string[0], new int[0]), 150, 0x5);
             Npc npc2 = new Npc(this, male1, new Vector2(midX + 350F, midY + 100F), Direction.East, new NpcDefinition("Normie2", new string[0], new int[0]), 150, 0x5);
             Npc npc3 = new Npc(this, male2, new Vector2(midX + 240F, midY + 123F), Direction.North, new NpcDefinition("Normie3", new string[0], new int[0]), 150, 0x5);
-            npc2.setProjectile(new Projectile(npc2, bullet, 5, 500));
+            npc2.setProjectile(new Projectile(npc2, bullet, 10, 500));
             npc3.setProjectile(new Projectile(npc3, bullet, 10, 500));
             Npc npc4 = new Npc(this, male2, new Vector2(50F, 50F), Direction.West, new NpcDefinition("Normie4", new string[0], new int[0]), 150, 0x5);
             Npc npc5 = new Npc(this, male2, new Vector2(150F, 130F), Direction.South, new NpcDefinition("Normie5", new string[0], new int[0]), 150, 0x5);
+            Npc npc6 = new Npc(this, male2, new Vector2(400F, 200F), Direction.South, new NpcDefinition("Normie6", new string[0], new int[0]), 150, 0x5);
+            npc6.setProjectile(new Projectile(npc6, bullet, 10, 500));
 
             Texture2D box = Content.Load<Texture2D>("sprites/objects/CardboardBox");
             GameObject obj = new GameObject(box, new Vector2(midX + 20F, midY + 65F), true);
@@ -249,7 +251,7 @@ namespace OutsideTheBox {
             Texture2D l2 = Content.Load<Texture2D>("sprites/levels/Level1Map");
             Texture2D bubble = Content.Load<Texture2D>("sprites/thoughts/PassBubble1");
             Level level1 = new Level(this, player, l1, new Npc[] { npc, npc2, npc5 }, new GameObject[] { obj2, obj }, new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() }, new Token[] { token1, token2, token3 }, new Door[] { door1 }, new Wall[0], new ThoughtBubble[0], 1);
-            Level level2 = new Level(this, player, l2, new Npc[] { npc3, npc4 }, new GameObject[0], new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() }, new Token[] { token4 }, new Door[] { door2 }, new Wall[] { wall1, wall2, wall3, wall4, wall5, wall6 }, new ThoughtBubble[] { new ThoughtBubble(bubble, Vector2.Zero, npc3, false, false) }, 2);
+            Level level2 = new Level(this, player, l2, new Npc[] { npc3, npc4, npc6 }, new GameObject[0], new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() }, new Token[] { token4 }, new Door[] { door2 }, new Wall[] { wall1, wall2, wall3, wall4, wall5, wall6 }, new ThoughtBubble[] { new ThoughtBubble(bubble, Vector2.Zero, npc3, false, false) }, 2);
             levels = new List<Level>();
             levels.Add(level1);
             levels.Add(level2);

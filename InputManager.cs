@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace OutsideTheBox {
 
@@ -151,10 +152,12 @@ namespace OutsideTheBox {
             if (currentKeyState.IsKeyDown(Keys.Escape)) {
                 game.Exit();
             }
-            if (player.isDead() || collisionManager.playerSpotted(level)) {
-                player.setLocation(new Vector2(0F, 0F));
+            if (playerManager.getHealth() <= 0) {
+                Console.WriteLine("reset game");
+                deathManager.resetGame();
             }
             if (collisionManager.playerSpotted(level)) {
+                player.setLocation(new Vector2(0F, 0F));
                 player.deriveHealth(10);
             }
             if (lastKeyState.IsKeyDown(Keys.F1) && currentKeyState.IsKeyUp(Keys.F1)) {
@@ -171,9 +174,6 @@ namespace OutsideTheBox {
                 if (playerManager.getHealthCooldown() == 35) {
                     playerManager.regenerateHealth();
                     playerManager.regenerateMana();
-                }
-                if (playerManager.getHealth() <= 0) {
-                    deathManager.resetGame();
                 }
                 foreach (ThoughtBubble tb in level.getThoughts()) {
                     tb.reveal(mindRead.isActivated());
