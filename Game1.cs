@@ -345,7 +345,7 @@ namespace OutsideTheBox {
                 if (level.getMode() < 1) {
                     spriteBatch.Draw(cursor, new Vector2(mouse.X, mouse.Y), Color.White);
                 } else {
-                    spriteBatch.Draw(target, new Vector2(mouse.X, mouse.Y), Color.White);
+                    spriteBatch.Draw(target, new Vector2(mouse.X - (target.Width / 2), mouse.Y - (target.Height / 2)), Color.White);
                 }
             }
             if (inputManager.getScreenManager().getActiveScreen().getName() == "Start") {
