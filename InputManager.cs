@@ -1,7 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-using System;
 using System.Collections.Generic;
 
 namespace OutsideTheBox {
@@ -39,6 +38,7 @@ namespace OutsideTheBox {
 
         private int ticks;
         private bool stagnant;
+        private bool moving;
 
         private const byte WAIT = 0x4;
 
@@ -50,7 +50,6 @@ namespace OutsideTheBox {
             this.target = target;
             this.playerManager = playerManager;
             this.mindRead = mindRead;
-
             powerReveal = false;
             collisionManager = new CollisionManager(player, level);
             screenManager = new ScreenManager(screens[4], screens);
@@ -62,7 +61,7 @@ namespace OutsideTheBox {
             currentKeyState = new KeyboardState();
             ticks = 0;
             stagnant = false;
-
+            moving = false;
         }
 
         /// <summary>
@@ -150,16 +149,16 @@ namespace OutsideTheBox {
         /// </summary>
         /// <param name="time">The GameTime to update with respect to</param>
         public void update(GameTime time) {
-
             lastKeyState = currentKeyState;
             currentKeyState = Keyboard.GetState();
             Screen active = screenManager.getActiveScreen();
-            if (player.isDead() || collisionManager.playerSpotted(level)) {
+            if (currentKeyState.IsKeyDown(Keys.Escape)) {
+                game.Exit();
+            } else if (player.isDead() || collisionManager.playerSpotted(level)) {
                 player.setX(10);
                 player.setY(10);
                 player.deriveHealth(10);
-            }
-            if (lastKeyState.IsKeyDown(Keys.F1) && currentKeyState.IsKeyUp(Keys.F1)) {
+            } else if (lastKeyState.IsKeyDown(Keys.F1) && currentKeyState.IsKeyUp(Keys.F1)) {
                 level.toggleDebug();
             }
             if (active.getName() == "Start") {
@@ -167,9 +166,7 @@ namespace OutsideTheBox {
                     level.setMode(0);
                     screenManager.setActiveScreen(1);
                 }
-
-            }
-            if (active.getName() == "Normal") {
+            } else if (active.getName() == "Normal") {
                 if (playerManager.getHealthCooldown() == 35) {
                     playerManager.regenerateHealth();
                     playerManager.regenerateMana();
@@ -214,7 +211,6 @@ namespace OutsideTheBox {
                         }
                     }
                 }
-
                 if (lastKeyState.IsKeyDown(Keys.H) && currentKeyState.IsKeyUp(Keys.H)) {
                     if (mindRead.isCooldown()) {
                         mindRead.activatePower(true);
@@ -222,8 +218,6 @@ namespace OutsideTheBox {
                     }
                 }
                 mindRead.behavior(time);
-
-                //SLOW TIME
                 SlowTime slowmo = (SlowTime) playerManager.getPowers()[0];
                 if (lastKeyState.IsKeyDown(Keys.L) && currentKeyState.IsKeyUp(Keys.L)) {
                     if (slowmo.isUnlocked() && !slowmo.isActivated()) {
@@ -234,9 +228,6 @@ namespace OutsideTheBox {
                     }
                 }
                 slowmo.doStuff(level);
-                //SLOW TIME
-
-                //DASH
                 Dash dash = (Dash) playerManager.getPowers()[1];
                 if (lastKeyState.IsKeyDown(Keys.K) && currentKeyState.IsKeyUp(Keys.K)) {
                     if (dash.isUnlocked()) {
@@ -247,9 +238,6 @@ namespace OutsideTheBox {
                     }
                 }
                 dash.doStuff(level);
-                //DASH
-
-                //CONFUSE
                 Confuse confuse = (Confuse) playerManager.getPowers()[2];
                 if (lastKeyState.IsKeyDown(Keys.C) && currentKeyState.IsKeyUp(Keys.C)) {
                     if (confuse.isUnlocked()) {
@@ -260,11 +248,7 @@ namespace OutsideTheBox {
                     }
                 }
                 confuse.doStuff(level);
-                //CONFUSE
-
-                if (currentKeyState.IsKeyDown(Keys.Escape)) {
-                    game.Exit();
-                } else if (currentKeyState.IsKeyDown(Keys.W)) {
+                if (currentKeyState.IsKeyDown(Keys.W)) {
                     player.setDirection(Direction.NORTH);
                     player.updateMovement();
                     player.setDestination(new Vector2(player.getLocation().X, player.getLocation().Y - velocity));
@@ -304,9 +288,9 @@ namespace OutsideTheBox {
                     player.setDestination(player.getLocation());
                 }
                 if (currentKeyState.IsKeyDown(Keys.Space)) {
-                    double totalMilliseconds = time.TotalGameTime.TotalMilliseconds;
-                    if ((player.getLastFired() == -1 || totalMilliseconds - player.getLastFired() >= player.getProjectile().getCooldown()) && playerManager.getMana() >= 5) {
-                        level.addProjectile(player.createProjectile(totalMilliseconds));
+                    double ms = time.TotalGameTime.TotalMilliseconds;
+                    if ((player.getLastFired() == -1 || ms - player.getLastFired() >= player.getProjectile().getCooldown()) && playerManager.getMana() >= 5) {
+                        level.addProjectile(player.createProjectile(ms));
                         playerManager.depleteMana(5);
                     }
                 }
@@ -323,29 +307,20 @@ namespace OutsideTheBox {
                     level.setMode(1);
                     screenManager.setActiveScreen(2);
                     target.setActive(true);
-                    Console.WriteLine("Entered telekinesis mode!");
-                }
-
-                if (currentKeyState.IsKeyDown(Keys.P)) {
+                } else if (currentKeyState.IsKeyDown(Keys.P)) {
                     playerManager.damagePlayer(2);
-                }
-
-                if (lastKeyState.IsKeyDown(Keys.M) && currentKeyState.IsKeyUp(Keys.M)) {
+                } else if (lastKeyState.IsKeyDown(Keys.M) && currentKeyState.IsKeyUp(Keys.M)) {
                     screenManager.setActiveScreen(0);
                     level.setActive(false);
                     pauseMenu.setActive(true);
-                    Console.WriteLine("Entered menu.");
                 }
-
             } else if (active.getName() == "Telekinesis-Select") {
                 lastState = state;
                 state = Mouse.GetState().LeftButton;
                 playerManager.setManaDrainRate(5);
-                if (currentKeyState.IsKeyDown(Keys.Escape)) {
-                    game.Exit();
-                } else if (lastState == ButtonState.Pressed && state == ButtonState.Released) {
+                if (lastState == ButtonState.Pressed && state == ButtonState.Released) {
                     foreach (GameObject obj in level.getObjects()) {
-                        if (obj != null && obj.isLiftable()) {
+                        if (obj.isLiftable()) {
                             if (obj.getBounds().Contains(new Point(Mouse.GetState().X, Mouse.GetState().Y))) {
                                 obj.setSelected(true);
                                 selectedObject = obj;
@@ -357,21 +332,20 @@ namespace OutsideTheBox {
                 } else if (lastKeyState.IsKeyDown(Keys.X) && currentKeyState.IsKeyUp(Keys.X)) {
                     level.setMode(0);
                     screenManager.setActiveScreen(1);
-                    Console.WriteLine("Exited telekinesis mode.");
                 }
-
             } else if (active.getName() == "Telekinesis-Move") {
                 playerManager.updateManaDrainRate();
                 if (playerManager.getManaDrainRate() == 5) {
                     playerManager.depleteMana(1);
                 }
-                if (currentKeyState.IsKeyDown(Keys.Escape)) {
-                    game.Exit();
-                } else if (currentKeyState.IsKeyDown(Keys.W)) {
+                if (currentKeyState.IsKeyDown(Keys.W)) {
                     selectedObject.setDirection(Direction.NORTH);
                     selectedObject.setDestination(new Vector2(selectedObject.getLocation().X, selectedObject.getLocation().Y - velocity));
                     if (selectedObject.getDestination().Y > 0 && collisionManager.isValid(selectedObject)) {
                         selectedObject.deriveY(-velocity);
+                        if (playerManager.getManaDrainRate() == 5) {
+                            playerManager.depleteMana(2);
+                        }
                     }
                 } else if (currentKeyState.IsKeyDown(Keys.S)) {
                     selectedObject.setDirection(Direction.SOUTH);
@@ -390,7 +364,6 @@ namespace OutsideTheBox {
                         if (playerManager.getManaDrainRate() == 5) {
                             playerManager.depleteMana(2);
                         }
-
                     }
                 } else if (currentKeyState.IsKeyDown(Keys.D)) {
                     selectedObject.setDirection(Direction.EAST);
@@ -404,31 +377,58 @@ namespace OutsideTheBox {
                 } else {
                     selectedObject.setDestination(selectedObject.getLocation());
                 }
-                if (currentKeyState.IsKeyDown(Keys.Space)) {
-                    //throw object
-                }
-                if ((lastKeyState.IsKeyDown(Keys.X) && currentKeyState.IsKeyUp(Keys.X)) || playerManager.getMana() == 0) {
+                if ((moving || (lastKeyState.IsKeyDown(Keys.Space) && currentKeyState.IsKeyDown(Keys.Space))) && playerManager.getMana() > 0) {
+                    moving = true;
+                    if (selectedObject.getDirection() == Direction.NORTH) {
+                        selectedObject.setDestination(new Vector2(selectedObject.getLocation().X, selectedObject.getLocation().Y - velocity));
+                        if (selectedObject.getDestination().Y > 0 && collisionManager.isValid(selectedObject)) {
+                            selectedObject.deriveY(-velocity);
+                        } else {
+                            moving = false;
+                        }
+                    } else if (selectedObject.getDirection() == Direction.SOUTH) {
+                        if (selectedObject.getDestination().Y < midY * 2 && collisionManager.isValid(selectedObject)) {
+                            selectedObject.deriveY(velocity);
+                        } else {
+                            moving = false;
+                        }
+                    } else if (selectedObject.getDirection() == Direction.WEST) {
+                        if (selectedObject.getDestination().X > 0 && collisionManager.isValid(selectedObject)) {
+                            selectedObject.deriveX(-velocity);
+                        } else {
+                            moving = false;
+                        }
+                    } else {
+                        if (selectedObject.getDestination().X < midX * 2 && collisionManager.isValid(selectedObject)) {
+                            selectedObject.deriveX(velocity);
+                        } else {
+                            moving = false;
+                        }
+                    }
+                    if (playerManager.getManaDrainRate() == 5) {
+                        playerManager.depleteMana(1);
+                    }
+                    if (!moving) {
+                        selectedObject.setSelected(false);
+                        selectedObject = null;
+                        level.setMode(0);
+                        screenManager.setActiveScreen(1);
+                    }
+                } else if ((lastKeyState.IsKeyDown(Keys.X) && currentKeyState.IsKeyUp(Keys.X)) || playerManager.getMana() == 0) {
                     selectedObject.setSelected(false);
                     selectedObject = null;
                     level.setMode(0);
                     screenManager.setActiveScreen(1);
-                    Console.WriteLine("Exited telekinesis mode.");
                 }
-
             } else if (active.getName() == "Menu") {
                 lastState = state;
                 state = Mouse.GetState().LeftButton;
-
                 if (lastState == ButtonState.Pressed && state == ButtonState.Released) {
                     pauseMenu.reactToMouseClick();
-                }
-
-
-                if (lastKeyState.IsKeyDown(Keys.M) && currentKeyState.IsKeyUp(Keys.M)) {
+                } else if (lastKeyState.IsKeyDown(Keys.M) && currentKeyState.IsKeyUp(Keys.M)) {
                     screenManager.setActiveScreen(1);
                     pauseMenu.setActive(false);
                     level.setActive(true);
-                    Console.WriteLine("Exited menu.");
                 }
             }
         }

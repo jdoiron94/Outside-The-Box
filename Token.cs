@@ -15,7 +15,8 @@ namespace OutsideTheBox {
         private TokenType Type;
         private Texture2D side;
 
-        public Token(Texture2D texture, Vector2 location, TokenType Type, Texture2D side) : base(texture, location) {
+        public Token(Texture2D texture, Vector2 location, TokenType Type, Texture2D side) :
+            base(texture, location) {
             this.Type = Type;
             expValue = setExp(Type);
             this.side = side;
