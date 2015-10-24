@@ -30,8 +30,8 @@ namespace OutsideTheBox {
             this.velocity = velocity;
             this.cooldown = cooldown;
             this.rotationSpeed = rotationSpeed;
-            origin = new Vector2(texture.Width / 2, texture.Height / 2);
-            position = new Vector2(owner.getLocation().X + (owner.getTexture().Width - texture.Width) / 2, owner.getLocation().Y + (owner.getTexture().Height - texture.Height) / 2);
+            origin = new Vector2(texture.Width / 2F, texture.Height / 2F);
+            position = new Vector2(owner.getLocation().X + (owner.getTexture().Width - texture.Width) / 2F, owner.getLocation().Y + (owner.getTexture().Height - texture.Height) / 2F);
             direction = Direction.NONE;
             bounds = new Rectangle((int) position.X, (int) position.Y, texture.Width, texture.Height);
             rotation = 0f;
@@ -200,7 +200,7 @@ namespace OutsideTheBox {
         /// </summary>
         /// <param name="batch">The SpriteBatch to draw with</param>
         public void draw(SpriteBatch batch) {
-            batch.Draw(texture, Vector2.Add(position, origin), null, Color.White, rotation, origin, 1f, SpriteEffects.None, 0f);
+            batch.Draw(texture, Vector2.Add(position, origin), null, Color.White, rotation, origin, 1F, SpriteEffects.None, 0F);
         }
     }
 }

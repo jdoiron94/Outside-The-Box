@@ -165,16 +165,16 @@ namespace OutsideTheBox {
         public void updateLineOfSight() {
             switch (getDirection()) {
                 case Direction.NORTH:
-                    lineOfSight = new Rectangle((int) location.X, (int) location.Y - texture.Height * 2, texture.Width, texture.Height * 3);
+                    lineOfSight = new Rectangle((int) location.X, (int) location.Y - texture.Height * 3, texture.Width, texture.Height * 3);
                     break;
                 case Direction.SOUTH:
-                    lineOfSight = new Rectangle((int) location.X, (int) location.Y, texture.Width, texture.Height * 3);
+                    lineOfSight = new Rectangle((int) location.X, (int) location.Y + texture.Height, texture.Width, texture.Height * 3);
                     break;
                 case Direction.WEST:
-                    lineOfSight = new Rectangle((int) location.X - texture.Width * 2, (int) location.Y, texture.Width * 3, texture.Height);
+                    lineOfSight = new Rectangle((int) location.X - texture.Width * 3, (int) location.Y, texture.Width * 3, texture.Height);
                     break;
                 case Direction.EAST:
-                    lineOfSight = new Rectangle((int) location.X, (int) location.Y, texture.Width * 3, texture.Height);
+                    lineOfSight = new Rectangle((int) location.X + texture.Width, (int) location.Y, texture.Width * 3, texture.Height);
                     break;
                 case Direction.NONE:
                     lineOfSight = new Rectangle((int) location.X, (int) location.Y, texture.Width, texture.Height);

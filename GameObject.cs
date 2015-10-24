@@ -104,6 +104,8 @@ namespace OutsideTheBox {
         /// <param name="location">The location to set</param>
         public void setLocation(Vector2 location) {
             this.location = location;
+            bounds.X = (int) location.X;
+            bounds.Y = (int) location.Y;
         }
 
         /// <summary>

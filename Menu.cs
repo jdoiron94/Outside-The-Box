@@ -82,8 +82,8 @@ namespace OutsideTheBox {
         /// <param name="batch">The SpriteBatch to draw with</param>
         public void draw(SpriteBatch batch) {
             batch.Draw(background, Vector2.Zero, Color.White);
-            foreach (Button butt in buttons) {
-                batch.Draw(butt.getTexture(), butt.getLocation(), Color.White);
+            foreach (Button b in buttons) {
+                batch.Draw(b.getTexture(), b.getLocation(), Color.White);
             }
         }
     }

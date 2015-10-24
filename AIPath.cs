@@ -2,7 +2,6 @@
 
 namespace OutsideTheBox {
 
-
     /// <summary>
     /// Class which contains information to create a path for an artificially "intelligent"
     /// npc to follow a static path through the game.

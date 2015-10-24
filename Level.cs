@@ -29,18 +29,16 @@ namespace OutsideTheBox {
         private List<DisplayBar> displayBars;
         private List<ThoughtBubble> thoughts;
 
-        private List<Token> Tokens;
-        private List<Door> Doors;
+        private List<Token> tokens;
+        private List<Door> doors;
         private List<Wall> walls;
 
         private bool debug;
-        private bool songPlaying;
         private int index;
-        private bool Key;
 
         private List<Projectile> projectiles;
 
-        public Level(Game1 game, Player player, Texture2D map, Npc[] npcs, GameObject[] objects, DisplayBar[] displayBars, Token[] Tokens, Door[] Doors, Wall[] walls, ThoughtBubble[] thoughts, int index) {
+        public Level(Game1 game, Player player, Texture2D map, Npc[] npcs, GameObject[] objects, DisplayBar[] displayBars, Token[] tokens, Door[] doors, Wall[] walls, ThoughtBubble[] thoughts, int index) {
             this.game = game;
             this.player = player;
             this.map = map;
@@ -50,10 +48,10 @@ namespace OutsideTheBox {
             this.objects.AddRange(objects);
             this.displayBars = new List<DisplayBar>(displayBars.Length);
             this.displayBars.AddRange(displayBars);
-            this.Tokens = new List<Token>(Tokens.Length);
-            this.Tokens.AddRange(Tokens);
-            this.Doors = new List<Door>(Doors.Length);
-            this.Doors.AddRange(Doors);
+            this.tokens = new List<Token>(tokens.Length);
+            this.tokens.AddRange(tokens);
+            this.doors = new List<Door>(doors.Length);
+            this.doors.AddRange(doors);
             this.walls = new List<Wall>(walls.Length);
             this.walls.AddRange(walls);
             this.thoughts = new List<ThoughtBubble>(thoughts.Length);
@@ -61,7 +59,6 @@ namespace OutsideTheBox {
             active = true;
             selectedObject = null;
             debug = false;
-            songPlaying = false;
             projectiles = new List<Projectile>();
             this.index = index;
         }
@@ -134,7 +131,7 @@ namespace OutsideTheBox {
         /// </summary>
         /// <returns>Returns a list of all of the game objects in the level</returns>
         public List<Token> getTokens() {
-            return Tokens;
+            return tokens;
         }
 
         /// <summary>
@@ -142,7 +139,7 @@ namespace OutsideTheBox {
         /// </summary>
         /// <returns>Returns the door list</returns>
         public List<Door> getDoors() {
-            return Doors;
+            return doors;
         }
 
         /// <summary>
@@ -223,8 +220,8 @@ namespace OutsideTheBox {
         /// </summary>
         /// <param name="values">The bool list to set doors as unlocked/locked</param>
         public void resetDoors(List<bool> values) {
-            for (int i = 0; i < Doors.Count; i++) {
-                Doors[i].unlockDoor(values[i]);
+            for (int i = 0; i < doors.Count; i++) {
+                doors[i].unlockDoor(values[i]);
             }
         }
 
@@ -232,7 +229,7 @@ namespace OutsideTheBox {
         /// Resets the level's tokens
         /// </summary>
         public void resetTokens() {
-            foreach (Token t in Tokens) {
+            foreach (Token t in tokens) {
                 t.setCollected(false);
             }
         }
@@ -250,7 +247,7 @@ namespace OutsideTheBox {
         /// </summary>
         /// <param name="t">The token to remove</param>
         public void removeToken(Token t) {
-            Tokens.Remove(t);
+            tokens.Remove(t);
         }
 
         /// <summary>
@@ -349,7 +346,7 @@ namespace OutsideTheBox {
                         }
                     }
                     if (projectile.isActive()) {
-                        foreach (Door d in Doors) {
+                        foreach (Door d in doors) {
                             if (d.isOnScreen(game) && collisionManager.collides(projectile, d)) {
                                 projectile.setActive(false);
                                 break;
@@ -386,10 +383,11 @@ namespace OutsideTheBox {
         /// </summary>
         /// <param name="batch">The SpriteBatch to perform the drawing</param>
         public void draw(SpriteBatch batch) {
-            if (index == 1)
-                batch.Draw(map, new Vector2(0, 0), Color.White);
-            else if (index == 2)
-                batch.Draw(map, new Vector2(0, 0), Color.White);
+            if (index == 1) {
+                batch.Draw(map, Vector2.Zero, Color.White);
+            } else if (index == 2) {
+                batch.Draw(map, Vector2.Zero, Color.White);
+            }
             foreach (Projectile p in projectiles) {
                 p.draw(batch);
                 if (debug) {
@@ -404,12 +402,12 @@ namespace OutsideTheBox {
                     }
                 }
             }
-            foreach (Npc e in npcs) {
-                if (e.isOnScreen(game)) {
-                    e.draw(batch);
+            foreach (Npc n in npcs) {
+                if (n.isOnScreen(game)) {
+                    n.draw(batch);
                     if (debug) {
-                        game.outline(batch, e.getBounds());
-                        game.outline(batch, e.getLineOfSight());
+                        game.outline(batch, n.getBounds());
+                        game.outline(batch, n.getLineOfSight());
                     }
                 }
             }
@@ -417,29 +415,29 @@ namespace OutsideTheBox {
             if (debug) {
                 game.outline(batch, player.getBounds());
             }
-            foreach (DisplayBar d in displayBars) {
-                d.draw(batch);
+            foreach (DisplayBar db in displayBars) {
+                db.draw(batch);
             }
-            foreach (Token t in Tokens) {
+            foreach (Token t in tokens) {
                 t.draw(batch);
                 if (debug) {
                     game.outline(batch, t.getBounds());
                 }
             }
-            foreach (Door door in Doors) {
-                door.draw(batch);
+            foreach (Door d in doors) {
+                d.draw(batch);
                 if (debug) {
-                    game.outline(batch, door.getBounds());
+                    game.outline(batch, d.getBounds());
                 }
             }
-            foreach (Wall wall in walls) {
-                wall.draw(batch);
+            foreach (Wall w in walls) {
+                w.draw(batch);
                 if (debug) {
-                    game.outline(batch, wall.getBounds());
+                    game.outline(batch, w.getBounds());
                 }
             }
-            foreach (ThoughtBubble thought in thoughts) {
-                thought.draw(batch);
+            foreach (ThoughtBubble tb in thoughts) {
+                tb.draw(batch);
             }
         }
     }

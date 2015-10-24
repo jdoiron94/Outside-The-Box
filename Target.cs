@@ -1,4 +1,3 @@
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace OutsideTheBox {
@@ -17,6 +16,14 @@ namespace OutsideTheBox {
         public Target(Texture2D texture) {
             this.texture = texture;
             this.active = false;
+        }
+
+        /// <summary>
+        /// Returns the target's texture
+        /// </summary>
+        /// <returns>Returns the target's reticle</returns>
+        public Texture2D getTexture() {
+            return texture;
         }
 
         /// <summary>

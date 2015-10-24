@@ -1,8 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-using System.Collections.Generic;
-
 namespace OutsideTheBox {
 
     /// <summary>
@@ -13,18 +11,18 @@ namespace OutsideTheBox {
 
         private readonly Game1 game;
         private readonly Player player;
-        private Level level;
         private readonly Menu pauseMenu;
         private readonly PlayerManager playerManager;
         private readonly CollisionManager collisionManager;
         private readonly ScreenManager screenManager;
         private readonly Target target;
 
+        private Level level;
+        private MindRead mindRead;
         private GameObject selectedObject;
         private DeathManager deathManager;
-
-        private MindRead mindRead;
-        private bool powerReveal;
+        private KeyboardState lastKeyState;
+        private KeyboardState currentKeyState;
 
         private ButtonState lastState;
         private ButtonState state;
@@ -33,12 +31,10 @@ namespace OutsideTheBox {
         private readonly int midX;
         private readonly int midY;
 
-        private KeyboardState lastKeyState;
-        private KeyboardState currentKeyState;
-
         private int ticks;
         private bool stagnant;
         private bool moving;
+        private bool powerReveal;
 
         private const byte WAIT = 0x4;
 
@@ -154,11 +150,14 @@ namespace OutsideTheBox {
             Screen active = screenManager.getActiveScreen();
             if (currentKeyState.IsKeyDown(Keys.Escape)) {
                 game.Exit();
-            } else if (player.isDead() || collisionManager.playerSpotted(level)) {
-                player.setX(10);
-                player.setY(10);
+            }
+            if (player.isDead() || collisionManager.playerSpotted(level)) {
+                player.setLocation(new Vector2(0F, 0F));
+            }
+            if (collisionManager.playerSpotted(level)) {
                 player.deriveHealth(10);
-            } else if (lastKeyState.IsKeyDown(Keys.F1) && currentKeyState.IsKeyUp(Keys.F1)) {
+            }
+            if (lastKeyState.IsKeyDown(Keys.F1) && currentKeyState.IsKeyUp(Keys.F1)) {
                 level.toggleDebug();
             }
             if (active.getName() == "Start") {
@@ -178,17 +177,14 @@ namespace OutsideTheBox {
                     tb.reveal(mindRead.isActivated());
                     tb.updateLocation();
                 }
-                List<Token> temp = level.getTokens();
-                for (int i = 0; i < temp.Count; i++) {
-                    if (collisionManager.collides(player, temp[i])) {
-                        temp[i].setCollected(true);
-                        playerManager.incrementExperience(temp[i].getExp());
-                        temp.RemoveAt(i);
-                        i--;
-                    }
-                }
-                foreach (Door d in level.getDoors()) {
-                    if (collisionManager.collides(player, d)) {
+                GameObject gCollision = collisionManager.getObjectCollision(player);
+                if (gCollision != null && gCollision is Token) {
+                    Token t = (Token) gCollision;
+                    t.setCollected(true);
+                    playerManager.incrementExperience(t.getExp());
+                    level.removeToken(t);
+                } else if (gCollision != null && gCollision is Door) {
+                    Door d = (Door) gCollision;
                         int index = (game.getLevelIndex()) + (d.getNext() ? 1 : -1);
                         level.setActive(false);
                         game.setLevelIndex(index);
@@ -209,7 +205,6 @@ namespace OutsideTheBox {
                         } else {
                             player.setLocation(new Vector2(d.getLocation().X, 104F)); // untested
                         }
-                    }
                 }
                 if (lastKeyState.IsKeyDown(Keys.H) && currentKeyState.IsKeyUp(Keys.H)) {
                     if (mindRead.isCooldown()) {
