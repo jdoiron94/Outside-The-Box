@@ -1,6 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 
 namespace OutsideTheBox {
+    
+    /// <summary>
+    /// Class which handles the dash ability
+    /// </summary>
 
     public class Dash : BasePower {
 
@@ -20,14 +24,26 @@ namespace OutsideTheBox {
             duration = 15;
         }
 
+        /// <summary>
+        /// Returns the mana cost to use the ability
+        /// </summary>
+        /// <returns>Returns the mana cost to use the ability</returns>
         public int getManaCost() {
             return manaCost;
         }
 
+        /// <summary>
+        /// Returns the exp cost to use the ability
+        /// </summary>
+        /// <returns>Returns the exp cost to use the ability</returns>
         public int getExpCost() {
             return expCost;
         }
 
+        /// <summary>
+        /// Handles how the ability works
+        /// </summary>
+        /// <param name="level">The level to respect</param>
         public void doStuff(Level level) {
             if (activated) {
                 if (duration < 15) {
@@ -55,18 +71,26 @@ namespace OutsideTheBox {
             updateCooldown();
         }
 
+        /// <summary>
+        /// Returns whether or not the ability has cooled down
+        /// </summary>
+        /// <returns>Returns true if the cooldown has been met; otherwise, false</returns>
         public bool isCooldown() {
             return totalCooldown == 20;
         }
 
-        public bool getDuration() {
-            return duration == 15;
-        }
-
+        /// <summary>
+        /// Handles unlocking the ability
+        /// </summary>
+        /// <param name="unlock">Bool to set as unlocked or locked</param>
         public void unlockPower(bool unlock) {
             unlocked = unlock;
         }
 
+        /// <summary>
+        /// Handles activating the ability
+        /// </summary>
+        /// <param name="activate">Bool to activate or deactivate</param>
         public void activatePower(bool activate) {
             activated = activate;
             if (activate) {
@@ -76,14 +100,26 @@ namespace OutsideTheBox {
             }
         }
 
+        /// <summary>
+        /// Returns whether or not the ability is activated
+        /// </summary>
+        /// <returns>Returns true if the ability is activated; otherwise, false</returns>
         public bool isActivated() {
             return activated;
         }
 
+        /// <summary>
+        /// Returns whether or not the ability us unlocked
+        /// </summary>
+        /// <returns>Returns true if the ability is unlocked; otherwise, false</returns>
         public bool isUnlocked() {
             return unlocked;
         }
 
+        /// <summary>
+        /// Handles the ability's behavior
+        /// </summary>
+        /// <param name="gametime">The GameTime to respect</param>
         public void behavior(GameTime gametime) {
             if (activated) {
                 if (duration < 15) {
@@ -93,15 +129,20 @@ namespace OutsideTheBox {
                 }
             }
             updateCooldown();
-
         }
 
+        /// <summary>
+        /// Handles updating the cooldown
+        /// </summary>
         public void updateCooldown() {
             if (totalCooldown < 20) {
                 totalCooldown++;
             }
         }
 
+        /// <summary>
+        /// Handles updating the duration
+        /// </summary>
         public void updateDuration() {
             if (duration < 15) {
                 duration++;

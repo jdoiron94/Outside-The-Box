@@ -2,12 +2,12 @@
 
 namespace OutsideTheBox {
 
-    public class CollisionManager {
+    /// <summary>
+    /// Collision class which deals with interactions of objects, entities, and projectiles.
+    /// It ensures such assets do not collide with one another
+    /// </summary>
 
-        /*
-         * Collision class meant to deal with ensuring player interactions with other objects and entities
-         * do not collide with one another, ensuring no clipping.
-         */
+    public class CollisionManager {
 
         private readonly Player player;
         private Level level;
@@ -33,10 +33,19 @@ namespace OutsideTheBox {
             return level;
         }
 
+        /// <summary>
+        /// Sets the collision manager's current level
+        /// </summary>
+        /// <param name="level">The level to be set</param>
         public void setLevel(Level level) {
             this.level = level;
         }
 
+        /// <summary>
+        /// Checks if the player has been spotted in the level
+        /// </summary>
+        /// <param name="level">The level to check</param>
+        /// <returns>Returns true if the player was within the npc's los; otherwise, false</returns>
         public bool playerSpotted(Level level) {
             foreach (Npc npc in level.getNpcs()) {
                 if (npc != null && level.getPlayer().getBounds().Intersects(npc.getLineOfSight())) {
@@ -70,15 +79,33 @@ namespace OutsideTheBox {
             return e0Rect.Intersects(e1Rect);
         }
 
+        /// <summary>
+        /// Returns whether or not an entity collides with a wall
+        /// </summary>
+        /// <param name="e0">The entity</param>
+        /// <param name="e1">The wall</param>
+        /// <returns>Returns true if the entity collides with the wall; otherwise, false</returns>
         public bool collides(Entity e0, Wall e1) {
             Rectangle e0Rect = new Rectangle((int) e0.getDestination().X, (int) e0.getDestination().Y, e0.getTexture().Width, e0.getTexture().Height);
             return e0Rect.Intersects(e1.getBounds());
         }
 
+        /// <summary>
+        /// Returns whether or not a projectile collides with an entity
+        /// </summary>
+        /// <param name="p">The projectile</param>
+        /// <param name="e">The entity</param>
+        /// <returns>Returns true if the projectile collides with the entity; otherwise, false</returns>
         public bool collides(Projectile p, Entity e) {
             return p.getBounds().Intersects(e.getBounds());
         }
 
+        /// <summary>
+        /// Returns whether or not a projectile collides with an object
+        /// </summary>
+        /// <param name="p">The projectile</param>
+        /// <param name="g">The object</param>
+        /// <returns>Returns true if the projectile collides with the object; otherwise, false</returns>
         public bool collides(Projectile p, GameObject g) {
             return p.getBounds().Intersects(g.getBounds());
         }
@@ -146,10 +173,6 @@ namespace OutsideTheBox {
                 }
             }
             return true;
-        }
-
-        public void update(GameTime time) {
-
         }
     }
 }

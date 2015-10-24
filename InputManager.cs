@@ -6,12 +6,11 @@ using System.Collections.Generic;
 
 namespace OutsideTheBox {
 
-    public class InputManager {
+    /// <summary>
+    /// Class which handles all input given to the game
+    /// </summary>
 
-        /*
-         * Class which handles all input given to the game. To be handled according to the ScreenManager's current screen state,
-         * in the future.
-         */
+    public class InputManager {
 
         private readonly Game1 game;
         private readonly Player player;
@@ -25,7 +24,7 @@ namespace OutsideTheBox {
         private GameObject selectedObject;
         private DeathManager Deathmanager;
 
-        private Mindread mindRead;
+        private MindRead mindRead;
         private bool powerReveal;
 
         private ButtonState lastState;
@@ -43,7 +42,7 @@ namespace OutsideTheBox {
 
         private const byte WAIT = 0x4;
 
-        public InputManager(Game1 game, Player player, Level level, Menu pauseMenu, Target target, PlayerManager playerManager, Screen[] screens, Mindread mindRead) {
+        public InputManager(Game1 game, Player player, Level level, Menu pauseMenu, Target target, PlayerManager playerManager, Screen[] screens, MindRead mindRead) {
             this.game = game;
             this.player = player;
             this.level = level;
@@ -90,6 +89,10 @@ namespace OutsideTheBox {
             return level;
         }
 
+        /// <summary>
+        /// Returns the menu
+        /// </summary>
+        /// <returns>Returns the pause menu</returns>
         public Menu getMenu() {
             return pauseMenu;
         }
@@ -102,24 +105,44 @@ namespace OutsideTheBox {
             return playerManager;
         }
 
+        /// <summary>
+        /// Returns the collision manager
+        /// </summary>
+        /// <returns>Returns the collision manager</returns>
         public CollisionManager getCollisionManager() {
             return collisionManager;
         }
 
+        /// <summary>
+        /// Returns the screen manager
+        /// </summary>
+        /// <returns>Returns the screen manager</returns>
         public ScreenManager getScreenManager() {
             return screenManager;
         }
 
+        /// <summary>
+        /// Returns the power reveal bool
+        /// </summary>
+        /// <returns>Returns the power reveal bool</returns>
         public bool getPowerReveal() {
             return powerReveal;
         }
 
+        /// <summary>
+        /// Sets the power reveal bool
+        /// </summary>
+        /// <param name="reveal">Sets the power reveal bool</param>
         public void setPowerReveal(bool reveal) {
             powerReveal = reveal;
         }
 
-        public void setDeathManager(DeathManager Deathmanager) {
-            this.Deathmanager = Deathmanager;
+        /// <summary>
+        /// Sets the death manager
+        /// </summary>
+        /// <param name="deathManager">Sets the death manager</param>
+        public void setDeathManager(DeathManager deathManager) {
+            this.Deathmanager = deathManager;
         }
 
         /// <summary>

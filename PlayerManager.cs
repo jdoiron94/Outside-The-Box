@@ -3,6 +3,10 @@ using System.Collections.Generic;
 
 namespace OutsideTheBox {
 
+    /// <summary>
+    /// Class which represents a player manager
+    /// </summary>
+
     public class PlayerManager {
         
         private readonly Player player;
@@ -48,6 +52,10 @@ namespace OutsideTheBox {
             return player;
         }
 
+        /// <summary>
+        /// Returns a list of the player's abilities
+        /// </summary>
+        /// <returns>Returns the player's abilities</returns>
         public List<BasePower> getPowers() {
             return powers;
         }
@@ -108,10 +116,18 @@ namespace OutsideTheBox {
             return healthCooldown;
         }
 
+        /// <summary>
+        /// Returns the player's total mana
+        /// </summary>
+        /// <returns></returns>
         public int getTotalMana() {
             return totalMana;
         }
 
+        /// <summary>
+        /// Sets the player's total mana
+        /// </summary>
+        /// <param name="totalMana">The mana to set</param>
         public void setTotalMana(int totalMana) {
             this.totalMana = totalMana;
         }
@@ -157,18 +173,34 @@ namespace OutsideTheBox {
             healthCooldown = (healthCooldown + 1) % 36;
         }
 
+        /// <summary>
+        /// Sets the player's total exp
+        /// </summary>
+        /// <param name="exp">The exp to set</param>
         public void setTotalExp(int exp) {
             totalExp = exp;
         }
 
+        /// <summary>
+        /// Sets the player's current exp
+        /// </summary>
+        /// <param name="exp">The exp to set</param>
         public void setCurrentExp(int exp) {
             currentExp = exp;
         }
 
+        /// <summary>
+        /// Sets the player's health
+        /// </summary>
+        /// <param name="h">The health to set</param>
         public void setHealth(int h) {
             health = h;
         }
 
+        /// <summary>
+        /// Sets the player's mana
+        /// </summary>
+        /// <param name="m">The mana to set</param>
         public void setMana(int m) {
             mana = m;
         }
@@ -178,7 +210,6 @@ namespace OutsideTheBox {
         /// </summary>
         /// <param name="mana">The amount of mana to deplete</param>
         public void depleteMana(int damage) {
-            //manaBar.setWidth((this.mana = Math.Max(0, this.mana - mana)) * 2);
             mana = Math.Max(0, mana - damage);
             int w_mod = (int) (200D * damage) / totalMana;
             int width = manaBar.getWidth();
@@ -189,8 +220,6 @@ namespace OutsideTheBox {
         /// Regenerates the appropriate amount of mana for the player, based on their total experience
         /// </summary>
         public void regenerateMana() {
-            /*if(manaBar.getWidth() < 100)
-                manaBar.setWidth((mana = Math.Min(totalMana, mana + 1 + Math.Min(9, totalExp / 100))) * 2);*/
             int regeneration = (int) (totalMana * .01);
             mana = Math.Min(totalMana, mana + regeneration);
             manaBar.setWidth(Math.Min(200, (manaBar.getWidth() + ((int) (regeneration * (200D / totalMana))))));
@@ -210,23 +239,31 @@ namespace OutsideTheBox {
             manaDrainRate = (manaDrainRate + 1) % manaDrainMax;
         }
 
+        /// <summary>
+        /// Levels up the player's mana
+        /// </summary>
+        /// <param name="percentageValue">The percent to up mana by</param>
         public void levelMana(double percentageValue) {
             int newValue = totalMana + (int) (totalMana * percentageValue);
             setTotalMana(newValue);
         }
 
+        /// <summary>
+        /// Adds to the player's exp
+        /// </summary>
+        /// <param name="bonus">The amount of exp to increment</param>
         public void incrementExperience(int bonus) {
             totalExp += bonus;
             currentExp += bonus;
-            double percentageValue = (double) bonus / (double) totalExp;
+            double percentageValue = (double) bonus / totalExp;
             levelMana(percentageValue);
         }
 
         /// <summary>
-        /// Depletes spendable EXP if you have enough; returns false if you're short EXP
+        /// Depletes spendable exp if you have enough
         /// </summary>
         /// <param name="amount"></param>
-        /// <returns></returns>
+        /// <returns>Returns true if the player has enough exp to spend; otherwise, false</returns>
         public bool spendExperience(int amount) {
             if ((currentExp - amount) < 0) {
                 Console.WriteLine("Not enough EXP to spend");

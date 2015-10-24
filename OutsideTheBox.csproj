@@ -71,7 +71,7 @@
     <Compile Include="Level.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="Game1.cs" />
-    <Compile Include="Mindread.cs" />
+    <Compile Include="MindRead.cs" />
     <Compile Include="Npc.cs" />
     <Compile Include="NpcDefinition.cs" />
     <Compile Include="Player.cs" />

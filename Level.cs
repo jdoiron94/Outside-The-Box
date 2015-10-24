@@ -6,11 +6,11 @@ using System.Collections.Generic;
 
 namespace OutsideTheBox {
 
-    public class Level {
+    /// <summary>
+    /// Class which holds all information for a level
+    /// </summary>
 
-        /*
-         * Class which holds all pertinent information to any given level.
-         */
+    public class Level {
 
         private byte mode;
         private bool active;
@@ -98,6 +98,10 @@ namespace OutsideTheBox {
             return npcs;
         }
 
+        /// <summary>
+        /// Returns the list of thought bubbles
+        /// </summary>
+        /// <returns>Returns the list of thought bubbles for the level</returns>
         public List<ThoughtBubble> getThoughts() {
             return thoughts;
         }
@@ -118,6 +122,9 @@ namespace OutsideTheBox {
             return projectiles;
         }
 
+        /// <summary>
+        /// Resets the level's projectile list
+        /// </summary>
         public void resetProjectiles() {
             projectiles = new List<Projectile>();
         }
@@ -130,10 +137,18 @@ namespace OutsideTheBox {
             return Tokens;
         }
 
+        /// <summary>
+        /// Returns the level's door list
+        /// </summary>
+        /// <returns>Returns the door list</returns>
         public List<Door> getDoors() {
             return Doors;
         }
 
+        /// <summary>
+        /// Returns the level's wall list
+        /// </summary>
+        /// <returns>Returns the wall list</returns>
         public List<Wall> getWalls() {
             return walls;
         }
@@ -162,14 +177,27 @@ namespace OutsideTheBox {
             return mode;
         }
 
+        /// <summary>
+        /// Returns whether or not the level is active
+        /// </summary>
+        /// <returns>Returns true if the level is active; otherwise, false</returns>
         public bool isActive() {
             return active;
         }
 
+        /// <summary>
+        /// Sets the level's active status
+        /// </summary>
+        /// <param name="active">Active status bool to set</param>
         public void setActive(bool active) {
             this.active = active;
         }
 
+        /// <summary>
+        /// Resets the level's npcs
+        /// </summary>
+        /// <param name="reset">The list of npcs to copy from</param>
+        /// <param name="locations">The location list to copy from</param>
         public void resetNpcs(List<Npc> reset, List<Vector2> locations) {
             npcs = new List<Npc>();
             for (int i = 0; i < reset.Count; i++) {
@@ -180,18 +208,29 @@ namespace OutsideTheBox {
             }
         }
 
+        /// <summary>
+        /// Resets the level's objects
+        /// </summary>
+        /// <param name="locations">The location list to copy from</param>
         public void resetObjects(List<Vector2> locations) {
             for (int i = 0; i < objects.Count; i++) {
                 objects[i].setLocation(locations[i]);
             }
         }
 
+        /// <summary>
+        /// Resets the level's doors
+        /// </summary>
+        /// <param name="values">The bool list to set doors as unlocked/locked</param>
         public void resetDoors(List<bool> values) {
             for (int i = 0; i < Doors.Count; i++) {
                 Doors[i].unlockDoor(values[i]);
             }
         }
 
+        /// <summary>
+        /// Resets the level's tokens
+        /// </summary>
         public void resetTokens() {
             foreach (Token t in Tokens) {
                 t.setCollected(false);
@@ -206,6 +245,10 @@ namespace OutsideTheBox {
             this.mode = mode;
         }
 
+        /// <summary>
+        /// Removes a token from the level
+        /// </summary>
+        /// <param name="t">The token to remove</param>
         public void removeToken(Token t) {
             Tokens.Remove(t);
         }
@@ -217,14 +260,10 @@ namespace OutsideTheBox {
         public void deriveX(int x) {
             player.deriveX(x);
             foreach (GameObject g in objects) {
-                if (g != null) {
-                    g.deriveX(x);
-                }
+                g.deriveX(x);
             }
             foreach (Npc e in npcs) {
-                if (e != null) {
-                    e.deriveX(x);
-                }
+                e.deriveX(x);
             }
         }
 
@@ -235,14 +274,10 @@ namespace OutsideTheBox {
         public void deriveY(int y) {
             player.deriveY(y);
             foreach (GameObject g in objects) {
-                if (g != null) {
-                    g.deriveY(y);
-                }
+                g.deriveY(y);
             }
             foreach (Npc e in npcs) {
-                if (e != null) {
-                    e.deriveY(y);
-                }
+                e.deriveY(y);
             }
         }
 
@@ -278,55 +313,53 @@ namespace OutsideTheBox {
         public void updateProjectiles() {
             for (int i = 0; i < projectiles.Count; i++) {
                 Projectile projectile = projectiles[i];
-                if (projectile != null) {
-                    projectile.update(game, projectile.getOwner());
+                projectile.update(game, projectile.getOwner());
+                if (projectile.isActive()) {
+                    foreach (Npc e in npcs) {
+                        if (e.isOnScreen(game)) {
+                            if (projectile.getOwner() == e) {
+                                if (collisionManager.collides(projectile, player)) {
+                                    projectile.setActive(false);
+                                    playerManager.damagePlayer(5);
+                                    Console.WriteLine(playerManager.getHealth());
+                                }
+                                break;
+                            } else if (collisionManager.collides(projectile, e)) {
+                                projectile.setActive(false);
+                                e.deriveHealth(-5);
+                                Console.WriteLine("npc health: " + e.getCurrentHealth());
+                                break;
+                            }
+                        }
+                    }
                     if (projectile.isActive()) {
-                        foreach (Npc e in npcs) {
-                            if (e != null && e.isOnScreen(game)) {
-                                if (projectile.getOwner() == e) {
-                                    if (collisionManager.collides(projectile, player)) {
-                                        projectile.setActive(false);
-                                        playerManager.damagePlayer(5);
-                                        Console.WriteLine(playerManager.getHealth());
-                                    }
-                                    break;
-                                } else if (collisionManager.collides(projectile, e)) {
-                                    projectile.setActive(false);
-                                    e.deriveHealth(-5);
-                                    Console.WriteLine("npc health: " + e.getCurrentHealth());
-                                    break;
-                                }
-                            }
-                        }
-                        if (projectile.isActive()) {
-                            foreach (GameObject e in objects) {
-                                if (e != null && e.isOnScreen(game) && collisionManager.collides(projectile, e)) {
-                                    projectile.setActive(false);
-                                    break;
-                                }
-                            }
-                        }
-                        if (projectile.isActive()) {
-                            foreach (Wall w in walls) {
-                                if (w != null && w.isOnScreen(game) && collisionManager.collides(projectile, w)) {
-                                    projectile.setActive(false);
-                                    break;
-                                }
-                            }
-                        }
-                        if (projectile.isActive()) {
-                            foreach (Door d in Doors) {
-                                if (d != null && d.isOnScreen(game) && collisionManager.collides(projectile, d)) {
-                                    projectile.setActive(false);
-                                    break;
-                                }
+                        foreach (GameObject e in objects) {
+                            if (e.isOnScreen(game) && collisionManager.collides(projectile, e)) {
+                                projectile.setActive(false);
+                                break;
                             }
                         }
                     }
-                    if (!projectile.isActive()) {
-                        projectiles.RemoveAt(i);
-                        i--;
+                    if (projectile.isActive()) {
+                        foreach (Wall w in walls) {
+                            if (w.isOnScreen(game) && collisionManager.collides(projectile, w)) {
+                                projectile.setActive(false);
+                                break;
+                            }
+                        }
                     }
+                    if (projectile.isActive()) {
+                        foreach (Door d in Doors) {
+                            if (d.isOnScreen(game) && collisionManager.collides(projectile, d)) {
+                                projectile.setActive(false);
+                                break;
+                            }
+                        }
+                    }
+                }
+                if (!projectile.isActive()) {
+                    projectiles.RemoveAt(i);
+                    i--;
                 }
             }
         }
@@ -339,13 +372,11 @@ namespace OutsideTheBox {
         public void updateNpcs(GameTime time) {
             for (int i = 0; i < npcs.Count; i++) {
                 Npc npc = npcs[i];
-                if (npc != null) {
-                    if (npc.isDead()) {
-                        npcs.RemoveAt(i);
-                        i--;
-                    } else {
-                        npc.update(time);
-                    }
+                if (npc.isDead()) {
+                    npcs.RemoveAt(i);
+                    i--;
+                } else {
+                    npc.update(time);
                 }
             }
         }

@@ -5,11 +5,11 @@ using System;
 
 namespace OutsideTheBox {
 
-    public class Npc : Entity {
+    /// <summary>
+    /// Class which represents a non-playing character
+    /// </summary>
 
-        /*
-         * Class which represents a non-playing character
-         */
+    public class Npc : Entity {
 
         // TODO: Have it react with reactTime
 
@@ -112,10 +112,18 @@ namespace OutsideTheBox {
             this.path = path;
         }
 
+        /// <summary>
+        /// Sets the npc's line of sight bounds
+        /// </summary>
+        /// <param name="lineOfSight">The bounds to set for los</param>
         public void setLineOfSight(Rectangle lineOfSight) {
             this.lineOfSight = lineOfSight;
         }
 
+        /// <summary>
+        /// Returns the npc's line of sight
+        /// </summary>
+        /// <returns>Returns the npc's line of sight bounds</returns>
         public Rectangle getLineOfSight() {
             return lineOfSight;
         }
@@ -154,6 +162,9 @@ namespace OutsideTheBox {
             }
         }
 
+        /// <summary>
+        /// Updates the npc's line of sight bounds depending on its direction
+        /// </summary>
         public void updateLineOfSight() {
             switch (getDirection()) {
                 case Direction.NORTH:

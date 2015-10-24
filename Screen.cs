@@ -4,13 +4,11 @@ using Microsoft.Xna.Framework.Media;
 
 namespace OutsideTheBox {
 
+    /// <summary>
+    /// Class which represents a screen
+    /// </summary>
+
     public class Screen {
-
-        /*
-         * Class which is meant to represent a given screen.
-         */
-
-        // TODO: discover why song doesn't load
 
         private readonly string name;
         private readonly Song song;

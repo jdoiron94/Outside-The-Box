@@ -4,83 +4,100 @@ using System.Collections.Generic;
 
 namespace OutsideTheBox {
 
+    /// <summary>
+    /// Class which handles death of the player
+    /// </summary>
+
     public class DeathManager {
 
         private InputManager inputManager;
+        private Vector2 location;
 
-        private Level level;
-
-        private Vector2 PlayerLocation;
-        private int PlayerTotalExp;
-        private int PlayerCurrentExp;
-        private int PlayerHealth;
-        private int PlayerMana;
-        private int PlayerTotalMana;
-
-        //Level Values
+        private int totalExp;
+        private int currentExp;
+        private int health;
+        private int mana;
+        private int totalMana;
+        
         private int levelMode;
-        private List<Npc> Npcs;
-        private List<Vector2> NpcLocations;
-        private List<Vector2> ObjectLocations;
-        private List<bool> DoorUnlocked;
+        private List<Npc> npcs;
+        private List<Vector2> npcLocations;
+        private List<Vector2> objectLocations;
+        private List<bool> doorsUnlocked;
 
         public DeathManager(InputManager inputManager) {
             this.inputManager = inputManager;
-            PlayerLocation = inputManager.getPlayer().getLocation();
-            PlayerTotalExp = inputManager.getPlayerManager().getTotalExperience();
-            PlayerCurrentExp = inputManager.getPlayerManager().getCurrentExperience();
-            PlayerHealth = inputManager.getPlayerManager().getHealth();
-            PlayerMana = inputManager.getPlayerManager().getMana();
-            PlayerTotalMana = inputManager.getPlayerManager().getTotalMana();
-
+            location = inputManager.getPlayer().getLocation();
+            totalExp = inputManager.getPlayerManager().getTotalExperience();
+            currentExp = inputManager.getPlayerManager().getCurrentExperience();
+            health = inputManager.getPlayerManager().getHealth();
+            mana = inputManager.getPlayerManager().getMana();
+            totalMana = inputManager.getPlayerManager().getTotalMana();
             levelMode = inputManager.getLevel().getMode();
-            Npcs = new List<Npc>();
-            NpcLocations = new List<Vector2>();
+            npcs = new List<Npc>();
+            npcLocations = new List<Vector2>();
             populateNpcList();
-            ObjectLocations = new List<Vector2>();
+            objectLocations = new List<Vector2>();
             populateObjectLocationsList();
-            DoorUnlocked = new List<bool>();
+            doorsUnlocked = new List<bool>();
             populateDoorsUnlockedList();
-
         }
 
-        public void populateNpcList() {
-            for (int i = 0; i < inputManager.getLevel().getNpcs().Count; i++) {
-                Npcs.Add(inputManager.getLevel().getNpcs()[i]);
-                NpcLocations.Add(inputManager.getLevel().getNpcs()[i].getLocation());
+        /// <summary>
+        /// Handles populating the npc list
+        /// </summary>
+        private void populateNpcList() {
+            foreach (Npc n in inputManager.getLevel().getNpcs()) {
+                npcs.Add(n);
+                npcLocations.Add(n.getLocation());
             }
         }
 
-        public void populateObjectLocationsList() {
-            for (int i = 0; i < inputManager.getLevel().getObjects().Count; i++) {
-                ObjectLocations.Add(inputManager.getLevel().getObjects()[i].getLocation());
+        /// <summary>
+        /// Handles populating the object list
+        /// </summary>
+        private void populateObjectLocationsList() {
+            foreach (GameObject o in inputManager.getLevel().getObjects()) {
+                objectLocations.Add(o.getLocation());
             }
         }
 
-        public void populateDoorsUnlockedList() {
-            for (int i = 0; i < inputManager.getLevel().getDoors().Count; i++) {
-                DoorUnlocked.Add(inputManager.getLevel().getDoors()[i].isUnlocked());
+        /// <summary>
+        /// Handles populating the door list
+        /// </summary>
+        private void populateDoorsUnlockedList() {
+            foreach (Door d in inputManager.getLevel().getDoors()) {
+                doorsUnlocked.Add(d.isUnlocked());
             }
         }
 
+        /// <summary>
+        /// Handles resetting the game
+        /// </summary>
         public void resetGame() {
             resetPlayer();
             resetLevel();
         }
 
+        /// <summary>
+        /// Handles resetting the player
+        /// </summary>
         public void resetPlayer() {
-            inputManager.getPlayer().setLocation(PlayerLocation);
-            inputManager.getPlayerManager().setTotalExp(PlayerTotalExp);
-            inputManager.getPlayerManager().setCurrentExp(PlayerCurrentExp);
-            inputManager.getPlayerManager().setHealth(PlayerHealth);
-            inputManager.getPlayerManager().setMana(PlayerMana);
-            inputManager.getPlayerManager().setTotalMana(PlayerTotalMana);
+            inputManager.getPlayer().setLocation(location);
+            inputManager.getPlayerManager().setTotalExp(totalExp);
+            inputManager.getPlayerManager().setCurrentExp(currentExp);
+            inputManager.getPlayerManager().setHealth(health);
+            inputManager.getPlayerManager().setMana(mana);
+            inputManager.getPlayerManager().setTotalMana(totalMana);
         }
 
+        /// <summary>
+        /// Handles resetting the level
+        /// </summary>
         public void resetLevel() {
-            inputManager.getLevel().resetNpcs(Npcs, NpcLocations);
-            inputManager.getLevel().resetObjects(ObjectLocations);
-            inputManager.getLevel().resetDoors(DoorUnlocked);
+            inputManager.getLevel().resetNpcs(npcs, npcLocations);
+            inputManager.getLevel().resetObjects(objectLocations);
+            inputManager.getLevel().resetDoors(doorsUnlocked);
             inputManager.getLevel().resetTokens();
         }
     }

@@ -3,6 +3,10 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace OutsideTheBox {
 
+    /// <summary>
+    /// Class which handles managing a display bar
+    /// </summary>
+
     public class DisplayBar {
 
         private readonly Texture2D texture;
@@ -58,6 +62,10 @@ namespace OutsideTheBox {
             return displayColor;
         }
 
+        /// <summary>
+        /// Returns the width of the display bar
+        /// </summary>
+        /// <returns>Returns the display bar's width</returns>
         public int getWidth() {
             return displayBar.Width;
         }

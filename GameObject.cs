@@ -3,11 +3,11 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace OutsideTheBox {
 
-    public class GameObject {
+    /// <summary>
+    /// Class which represents various objects within the game
+    /// </summary>
 
-        /*
-         * Class which represents various objects within the game, including doors, alarms, etc.
-         */
+    public class GameObject {
 
         private readonly Texture2D texture;
 
@@ -94,6 +94,10 @@ namespace OutsideTheBox {
             this.destination = destination;
         }
 
+        /// <summary>
+        /// Sets the object's location
+        /// </summary>
+        /// <param name="location">The location to set</param>
         public void setLocation(Vector2 location) {
             this.location = location;
         }
@@ -110,13 +114,8 @@ namespace OutsideTheBox {
         /// Returns the game object's bounds
         /// </summary>
         /// <returns></returns>
-        public Rectangle getBounds() {
+        public virtual Rectangle getBounds() {
             return bounds;
-        }
-
-        public void setBounds(int y, int x) {
-            bounds.Height = y;
-            bounds.Width = x;
         }
 
         /// <summary>

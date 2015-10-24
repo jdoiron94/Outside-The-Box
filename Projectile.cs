@@ -3,11 +3,11 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace OutsideTheBox {
 
-    public class Projectile {
+    /// <summary>
+    /// Class which represents a projectile
+    /// </summary>
 
-        /*
-         * Class which holds all information necessary to represent a projectile.
-         */
+    public class Projectile {
 
         private readonly Entity owner;
         private readonly Texture2D texture;
@@ -156,6 +156,19 @@ namespace OutsideTheBox {
         }
 
         /// <summary>
+        /// Rotates the projectile's sprite, depending on the owning entity's direction
+        /// </summary>
+        private void rotate() {
+            if (direction == Direction.NORTH) {
+                rotation = MathHelper.ToRadians(-90f);
+            } else if (direction == Direction.SOUTH) {
+                rotation = MathHelper.ToRadians(90f);
+            } else if (direction == Direction.WEST) {
+                rotation = MathHelper.ToRadians(-180f);
+            }
+        }
+
+        /// <summary>
         /// Updates the projectile's direction, position, bounds, and active status
         /// </summary>
         /// <param name="game">The game instance</param>
@@ -163,13 +176,7 @@ namespace OutsideTheBox {
         public void update(Game1 game, Entity entity) {
             if (direction == Direction.NONE) {
                 direction = entity.getDirection();
-                if (direction == Direction.NORTH) {
-                    rotation = MathHelper.ToRadians(-90f);
-                } else if (direction == Direction.SOUTH) {
-                    rotation = MathHelper.ToRadians(90f);
-                } else if (direction == Direction.WEST) {
-                    rotation = MathHelper.ToRadians(-180f);
-                }
+                rotate();
             }
             if (direction == Direction.NORTH) {
                 deriveY(-velocity);

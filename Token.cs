@@ -3,6 +3,10 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace OutsideTheBox {
 
+    /// <summary>
+    /// Class which represents an exp token
+    /// </summary>
+
     public class Token : GameObject {
 
         private int expValue;
@@ -18,8 +22,13 @@ namespace OutsideTheBox {
             isCollected = false;
         }
 
-        public int setExp(TokenType Type) {
-            switch ((int) Type) {
+        /// <summary>
+        /// Sets the token's exp relative to its type
+        /// </summary>
+        /// <param name="type">The token's type</param>
+        /// <returns>Returns the exp granted for taking the token</returns>
+        public int setExp(TokenType type) {
+            switch ((int) type) {
                 case 0:
                     return 100;
                 case 1:
@@ -39,14 +48,26 @@ namespace OutsideTheBox {
             }
         }
 
+        /// <summary>
+        /// Returns the token's granted exp
+        /// </summary>
+        /// <returns>Returns the amount of exp granted by the token</returns>
         public int getExp() {
             return expValue;
         }
 
+        /// <summary>
+        /// Sets the token's collected status
+        /// </summary>
+        /// <param name="value">The collected status bool</param>
         public void setCollected(bool value) {
             isCollected = value;
         }
 
+        /// <summary>
+        /// Handles drawing of the token
+        /// </summary>
+        /// <param name="batch">The SpriteBatch to draw with</param>
         public void draw(SpriteBatch batch) {
             if (!isCollected) {
                 batch.Draw(getTexture(), getLocation(), Color.White);

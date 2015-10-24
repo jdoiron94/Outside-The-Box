@@ -3,6 +3,10 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace OutsideTheBox {
 
+    /// <summary>
+    /// Class which represents a wall
+    /// </summary>
+
     public class Wall : GameObject {
 
         private Rectangle rect;
@@ -12,10 +16,10 @@ namespace OutsideTheBox {
             rect = new Rectangle((int) location.X, (int) location.Y, width, height);
         }
 
-        public Rectangle getWallBounds() {
-            return rect;
-        }
-
+        /// <summary>
+        /// Handles drawing of the wall
+        /// </summary>
+        /// <param name="batch">The SpriteBatch to draw with</param>
         public void draw(SpriteBatch batch) {
             batch.Draw(getTexture(), rect, Color.White);
         }

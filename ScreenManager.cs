@@ -3,11 +3,11 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace OutsideTheBox {
 
-    public class ScreenManager {
+    /// <summary>
+    /// Class which represents a screen manager
+    /// </summary>
 
-        /*
-         * Class which represents a screen state manager, determining which screen is currently active.
-         */
+    public class ScreenManager {
 
         private Screen activeScreen;
 

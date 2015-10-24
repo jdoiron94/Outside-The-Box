@@ -10,8 +10,9 @@ using System.Collections.Generic;
 namespace OutsideTheBox {
 
     /// <summary>
-    /// This is the main type for your game.
+    /// Class which handles the whole game
     /// </summary>
+
     public class Game1 : Game {
 
         private readonly GraphicsDeviceManager graphics;
@@ -113,21 +114,31 @@ namespace OutsideTheBox {
             return level;
         }
 
+        /// <summary>
+        /// Sets the game's level
+        /// </summary>
+        /// <param name="level">The level to set</param>
         public void setLevel(Level level) {
             this.level = level;
         }
 
+        /// <summary>
+        /// Returns the level at the specified index
+        /// </summary>
+        /// <param name="i">The index to retrieve</param>
+        /// <returns>Returns the level at the specified index</returns>
         public Level getLevelByIndex(int i) {
-            try {
-                return levels[i];
-            } catch (Exception) {
-                return level;
-            }
+            return levels[i];
         }
 
+        /// <summary>
+        /// Returns the level list
+        /// </summary>
+        /// <returns>Returns the list of levels</returns>
         public List<Level> getLevelList() {
             return levels;
         }
+
         /// <summary>
         /// Returns an instance of the player
         /// </summary>
@@ -136,14 +147,26 @@ namespace OutsideTheBox {
             return player;
         }
 
+        /// <summary>
+        /// Returns the input manager for the game
+        /// </summary>
+        /// <returns>Returns the input manager</returns>
         public InputManager getInputManager() {
             return inputManager;
         }
 
+        /// <summary>
+        /// Sets the level index for the game
+        /// </summary>
+        /// <param name="index">The index to be set</param>
         public void setLevelIndex(int index) {
             levelIndex = index;
         }
 
+        /// <summary>
+        /// Returns the level index for the game
+        /// </summary>
+        /// <returns>Returns the level index</returns>
         public int getLevelIndex() {
             return levelIndex;
         }
@@ -262,7 +285,7 @@ namespace OutsideTheBox {
             MediaPlayer.Play(factorySong);
 
             Screen[] screens = { new Screen("Menu"), new Screen("Normal", true), new Screen("Telekinesis-Select"), new Screen("Telekinesis-Move"), new Screen("Start") };
-            inputManager = new InputManager(this, player, level, pauseMenu, targetReticle, playerManager, screens, new Mindread(Content.Load<Texture2D>("sprites/thoughts/PassBubble1")));
+            inputManager = new InputManager(this, player, level, pauseMenu, targetReticle, playerManager, screens, new MindRead(Content.Load<Texture2D>("sprites/thoughts/PassBubble1")));
             level.setInputManager(inputManager);
             pauseMenu.setInputManager(inputManager);
             inputManager.setDeathManager(new DeathManager(inputManager));
@@ -317,9 +340,6 @@ namespace OutsideTheBox {
             level.draw(spriteBatch);
             if (pauseMenu.isActive()) {
                 pauseMenu.draw(spriteBatch);
-            }
-            if (targetReticle.isActive()) {
-                targetReticle.draw(spriteBatch);
             }
             if (mouse != null) {
                 if (level.getMode() < 1) {

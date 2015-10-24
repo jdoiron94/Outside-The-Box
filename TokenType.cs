@@ -1,8 +1,8 @@
 ﻿namespace OutsideTheBox {
 
-    /*
-    * Enum for differentiating between different types of tokens. 
-    */
+    /// <summary>
+    /// Enum which maintains different types of tokens
+    /// </summary>
 
     public enum TokenType {
 

@@ -30,6 +30,10 @@ namespace OutsideTheBox {
             return maxMana;
         }
 
+        /// <summary>
+        /// Sets the player's location
+        /// </summary>
+        /// <param name="location">The location to set</param>
         public void setLocation(Vector2 location) {
             this.location = location;
         }

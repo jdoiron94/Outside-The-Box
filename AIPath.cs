@@ -2,12 +2,13 @@
 
 namespace OutsideTheBox {
 
-    public class AIPath {
 
-        /*
-         * Class which contains information to create a path for an artificially intelligent
-         * npc to follow a static path through the game.
-         */
+    /// <summary>
+    /// Class which contains information to create a path for an artificially "intelligent"
+    /// npc to follow a static path through the game.
+    /// </summary>
+
+    public class AIPath {
 
         // TODO: Support delays between moving directions and animations
 

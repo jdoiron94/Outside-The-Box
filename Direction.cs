@@ -1,10 +1,10 @@
 ﻿namespace OutsideTheBox {
 
-    public enum Direction {
+    /// <summary>
+    /// Enum which handles directions for entities and projectiles
+    /// </summary>
 
-        /*
-         * Enum meant to dictate various directions of a given npc, object, projectile, etc.
-         */
+    public enum Direction {
 
         NORTH,
         SOUTH,

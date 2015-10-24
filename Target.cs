@@ -3,34 +3,44 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace OutsideTheBox {
 
+    /// <summary>
+    /// Class which represents the targeting system
+    /// </summary>
+
     public class Target {
 
         private Texture2D texture;
         private InputManager inputManager;
+
         private bool active;
-        private Player player;
 
         public Target(Texture2D texture) {
             this.texture = texture;
             this.active = false;
-            //this.inputManager = inputManager;
         }
 
+        /// <summary>
+        /// Sets the input manager
+        /// </summary>
+        /// <param name="inputManager">The input manager to set</param>
         public void setInputManager(InputManager inputManager) {
             this.inputManager = inputManager;
         }
 
+        /// <summary>
+        /// Returns whether or not the targeting system is active
+        /// </summary>
+        /// <returns>Returns true if the system is active; otherwise, false</returns>
         public bool isActive() {
-            //return true;
             return active;
         }
 
+        /// <summary>
+        /// Sets the targeting system's active status
+        /// </summary>
+        /// <param name="active">The active status to set</param>
         public void setActive(bool active) {
             this.active = active;
-        }
-
-        public void draw(SpriteBatch batch) {
-            batch.Draw(texture, new Vector2(50, 50), Color.White);
         }
     }
 }

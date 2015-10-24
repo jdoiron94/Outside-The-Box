@@ -6,12 +6,11 @@ using System;
 
 namespace OutsideTheBox {
 
-    public abstract class Entity {
+    /// <summary>
+    /// Base class which is used by NPC and Player
+    /// </summary>
 
-        /*
-         * Base class which is extended by NPC and Player. Contains all pertinent information as a
-         * storage container.
-         */
+    public abstract class Entity {
 
         protected Texture2D texture;
         private Projectile projectile;
@@ -111,11 +110,6 @@ namespace OutsideTheBox {
                 texture = eastFacing[1];
             }
         }
-
-        // will need to change to texture2d array for all directions
-        // stills: facing north, south, west, east
-        // movement: l/r north, l/r south, l/r west, l/r east
-        // 12 sprites minimum
 
         /// <summary>
         /// Returns the entity's texture
@@ -233,21 +227,31 @@ namespace OutsideTheBox {
             //destination.Y += y;
         }
 
+        /// <summary>
+        /// Sets the entity's y coordinate
+        /// </summary>
+        /// <param name="y">The y coordinate to set</param>
         public void setY(int y) {
             location.Y = y;
             bounds.Y = y;
         }
 
+        /// <summary>
+        /// Sets the entity's x coordinate
+        /// </summary>
+        /// <param name="x">The x coordinate to set</param>
         public void setX(int x) {
             location.X = x;
             bounds.X = x;
         }
 
+        /// <summary>
+        /// Sets the entity's velocity
+        /// </summary>
+        /// <param name="velocity">The velocity to set</param>
         public void setVelocity(int velocity) {
             this.velocity = velocity;
         }
-
-        // update sprite to respective sprite facing the correct direction
 
         /// <summary>
         /// Sets the entity's direction
@@ -265,6 +269,9 @@ namespace OutsideTheBox {
             currentHealth += health;
         }
 
+        /// <summary>
+        /// Resets the entity's health to its max
+        /// </summary>
         public void resetHealth() {
             currentHealth = maxHealth;
         }
