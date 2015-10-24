@@ -149,21 +149,27 @@
         /// <param name="obj">The game object</param>
         /// <returns>Returns true if the game object's movement does not collide; otherwise, false</returns>
         public bool isValid(GameObject obj) {
+            foreach (Npc n in level.getNpcs()) {
+                if (n.isOnScreen(level.getGame()) && collides(n, obj)) {
+                    return false;
+                }
+            }
             foreach (GameObject g in level.getObjects()) {
-                if (g != obj && g.isOnScreen(level.getGame())) {
-                    if (collides(obj, g)) {
-                        return false;
-                    }
+                if (g != obj && g.isOnScreen(level.getGame()) && collides(obj, g)) {
+                    return false;
                 }
             }
             foreach (Wall w in level.getWalls()) {
-                if (w.isOnScreen(level.getGame())) {
-                    if (collides(obj, w)) {
-                        return false;
-                    }
+                if (w.isOnScreen(level.getGame()) && collides(obj, w)) {
+                    return false;
                 }
             }
-            return true;
+            foreach (Door d in level.getDoors()) {
+                if (d.isOnScreen(level.getGame()) && collides(obj, d)) {
+                    return false;
+                }
+            }
+            return !collides(player, obj);
         }
     }
 }

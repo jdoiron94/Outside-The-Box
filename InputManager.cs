@@ -346,8 +346,7 @@ namespace OutsideTheBox {
                 } else if (lastState == ButtonState.Pressed && state == ButtonState.Released) {
                     foreach (GameObject obj in level.getObjects()) {
                         if (obj != null && obj.isLiftable()) {
-                            Point p = new Point(Mouse.GetState().X, Mouse.GetState().Y);
-                            if (p != null && obj.getBounds().Contains(p)) {
+                            if (obj.getBounds().Contains(new Point(Mouse.GetState().X, Mouse.GetState().Y))) {
                                 obj.setSelected(true);
                                 selectedObject = obj;
                                 level.setMode(2);

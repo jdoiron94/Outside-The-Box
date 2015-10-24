@@ -20,11 +20,11 @@ namespace OutsideTheBox {
         private readonly int radius;
         private readonly byte reactTime;
         private readonly bool wander;
-        private Rectangle lineOfSight;
 
         private int ticks;
 
         private AIPath path;
+        private Rectangle lineOfSight;
 
         public Npc(Game1 game, Texture2D texture, Vector2 location, Direction direction, NpcDefinition def, int[] offsets, int maxHealth, int velocity, int radius, byte reactTime, bool wander) :
             base(texture, location, direction, maxHealth, velocity) {
