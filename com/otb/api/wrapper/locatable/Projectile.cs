@@ -136,6 +136,7 @@ namespace OutsideTheBox {
         /// <param name="x">The x amount to be derived by</param>
         public void deriveX(int x) {
             location.X += x;
+            bounds.X += x;
         }
 
         /// <summary>
@@ -144,6 +145,7 @@ namespace OutsideTheBox {
         /// <param name="y">The y amount to by derived by</param>
         public void deriveY(int y) {
             location.Y += y;
+            bounds.Y += y;
         }
 
         /// <summary>
@@ -180,16 +182,12 @@ namespace OutsideTheBox {
             }
             if (direction == Direction.North) {
                 deriveY(-velocity);
-                bounds.Y += -velocity;
             } else if (direction == Direction.South) {
                 deriveY(velocity);
-                bounds.Y += velocity;
             } else if (direction == Direction.West) {
                 deriveX(-velocity);
-                bounds.X += -velocity;
             } else if (direction == Direction.East) {
                 deriveX(velocity);
-                bounds.X += velocity;
             }
             rotation += rotationSpeed;
             active = isOnScreen(game);
