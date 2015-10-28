@@ -32,13 +32,14 @@ namespace OutsideTheBox {
         private List<Token> tokens;
         private List<Door> doors;
         private List<Wall> walls;
+        private List<PressButton> pressButtons;
 
         private bool debug;
         private int index;
 
         private List<Projectile> projectiles;
 
-        public Level(Game1 game, Player player, Texture2D map, Npc[] npcs, GameObject[] objects, DisplayBar[] displayBars, Token[] tokens, Door[] doors, Wall[] walls, ThoughtBubble[] thoughts, int index) {
+        public Level(Game1 game, Player player, Texture2D map, Npc[] npcs, GameObject[] objects, DisplayBar[] displayBars, Token[] tokens, Door[] doors, Wall[] walls, ThoughtBubble[] thoughts, PressButton[] pressButtons, int index) {
             this.game = game;
             this.player = player;
             this.map = map;
@@ -52,6 +53,8 @@ namespace OutsideTheBox {
             this.tokens.AddRange(tokens);
             this.doors = new List<Door>(doors.Length);
             this.doors.AddRange(doors);
+            this.pressButtons = new List<PressButton>(pressButtons.Length);
+            this.pressButtons.AddRange(pressButtons);
             this.walls = new List<Wall>(walls.Length);
             this.walls.AddRange(walls);
             this.thoughts = new List<ThoughtBubble>(thoughts.Length);
@@ -140,6 +143,15 @@ namespace OutsideTheBox {
         /// <returns>Returns the door list</returns>
         public List<Door> getDoors() {
             return doors;
+        }
+
+        /// <summary>
+        /// Returns the level's pushButton list
+        /// </summary>
+        /// <returns>Returns the door list</returns>
+        public List<PressButton> getPressButtons()
+        {
+            return pressButtons;
         }
 
         /// <summary>

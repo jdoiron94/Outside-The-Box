@@ -228,6 +228,8 @@ namespace OutsideTheBox {
             Door door1 = new Door(door, null, new Vector2(width - 10F, height - 89F), Direction.East, false, true, 10, 64);
             Door door2 = new Door(door, null, new Vector2(0F, height - 89F), Direction.West, false, false, 10, 64);
 
+            Texture2D pressButton = Content.Load<Texture2D>("PressButton");
+
             Texture2D bronze = Content.Load<Texture2D>("sprites/objects/BronzeCoinFront");
             Texture2D silver = Content.Load<Texture2D>("sprites/objects/SilverCoinFront");
             Texture2D gold = Content.Load<Texture2D>("sprites/objects/GoldCoinFront");
@@ -250,8 +252,8 @@ namespace OutsideTheBox {
             Texture2D l1 = Content.Load<Texture2D>("sprites/levels/Level1");
             Texture2D l2 = Content.Load<Texture2D>("sprites/levels/Level1Map");
             Texture2D bubble = Content.Load<Texture2D>("sprites/thoughts/PassBubble1");
-            Level level1 = new Level(this, player, l1, new Npc[] { npc, npc2, npc5 }, new GameObject[] { obj2, obj }, new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() }, new Token[] { token1, token2, token3 }, new Door[] { door1 }, new Wall[0], new ThoughtBubble[0], 1);
-            Level level2 = new Level(this, player, l2, new Npc[] { npc3, npc4, npc6 }, new GameObject[0], new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() }, new Token[] { token4 }, new Door[] { door2 }, new Wall[] { wall1, wall2, wall3, wall4, wall5, wall6 }, new ThoughtBubble[] { new ThoughtBubble(bubble, Vector2.Zero, npc3, false, false) }, 2);
+            Level level1 = new Level(this, player, l1, new Npc[] { npc, npc2, npc5 }, new GameObject[] { obj2, obj }, new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() }, new Token[] { token1, token2, token3 }, new Door[] { door1 }, new Wall[0], new ThoughtBubble[0], new PressButton[] { }, 1);
+            Level level2 = new Level(this, player, l2, new Npc[] { npc3, npc4, npc6 }, new GameObject[0], new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() }, new Token[] { token4 }, new Door[] { door2 }, new Wall[] { wall1, wall2, wall3, wall4, wall5, wall6 }, new ThoughtBubble[] { new ThoughtBubble(bubble, Vector2.Zero, npc3, false, false) }, new PressButton[] { }, 2);
             levels = new List<Level>();
             levels.Add(level1);
             levels.Add(level2);
