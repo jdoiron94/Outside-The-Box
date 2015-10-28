@@ -17,11 +17,11 @@ namespace OutsideTheBox {
         private Direction direction;
         private Rectangle bounds;
         private Rectangle destinationBounds;
-
+        
         private readonly bool liftable;
-
         private bool selected;
         private double lastFired;
+
 
         public GameObject(Texture2D texture, Projectile projectile, Vector2 location, Direction direction, bool liftable, int width, int height) {
             this.texture = texture;
@@ -47,7 +47,7 @@ namespace OutsideTheBox {
         public GameObject(Texture2D texture, Vector2 location) :
             this(texture, location, false) {
         }
-
+        
         /// <summary>
         /// Returns the game object's texture
         /// </summary>
