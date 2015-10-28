@@ -157,8 +157,7 @@ namespace OutsideTheBox {
                 deathManager.resetGame();
             }
             if (collisionManager.playerSpotted(level)) {
-                player.setLocation(new Vector2(0F, 0F));
-                player.deriveHealth(10);
+                playerManager.setHealth(0);
             }
             if (lastKeyState.IsKeyDown(Keys.F1) && currentKeyState.IsKeyUp(Keys.F1)) {
                 foreach (Level l in game.getLevels()) {
@@ -184,7 +183,6 @@ namespace OutsideTheBox {
                     Token t = (Token) gCollision;
                     t.setCollected(true);
                     playerManager.incrementExperience(t.getExp());
-                    level.removeToken(t);
                 } else if (gCollision != null && gCollision is Door) {
                     Door d = (Door) gCollision;
                     int index = (game.getLevelIndex()) + (d.getNext() ? 1 : -1);
