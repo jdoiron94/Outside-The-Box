@@ -170,262 +170,395 @@ namespace OutsideTheBox {
                     screenManager.setActiveScreen(1);
                 }
             } else if (active.getName() == "Normal") {
-                if (playerManager.getHealthCooldown() == 35) {
-                    playerManager.regenerateHealth();
-                    playerManager.regenerateMana();
-                }
-                foreach (ThoughtBubble tb in level.getThoughts()) {
-                    tb.reveal(mindRead.isActivated());
-                    tb.updateLocation();
-                }
-                GameObject gCollision = collisionManager.getObjectCollision(player);
-                if (gCollision != null && gCollision is Token) {
-                    Token t = (Token) gCollision;
-                    t.setCollected(true);
-                    playerManager.incrementExperience(t.getExp());
-                } else if (gCollision != null && gCollision is Door) {
-                    Door d = (Door) gCollision;
-                    int index = (game.getLevelIndex()) + (d.getNext() ? 1 : -1);
-                    level.setActive(false);
-                    game.setLevel(index);
-                    level = game.getLevel(index);
-                    deathManager = new DeathManager(this);
-                    setDeathManager(deathManager);
-                    collisionManager.getLevel().setActive(false);
-                    level.setActive(true);
-                    level.setInputManager(this);
-                    collisionManager.setLevel(level);
-                    game.setLevel(level);
-                    if (d.getDirection() == Direction.East) {
-                        player.setLocation(new Vector2(40F, d.getLocation().Y));
-                    } else if (d.getDirection() == Direction.West) {
-                        player.setLocation(new Vector2(696F, d.getLocation().Y));
-                    } else if (d.getDirection() == Direction.North) {
-                        player.setLocation(new Vector2(d.getLocation().X, 376F)); // untested
-                    } else {
-                        player.setLocation(new Vector2(d.getLocation().X, 104F)); // untested
-                    }
-                }
-                if (lastKeyState.IsKeyDown(Keys.H) && currentKeyState.IsKeyUp(Keys.H)) {
-                    if (mindRead.isCooldown()) {
-                        mindRead.activatePower(true);
-                        playerManager.depleteMana(mindRead.getManaCost());
-                    }
-                }
-                mindRead.behavior(time);
-                SlowTime slowmo = (SlowTime) playerManager.getPowers()[0];
-                if (lastKeyState.IsKeyDown(Keys.L) && currentKeyState.IsKeyUp(Keys.L)) {
-                    if (slowmo.isUnlocked() && !slowmo.isActivated()) {
-                        if (slowmo.isCooldown()) {
-                            slowmo.activatePower(true);
-                            playerManager.depleteMana(slowmo.getManaCost());
-                        }
-                    }
-                }
-                slowmo.doStuff(level);
-                Dash dash = (Dash) playerManager.getPowers()[1];
-                if (lastKeyState.IsKeyDown(Keys.K) && currentKeyState.IsKeyUp(Keys.K)) {
-                    if (dash.isUnlocked()) {
-                        if (dash.isCooldown() && !dash.isActivated()) {
-                            dash.activatePower(true);
-                            playerManager.depleteMana(dash.getManaCost());
-                        }
-                    }
-                }
-                dash.doStuff(level);
-                Confuse confuse = (Confuse) playerManager.getPowers()[2];
-                if (lastKeyState.IsKeyDown(Keys.C) && currentKeyState.IsKeyUp(Keys.C)) {
-                    if (confuse.isUnlocked()) {
-                        if (confuse.isCooldown() && !confuse.isActivated()) {
-                            confuse.activatePower(true);
-                            playerManager.depleteMana(confuse.getManaCost());
-                        }
-                    }
-                }
-                confuse.doStuff(level);
-                if (currentKeyState.IsKeyDown(Keys.W)) {
-                    player.setDirection(Direction.North);
-                    player.updateMovement();
-                    player.setDestination(new Vector2(player.getLocation().X, player.getLocation().Y - velocity));
-                    if (player.getDestination().Y >= 0 && collisionManager.isValid(player)) {
-                        player.deriveY(-velocity);
-                    }
-                } else if (lastKeyState.IsKeyDown(Keys.W) && currentKeyState.IsKeyUp(Keys.W)) {
-                    stagnant = true;
-                } else if (currentKeyState.IsKeyDown(Keys.S)) {
-                    player.setDirection(Direction.South);
-                    player.updateMovement();
-                    player.setDestination(new Vector2(player.getLocation().X, player.getLocation().Y + velocity));
-                    if (player.getDestination().Y <= midY * 2 && collisionManager.isValid(player)) {
-                        player.deriveY(velocity);
-                    }
-                } else if (lastKeyState.IsKeyDown(Keys.S) && currentKeyState.IsKeyUp(Keys.S)) {
-                    stagnant = true;
-                } else if (currentKeyState.IsKeyDown(Keys.A)) {
-                    player.setDirection(Direction.West);
-                    player.updateMovement();
-                    player.setDestination(new Vector2(player.getLocation().X - velocity, player.getLocation().Y));
-                    if (player.getDestination().X >= 0 && collisionManager.isValid(player)) {
-                        player.deriveX(-velocity);
-                    }
-                } else if (lastKeyState.IsKeyDown(Keys.A) && currentKeyState.IsKeyUp(Keys.A)) {
-                    stagnant = true;
-                } else if (currentKeyState.IsKeyDown(Keys.D)) {
-                    player.setDirection(Direction.East);
-                    player.updateMovement();
-                    player.setDestination(new Vector2(player.getLocation().X + velocity, player.getLocation().Y));
-                    if (player.getDestination().X <= midX * 2 && collisionManager.isValid(player)) {
-                        player.deriveX(velocity);
-                    }
-                } else if (lastKeyState.IsKeyDown(Keys.D) && currentKeyState.IsKeyUp(Keys.D)) {
-                    stagnant = true;
-                } else {
-                    player.setDestination(player.getLocation());
-                }
-                if (currentKeyState.IsKeyDown(Keys.Space)) {
-                    double ms = time.TotalGameTime.TotalMilliseconds;
-                    if ((player.getLastFired() == -1 || ms - player.getLastFired() >= player.getProjectile().getCooldown()) && playerManager.getMana() >= 5) {
-                        level.addProjectile(player.createProjectile(ms));
-                        playerManager.depleteMana(5);
-                    }
-                }
-                if (stagnant) {
-                    if (ticks >= WAIT) {
-                        player.updateStill();
-                        ticks = 0;
-                        stagnant = false;
-                    } else {
-                        ticks++;
-                    }
-                }
-                if (lastKeyState.IsKeyDown(Keys.X) && currentKeyState.IsKeyUp(Keys.X)) {
-                    level.setMode(1);
-                    screenManager.setActiveScreen(2);
-                    target.setActive(true);
-                } else if (currentKeyState.IsKeyDown(Keys.P)) {
-                    playerManager.damagePlayer(2);
-                } else if (lastKeyState.IsKeyDown(Keys.M) && currentKeyState.IsKeyUp(Keys.M)) {
-                    screenManager.setActiveScreen(0);
-                    level.setActive(false);
-                    pauseMenu.setActive(true);
-                }
+                updateNormal(time);
+
             } else if (active.getName() == "Telekinesis-Select") {
-                lastState = state;
-                state = Mouse.GetState().LeftButton;
-                playerManager.setManaDrainRate(5);
-                if (lastState == ButtonState.Pressed && state == ButtonState.Released) {
-                    foreach (GameObject obj in level.getObjects()) {
-                        if (obj.isLiftable()) {
-                            if (obj.getBounds().Contains(new Point(Mouse.GetState().X, Mouse.GetState().Y))) {
-                                obj.setSelected(true);
-                                selectedObject = obj;
-                                level.setMode(2);
-                                screenManager.setActiveScreen(3);
-                            }
+                updateSelect(time);
+
+            } else if (active.getName() == "Telekinesis-Move") {
+                updateTelekinesisMove(time);
+
+            } else if (active.getName() == "Menu") {
+                updateMenu(time);
+
+            }
+        }
+
+
+        void updateNormal(GameTime time)
+        {
+            if (playerManager.getHealthCooldown() == 35)
+            {
+                playerManager.regenerateHealth();
+                playerManager.regenerateMana();
+            }
+            foreach (ThoughtBubble tb in level.getThoughts())
+            {
+                tb.reveal(mindRead.isActivated());
+                tb.updateLocation();
+            }
+            GameObject gCollision = collisionManager.getObjectCollision(player);
+            if (gCollision != null && gCollision is Token)
+            {
+                Token t = (Token)gCollision;
+                t.setCollected(true);
+                playerManager.incrementExperience(t.getExp());
+                level.removeToken(t);
+            }
+            else if (gCollision != null && gCollision is Door)
+            {
+                Door d = (Door)gCollision;
+                int index = (game.getLevelIndex()) + (d.getNext() ? 1 : -1);
+                level.setActive(false);
+                game.setLevel(index);
+                level = game.getLevel(index);
+                deathManager = new DeathManager(this);
+                setDeathManager(deathManager);
+                collisionManager.getLevel().setActive(false);
+                level.setActive(true);
+                level.setInputManager(this);
+                collisionManager.setLevel(level);
+                game.setLevel(level);
+                if (d.getDirection() == Direction.East)
+                {
+                    player.setLocation(new Vector2(40F, d.getLocation().Y));
+                }
+                else if (d.getDirection() == Direction.West)
+                {
+                    player.setLocation(new Vector2(696F, d.getLocation().Y));
+                }
+                else if (d.getDirection() == Direction.North)
+                {
+                    player.setLocation(new Vector2(d.getLocation().X, 376F)); // untested
+                }
+                else
+                {
+                    player.setLocation(new Vector2(d.getLocation().X, 104F)); // untested
+                }
+            }
+            if (lastKeyState.IsKeyDown(Keys.H) && currentKeyState.IsKeyUp(Keys.H))
+            {
+                if (mindRead.isCooldown())
+                {
+                    mindRead.activatePower(true);
+                    playerManager.depleteMana(mindRead.getManaCost());
+                }
+            }
+            mindRead.behavior(time);
+            SlowTime slowmo = (SlowTime)playerManager.getPowers()[0];
+            if (lastKeyState.IsKeyDown(Keys.L) && currentKeyState.IsKeyUp(Keys.L))
+            {
+                if (slowmo.isUnlocked() && !slowmo.isActivated())
+                {
+                    if (slowmo.isCooldown())
+                    {
+                        slowmo.activatePower(true);
+                        playerManager.depleteMana(slowmo.getManaCost());
+                    }
+                }
+            }
+            slowmo.doStuff(level);
+            Dash dash = (Dash)playerManager.getPowers()[1];
+            if (lastKeyState.IsKeyDown(Keys.K) && currentKeyState.IsKeyUp(Keys.K))
+            {
+                if (dash.isUnlocked())
+                {
+                    if (dash.isCooldown() && !dash.isActivated())
+                    {
+                        dash.activatePower(true);
+                        playerManager.depleteMana(dash.getManaCost());
+                    }
+                }
+            }
+            dash.doStuff(level);
+            Confuse confuse = (Confuse)playerManager.getPowers()[2];
+            if (lastKeyState.IsKeyDown(Keys.C) && currentKeyState.IsKeyUp(Keys.C))
+            {
+                if (confuse.isUnlocked())
+                {
+                    if (confuse.isCooldown() && !confuse.isActivated())
+                    {
+                        confuse.activatePower(true);
+                        playerManager.depleteMana(confuse.getManaCost());
+                    }
+                }
+            }
+            confuse.doStuff(level);
+            if (currentKeyState.IsKeyDown(Keys.W))
+            {
+                player.setDirection(Direction.North);
+                player.updateMovement();
+                player.setDestination(new Vector2(player.getLocation().X, player.getLocation().Y - velocity));
+                if (player.getDestination().Y >= 0 && collisionManager.isValid(player))
+                {
+                    player.deriveY(-velocity);
+                }
+            }
+            else if (lastKeyState.IsKeyDown(Keys.W) && currentKeyState.IsKeyUp(Keys.W))
+            {
+                stagnant = true;
+            }
+            else if (currentKeyState.IsKeyDown(Keys.S))
+            {
+                player.setDirection(Direction.South);
+                player.updateMovement();
+                player.setDestination(new Vector2(player.getLocation().X, player.getLocation().Y + velocity));
+                if (player.getDestination().Y <= midY * 2 && collisionManager.isValid(player))
+                {
+                    player.deriveY(velocity);
+                }
+            }
+            else if (lastKeyState.IsKeyDown(Keys.S) && currentKeyState.IsKeyUp(Keys.S))
+            {
+                stagnant = true;
+            }
+            else if (currentKeyState.IsKeyDown(Keys.A))
+            {
+                player.setDirection(Direction.West);
+                player.updateMovement();
+                player.setDestination(new Vector2(player.getLocation().X - velocity, player.getLocation().Y));
+                if (player.getDestination().X >= 0 && collisionManager.isValid(player))
+                {
+                    player.deriveX(-velocity);
+                }
+            }
+            else if (lastKeyState.IsKeyDown(Keys.A) && currentKeyState.IsKeyUp(Keys.A))
+            {
+                stagnant = true;
+            }
+            else if (currentKeyState.IsKeyDown(Keys.D))
+            {
+                player.setDirection(Direction.East);
+                player.updateMovement();
+                player.setDestination(new Vector2(player.getLocation().X + velocity, player.getLocation().Y));
+                if (player.getDestination().X <= midX * 2 && collisionManager.isValid(player))
+                {
+                    player.deriveX(velocity);
+                }
+            }
+            else if (lastKeyState.IsKeyDown(Keys.D) && currentKeyState.IsKeyUp(Keys.D))
+            {
+                stagnant = true;
+            }
+            else
+            {
+                player.setDestination(player.getLocation());
+            }
+            if (currentKeyState.IsKeyDown(Keys.Space))
+            {
+                double ms = time.TotalGameTime.TotalMilliseconds;
+                if ((player.getLastFired() == -1 || ms - player.getLastFired() >= player.getProjectile().getCooldown()) && playerManager.getMana() >= 5)
+                {
+                    level.addProjectile(player.createProjectile(ms));
+                    playerManager.depleteMana(5);
+                }
+            }
+            if (stagnant)
+            {
+                if (ticks >= WAIT)
+                {
+                    player.updateStill();
+                    ticks = 0;
+                    stagnant = false;
+                }
+                else
+                {
+                    ticks++;
+                }
+            }
+            if (lastKeyState.IsKeyDown(Keys.X) && currentKeyState.IsKeyUp(Keys.X))
+            {
+                level.setMode(1);
+                screenManager.setActiveScreen(2);
+                target.setActive(true);
+            }
+            else if (currentKeyState.IsKeyDown(Keys.P))
+            {
+                playerManager.damagePlayer(2);
+            }
+            else if (lastKeyState.IsKeyDown(Keys.M) && currentKeyState.IsKeyUp(Keys.M))
+            {
+                screenManager.setActiveScreen(0);
+                level.setActive(false);
+                pauseMenu.setActive(true);
+            }
+        }
+
+        void updateSelect(GameTime time)
+        {
+            lastState = state;
+            state = Mouse.GetState().LeftButton;
+            playerManager.setManaDrainRate(5);
+            if (lastState == ButtonState.Pressed && state == ButtonState.Released)
+            {
+                foreach (GameObject obj in level.getObjects())
+                {
+                    if (obj.isLiftable())
+                    {
+                        if (obj.getBounds().Contains(new Point(Mouse.GetState().X, Mouse.GetState().Y)))
+                        {
+                            obj.setSelected(true);
+                            selectedObject = obj;
+                            level.setMode(2);
+                            screenManager.setActiveScreen(3);
                         }
                     }
-                } else if (lastKeyState.IsKeyDown(Keys.X) && currentKeyState.IsKeyUp(Keys.X)) {
-                    level.setMode(0);
-                    screenManager.setActiveScreen(1);
                 }
-            } else if (active.getName() == "Telekinesis-Move") {
-                playerManager.updateManaDrainRate();
-                if (playerManager.getManaDrainRate() == 5) {
+            }
+            else if (lastKeyState.IsKeyDown(Keys.X) && currentKeyState.IsKeyUp(Keys.X))
+            {
+                level.setMode(0);
+                screenManager.setActiveScreen(1);
+            }
+        }
+
+        void updateTelekinesisMove(GameTime time)
+        {
+            playerManager.updateManaDrainRate();
+            if (playerManager.getManaDrainRate() == 5)
+            {
+                playerManager.depleteMana(1);
+            }
+            if (currentKeyState.IsKeyDown(Keys.W))
+            {
+                selectedObject.setDirection(Direction.North);
+                selectedObject.setDestination(new Vector2(selectedObject.getLocation().X, selectedObject.getLocation().Y - velocity));
+                if (selectedObject.getDestination().Y > 0 && collisionManager.isValid(selectedObject))
+                {
+                    selectedObject.deriveY(-velocity);
+                    if (playerManager.getManaDrainRate() == 5)
+                    {
+                        playerManager.depleteMana(2);
+                    }
+                }
+            }
+            else if (currentKeyState.IsKeyDown(Keys.S))
+            {
+                selectedObject.setDirection(Direction.South);
+                selectedObject.setDestination(new Vector2(selectedObject.getLocation().X, selectedObject.getLocation().Y + velocity));
+                if (selectedObject.getDestination().Y < midY * 2 && collisionManager.isValid(selectedObject))
+                {
+                    selectedObject.deriveY(velocity);
+                    if (playerManager.getManaDrainRate() == 5)
+                    {
+                        playerManager.depleteMana(2);
+                    }
+                }
+            }
+            else if (currentKeyState.IsKeyDown(Keys.A))
+            {
+                selectedObject.setDirection(Direction.West);
+                selectedObject.setDestination(new Vector2(selectedObject.getLocation().X - velocity, selectedObject.getLocation().Y));
+                if (selectedObject.getDestination().X > 0 && collisionManager.isValid(selectedObject))
+                {
+                    selectedObject.deriveX(-velocity);
+                    if (playerManager.getManaDrainRate() == 5)
+                    {
+                        playerManager.depleteMana(2);
+                    }
+                }
+            }
+            else if (currentKeyState.IsKeyDown(Keys.D))
+            {
+                selectedObject.setDirection(Direction.East);
+                selectedObject.setDestination(new Vector2(selectedObject.getLocation().X + velocity, selectedObject.getLocation().Y));
+                if (selectedObject.getDestination().X < midX * 2 && collisionManager.isValid(selectedObject))
+                {
+                    selectedObject.deriveX(velocity);
+                    if (playerManager.getManaDrainRate() == 5)
+                    {
+                        playerManager.depleteMana(2);
+                    }
+                }
+            }
+            else
+            {
+                selectedObject.setDestination(selectedObject.getLocation());
+            }
+            if ((moving || (lastKeyState.IsKeyDown(Keys.Space) && currentKeyState.IsKeyDown(Keys.Space))) && playerManager.getMana() > 0)
+            {
+                moving = true;
+                if (selectedObject.getDirection() == Direction.North)
+                {
+                    selectedObject.setDestination(new Vector2(selectedObject.getLocation().X, selectedObject.getLocation().Y - velocity));
+                    if (selectedObject.getDestination().Y > 0 && collisionManager.isValid(selectedObject))
+                    {
+                        selectedObject.deriveY(-velocity);
+                    }
+                    else
+                    {
+                        moving = false;
+                    }
+                }
+                else if (selectedObject.getDirection() == Direction.South)
+                {
+                    if (selectedObject.getDestination().Y < midY * 2 && collisionManager.isValid(selectedObject))
+                    {
+                        selectedObject.deriveY(velocity);
+                    }
+                    else
+                    {
+                        moving = false;
+                    }
+                }
+                else if (selectedObject.getDirection() == Direction.West)
+                {
+                    if (selectedObject.getDestination().X > 0 && collisionManager.isValid(selectedObject))
+                    {
+                        selectedObject.deriveX(-velocity);
+                    }
+                    else
+                    {
+                        moving = false;
+                    }
+                }
+                else
+                {
+                    if (selectedObject.getDestination().X < midX * 2 && collisionManager.isValid(selectedObject))
+                    {
+                        selectedObject.deriveX(velocity);
+                    }
+                    else
+                    {
+                        moving = false;
+                    }
+                }
+                if (playerManager.getManaDrainRate() == 5)
+                {
                     playerManager.depleteMana(1);
                 }
-                if (currentKeyState.IsKeyDown(Keys.W)) {
-                    selectedObject.setDirection(Direction.North);
-                    selectedObject.setDestination(new Vector2(selectedObject.getLocation().X, selectedObject.getLocation().Y - velocity));
-                    if (selectedObject.getDestination().Y > 0 && collisionManager.isValid(selectedObject)) {
-                        selectedObject.deriveY(-velocity);
-                        if (playerManager.getManaDrainRate() == 5) {
-                            playerManager.depleteMana(2);
-                        }
-                    }
-                } else if (currentKeyState.IsKeyDown(Keys.S)) {
-                    selectedObject.setDirection(Direction.South);
-                    selectedObject.setDestination(new Vector2(selectedObject.getLocation().X, selectedObject.getLocation().Y + velocity));
-                    if (selectedObject.getDestination().Y < midY * 2 && collisionManager.isValid(selectedObject)) {
-                        selectedObject.deriveY(velocity);
-                        if (playerManager.getManaDrainRate() == 5) {
-                            playerManager.depleteMana(2);
-                        }
-                    }
-                } else if (currentKeyState.IsKeyDown(Keys.A)) {
-                    selectedObject.setDirection(Direction.West);
-                    selectedObject.setDestination(new Vector2(selectedObject.getLocation().X - velocity, selectedObject.getLocation().Y));
-                    if (selectedObject.getDestination().X > 0 && collisionManager.isValid(selectedObject)) {
-                        selectedObject.deriveX(-velocity);
-                        if (playerManager.getManaDrainRate() == 5) {
-                            playerManager.depleteMana(2);
-                        }
-                    }
-                } else if (currentKeyState.IsKeyDown(Keys.D)) {
-                    selectedObject.setDirection(Direction.East);
-                    selectedObject.setDestination(new Vector2(selectedObject.getLocation().X + velocity, selectedObject.getLocation().Y));
-                    if (selectedObject.getDestination().X < midX * 2 && collisionManager.isValid(selectedObject)) {
-                        selectedObject.deriveX(velocity);
-                        if (playerManager.getManaDrainRate() == 5) {
-                            playerManager.depleteMana(2);
-                        }
-                    }
-                } else {
-                    selectedObject.setDestination(selectedObject.getLocation());
-                }
-                if ((moving || (lastKeyState.IsKeyDown(Keys.Space) && currentKeyState.IsKeyDown(Keys.Space))) && playerManager.getMana() > 0) {
-                    moving = true;
-                    if (selectedObject.getDirection() == Direction.North) {
-                        selectedObject.setDestination(new Vector2(selectedObject.getLocation().X, selectedObject.getLocation().Y - velocity));
-                        if (selectedObject.getDestination().Y > 0 && collisionManager.isValid(selectedObject)) {
-                            selectedObject.deriveY(-velocity);
-                        } else {
-                            moving = false;
-                        }
-                    } else if (selectedObject.getDirection() == Direction.South) {
-                        if (selectedObject.getDestination().Y < midY * 2 && collisionManager.isValid(selectedObject)) {
-                            selectedObject.deriveY(velocity);
-                        } else {
-                            moving = false;
-                        }
-                    } else if (selectedObject.getDirection() == Direction.West) {
-                        if (selectedObject.getDestination().X > 0 && collisionManager.isValid(selectedObject)) {
-                            selectedObject.deriveX(-velocity);
-                        } else {
-                            moving = false;
-                        }
-                    } else {
-                        if (selectedObject.getDestination().X < midX * 2 && collisionManager.isValid(selectedObject)) {
-                            selectedObject.deriveX(velocity);
-                        } else {
-                            moving = false;
-                        }
-                    }
-                    if (playerManager.getManaDrainRate() == 5) {
-                        playerManager.depleteMana(1);
-                    }
-                    if (!moving) {
-                        selectedObject.setSelected(false);
-                        selectedObject = null;
-                        level.setMode(0);
-                        screenManager.setActiveScreen(1);
-                    }
-                } else if ((lastKeyState.IsKeyDown(Keys.X) && currentKeyState.IsKeyUp(Keys.X)) || playerManager.getMana() == 0) {
+                if (!moving)
+                {
                     selectedObject.setSelected(false);
                     selectedObject = null;
                     level.setMode(0);
                     screenManager.setActiveScreen(1);
                 }
-            } else if (active.getName() == "Menu") {
-                lastState = state;
-                state = Mouse.GetState().LeftButton;
-                if (lastState == ButtonState.Pressed && state == ButtonState.Released) {
-                    pauseMenu.reactToMouseClick();
-                } else if (lastKeyState.IsKeyDown(Keys.M) && currentKeyState.IsKeyUp(Keys.M)) {
-                    screenManager.setActiveScreen(1);
-                    pauseMenu.setActive(false);
-                    level.setActive(true);
-                }
+            }
+            else if ((lastKeyState.IsKeyDown(Keys.X) && currentKeyState.IsKeyUp(Keys.X)) || playerManager.getMana() == 0)
+            {
+                selectedObject.setSelected(false);
+                selectedObject = null;
+                level.setMode(0);
+                screenManager.setActiveScreen(1);
             }
         }
+
+        void updateMenu(GameTime time)
+        {
+            lastState = state;
+            state = Mouse.GetState().LeftButton;
+            if (lastState == ButtonState.Pressed && state == ButtonState.Released)
+            {
+                pauseMenu.reactToMouseClick();
+            }
+            else if (lastKeyState.IsKeyDown(Keys.M) && currentKeyState.IsKeyUp(Keys.M))
+            {
+                screenManager.setActiveScreen(1);
+                pauseMenu.setActive(false);
+                level.setActive(true);
+            }
+        }
+
     }
 }

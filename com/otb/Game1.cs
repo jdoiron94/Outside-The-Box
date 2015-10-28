@@ -228,7 +228,7 @@ namespace OutsideTheBox {
             Door door1 = new Door(door, null, new Vector2(width - 10F, height - 89F), Direction.East, false, true, 10, 64);
             Door door2 = new Door(door, null, new Vector2(0F, height - 89F), Direction.West, false, false, 10, 64);
 
-            Texture2D pressButton = Content.Load<Texture2D>("PressButton");
+            Texture2D pressButton = Content.Load<Texture2D>("sprites/objects/PressButton");
 
             Texture2D bronze = Content.Load<Texture2D>("sprites/objects/BronzeCoinFront");
             Texture2D silver = Content.Load<Texture2D>("sprites/objects/SilverCoinFront");
