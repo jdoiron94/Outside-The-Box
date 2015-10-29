@@ -424,7 +424,7 @@ namespace OutsideTheBox {
             }
             foreach (Token t in tokens) {
                 t.draw(batch);
-                if (debug) {
+                if (debug && !t.isCollected()) {
                     game.outline(batch, t.getBounds());
                 }
             }

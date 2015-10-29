@@ -128,7 +128,7 @@
             }
             if (e == player) {
                 foreach (Token t in level.getTokens()) {
-                    if (e.getDestinationBounds().Intersects(t.getBounds()) && !t.collected()) {
+                    if (e.getDestinationBounds().Intersects(t.getBounds()) && !t.isCollected()) {
                         return t;
                     }
                 }

@@ -10,7 +10,7 @@ namespace OutsideTheBox {
     public class Token : GameObject {
 
         private int exp;
-        private bool isCollected;
+        private bool collected;
 
         private readonly TokenType type;
         private readonly Texture2D side;
@@ -20,7 +20,7 @@ namespace OutsideTheBox {
             this.type = type;
             this.side = side;
             exp = (int) type;
-            isCollected = false;
+            collected = false;
         }
 
         /// <summary>
@@ -36,16 +36,16 @@ namespace OutsideTheBox {
         /// </summary>
         /// <param name="value">The collected status bool</param>
         public void setCollected(bool value) {
-            isCollected = value;
+            collected = value;
         }
 
         /// <summary>
         /// Gets the token's collected status
         /// </summary>
         /// <returns>Returns the token's collected status</returns>
-        public bool collected()
+        public bool isCollected()
         {
-            return isCollected; 
+            return collected; 
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace OutsideTheBox {
         /// </summary>
         /// <param name="batch">The SpriteBatch to draw with</param>
         public void draw(SpriteBatch batch) {
-            if (!isCollected) {
+            if (!collected) {
                 batch.Draw(getTexture(), getLocation(), Color.White);
             }
         }
