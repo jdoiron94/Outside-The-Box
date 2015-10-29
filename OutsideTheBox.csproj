@@ -53,6 +53,7 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="com\otb\api\wrapper\ability\Telekinesis.cs" />
     <Compile Include="com\otb\api\wrapper\AIPath.cs" />
     <Compile Include="com\otb\api\wrapper\ability\BasePower.cs" />
     <Compile Include="com\otb\api\wrapper\locatable\PressButton.cs" />

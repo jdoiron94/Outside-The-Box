@@ -8,6 +8,8 @@ namespace OutsideTheBox {
 
     public interface BasePower {
 
+        int getID();
+        int getSlotID(); 
         int getManaCost();
         int getExpCost();
         void unlockPower(bool unlock);

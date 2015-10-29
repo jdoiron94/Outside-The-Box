@@ -203,7 +203,7 @@ namespace OutsideTheBox {
                 Token t = (Token)gCollision;
                 t.setCollected(true);
                 playerManager.incrementExperience(t.getExp());
-                level.removeToken(t);
+                gCollision = null;
             }
             else if (gCollision != null && gCollision is Door)
             {

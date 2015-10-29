@@ -8,6 +8,8 @@ namespace OutsideTheBox {
 
     public class Dash : BasePower {
 
+        private int ID;
+        private int slotID;
         private bool unlocked;
         private bool activated;
         private int manaCost;
@@ -22,6 +24,26 @@ namespace OutsideTheBox {
             expCost = 1000;
             totalCooldown = 20;
             duration = 15;
+            ID = 4;
+            slotID = 4; 
+        }
+
+        /// <summary>
+        /// Returns ID for the ability
+        /// </summary>
+        /// <returns>Returns the ID</returns>
+        public int getID()
+        {
+            return ID;
+        }
+
+        /// <summary>
+        /// Returns the slotID for the ability
+        /// </summary>
+        /// <returns>Returns the slotID</returns>
+        public int getSlotID()
+        {
+            return slotID;
         }
 
         /// <summary>

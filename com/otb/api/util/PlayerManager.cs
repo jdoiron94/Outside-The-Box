@@ -229,7 +229,7 @@ namespace OutsideTheBox {
         /// Updates the player's mana cooldown
         /// </summary>
         public void updateManaCooldown() {
-            manaCooldown = (manaCooldown + 1) % 36;
+            manaCooldown = (manaCooldown + 1) % manaDrainMax;
         }
 
         /// <summary>

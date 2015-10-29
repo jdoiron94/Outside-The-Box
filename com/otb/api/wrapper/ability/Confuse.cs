@@ -8,6 +8,8 @@ namespace OutsideTheBox {
 
     public class Confuse : BasePower {
 
+        private int ID;
+        private int slotID;
         private bool unlocked;
         private bool activated;
         private int manaCost;
@@ -22,6 +24,26 @@ namespace OutsideTheBox {
             expCost = 1000;
             totalCooldown = 200;
             duration = 50;
+            ID = 6;
+            slotID = 7;
+        }
+
+        /// <summary>
+        /// Returns ID for the ability
+        /// </summary>
+        /// <returns>Returns the ID</returns>
+        public int getID()
+        {
+            return ID;
+        }
+
+        /// <summary>
+        /// Returns the slotID for the ability
+        /// </summary>
+        /// <returns>Returns the slotID</returns>
+        public int getSlotID()
+        {
+            return slotID;
         }
 
         /// <summary>

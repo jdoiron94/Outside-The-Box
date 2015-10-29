@@ -9,6 +9,8 @@ namespace OutsideTheBox {
 
     public class MindRead : BasePower {
 
+        private int ID;
+        private int slotID;
         private bool unlocked;
         private bool activated;
         private int manaCost;
@@ -19,7 +21,8 @@ namespace OutsideTheBox {
         private Texture2D menuTexture;
         private InputManager inputManager;
 
-        public MindRead(bool unlocked, bool activated, Texture2D menuTexture, InputManager inputManager) {
+        public MindRead(bool unlocked, bool activated, Texture2D menuTexture, InputManager inputManager)
+        {
             this.unlocked = unlocked;
             this.activated = activated;
             this.menuTexture = menuTexture;
@@ -28,6 +31,8 @@ namespace OutsideTheBox {
             expCost = 1000;
             totalCooldown = 200;
             duration = 100;
+            ID = 2;
+            slotID = 1; 
         }
 
         public MindRead(Texture2D menuTexture) {
@@ -38,6 +43,24 @@ namespace OutsideTheBox {
             activated = true;
             totalCooldown = 200;
             duration = 100;
+        }
+
+        /// <summary>
+        /// Returns ID for the ability
+        /// </summary>
+        /// <returns>Returns the ID</returns>
+        public int getID()
+        {
+            return ID;
+        }
+
+        /// <summary>
+        /// Returns the slotID for the ability
+        /// </summary>
+        /// <returns>Returns the slotID</returns>
+        public int getSlotID()
+        {
+            return slotID;
         }
 
         /// <summary>

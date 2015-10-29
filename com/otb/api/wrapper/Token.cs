@@ -40,6 +40,15 @@ namespace OutsideTheBox {
         }
 
         /// <summary>
+        /// Gets the token's collected status
+        /// </summary>
+        /// <returns>Returns the token's collected status</returns>
+        public bool collected()
+        {
+            return isCollected; 
+        }
+
+        /// <summary>
         /// Handles drawing of the token
         /// </summary>
         /// <param name="batch">The SpriteBatch to draw with</param>

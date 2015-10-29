@@ -255,14 +255,6 @@ namespace OutsideTheBox {
         }
 
         /// <summary>
-        /// Removes a token from the level
-        /// </summary>
-        /// <param name="t">The token to remove</param>
-        public void removeToken(Token t) {
-            tokens.Remove(t);
-        }
-
-        /// <summary>
         /// Derives the player, all objects, and NPCs by the specified x amount
         /// </summary>
         /// <param name="x">The x amount to be derived by</param>
