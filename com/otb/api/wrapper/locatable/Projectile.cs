@@ -10,7 +10,7 @@ namespace OutsideTheBox {
     public class Projectile {
 
         private readonly Entity owner;
-        private readonly Texture2D texture;
+        public Texture2D texture;
         private readonly Vector2 origin;
 
         private Vector2 location;
@@ -147,13 +147,13 @@ namespace OutsideTheBox {
             location.Y += y;
             bounds.Y += y;
         }
-
-        /// <summary>
-        /// Returns whether or not the projectile is currently on the screen
-        /// </summary>
-        /// <param name="game">The game instance to check viewport bounds from</param>
-        /// <returns>Returns true if the projectile is currently on screen; otherwise, false</returns>
-        public bool isOnScreen(Game1 game) {
+        
+    /// <summary>
+    /// Returns whether or not the projectile is currently on the screen
+    /// </summary>
+    /// <param name="game">The game instance to check viewport bounds from</param>
+    /// <returns>Returns true if the projectile is currently on screen; otherwise, false</returns>
+    public bool isOnScreen(Game1 game) {
             return location.X >= -texture.Width && location.X <= game.getWidth() && location.Y >= -texture.Height && location.Y <= game.getHeight();
         }
 

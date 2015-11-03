@@ -197,7 +197,12 @@ namespace OutsideTheBox {
             startMenu = Content.Load<Texture2D>("menus/StartMenu");
 
             Texture2D playur = Content.Load<Texture2D>("sprites/entities/player/Standing1");
-            Texture2D bullet = Content.Load<Texture2D>("sprites/projectiles/Bullet");
+            Texture2D bullet = Content.Load<Texture2D>("sprites/projectiles/BulletOrb");
+            Texture2D fireOrb = Content.Load<Texture2D>("sprites/projectiles/FireOrb");
+            Texture2D iceOrb = Content.Load<Texture2D>("sprites/projectiles/IceOrb");
+            Texture2D confusionOrb = Content.Load<Texture2D>("sprites/projectiles/ConfusionOrb");
+            Texture2D lightningOrb= Content.Load<Texture2D>("sprites/projectiles/LightningOrb");
+            Texture2D paralysisOrb = Content.Load<Texture2D>("sprites/projectiles/ParalysisOrb");
             Texture2D health = Content.Load<Texture2D>("ui/HealthBarTexture");
             Texture2D back = Content.Load<Texture2D>("ui/BackBarTexture");
             Texture2D mana = Content.Load<Texture2D>("ui/ManaBarTexture");
