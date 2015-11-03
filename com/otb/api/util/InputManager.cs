@@ -366,14 +366,7 @@ namespace OutsideTheBox {
                     ticks++;
                 }
             }
-            if (lastKeyState.IsKeyDown(Keys.Z) && currentKeyState.IsKeyUp(Keys.Z))
-            {
-                if (player.getProjectile().getTexture().Name == "bullet")
-                {
-                    
-                }
-            }
-                if (lastKeyState.IsKeyDown(Keys.X) && currentKeyState.IsKeyUp(Keys.X))
+            if (lastKeyState.IsKeyDown(Keys.X) && currentKeyState.IsKeyUp(Keys.X))
             {
                 level.setMode(1);
                 screenManager.setActiveScreen(2);
