@@ -10,7 +10,7 @@ namespace OutsideTheBox {
     public class Projectile {
 
         private readonly Entity owner;
-        public Texture2D texture;
+        private readonly Texture2D texture;
         private readonly Vector2 origin;
 
         private Vector2 location;
