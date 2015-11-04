@@ -122,7 +122,7 @@ namespace OutsideTheBox {
         /// <summary>
         /// Returns the projectile's sound
         /// </summary>
-        /// <returns>Returns the projectile's soudn</returns>
+        /// <returns>Returns the projectile's sound effect</returns>
         public SoundEffect getSound()
         {
             return sound;
@@ -176,11 +176,11 @@ namespace OutsideTheBox {
         /// </summary>
         private void rotate() {
             if (direction == Direction.North) {
-                rotation = MathHelper.ToRadians(-90f);
+                rotation = MathHelper.ToRadians(-90F);
             } else if (direction == Direction.South) {
-                rotation = MathHelper.ToRadians(90f);
+                rotation = MathHelper.ToRadians(90F);
             } else if (direction == Direction.West) {
-                rotation = MathHelper.ToRadians(-180f);
+                rotation = MathHelper.ToRadians(-180F);
             }
         }
 
@@ -205,10 +205,6 @@ namespace OutsideTheBox {
             }
             rotation += rotationSpeed;
             active = isOnScreen(game);
-
-            if (isOnScreen(game) == true){
-                sound.Play();
-            }
         }
 
         /// <summary>
@@ -217,7 +213,6 @@ namespace OutsideTheBox {
         /// <param name="batch">The SpriteBatch to draw with</param>
         public void draw(SpriteBatch batch) {
             batch.Draw(texture, Vector2.Add(location, origin), null, Color.White, rotation, origin, 1F, SpriteEffects.None, 0F);
-            sound.Play();
         }
     }
 }

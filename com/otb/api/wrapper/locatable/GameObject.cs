@@ -197,7 +197,7 @@ namespace OutsideTheBox {
         /// <returns>Returns a projectile with a new memory address for the game object</returns>
         public Projectile createProjectile(double lastFired) {
             this.lastFired = lastFired;
-            return new Projectile(projectile.getOwner(), projectile.getTexture(), projectile.getVelocity(), projectile.getCooldown(), projectile.getRotationSpeed());
+            return new Projectile(projectile.getOwner(), projectile.getTexture(), projectile.getVelocity(), projectile.getCooldown(), projectile.getRotationSpeed(), projectile.getSound());
         }
 
         /// <summary>

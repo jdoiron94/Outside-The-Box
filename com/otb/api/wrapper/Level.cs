@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 
 using System;
@@ -305,6 +306,10 @@ namespace OutsideTheBox {
         /// <param name="projectile">The projectile to add to the projectile list</param>
         public void addProjectile(Projectile projectile) {
             projectiles.Add(projectile);
+            SoundEffect effect = player.getProjectile().getSound();
+            if (effect != null) {
+                effect.Play();
+            }
         }
 
         /// <summary>
