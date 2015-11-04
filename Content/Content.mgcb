@@ -30,3 +30,10 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:audio/Sound Effects/boltSound.wav
+
+#begin audio/Sound Effects/172206__fins__teleport.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:audio/Sound Effects/172206__fins__teleport.wav
+
