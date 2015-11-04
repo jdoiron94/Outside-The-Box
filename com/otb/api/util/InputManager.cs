@@ -266,7 +266,7 @@ namespace OutsideTheBox {
                     if (dash.isCooldown() && !dash.isActivated())
                     {
                         dash.activatePower(true);
-                        playerManager.depleteMana(dash.getManaCost());
+                        playerManager.depleteMana(dash.getManaCost());                     
                     }
                 }
             }

@@ -19,12 +19,6 @@
 /processorParam:Quality=Best
 /build:Factory.mp3
 
-#begin font1.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:TextureFormat=Compressed
-/build:font1.spritefont
-
 #begin audio/Sound Effects/boltSound.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -36,4 +30,10 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:audio/Sound Effects/172206__fins__teleport.wav
+
+#begin font1.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:TextureFormat=Compressed
+/build:font1.spritefont
 

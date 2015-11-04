@@ -10,16 +10,18 @@ namespace OutsideTheBox {
     public class ThoughtBubble : GameObject {
 
         private readonly Npc npc;
-
+        private SpriteFont font;
         private bool revealed;
         private bool key;
 
-        public ThoughtBubble(Texture2D texture, Vector2 Location, Npc npc, bool revealed, bool key) :
+
+        public ThoughtBubble(Texture2D texture, SpriteFont font, Vector2 Location, Npc npc, bool revealed, bool key) :
             base(texture, Location) {
             this.npc = npc;
             setThoughtLocation(npc.getLocation());
             revealed = false;
             key = false;
+            this.font = font;
         }
 
         /// <summary>
@@ -27,7 +29,7 @@ namespace OutsideTheBox {
         /// </summary>
         /// <param name="location">The location to set</param>
         public void setThoughtLocation(Vector2 location) {
-            setLocation(new Vector2(location.X + 25F, location.Y - 20F));
+            setLocation(new Vector2(location.X + 25F, location.Y - 80F));
         }
 
         /// <summary>
@@ -74,6 +76,8 @@ namespace OutsideTheBox {
         public void draw(SpriteBatch batch) {
             if (revealed) {
                 batch.Draw(getTexture(), getLocation(), Color.White);
+                batch.DrawString(font, "ayylmao", getLocation(), Color.Black);
+
             }
         }
     }
