@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
+using System;
 using System.Collections.Generic;
 
 namespace OutsideTheBox {
@@ -26,7 +28,7 @@ namespace OutsideTheBox {
 
         private const byte MAX_HEALTH = 0x64;
 
-        public PlayerManager(Player player, int health, int mana, int totalExp, int currentExp, DisplayBar healthBar, DisplayBar manaBar) {
+        public PlayerManager(Player player, ContentManager cm, int health, int mana, int totalExp, int currentExp, DisplayBar healthBar, DisplayBar manaBar) {
             this.player = player;
             this.health = health;
             this.mana = mana;
@@ -37,11 +39,13 @@ namespace OutsideTheBox {
             healthCooldown = 0;
             manaCooldown = 0;
             totalMana = 100;
-            powers = new List<BasePower> { new SlowTime(true, false), new Dash(true, false), new Confuse(true, false) /*, new Mindread(true, false, inputManager)*/};
+            Dash dash = new Dash(true, false);
+            dash.setSoundEffect(cm.Load<SoundEffect>("audio/Sound Effects/dashSound"));
+            powers = new List<BasePower> { new SlowTime(true, false), dash, new Confuse(true, false) /*, new Mindread(true, false, inputManager)*/};
         }
 
-        public PlayerManager(Player player, DisplayBar healthBar, DisplayBar manaBar) :
-            this(player, 100, 100, 0, 0, healthBar, manaBar) {
+        public PlayerManager(Player player, ContentManager cm, DisplayBar healthBar, DisplayBar manaBar) :
+            this(player, cm, 100, 100, 0, 0, healthBar, manaBar) {
         }
 
         /// <summary>
@@ -255,8 +259,6 @@ namespace OutsideTheBox {
         public void incrementExperience(int bonus) {
             totalExp += bonus;
             currentExp += bonus;
-            double percentageValue = (double) bonus / totalExp;
-            levelMana(percentageValue);
         }
 
         /// <summary>

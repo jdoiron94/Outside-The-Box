@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 
 namespace OutsideTheBox.com.otb.api.wrapper.ability
 {
@@ -19,7 +20,8 @@ namespace OutsideTheBox.com.otb.api.wrapper.ability
         private int drainRate;
         private int drainCooldown;
 
-        private InputManager inputManager; 
+        private InputManager inputManager;
+        private SoundEffect effect;
 
         public Telekinesis(bool unlocked, bool activated, InputManager inputManager)
         {
@@ -98,6 +100,22 @@ namespace OutsideTheBox.com.otb.api.wrapper.ability
         public void updateDrainCooldown()
         {
             throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Sets the ability's sound effect
+        /// </summary>
+        /// <param name="effect">The effect to set</param>
+        public void setSoundEffect(SoundEffect effect) {
+            this.effect = effect;
+        }
+
+        /// <summary>
+        /// Returns the ability's sound effect
+        /// </summary>
+        /// <returns>Returns the ability's sound effect</returns>
+        public SoundEffect getSoundEffect() {
+            return effect;
         }
     }
 }

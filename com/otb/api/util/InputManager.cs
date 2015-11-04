@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Input;
 using System;
 
@@ -203,6 +204,7 @@ namespace OutsideTheBox {
                 Token t = (Token)gCollision;
                 t.setCollected(true);
                 playerManager.incrementExperience(t.getExp());
+                playerManager.setTotalMana(t.getManaInc());
                 gCollision = null;
             }
             else if (gCollision != null && gCollision is Door)
@@ -266,7 +268,15 @@ namespace OutsideTheBox {
                     if (dash.isCooldown() && !dash.isActivated())
                     {
                         dash.activatePower(true);
+<<<<<<< HEAD
                         playerManager.depleteMana(dash.getManaCost());                     
+=======
+                        SoundEffect effect = dash.getSoundEffect();
+                        if (effect != null) {
+                            effect.Play();
+                        }
+                        playerManager.depleteMana(dash.getManaCost());
+>>>>>>> origin/master
                     }
                 }
             }

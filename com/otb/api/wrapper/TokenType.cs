@@ -1,4 +1,5 @@
-﻿namespace OutsideTheBox {
+﻿
+namespace OutsideTheBox {
 
     /// <summary>
     /// Enum which maintains different types of tokens
