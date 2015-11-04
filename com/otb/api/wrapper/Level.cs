@@ -306,7 +306,7 @@ namespace OutsideTheBox {
         /// <param name="projectile">The projectile to add to the projectile list</param>
         public void addProjectile(Projectile projectile) {
             projectiles.Add(projectile);
-            SoundEffect effect = player.getProjectile().getSound();
+            SoundEffect effect = projectile.getSound();
             if (effect != null) {
                 effect.Play();
             }
