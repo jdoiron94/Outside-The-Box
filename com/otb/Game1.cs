@@ -32,6 +32,7 @@ namespace OutsideTheBox {
 
         private Song factorySong;
         private SoundEffect effect;
+        public SoundEffect boltSound;
 
         private int midX;
         private int midY;
@@ -194,6 +195,12 @@ namespace OutsideTheBox {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             width = 800;
             height = 480;
+
+            factorySong = Content.Load<Song>("audio/songs/Factory");
+            MediaPlayer.IsRepeating = true;
+            MediaPlayer.Play(factorySong);
+
+            boltSound = Content.Load<SoundEffect>("audio/Sound Effects/boltSound");
             startMenu = Content.Load<Texture2D>("menus/StartMenu");
 
             Texture2D playur = Content.Load<Texture2D>("sprites/entities/player/Standing1");
@@ -209,7 +216,7 @@ namespace OutsideTheBox {
             midX = (graphics.PreferredBackBufferWidth - playur.Width) / 2;
             midY = (graphics.PreferredBackBufferHeight - playur.Height) / 2;
             player = new Player(playur, Vector2.Zero, Direction.South, 100, 50, 0, 3);
-            player.setProjectile(new Projectile(player, bullet, 5, 250));
+            player.setProjectile(new Projectile(player, bullet, 5, 250, boltSound));
             playerManager = new PlayerManager(player, new DisplayBar(health, new Vector2(20F, 20F), Color.Red, back), new DisplayBar(mana, new Vector2(20F, 50F), Color.Blue, back));
             player.loadTextures(Content);
 
@@ -218,12 +225,12 @@ namespace OutsideTheBox {
             Npc npc = new Npc(this, male1, new Vector2(midX + 148F, midY + 135F), Direction.East, new NpcDefinition("Normie", new string[0], new int[0]), 150, 0x5);
             Npc npc2 = new Npc(this, male1, new Vector2(midX + 350F, midY + 100F), Direction.East, new NpcDefinition("Normie2", new string[0], new int[0]), 150, 0x5);
             Npc npc3 = new Npc(this, male2, new Vector2(midX + 240F, midY + 123F), Direction.North, new NpcDefinition("Normie3", new string[0], new int[0]), 150, 0x5);
-            npc2.setProjectile(new Projectile(npc2, bullet, 10, 500));
-            npc3.setProjectile(new Projectile(npc3, bullet, 10, 500));
+            npc2.setProjectile(new Projectile(npc2, bullet, 10, 500, boltSound));
+            npc3.setProjectile(new Projectile(npc3, bullet, 10, 500, boltSound));
             Npc npc4 = new Npc(this, male2, new Vector2(50F, 50F), Direction.West, new NpcDefinition("Normie4", new string[0], new int[0]), 150, 0x5);
             Npc npc5 = new Npc(this, male2, new Vector2(150F, 130F), Direction.South, new NpcDefinition("Normie5", new string[0], new int[0]), 150, 0x5);
             Npc npc6 = new Npc(this, male2, new Vector2(400F, 200F), Direction.South, new NpcDefinition("Normie6", new string[0], new int[0]), 150, 0x5);
-            npc6.setProjectile(new Projectile(npc6, bullet, 10, 500));
+            npc6.setProjectile(new Projectile(npc6, bullet, 10, 500, boltSound));
 
             Texture2D box = Content.Load<Texture2D>("sprites/objects/CardboardBox");
             GameObject obj = new GameObject(box, new Vector2(midX + 20F, midY + 65F), true);
@@ -285,10 +292,6 @@ namespace OutsideTheBox {
 
             Texture2D targ = Content.Load<Texture2D>("sprites/cursors/TargetingCursor");
             target = new Target(targ);
-
-            factorySong = Content.Load<Song>("audio/songs/Factory");
-            MediaPlayer.IsRepeating = true;
-            MediaPlayer.Play(factorySong);
 
             Screen[] screens = { new Screen("Menu"), new Screen("Normal", true), new Screen("Telekinesis-Select"), new Screen("Telekinesis-Move"), new Screen("Start") };
             inputManager = new InputManager(this, player, level, pauseMenu, target, playerManager, screens, new MindRead(bubble));

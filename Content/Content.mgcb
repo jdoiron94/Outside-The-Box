@@ -25,3 +25,9 @@
 /processorParam:TextureFormat=Compressed
 /build:font1.spritefont
 
+#begin audio/Sound Effects/boltSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:audio/Sound Effects/boltSound.wav
+

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace OutsideTheBox {
@@ -24,12 +25,15 @@ namespace OutsideTheBox {
         private float rotation;
         private bool active;
 
-        public Projectile(Entity owner, Texture2D texture, int velocity, int cooldown, float rotationSpeed) {
+        private SoundEffect sound;
+
+        public Projectile(Entity owner, Texture2D texture, int velocity, int cooldown, float rotationSpeed, SoundEffect sound) {
             this.owner = owner;
             this.texture = texture;
             this.velocity = velocity;
             this.cooldown = cooldown;
             this.rotationSpeed = rotationSpeed;
+            this.sound = sound;
             origin = new Vector2(texture.Width / 2F, texture.Height / 2F);
             location = new Vector2(owner.getLocation().X + (owner.getTexture().Width - texture.Width) / 2F, owner.getLocation().Y + (owner.getTexture().Height - texture.Height) / 2F);
             direction = Direction.None;
@@ -38,8 +42,8 @@ namespace OutsideTheBox {
             active = true;
         }
 
-        public Projectile(Entity owner, Texture2D texture, int velocity, int cooldown) :
-            this(owner, texture, velocity, cooldown, 0f) {
+        public Projectile(Entity owner, Texture2D texture, int velocity, int cooldown, SoundEffect sound) :
+            this(owner, texture, velocity, cooldown, 0f, sound) {
         }
 
         /// <summary>
@@ -112,6 +116,16 @@ namespace OutsideTheBox {
         /// <returns>Returns the projectile's current rotation</returns>
         public float getRotation() {
             return rotation;
+        }
+
+
+        /// <summary>
+        /// Returns the projectile's sound
+        /// </summary>
+        /// <returns>Returns the projectile's soudn</returns>
+        public SoundEffect getSound()
+        {
+            return sound;
         }
 
         /// <summary>
@@ -191,6 +205,10 @@ namespace OutsideTheBox {
             }
             rotation += rotationSpeed;
             active = isOnScreen(game);
+
+            if (isOnScreen(game) == true){
+                sound.Play();
+            }
         }
 
         /// <summary>
@@ -199,6 +217,7 @@ namespace OutsideTheBox {
         /// <param name="batch">The SpriteBatch to draw with</param>
         public void draw(SpriteBatch batch) {
             batch.Draw(texture, Vector2.Add(location, origin), null, Color.White, rotation, origin, 1F, SpriteEffects.None, 0F);
+            sound.Play();
         }
     }
 }
