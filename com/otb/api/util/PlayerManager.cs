@@ -259,8 +259,6 @@ namespace OutsideTheBox {
         public void incrementExperience(int bonus) {
             totalExp += bonus;
             currentExp += bonus;
-            double percentageValue = (double) bonus / totalExp;
-            levelMana(percentageValue);
         }
 
         /// <summary>

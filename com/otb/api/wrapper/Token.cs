@@ -10,6 +10,7 @@ namespace OutsideTheBox {
     public class Token : GameObject {
 
         private int exp;
+        private int manaInc; 
         private bool collected;
 
         private readonly TokenType type;
@@ -19,6 +20,7 @@ namespace OutsideTheBox {
             base(texture, location) {
             this.type = type;
             this.side = side;
+            manaInc = getManaIncrementationValue(); 
             exp = (int) type;
             collected = false;
         }
@@ -29,6 +31,35 @@ namespace OutsideTheBox {
         /// <returns>Returns the amount of exp granted by the token</returns>
         public int getExp() {
             return exp;
+        }
+
+        public int getManaIncrementationValue()
+        {
+            if(type == TokenType.Bronze)
+            {
+                return 2; 
+            }else if(type == TokenType.Silver)
+            {
+                return 5; 
+            }else if(type == TokenType.Gold)
+            {
+                return 10; 
+            }else if(type == TokenType.Emerald)
+            {
+                return 15; 
+            }else if(type == TokenType.Ruby)
+            {
+                return 20; 
+            }else if(type == TokenType.Diamond)
+            {
+                return 50; 
+            }
+            return 0; 
+        }
+
+        public int getManaInc()
+        {
+            return manaInc;
         }
 
         /// <summary>
