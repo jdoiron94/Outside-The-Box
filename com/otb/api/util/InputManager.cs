@@ -154,7 +154,6 @@ namespace OutsideTheBox {
                 game.Exit();
             }
             if (playerManager.getHealth() <= 0) {
-                Console.WriteLine("reset game");
                 deathManager.resetGame();
             }
             if (collisionManager.playerSpotted(level)) {
@@ -172,21 +171,17 @@ namespace OutsideTheBox {
                 }
             } else if (active.getName() == "Normal") {
                 updateNormal(time);
-
             } else if (active.getName() == "Telekinesis-Select") {
                 updateSelect(time);
-
             } else if (active.getName() == "Telekinesis-Move") {
                 updateTelekinesisMove(time);
-
             } else if (active.getName() == "Menu") {
                 updateMenu(time);
-
             }
         }
 
 
-        void updateNormal(GameTime time)
+        private void updateNormal(GameTime time)
         {
             if (playerManager.getHealthCooldown() == 35)
             {
@@ -268,15 +263,12 @@ namespace OutsideTheBox {
                     if (dash.isCooldown() && !dash.isActivated())
                     {
                         dash.activatePower(true);
-<<<<<<< HEAD
-                        playerManager.depleteMana(dash.getManaCost());                     
-=======
+                        playerManager.depleteMana(dash.getManaCost());     
                         SoundEffect effect = dash.getSoundEffect();
                         if (effect != null) {
                             effect.Play();
                         }
                         playerManager.depleteMana(dash.getManaCost());
->>>>>>> origin/master
                     }
                 }
             }
@@ -401,7 +393,7 @@ namespace OutsideTheBox {
             }
         }
 
-        void updateSelect(GameTime time)
+        private void updateSelect(GameTime time)
         {
             lastState = state;
             state = Mouse.GetState().LeftButton;
@@ -429,7 +421,7 @@ namespace OutsideTheBox {
             }
         }
 
-        void updateTelekinesisMove(GameTime time)
+        private void updateTelekinesisMove(GameTime time)
         {
             playerManager.updateManaDrainRate();
             if (playerManager.getManaDrainRate() == 5)
@@ -561,7 +553,7 @@ namespace OutsideTheBox {
             }
         }
 
-        void updateMenu(GameTime time)
+        private void updateMenu(GameTime time)
         {
             lastState = state;
             state = Mouse.GetState().LeftButton;
@@ -576,6 +568,5 @@ namespace OutsideTheBox {
                 level.setActive(true);
             }
         }
-
     }
 }

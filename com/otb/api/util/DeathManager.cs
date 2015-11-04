@@ -11,7 +11,6 @@ namespace OutsideTheBox {
     public class DeathManager {
 
         private InputManager inputManager;
-        private Vector2 location;
 
         private int totalExp;
         private int currentExp;
@@ -27,7 +26,6 @@ namespace OutsideTheBox {
 
         public DeathManager(InputManager inputManager) {
             this.inputManager = inputManager;
-            location = inputManager.getPlayer().getLocation();
             totalExp = inputManager.getPlayerManager().getTotalExperience();
             currentExp = inputManager.getPlayerManager().getCurrentExperience();
             health = inputManager.getPlayerManager().getHealth();
@@ -83,7 +81,7 @@ namespace OutsideTheBox {
         /// Handles resetting the player
         /// </summary>
         public void resetPlayer() {
-            inputManager.getPlayer().setLocation(location);
+            inputManager.getPlayer().setLocation(inputManager.getLevel().getPlayerOrigin());
             inputManager.getPlayerManager().setTotalExp(totalExp);
             inputManager.getPlayerManager().setCurrentExp(currentExp);
             inputManager.getPlayerManager().setHealth(health);

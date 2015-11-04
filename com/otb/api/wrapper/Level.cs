@@ -20,6 +20,7 @@ namespace OutsideTheBox {
         private Player player;
         private Texture2D map;
 
+        private Vector2 playerOrigin;
         private GameObject selectedObject;
         private InputManager inputManager;
         private CollisionManager collisionManager;
@@ -33,12 +34,11 @@ namespace OutsideTheBox {
         private List<Token> tokens;
         private List<Door> doors;
         private List<Wall> walls;
+        private List<Projectile> projectiles;
         private List<PressButton> pressButtons;
 
         private bool debug;
         private int index;
-
-        private List<Projectile> projectiles;
 
         public Level(Game1 game, Player player, Texture2D map, Npc[] npcs, GameObject[] objects, DisplayBar[] displayBars, Token[] tokens, Door[] doors, Wall[] walls, ThoughtBubble[] thoughts, PressButton[] pressButtons, int index) {
             this.game = game;
@@ -291,6 +291,22 @@ namespace OutsideTheBox {
             this.inputManager = inputManager;
             collisionManager = inputManager.getCollisionManager();
             playerManager = inputManager.getPlayerManager();
+        }
+
+        /// <summary>
+        /// Returns the level's player origin
+        /// </summary>
+        /// <returns>Returns the level's player origin</returns>
+        public Vector2 getPlayerOrigin() {
+            return playerOrigin;
+        }
+
+        /// <summary>
+        /// Sets the level's player origin
+        /// </summary>
+        /// <param name="origin">The origin to set</param>
+        public void setPlayerOrigin(Vector2 origin) {
+            playerOrigin = origin;
         }
 
         /// <summary>

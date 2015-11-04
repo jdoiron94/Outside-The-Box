@@ -271,6 +271,8 @@ namespace OutsideTheBox {
             Texture2D bubble = Content.Load<Texture2D>("sprites/thoughts/PassBubble1");
             Level level1 = new Level(this, player, l1, new Npc[] { npc, npc2, npc5 }, new GameObject[] { obj2, obj }, new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() }, new Token[] { token1, token2, token3 }, new Door[] { door1 }, new Wall[0], new ThoughtBubble[0], new PressButton[] { }, 1);
             Level level2 = new Level(this, player, l2, new Npc[] { npc3, npc4, npc6 }, new GameObject[0], new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() }, new Token[] { token4 }, new Door[] { door2 }, new Wall[] { wall1, wall2, wall3, wall4, wall5, wall6 }, new ThoughtBubble[] { new ThoughtBubble(bubble, font, Vector2.Zero, npc3, false, false) }, new PressButton[] { }, 2);
+            level1.setPlayerOrigin(new Vector2(0F, 0F));
+            level2.setPlayerOrigin(new Vector2(40F, 391F));
             levels = new List<Level>();
             levels.Add(level1);
             levels.Add(level2);
