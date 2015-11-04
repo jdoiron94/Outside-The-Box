@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Input;
 using System;
 
@@ -266,6 +267,10 @@ namespace OutsideTheBox {
                     if (dash.isCooldown() && !dash.isActivated())
                     {
                         dash.activatePower(true);
+                        SoundEffect effect = dash.getSoundEffect();
+                        if (effect != null) {
+                            effect.Play();
+                        }
                         playerManager.depleteMana(dash.getManaCost());
                     }
                 }

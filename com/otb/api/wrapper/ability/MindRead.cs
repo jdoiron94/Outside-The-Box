@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace OutsideTheBox {
@@ -20,6 +21,7 @@ namespace OutsideTheBox {
         
         private Texture2D menuTexture;
         private InputManager inputManager;
+        private SoundEffect effect;
 
         public MindRead(bool unlocked, bool activated, Texture2D menuTexture, InputManager inputManager)
         {
@@ -155,6 +157,22 @@ namespace OutsideTheBox {
             if (duration < 100) {
                 duration++;
             }
+        }
+
+        /// <summary>
+        /// Sets the ability's sound effect
+        /// </summary>
+        /// <param name="effect">The effect to set</param>
+        public void setSoundEffect(SoundEffect effect) {
+            this.effect = effect;
+        }
+
+        /// <summary>
+        /// Returns the ability's sound effect
+        /// </summary>
+        /// <returns>Returns the ability's sound effect</returns>
+        public SoundEffect getSoundEffect() {
+            return effect;
         }
     }
 }

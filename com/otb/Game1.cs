@@ -217,7 +217,7 @@ namespace OutsideTheBox {
             midY = (graphics.PreferredBackBufferHeight - playur.Height) / 2;
             player = new Player(playur, Vector2.Zero, Direction.South, 100, 50, 0, 3);
             player.setProjectile(new Projectile(player, bullet, 5, 250, boltSound));
-            playerManager = new PlayerManager(player, new DisplayBar(health, new Vector2(20F, 20F), Color.Red, back), new DisplayBar(mana, new Vector2(20F, 50F), Color.Blue, back));
+            playerManager = new PlayerManager(player, Content, new DisplayBar(health, new Vector2(20F, 20F), Color.Red, back), new DisplayBar(mana, new Vector2(20F, 50F), Color.Blue, back));
             player.loadTextures(Content);
 
             Texture2D male1 = Content.Load<Texture2D>("sprites/entities/npcs/NormieMaleStand1");

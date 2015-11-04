@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 
 namespace OutsideTheBox {
 
@@ -16,6 +17,8 @@ namespace OutsideTheBox {
         private int expCost;
         private int totalCooldown;
         private int duration;
+
+        private SoundEffect effect;
 
         public SlowTime(bool unlocked, bool activated) {
             this.unlocked = unlocked;
@@ -161,6 +164,22 @@ namespace OutsideTheBox {
             if (duration < 200) {
                 duration++;
             }
+        }
+
+        /// <summary>
+        /// Sets the ability's sound effect
+        /// </summary>
+        /// <param name="effect">The effect to set</param>
+        public void setSoundEffect(SoundEffect effect) {
+            this.effect = effect;
+        }
+
+        /// <summary>
+        /// Returns the ability's sound effect
+        /// </summary>
+        /// <returns>Returns the ability's sound effect</returns>
+        public SoundEffect getSoundEffect() {
+            return effect;
         }
     }
 }

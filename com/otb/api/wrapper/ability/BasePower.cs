@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 
 namespace OutsideTheBox {
 
@@ -17,5 +18,6 @@ namespace OutsideTheBox {
         bool isActivated();
         bool isUnlocked();
         void behavior(GameTime gameTime);
+        SoundEffect getSoundEffect();
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 
 namespace OutsideTheBox {
     
@@ -17,6 +18,8 @@ namespace OutsideTheBox {
         private int totalCooldown;
         private int duration;
 
+        private SoundEffect effect;
+
         public Dash(bool unlocked, bool activated) {
             this.unlocked = unlocked;
             this.activated = activated;
@@ -25,7 +28,7 @@ namespace OutsideTheBox {
             totalCooldown = 20;
             duration = 15;
             ID = 4;
-            slotID = 4; 
+            slotID = 4;
         }
 
         /// <summary>
@@ -169,6 +172,22 @@ namespace OutsideTheBox {
             if (duration < 15) {
                 duration++;
             }
+        }
+
+        /// <summary>
+        /// Sets the ability's sound effect
+        /// </summary>
+        /// <param name="effect">The effect to set</param>
+        public void setSoundEffect(SoundEffect effect) {
+            this.effect = effect;
+        }
+
+        /// <summary>
+        /// Returns the ability's sound effect
+        /// </summary>
+        /// <returns>Returns the ability's sound effect</returns>
+        public SoundEffect getSoundEffect() {
+            return effect;
         }
     }
 }
