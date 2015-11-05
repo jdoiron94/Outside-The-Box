@@ -31,9 +31,9 @@
 /processorParam:Quality=Best
 /build:audio/Sound Effects/172206__fins__teleport.wav
 
-#begin font1.spritefont
+#begin fonts/font1.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
 /processorParam:TextureFormat=Compressed
-/build:font1.spritefont
+/build:fonts/font1.spritefont
 

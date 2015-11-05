@@ -29,7 +29,7 @@ namespace OutsideTheBox {
         /// </summary>
         /// <param name="location">The location to set</param>
         public void setThoughtLocation(Vector2 location) {
-            setLocation(new Vector2(location.X + 25F, location.Y - 80F));
+            setLocation(new Vector2(location.X + 40F, location.Y - 100F));
         }
 
         /// <summary>
