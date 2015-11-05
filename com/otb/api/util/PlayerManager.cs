@@ -217,9 +217,9 @@ namespace OutsideTheBox {
         /// <param name="mana">The amount of mana to deplete</param>
         public void depleteMana(int damage) {
             mana = Math.Max(0, mana - damage);
-            int w_mod = (int) (200D * damage) / totalMana;
-            int width = manaBar.getWidth();
-            manaBar.setWidth(Math.Max(0, (width) - w_mod));
+            //int w_mod = (int) (200D * damage) / totalMana;
+            //int width = manaBar.getWidth();
+            manaBar.setWidth(mana);
         }
 
         /// <summary>
@@ -228,7 +228,7 @@ namespace OutsideTheBox {
         public void regenerateMana() {
             int regeneration = (int) (totalMana * .01);
             mana = Math.Min(totalMana, mana + regeneration);
-            manaBar.setWidth(Math.Min(200, (manaBar.getWidth() + ((int) (regeneration * (200D / totalMana))))));
+            manaBar.setWidth(mana);
         }
 
         /// <summary>
@@ -249,9 +249,9 @@ namespace OutsideTheBox {
         /// Levels up the player's mana
         /// </summary>
         /// <param name="percentageValue">The percent to up mana by</param>
-        public void levelMana(double percentageValue) {
-            int newValue = totalMana + (int) (totalMana * percentageValue);
-            setTotalMana(newValue);
+        public void levelMana(int value) {
+            totalMana += value;
+            manaBar.increaseSize(totalMana);
         }
 
         /// <summary>

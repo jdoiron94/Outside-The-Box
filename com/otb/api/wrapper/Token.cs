@@ -10,17 +10,16 @@ namespace OutsideTheBox {
     public class Token : GameObject {
 
         private int exp;
-        private int manaInc; 
         private bool collected;
 
         private readonly TokenType type;
         private readonly Texture2D side;
 
         public Token(Texture2D texture, Texture2D side, Vector2 location, TokenType type) :
-            base(texture, location) {
+            base(texture, location)
+        {
             this.type = type;
-            this.side = side;
-            manaInc = getManaIncrementationValue(); 
+            this.side = side; 
             exp = (int) type;
             collected = false;
         }
@@ -55,11 +54,6 @@ namespace OutsideTheBox {
                 return 50; 
             }
             return 0; 
-        }
-
-        public int getManaInc()
-        {
-            return manaInc;
         }
 
         /// <summary>
