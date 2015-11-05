@@ -1,8 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Graphics;
-
-namespace OutsideTheBox {
+﻿namespace OutsideTheBox {
 
     /// <summary>
     /// Class which represents the mind reading ability
@@ -10,169 +6,49 @@ namespace OutsideTheBox {
 
     public class MindRead : BasePower {
 
-        private int ID;
-        private int slotID;
-        private bool unlocked;
-        private bool activated;
-        private int manaCost;
-        private int expCost;
-        private int totalCooldown;
-        private int duration;
-        
-        private Texture2D menuTexture;
-        private InputManager inputManager;
-        private SoundEffect effect;
-
-        public MindRead(bool unlocked, bool activated, Texture2D menuTexture, InputManager inputManager)
-        {
-            this.unlocked = unlocked;
-            this.activated = activated;
-            this.menuTexture = menuTexture;
-            this.inputManager = inputManager;
-            manaCost = 20;
-            expCost = 1000;
-            totalCooldown = 200;
-            duration = 100;
-            ID = 2;
-            slotID = 1; 
-        }
-
-        public MindRead(Texture2D menuTexture) {
-            this.menuTexture = menuTexture;
-            manaCost = 20;
-            expCost = 1000;
-            unlocked = true;
-            activated = true;
-            totalCooldown = 200;
-            duration = 100;
+        public MindRead(int id, int slotId, int manaCost, int expCost, int cooldown, int duration, bool unlocked, bool activated) :
+            base(id, slotId, manaCost, expCost, cooldown, duration, unlocked, activated) {
         }
 
         /// <summary>
-        /// Returns ID for the ability
+        /// Returns whether or not the power's cooldown timer has been met
         /// </summary>
-        /// <returns>Returns the ID</returns>
-        public int getID()
-        {
-            return ID;
+        /// <returns>Returns true if the power's cooldown has been met; otherwise, false</returns>
+        public override bool isCooldownMet() {
+            return cooldown == 200;
         }
 
         /// <summary>
-        /// Returns the slotID for the ability
+        /// Handles how the power updates its cooldown
         /// </summary>
-        /// <returns>Returns the slotID</returns>
-        public int getSlotID()
-        {
-            return slotID;
-        }
-
-        /// <summary>
-        /// Returns the mana cost for the ability
-        /// </summary>
-        /// <returns>Returns the mana cost</returns>
-        public int getManaCost() {
-            return manaCost;
-        }
-
-        /// <summary>
-        /// Returns the exp cost for the ability
-        /// </summary>
-        /// <returns>Returns the exp cost</returns>
-        public int getExpCost() {
-            return expCost;
-        }
-
-        /// <summary>
-        /// Returns whether or not the ability has cooled down
-        /// </summary>
-        /// <returns>Returns true if the ability has met its cooldown; otherwise, false</returns>
-        public bool isCooldown() {
-            return totalCooldown == 200;
-        }
-
-        /// <summary>
-        /// Handles unlocking of the power
-        /// </summary>
-        /// <param name="unlock">Whether or not to unlock the ability</param>
-        public void unlockPower(bool unlock) {
-            unlocked = unlock;
-        }
-
-        /// <summary>
-        /// Handles activating the ability
-        /// </summary>
-        /// <param name="activate">Whether or not to activate the ability</param>
-        public void activatePower(bool activate) {
-            activated = activate;
-            if (activate) {
-                duration = 0;
-            } else {
-                totalCooldown = 0;
+        public override void updateCooldown() {
+            if (cooldown < 200) {
+                cooldown++;
             }
         }
 
         /// <summary>
-        /// Returns whether or not the ability is activated
+        /// Handles how the power updates its duration
         /// </summary>
-        /// <returns>Returns true if the ability is activated; otherwise, false</returns>
-        public bool isActivated() {
-            return activated;
-        }
-
-        /// <summary>
-        /// Returns whether or not the ability is unlocked
-        /// </summary>
-        /// <returns>Returns true if the ability is unlocked; otherwise, false</returns>
-        public bool isUnlocked() {
-            return unlocked;
-        }
-
-        /// <summary>
-        /// Handles the ability's behavior
-        /// </summary>
-        /// <param name="gametime">The GameTime to respect</param>
-        public void behavior(GameTime gametime) {
-            if (activated) {
-                if (duration < 100) {
-                    updateDuration();
-                } else {
-                    activatePower(false);
-                }
-            }
-            updateCooldown();
-        }
-
-        /// <summary>
-        /// Handles updating of the cooldown
-        /// </summary>
-        public void updateCooldown() {
-            if (totalCooldown < 200) {
-                totalCooldown++;
-            }
-        }
-
-        /// <summary>
-        /// Handles updating of the duration
-        /// </summary>
-        public void updateDuration() {
+        public override void updateDuration() {
             if (duration < 100) {
                 duration++;
             }
         }
 
         /// <summary>
-        /// Sets the ability's sound effect
+        /// Handles how the power operates
         /// </summary>
-        /// <param name="effect">The effect to set</param>
-        public void setSoundEffect(SoundEffect effect) {
-            this.effect = effect;
-        }
-
-        /// <summary>
-        /// Returns the ability's sound effect
-        /// </summary>
-        /// <returns>Returns the ability's sound effect</returns>
-        public SoundEffect getSoundEffect() {
-            return effect;
+        /// <param name="level">The level the power is activating on</param>
+        public override void activate(Level level) {
+            if (activated) {
+                if (duration < 100) {
+                    updateDuration();
+                } else {
+                    setActivated(false);
+                }
+            }
+            updateCooldown();
         }
     }
 }

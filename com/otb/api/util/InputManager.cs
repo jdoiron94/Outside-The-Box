@@ -235,57 +235,35 @@ namespace OutsideTheBox {
             }
             if (lastKeyState.IsKeyDown(Keys.H) && currentKeyState.IsKeyUp(Keys.H))
             {
-                if (mindRead.isCooldown())
-                {
-                    mindRead.activatePower(true);
+                if (mindRead.validate()) {
                     playerManager.depleteMana(mindRead.getManaCost());
                 }
             }
-            mindRead.behavior(time);
+            mindRead.activate(level);
             SlowTime slowmo = (SlowTime)playerManager.getPowers()[0];
             if (lastKeyState.IsKeyDown(Keys.L) && currentKeyState.IsKeyUp(Keys.L))
             {
-                if (slowmo.isUnlocked() && !slowmo.isActivated())
-                {
-                    if (slowmo.isCooldown())
-                    {
-                        slowmo.activatePower(true);
-                        playerManager.depleteMana(slowmo.getManaCost());
-                    }
+                if (slowmo.validate()) {
+                    playerManager.depleteMana(slowmo.getManaCost());
                 }
             }
-            slowmo.doStuff(level);
+            slowmo.activate(level);
             Dash dash = (Dash)playerManager.getPowers()[1];
             if (lastKeyState.IsKeyDown(Keys.K) && currentKeyState.IsKeyUp(Keys.K))
             {
-                if (dash.isUnlocked())
-                {
-                    if (dash.isCooldown() && !dash.isActivated())
-                    {
-                        dash.activatePower(true);
-                        playerManager.depleteMana(dash.getManaCost());     
-                        SoundEffect effect = dash.getSoundEffect();
-                        if (effect != null) {
-                            effect.Play();
-                        }
-                        playerManager.depleteMana(dash.getManaCost());
-                    }
+                if (dash.validate()) {
+                    playerManager.depleteMana(dash.getManaCost());
                 }
             }
-            dash.doStuff(level);
+            dash.activate(level);
             Confuse confuse = (Confuse)playerManager.getPowers()[2];
             if (lastKeyState.IsKeyDown(Keys.C) && currentKeyState.IsKeyUp(Keys.C))
             {
-                if (confuse.isUnlocked())
-                {
-                    if (confuse.isCooldown() && !confuse.isActivated())
-                    {
-                        confuse.activatePower(true);
-                        playerManager.depleteMana(confuse.getManaCost());
-                    }
+                if (confuse.validate()) {
+                    playerManager.depleteMana(confuse.getManaCost());
                 }
             }
-            confuse.doStuff(level);
+            confuse.activate(level);
             if (currentKeyState.IsKeyDown(Keys.W))
             {
                 player.setDirection(Direction.North);

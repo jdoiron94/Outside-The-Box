@@ -1,15 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Input;
 
 namespace OutsideTheBox.com.otb.api.wrapper.ability
 {
-    public class Telekinesis : BasePower, DrainPower
+    public class Telekinesis : BasePower
     {
-        private int ID;
+        /*private int ID;
         private int slotID;
         private bool unlocked;
         private bool activated;
@@ -40,9 +39,13 @@ namespace OutsideTheBox.com.otb.api.wrapper.ability
 
             drainRate = 0;
             drainCooldown = 0; 
+        }*/
+
+        public Telekinesis(int id, int slotId, int manaCost, int expCost, int cooldown, int duration, bool unlocked, bool activated) :
+            base(id, slotId, manaCost, expCost, cooldown, duration, unlocked, activated) {
         }
 
-        public int getID()
+        /*public int getID()
         {
             return ID;
         }
@@ -116,6 +119,6 @@ namespace OutsideTheBox.com.otb.api.wrapper.ability
         /// <returns>Returns the ability's sound effect</returns>
         public SoundEffect getSoundEffect() {
             return effect;
-        }
+        }*/
     }
 }

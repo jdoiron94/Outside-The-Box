@@ -301,7 +301,8 @@ namespace OutsideTheBox {
             target = new Target(targ);
 
             Screen[] screens = { new Screen("Menu"), new Screen("Normal", true), new Screen("Telekinesis-Select"), new Screen("Telekinesis-Move"), new Screen("Start") };
-            inputManager = new InputManager(this, player, level, pauseMenu, target, playerManager, screens, new MindRead(bubble));
+            MindRead read = new MindRead(2, 1, 20, 1000, 200, 100, true, false);
+            inputManager = new InputManager(this, player, level, pauseMenu, target, playerManager, screens, read);
             level.setInputManager(inputManager);
             pauseMenu.setInputManager(inputManager);
             inputManager.setDeathManager(new DeathManager(inputManager));
