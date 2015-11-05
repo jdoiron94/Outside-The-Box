@@ -251,7 +251,11 @@ namespace OutsideTheBox {
         /// </summary>
         /// <param name="percentageValue">The percent to up mana by</param>
         public void levelMana(int value) {
+<<<<<<< HEAD
             totalMana = Math.Min(MAX_MANA, (totalMana + value));
+=======
+            totalMana += value;
+>>>>>>> origin/master
             manaBar.increaseSize(totalMana);
         }
 
