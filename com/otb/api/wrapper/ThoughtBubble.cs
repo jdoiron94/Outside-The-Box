@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace OutsideTheBox {
 
@@ -13,6 +14,7 @@ namespace OutsideTheBox {
         private SpriteFont font;
         private bool revealed;
         private bool key;
+        private string thought;
 
 
         public ThoughtBubble(Texture2D texture, SpriteFont font, Vector2 Location, Npc npc, bool revealed, bool key) :
@@ -70,13 +72,48 @@ namespace OutsideTheBox {
         }
 
         /// <summary>
+        /// Sets the random number for the thought
+        /// </summary>
+        public void setRand()
+        {
+            Random rand = new Random();
+            setThought(rand.Next(4));
+        }
+
+        /// <summary>
+        /// Sets the thought bubble's speak
+        /// </summary>
+        public string setThought(int caseSwitch)
+        {
+            switch (caseSwitch)
+            {
+                case 1:
+                    return thought = "Poopy"; 
+                    break;
+                case 2:
+                    return thought = "Ayylmao";
+                    break;
+                case 3:
+                    return thought = "I just want to pew pew :C";
+                    break;
+                case 4:
+                    return thought = "lemme tell you real quick about poop";
+                    break;
+                default:
+                    return thought = "I am a guard that's me yes";
+                    break;
+            }
+        }
+
+        /// <summary>
         /// Handles drawing of the thought bubble
         /// </summary>
         /// <param name="batch">The SpriteBatch to draw with</param>
         public void draw(SpriteBatch batch) {
+            setRand();
             if (revealed) {
                 batch.Draw(getTexture(), getLocation(), Color.White);
-                batch.DrawString(font, "ayylmao", getLocation(), Color.Black);
+                batch.DrawString(font, thought, getLocation(), Color.Black);
 
             }
         }
