@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
+using OutsideTheBox.com.otb.api.wrapper;
 using System;
 using System.Collections.Generic;
 
@@ -14,6 +15,7 @@ namespace OutsideTheBox {
         private readonly Player player;
         private readonly DisplayBar healthBar;
         private readonly DisplayBar manaBar;
+        private KeyBox keyBox; 
         private List<BasePower> powers;
 
         private int health;
@@ -29,7 +31,7 @@ namespace OutsideTheBox {
         private const byte MAX_HEALTH = 0x64;
         private const int MAX_MANA = 500; 
 
-        public PlayerManager(Player player, ContentManager cm, int health, int mana, int totalExp, int currentExp, DisplayBar healthBar, DisplayBar manaBar) {
+        public PlayerManager(Player player, ContentManager cm, int health, int mana, int totalExp, int currentExp, DisplayBar healthBar, DisplayBar manaBar, KeyBox keyBox) {
             this.player = player;
             this.health = health;
             this.mana = mana;
@@ -37,6 +39,7 @@ namespace OutsideTheBox {
             this.currentExp = currentExp;
             this.healthBar = healthBar;
             this.manaBar = manaBar;
+            this.keyBox = keyBox; 
             healthCooldown = 0;
             manaCooldown = 0;
             totalMana = 100;
@@ -47,8 +50,8 @@ namespace OutsideTheBox {
             powers = new List<BasePower> { slow, dash, confuse /*, new Mindread(true, false, inputManager)*/};
         }
 
-        public PlayerManager(Player player, ContentManager cm, DisplayBar healthBar, DisplayBar manaBar) :
-            this(player, cm, 100, 100, 0, 0, healthBar, manaBar) {
+        public PlayerManager(Player player, ContentManager cm, DisplayBar healthBar, DisplayBar manaBar, KeyBox keyBox) :
+            this(player, cm, 100, 100, 0, 0, healthBar, manaBar, keyBox) {
         }
 
         /// <summary>
@@ -113,6 +116,11 @@ namespace OutsideTheBox {
         /// <returns>Returns the player's mana bar</returns>
         public DisplayBar getManaBar() {
             return manaBar;
+        }
+
+        public KeyBox getKeyBox()
+        {
+            return keyBox; 
         }
 
         /// <summary>

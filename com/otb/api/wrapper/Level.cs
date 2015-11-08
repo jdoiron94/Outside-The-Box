@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
-
+using OutsideTheBox.com.otb.api.wrapper;
 using System;
 using System.Collections.Generic;
 
@@ -36,6 +36,7 @@ namespace OutsideTheBox {
         private List<Wall> walls;
         private List<Projectile> projectiles;
         private List<PressButton> pressButtons;
+        private KeyBox keyBox; 
 
         private bool debug;
         private int index;
@@ -403,16 +404,21 @@ namespace OutsideTheBox {
             }
         }
 
+        public void unlockDoors()
+        {
+            foreach(Door d in doors)
+            {
+                d.unlockDoor(true);
+            }
+        }
+
         /// <summary>
         /// Draws the level's map, player, NPCs, and objects currently on screen
         /// </summary>
         /// <param name="batch">The SpriteBatch to perform the drawing</param>
         public void draw(SpriteBatch batch) {
-            if (index == 1) {
-                batch.Draw(map, Vector2.Zero, Color.White);
-            } else if (index == 2) {
-                batch.Draw(map, Vector2.Zero, Color.White);
-            }
+
+            batch.Draw(map, Vector2.Zero, Color.White);
             foreach (Projectile p in projectiles) {
                 p.draw(batch);
                 if (debug) {
@@ -449,6 +455,7 @@ namespace OutsideTheBox {
                     game.outline(batch, t.getBounds());
                 }
             }
+            playerManager.getKeyBox().draw(batch);
             foreach (Door d in doors) {
                 batch.Draw(d.getTexture(), d.getBounds(), Color.White);
                 if (debug) {

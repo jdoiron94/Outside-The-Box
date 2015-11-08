@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-
+using OutsideTheBox.com.otb.api.wrapper;
 using System.Collections.Generic;
 
 namespace OutsideTheBox {
@@ -218,11 +218,16 @@ namespace OutsideTheBox {
             Texture2D health = Content.Load<Texture2D>("ui/HealthBarTexture");
             Texture2D back = Content.Load<Texture2D>("ui/BackBarTexture");
             Texture2D mana = Content.Load<Texture2D>("ui/ManaBarTexture");
+            Texture2D normBox = Content.Load<Texture2D>("sprites/objects/KeyOutline");
+            Texture2D nullBox = Content.Load<Texture2D>("sprites/objects/KeyOutlineNull");
+            Texture2D key = Content.Load<Texture2D>("sprites/objects/KeyFrame1");
+
             midX = (graphics.PreferredBackBufferWidth - playur.Width) / 2;
             midY = (graphics.PreferredBackBufferHeight - playur.Height) / 2;
             player = new Player(playur, Vector2.Zero, Direction.South, 100, 50, 0, 3);
             player.setProjectile(new Projectile(player, bullet, 5, 250, boltSound));
-            playerManager = new PlayerManager(player, Content, new DisplayBar(health, new Vector2(20F, 20F), Color.Red, back), new DisplayBar(mana, new Vector2(20F, 50F), Color.Blue, back, 100));
+            KeyBox keyBox = new KeyBox(new Texture2D[] { normBox, nullBox, key }, new Vector2 (750F, 20F));
+            playerManager = new PlayerManager(player, Content, new DisplayBar(health, new Vector2(20F, 20F), Color.Red, back), new DisplayBar(mana, new Vector2(20F, 50F), Color.Blue, back, 100), keyBox);
             player.loadTextures(Content);
 
             Texture2D male1 = Content.Load<Texture2D>("sprites/entities/npcs/NormieMaleStand1");
@@ -235,21 +240,34 @@ namespace OutsideTheBox {
             Npc npc4 = new Npc(this, male2, new Vector2(50F, 50F), Direction.West, new NpcDefinition("Normie4", new string[0], new int[0]), 150, 0x5);
             Npc npc5 = new Npc(this, male2, new Vector2(150F, 130F), Direction.South, new NpcDefinition("Normie5", new string[0], new int[0]), 150, 0x5);
             Npc npc6 = new Npc(this, male2, new Vector2(400F, 200F), Direction.South, new NpcDefinition("Normie6", new string[0], new int[0]), 150, 0x5);
+
+            Npc npc7 = new Npc(this, male2, new Vector2(50F, 150F), Direction.South, new NpcDefinition("Normie7", new string[0], new int[0]), 150, 0x5);
+            Npc npc8 = new Npc(this, male2, new Vector2(200F, 150F), Direction.South, new NpcDefinition("Normie7", new string[0], new int[0]), 150, 0x5);
+            Npc npc9 = new Npc(this, male2, new Vector2(350F, 150F), Direction.South, new NpcDefinition("Normie7", new string[0], new int[0]), 150, 0x5);
+            Npc npc10 = new Npc(this, male2, new Vector2(500F, 150F), Direction.South, new NpcDefinition("Normie7", new string[0], new int[0]), 150, 0x5);
+
             npc6.setProjectile(new Projectile(npc6, bullet, 10, 500, boltSound));
+            npc7.setProjectile(new Projectile(npc7, bullet, 10, 500, boltSound));
+            npc8.setProjectile(new Projectile(npc8, bullet, 10, 500, boltSound));
+            npc9.setProjectile(new Projectile(npc9, bullet, 10, 500, boltSound));
+            npc10.setProjectile(new Projectile(npc10, bullet, 10, 500, boltSound));
 
             Texture2D box = Content.Load<Texture2D>("sprites/objects/CardboardBox");
             GameObject obj = new GameObject(box, new Vector2(midX + 20F, midY + 65F), true);
             GameObject obj2 = new GameObject(box, new Vector2(midX + 20F, midY + 205F), true);
 
             Texture2D door = Content.Load<Texture2D>("sprites/objects/DoorTexture");
-            Door door1 = new Door(door, null, new Vector2(width - 10F, height - 89F), Direction.East, false, true, 10, 64);
-            Door door2 = new Door(door, null, new Vector2(0F, height - 89F), Direction.West, false, false, 10, 64);
+            Door door1 = new Door(door, null, new Vector2(width - 10F, height - 89F), Direction.East, false, true, 10, 64, true);
+            Door door2 = new Door(door, null, new Vector2(0F, height - 89F), Direction.West, false, false, 10, 64, true);
+            Door door3 = new Door(door, null, new Vector2(width - 10F, height - 89F), Direction.East, false, true, 10, 64, false);
+            Door door4 = new Door(door, null, new Vector2(0F, height - 89F), Direction.West, false, false, 10, 64, true);
 
             Texture2D pressButton = Content.Load<Texture2D>("sprites/objects/PressButton");
 
             Texture2D bronze = Content.Load<Texture2D>("sprites/objects/BronzeBar");
             Texture2D silver = Content.Load<Texture2D>("sprites/objects/SilverBar");
             Texture2D gold = Content.Load<Texture2D>("sprites/objects/GoldBar");
+            Texture2D diamond = Content.Load<Texture2D>("sprites/objects/Diamond");
             Texture2D side1 = Content.Load<Texture2D>("sprites/objects/BronzeCoinSide");
             Texture2D side2 = Content.Load<Texture2D>("sprites/objects/SilverCoinSide");
             Texture2D side3 = Content.Load<Texture2D>("sprites/objects/GoldCoinSide");
@@ -257,6 +275,7 @@ namespace OutsideTheBox {
             Token token2 = new Token(silver, side2, new Vector2(midX + 230F, midY + 225F), TokenType.Silver);
             Token token3 = new Token(gold, side3, new Vector2(200F, 200F), TokenType.Gold);
             Token token4 = new Token(gold, side3, new Vector2(200F, 200F), TokenType.Gold);
+            Token token5 = new Token(diamond, side3, new Vector2(200F, 200F), TokenType.Diamond);
 
             Texture2D wall = Content.Load<Texture2D>("sprites/objects/WallTexture");
             Wall wall1 = new Wall(wall, null, new Vector2(120F, 250F), Direction.East, false, false, 120, 20);
@@ -268,14 +287,17 @@ namespace OutsideTheBox {
 
             Texture2D l1 = Content.Load<Texture2D>("sprites/levels/Level1");
             Texture2D l2 = Content.Load<Texture2D>("sprites/levels/Level1Map");
+            Texture2D l3 = Content.Load<Texture2D>("sprites/levels/StorageRoom");
             Texture2D bubble = Content.Load<Texture2D>("sprites/thoughts/PassBubble1");
             Level level1 = new Level(this, player, l1, new Npc[] { npc, npc2, npc5 }, new GameObject[] { obj2, obj }, new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() }, new Token[] { token1, token2, token3 }, new Door[] { door1 }, new Wall[0], new ThoughtBubble[0], new PressButton[] { }, 1);
-            Level level2 = new Level(this, player, l2, new Npc[] { npc3, npc4, npc6 }, new GameObject[0], new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() }, new Token[] { token4 }, new Door[] { door2 }, new Wall[] { wall1, wall2, wall3, wall4, wall5, wall6 }, new ThoughtBubble[] { new ThoughtBubble(bubble, font, Vector2.Zero, npc3, false, false) }, new PressButton[] { }, 2);
+            Level level2 = new Level(this, player, l2, new Npc[] { npc3, npc4, npc6 }, new GameObject[0], new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() }, new Token[] { token4 }, new Door[] { door2, door3 }, new Wall[] { wall1, wall2, wall3, wall4, wall5, wall6 }, new ThoughtBubble[] { new ThoughtBubble(bubble, font, Vector2.Zero, npc3, false, false) }, new PressButton[] { }, 2);
+            Level level3 = new Level(this, player, l3, new Npc[] { npc7, npc8, npc9, npc10 }, new GameObject[0], new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() }, new Token[] { token5 }, new Door[] { door4 }, new Wall[] { }, new ThoughtBubble[] { }, new PressButton[] { }, 3);
             level1.setPlayerOrigin(new Vector2(0F, 0F));
             level2.setPlayerOrigin(new Vector2(40F, 391F));
             levels = new List<Level>();
             levels.Add(level1);
             levels.Add(level2);
+            levels.Add(level3);
             level = levels[0];
             levelIndex = 0;
 
@@ -303,6 +325,7 @@ namespace OutsideTheBox {
             Screen[] screens = { new Screen("Menu"), new Screen("Normal", true), new Screen("Telekinesis-Select"), new Screen("Telekinesis-Move"), new Screen("Start") };
             MindRead read = new MindRead(2, 1, 20, 1000, 200, 100, true, false);
             inputManager = new InputManager(this, player, level, pauseMenu, target, playerManager, screens, read);
+            keyBox.update(inputManager);
             level.setInputManager(inputManager);
             pauseMenu.setInputManager(inputManager);
             inputManager.setDeathManager(new DeathManager(inputManager));
@@ -315,6 +338,8 @@ namespace OutsideTheBox {
             npc3.setPath(new AIPath(npc3, this, new int[] { midX - 100, midY - 100, midX + 100, midY + 150 }, new int[0], new Direction[] { Direction.West, Direction.North, Direction.East, Direction.South }));
             npc4.setPath(new AIPath(npc4, this, new int[] { 200, 60 }, new int[0], new Direction[] { Direction.East, Direction.West }));
             npc5.setPath(new AIPath(npc5, this, new int[] { 200, 150 }, new int[0], new Direction[] { Direction.East, Direction.West }));
+
+            npc7.setPath(new AIPath(npc7, this, new int[] { 50, 50, 50 }, new int[0], new Direction[] { Direction.North, Direction.East, Direction.West }));
         }
 
         /// <summary>

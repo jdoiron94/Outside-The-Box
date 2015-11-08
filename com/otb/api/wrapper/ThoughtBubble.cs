@@ -24,6 +24,7 @@ namespace OutsideTheBox {
             revealed = false;
             key = false;
             this.font = font;
+            setRand();
         }
 
         /// <summary>
@@ -80,6 +81,11 @@ namespace OutsideTheBox {
             setThought(rand.Next(4));
         }
 
+        public void updateThought()
+        {
+            setRand(); 
+        }
+
         /// <summary>
         /// Sets the thought bubble's speak
         /// </summary>
@@ -88,20 +94,20 @@ namespace OutsideTheBox {
             switch (caseSwitch)
             {
                 case 1:
-                    return thought = "Poopy"; 
-                    break;
+                    key = true; 
+                    return thought = "H7&64"; 
                 case 2:
-                    return thought = "Ayylmao";
-                    break;
+                    key = false; 
+                    return thought = "The only good psychic is\na marginalized, improverished, and\noppressed psychic";
                 case 3:
-                    return thought = "I just want to pew pew :C";
-                    break;
+                    key = false; 
+                    return thought = "I'm an armed guard";
                 case 4:
-                    return thought = "lemme tell you real quick about poop";
-                    break;
+                    key = false; 
+                    return thought = "They will not get in my mind.\nNo sir";
                 default:
-                    return thought = "I am a guard that's me yes";
-                    break;
+                    key = false; 
+                    return thought = "I do not hear Steve's thoughts\nI DO NOT!";
             }
         }
 
@@ -110,10 +116,12 @@ namespace OutsideTheBox {
         /// </summary>
         /// <param name="batch">The SpriteBatch to draw with</param>
         public void draw(SpriteBatch batch) {
-            setRand();
+            Vector2 fontLocation = getLocation();
+            fontLocation.X = fontLocation.X + 50;
+            fontLocation.Y = fontLocation.Y + 25; 
             if (revealed) {
                 batch.Draw(getTexture(), getLocation(), Color.White);
-                batch.DrawString(font, thought, getLocation(), Color.Black);
+                batch.DrawString(font, thought, fontLocation, Color.Black);
 
             }
         }

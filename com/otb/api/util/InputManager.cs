@@ -192,6 +192,12 @@ namespace OutsideTheBox {
             {
                 tb.reveal(mindRead.isActivated());
                 tb.updateLocation();
+                if (tb.isRevealed() && tb.isKey())
+                {
+                    playerManager.getKeyBox().setUnlocked(true);
+                    level.unlockDoors();
+                }
+
             }
             GameObject gCollision = collisionManager.getObjectCollision(player);
             if (gCollision != null && gCollision is Token)
@@ -205,38 +211,48 @@ namespace OutsideTheBox {
             else if (gCollision != null && gCollision is Door)
             {
                 Door d = (Door)gCollision;
-                int index = (game.getLevelIndex()) + (d.getNext() ? 1 : -1);
-                level.setActive(false);
-                game.setLevel(index);
-                level = game.getLevel(index);
-                deathManager = new DeathManager(this);
-                setDeathManager(deathManager);
-                collisionManager.getLevel().setActive(false);
-                level.setActive(true);
-                level.setInputManager(this);
-                collisionManager.setLevel(level);
-                game.setLevel(level);
-                if (d.getDirection() == Direction.East)
+                if(d.isUnlocked())
                 {
-                    player.setLocation(new Vector2(40F, d.getLocation().Y));
+                    int index = (game.getLevelIndex()) + (d.getNext() ? 1 : -1);
+                    level.setActive(false);
+                    game.setLevel(index);
+                    level = game.getLevel(index);
+                    deathManager = new DeathManager(this);
+                    setDeathManager(deathManager);
+                    collisionManager.getLevel().setActive(false);
+                    level.setActive(true);
+                    level.setInputManager(this);
+                    collisionManager.setLevel(level);
+                    game.setLevel(level);
+
+                    if (d.getDirection() == Direction.East)
+                    {
+                        player.setLocation(new Vector2(40F, d.getLocation().Y));
+                    }
+                    else if (d.getDirection() == Direction.West)
+                    {
+                        player.setLocation(new Vector2(696F, d.getLocation().Y));
+                    }
+                    else if (d.getDirection() == Direction.North)
+                    {
+                        player.setLocation(new Vector2(d.getLocation().X, 376F)); // untested
+                    }
+                    else
+                    {
+                        player.setLocation(new Vector2(d.getLocation().X, 104F)); // untested
+                    }
+                    playerManager.getKeyBox().update(this); 
                 }
-                else if (d.getDirection() == Direction.West)
-                {
-                    player.setLocation(new Vector2(696F, d.getLocation().Y));
-                }
-                else if (d.getDirection() == Direction.North)
-                {
-                    player.setLocation(new Vector2(d.getLocation().X, 376F)); // untested
-                }
-                else
-                {
-                    player.setLocation(new Vector2(d.getLocation().X, 104F)); // untested
-                }
+               
             }
             if (lastKeyState.IsKeyDown(Keys.H) && currentKeyState.IsKeyUp(Keys.H))
             {
                 if (mindRead.validate()) {
                     playerManager.depleteMana(mindRead.getManaCost());
+                    foreach(ThoughtBubble th in level.getThoughts())
+                    {
+                        th.updateThought(); 
+                    }
                 }
             }
             mindRead.activate(level);
