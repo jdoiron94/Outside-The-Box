@@ -56,6 +56,7 @@
     <Compile Include="com\otb\api\wrapper\ability\Telekinesis.cs" />
     <Compile Include="com\otb\api\wrapper\AIPath.cs" />
     <Compile Include="com\otb\api\wrapper\ability\BasePower.cs" />
+    <Compile Include="com\otb\api\wrapper\KeyBox.cs" />
     <Compile Include="com\otb\api\wrapper\locatable\PressButton.cs" />
     <Compile Include="com\otb\ui\Button.cs" />
     <Compile Include="com\otb\api\wrapper\ability\Confuse.cs" />
@@ -140,6 +141,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\sprites\objects\KeyFrame4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\sprites\objects\KeyOutline.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\sprites\objects\KeyOutlineNull.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\sprites\objects\PottedPlant.png">
