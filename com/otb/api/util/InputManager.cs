@@ -249,6 +249,10 @@ namespace OutsideTheBox {
             {
                 if (mindRead.validate()) {
                     playerManager.depleteMana(mindRead.getManaCost());
+                    foreach(ThoughtBubble th in level.getThoughts())
+                    {
+                        th.updateThought(); 
+                    }
                 }
             }
             mindRead.activate(level);

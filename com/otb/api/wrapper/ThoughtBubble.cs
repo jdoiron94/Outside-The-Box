@@ -24,6 +24,7 @@ namespace OutsideTheBox {
             revealed = false;
             key = false;
             this.font = font;
+            setRand();
         }
 
         /// <summary>
@@ -80,6 +81,11 @@ namespace OutsideTheBox {
             setThought(rand.Next(4));
         }
 
+        public void updateThought()
+        {
+            setRand(); 
+        }
+
         /// <summary>
         /// Sets the thought bubble's speak
         /// </summary>
@@ -89,19 +95,14 @@ namespace OutsideTheBox {
             {
                 case 1:
                     return thought = "Poopy"; 
-                    break;
                 case 2:
                     return thought = "Ayylmao";
-                    break;
                 case 3:
                     return thought = "I just want to pew pew :C";
-                    break;
                 case 4:
                     return thought = "lemme tell you real quick about poop";
-                    break;
                 default:
                     return thought = "I am a guard that's me yes";
-                    break;
             }
         }
 
@@ -110,10 +111,12 @@ namespace OutsideTheBox {
         /// </summary>
         /// <param name="batch">The SpriteBatch to draw with</param>
         public void draw(SpriteBatch batch) {
-            setRand();
+            Vector2 fontLocation = getLocation();
+            fontLocation.X = fontLocation.X + 75;
+            fontLocation.Y = fontLocation.Y + 50; 
             if (revealed) {
                 batch.Draw(getTexture(), getLocation(), Color.White);
-                batch.DrawString(font, thought, getLocation(), Color.Black);
+                batch.DrawString(font, thought, fontLocation, Color.Black);
 
             }
         }
