@@ -94,6 +94,7 @@ namespace OutsideTheBox {
             switch (caseSwitch)
             {
                 case 1:
+<<<<<<< HEAD
                     key = true; 
                     return thought = "H7&64"; 
                 case 2:
@@ -108,6 +109,17 @@ namespace OutsideTheBox {
                 default:
                     key = false; 
                     return thought = "I do not hear Steve's thoughts\nI DO NOT!";
+=======
+                    return thought = "Poopy"; 
+                case 2:
+                    return thought = "Ayylmao";
+                case 3:
+                    return thought = "I just want to pew pew :C";
+                case 4:
+                    return thought = "lemme tell you real quick about poop";
+                default:
+                    return thought = "I am a guard that's me yes";
+>>>>>>> origin/master
             }
         }
 
@@ -117,8 +129,13 @@ namespace OutsideTheBox {
         /// <param name="batch">The SpriteBatch to draw with</param>
         public void draw(SpriteBatch batch) {
             Vector2 fontLocation = getLocation();
+<<<<<<< HEAD
             fontLocation.X = fontLocation.X + 50;
             fontLocation.Y = fontLocation.Y + 25; 
+=======
+            fontLocation.X = fontLocation.X + 75;
+            fontLocation.Y = fontLocation.Y + 50; 
+>>>>>>> origin/master
             if (revealed) {
                 batch.Draw(getTexture(), getLocation(), Color.White);
                 batch.DrawString(font, thought, fontLocation, Color.Black);

@@ -192,7 +192,11 @@ namespace OutsideTheBox {
             {
                 tb.reveal(mindRead.isActivated());
                 tb.updateLocation();
+<<<<<<< HEAD
                 if (tb.isRevealed() && tb.isKey())
+=======
+                if (tb.isRevealed())
+>>>>>>> origin/master
                 {
                     playerManager.getKeyBox().setUnlocked(true);
                     level.unlockDoors();
