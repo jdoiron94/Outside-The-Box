@@ -3,7 +3,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace OutsideTheBox.com.otb.api.wrapper.ability
 {
@@ -42,8 +41,8 @@ namespace OutsideTheBox.com.otb.api.wrapper.ability
             drainCooldown = 0; 
         }*/
 
-        public Telekinesis(int id, int slotId, int manaCost, int expCost, int cooldown, int duration, bool unlocked, bool activated, Texture2D barIcon) :
-            base(id, slotId, manaCost, expCost, cooldown, duration, unlocked, activated, barIcon) {
+        public Telekinesis(int id, int slotId, int manaCost, int expCost, int cooldown, int duration, bool unlocked, bool activated) :
+            base(id, slotId, manaCost, expCost, cooldown, duration, unlocked, activated) {
         }
 
         /*public int getID()

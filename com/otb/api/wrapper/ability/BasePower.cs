@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 namespace OutsideTheBox {
@@ -21,9 +20,8 @@ namespace OutsideTheBox {
         
         private SoundEffect effect;
         private Projectile projectile;
-        private Texture2D barIcon;
 
-        public BasePower(int id, int slotId, int manaCost, int expCost, int cooldown, int duration, bool unlocked, bool activated, Texture2D barIcon) {
+        public BasePower(int id, int slotId, int manaCost, int expCost, int cooldown, int duration, bool unlocked, bool activated) {
             this.id = id;
             this.slotId = slotId;
             this.manaCost = manaCost;
