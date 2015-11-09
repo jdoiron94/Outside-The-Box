@@ -450,7 +450,7 @@ namespace OutsideTheBox {
                 db.draw(batch);
             }
             foreach (Token t in tokens) {
-                t.draw(batch);
+                t.draw(batch, mode);
                 if (debug && !t.isCollected()) {
                     game.outline(batch, t.getBounds());
                 }
