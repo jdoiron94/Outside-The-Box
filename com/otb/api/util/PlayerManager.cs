@@ -15,7 +15,7 @@ namespace OutsideTheBox {
         private readonly Player player;
         private readonly DisplayBar healthBar;
         private readonly DisplayBar manaBar;
-        private readonly PowerBar powerbar;
+
         private KeyBox keyBox; 
         private List<BasePower> powers;
 
