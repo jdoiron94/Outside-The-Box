@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using OutsideTheBox.com.otb.api.wrapper;
+using OutsideTheBox.com.otb.api.wrapper.locatable;
 using System;
 using System.Collections.Generic;
 
@@ -36,12 +37,12 @@ namespace OutsideTheBox {
         private List<Wall> walls;
         private List<Projectile> projectiles;
         private List<PressButton> pressButtons;
-        private KeyBox keyBox; 
+        private List<Key> Keys; 
 
         private bool debug;
         private int index;
 
-        public Level(Game1 game, Player player, Texture2D map, Npc[] npcs, GameObject[] objects, DisplayBar[] displayBars, Token[] tokens, Door[] doors, Wall[] walls, ThoughtBubble[] thoughts, PressButton[] pressButtons, int index) {
+        public Level(Game1 game, Player player, Texture2D map, Npc[] npcs, GameObject[] objects, DisplayBar[] displayBars, Token[] tokens, Door[] doors, Wall[] walls, ThoughtBubble[] thoughts, PressButton[] pressButtons, Key[] Keys, int index) {
             this.game = game;
             this.player = player;
             this.map = map;
@@ -61,6 +62,8 @@ namespace OutsideTheBox {
             this.walls.AddRange(walls);
             this.thoughts = new List<ThoughtBubble>(thoughts.Length);
             this.thoughts.AddRange(thoughts);
+            this.Keys = new List<Key>(Keys.Length);
+            this.Keys.AddRange(Keys);
             active = true;
             selectedObject = null;
             debug = false;
@@ -108,12 +111,27 @@ namespace OutsideTheBox {
             return thoughts;
         }
 
+        
+        public List<GameObject> getObjectsAndKeys() {
+            List<GameObject> newList = new List<GameObject>(); 
+            foreach(GameObject g in objects)
+            {
+                newList.Add(g);
+            }
+            foreach(Key k in Keys)
+            {
+                newList.Add(k);
+            }
+            return newList;
+        }
+
         /// <summary>
         /// Returns all of the level's game objects
         /// </summary>
         /// <returns>Returns a list of all of the game objects in the level</returns>
-        public List<GameObject> getObjects() {
-            return objects;
+        public List<GameObject> getObjects()
+        {
+            return objects;     
         }
 
         /// <summary>
@@ -145,6 +163,15 @@ namespace OutsideTheBox {
         /// <returns>Returns the door list</returns>
         public List<Door> getDoors() {
             return doors;
+        }
+
+        /// <summary>
+        /// Returns the level's door list
+        /// </summary>
+        /// <returns>Returns the door list</returns>
+        public List<Key> getKeys()
+        {
+            return Keys;
         }
 
         /// <summary>
@@ -245,6 +272,17 @@ namespace OutsideTheBox {
         public void resetTokens() {
             foreach (Token t in tokens) {
                 t.setCollected(false);
+            }
+        }
+
+        /// <summary>
+        /// Resets the level's tokens
+        /// </summary>
+        public void resetKeys()
+        {
+            foreach (Key k in Keys)
+            {
+                k.setCollected(false);
             }
         }
 
@@ -470,6 +508,15 @@ namespace OutsideTheBox {
             }
             foreach (ThoughtBubble tb in thoughts) {
                 tb.draw(batch);
+            }
+
+            foreach (Key k in Keys)
+            {
+                k.draw(batch);
+                if (debug && !k.isCollected())
+                {
+                    game.outline(batch, k.getBounds());
+                }
             }
         }
     }

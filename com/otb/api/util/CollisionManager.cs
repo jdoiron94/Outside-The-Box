@@ -1,4 +1,6 @@
-﻿namespace OutsideTheBox {
+﻿using OutsideTheBox.com.otb.api.wrapper.locatable;
+
+namespace OutsideTheBox {
 
     /// <summary>
     /// Collision class which deals with interactions of objects, entities, and projectiles.
@@ -88,6 +90,13 @@
                     return d;
                 }
             }
+            foreach (Key k in level.getKeys())
+            {
+                if (k!=o && o.getDestinationBounds().Intersects(k.getBounds()) && !k.isCollected())
+                {
+                    return k;
+                }
+            }
             return null;
         }
 
@@ -130,6 +139,14 @@
                 foreach (Token t in level.getTokens()) {
                     if (e.getDestinationBounds().Intersects(t.getBounds()) && !t.isCollected()) {
                         return t;
+                    }
+                }
+
+                foreach (Key k in level.getKeys())
+                {
+                    if (e.getDestinationBounds().Intersects(k.getBounds()) && !k.isCollected())
+                    {
+                        return k;
                     }
                 }
             }
