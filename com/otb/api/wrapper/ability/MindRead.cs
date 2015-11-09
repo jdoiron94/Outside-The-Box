@@ -1,4 +1,6 @@
-﻿namespace OutsideTheBox {
+﻿using Microsoft.Xna.Framework.Graphics;
+
+namespace OutsideTheBox {
 
     /// <summary>
     /// Class which represents the mind reading ability
@@ -6,8 +8,8 @@
 
     public class MindRead : BasePower {
 
-        public MindRead(int id, int slotId, int manaCost, int expCost, int cooldown, int duration, bool unlocked, bool activated) :
-            base(id, slotId, manaCost, expCost, cooldown, duration, unlocked, activated) {
+        public MindRead(int id, int slotId, int manaCost, int expCost, int cooldown, int duration, bool unlocked, bool activated, Texture2D barIcon) :
+            base(id, slotId, manaCost, expCost, cooldown, duration, unlocked, activated, barIcon) {
         }
 
         /// <summary>
