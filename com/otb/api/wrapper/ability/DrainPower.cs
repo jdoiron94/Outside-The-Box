@@ -1,4 +1,6 @@
-﻿namespace OutsideTheBox {
+﻿using Microsoft.Xna.Framework.Graphics;
+
+namespace OutsideTheBox {
 
     /// <summary>
     /// Interface which maintains methods for draining abilities
