@@ -221,6 +221,8 @@ namespace OutsideTheBox {
             Texture2D normBox = Content.Load<Texture2D>("sprites/objects/KeyOutline");
             Texture2D nullBox = Content.Load<Texture2D>("sprites/objects/KeyOutlineNull");
             Texture2D key = Content.Load<Texture2D>("sprites/objects/KeyFrame1");
+            Texture2D powerbar = Content.Load<Texture2D>("ui/powerbar");
+     
 
             midX = (graphics.PreferredBackBufferWidth - playur.Width) / 2;
             midY = (graphics.PreferredBackBufferHeight - playur.Height) / 2;
