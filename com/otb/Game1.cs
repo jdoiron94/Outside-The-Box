@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using OutsideTheBox.com.otb.api.wrapper;
-using OutsideTheBox.com.otb.api.wrapper.locatable;
 using System.Collections.Generic;
 
 namespace OutsideTheBox {
@@ -254,14 +253,11 @@ namespace OutsideTheBox {
             npc10.setProjectile(new Projectile(npc10, bullet, 10, 500, boltSound));
 
             Texture2D box = Content.Load<Texture2D>("sprites/objects/CardboardBox");
-            Texture2D plant = Content.Load<Texture2D>("sprites/objects/PottedPlant");
-            Texture2D desk = Content.Load<Texture2D>("sprites/objects/ComputerDesk");
-
             GameObject obj = new GameObject(box, new Vector2(midX + 20F, midY + 65F), true);
             GameObject obj2 = new GameObject(box, new Vector2(midX + 20F, midY + 205F), true);
 
             Texture2D door = Content.Load<Texture2D>("sprites/objects/DoorTexture");
-            Door door1 = new Door(door, null, new Vector2(width - 10F, height - 89F), Direction.East, false, true, 10, 64, false);
+            Door door1 = new Door(door, null, new Vector2(width - 10F, height - 89F), Direction.East, false, true, 10, 64, true);
             Door door2 = new Door(door, null, new Vector2(0F, height - 89F), Direction.West, false, false, 10, 64, true);
             Door door3 = new Door(door, null, new Vector2(width - 10F, height - 89F), Direction.East, false, true, 10, 64, false);
             Door door4 = new Door(door, null, new Vector2(0F, height - 89F), Direction.West, false, false, 10, 64, true);
@@ -281,8 +277,6 @@ namespace OutsideTheBox {
             Token token4 = new Token(gold, side3, new Vector2(200F, 200F), TokenType.Gold);
             Token token5 = new Token(diamond, side3, new Vector2(200F, 200F), TokenType.Diamond);
 
-            Key KeyObject = new Key(key, new Vector2(10F, 400F), true); 
-
             Texture2D wall = Content.Load<Texture2D>("sprites/objects/WallTexture");
             Wall wall1 = new Wall(wall, null, new Vector2(120F, 250F), Direction.East, false, false, 120, 20);
             Wall wall2 = new Wall(wall, null, new Vector2(120F, 350F), Direction.East, false, false, 120, 20);
@@ -295,9 +289,9 @@ namespace OutsideTheBox {
             Texture2D l2 = Content.Load<Texture2D>("sprites/levels/Level1Map");
             Texture2D l3 = Content.Load<Texture2D>("sprites/levels/StorageRoom");
             Texture2D bubble = Content.Load<Texture2D>("sprites/thoughts/PassBubble1");
-            Level level1 = new Level(this, player, l1, new Npc[] { npc, npc2, npc5 }, new GameObject[] { obj2, obj }, new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() }, new Token[] { token1, token2, token3 }, new Door[] { door1 }, new Wall[0], new ThoughtBubble[0], new PressButton[] { }, new Key[] {KeyObject}, 1);
-            Level level2 = new Level(this, player, l2, new Npc[] { npc3, npc4, npc6 }, new GameObject[0], new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() }, new Token[] { token4 }, new Door[] { door2, door3 }, new Wall[] { wall1, wall2, wall3, wall4, wall5, wall6 }, new ThoughtBubble[] { new ThoughtBubble(bubble, font, Vector2.Zero, npc3, false, false) }, new PressButton[] { }, new Key[] { }, 2);
-            Level level3 = new Level(this, player, l3, new Npc[] { npc7, npc8, npc9, npc10 }, new GameObject[0], new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() }, new Token[] { token5 }, new Door[] { door4 }, new Wall[] { }, new ThoughtBubble[] { }, new PressButton[] { }, new Key[] { }, 3);
+            Level level1 = new Level(this, player, l1, new Npc[] { npc, npc2, npc5 }, new GameObject[] { obj2, obj }, new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() }, new Token[] { token1, token2, token3 }, new Door[] { door1 }, new Wall[0], new ThoughtBubble[0], new PressButton[] { }, 1);
+            Level level2 = new Level(this, player, l2, new Npc[] { npc3, npc4, npc6 }, new GameObject[0], new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() }, new Token[] { token4 }, new Door[] { door2, door3 }, new Wall[] { wall1, wall2, wall3, wall4, wall5, wall6 }, new ThoughtBubble[] { new ThoughtBubble(bubble, font, Vector2.Zero, npc3, false, false) }, new PressButton[] { }, 2);
+            Level level3 = new Level(this, player, l3, new Npc[] { npc7, npc8, npc9, npc10 }, new GameObject[0], new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() }, new Token[] { token5 }, new Door[] { door4 }, new Wall[] { }, new ThoughtBubble[] { }, new PressButton[] { }, 3);
             level1.setPlayerOrigin(new Vector2(0F, 0F));
             level2.setPlayerOrigin(new Vector2(40F, 391F));
             levels = new List<Level>();
