@@ -44,10 +44,10 @@ namespace OutsideTheBox {
             healthCooldown = 0;
             manaCooldown = 0;
             totalMana = 100;
-            SlowTime slow = new SlowTime(3, 2, 20, 1000, 200, 200, true, false);
-            Dash dash = new Dash(4, 4, 5, 1000, 20, 15, true, false);
+            SlowTime slow = new SlowTime(0, 2, 20, 1000, 200, 200, true, false);
+            Dash dash = new Dash(1, 4, 5, 1000, 20, 15, true, false);
             dash.setEffect(cm.Load<SoundEffect>("audio/Sound Effects/dashSound"));
-            Confuse confuse = new Confuse(6, 7, 20, 1000, 200, 50, true, false);
+            Confuse confuse = new Confuse(3, 7, 20, 1000, 200, 50, true, false);
             powers = new List<BasePower> { slow, dash, confuse /*, new Mindread(true, false, inputManager)*/};
         }
 
@@ -69,6 +69,11 @@ namespace OutsideTheBox {
         /// <returns>Returns the player's abilities</returns>
         public List<BasePower> getPowers() {
             return powers;
+        }
+
+        public void unlockPower(int powerID)
+        {
+            powers[powerID].setUnlocked(true);
         }
 
         /// <summary>

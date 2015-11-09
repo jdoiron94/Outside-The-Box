@@ -63,10 +63,16 @@ namespace OutsideTheBox {
                 if (buttons[i].getBounds().Contains(new Point(Mouse.GetState().X, Mouse.GetState().Y))) {
                     switch (i) {
                         case 0:
-                            buttons[i].exitMenu(inputManager);
+                            //unlock power 0
+                            buttons[i].unlockPower(inputManager, 0);
                             break;
                         case 1:
-                            buttons[i].unlockPower(inputManager);
+                            //unlock power 1
+                            buttons[i].unlockPower(inputManager, 1);
+                            break;
+                        case 2:
+                            //unlock power 2
+                            buttons[i].unlockPower(inputManager, 2);
                             break;
                         default:
                             Console.WriteLine("oops");

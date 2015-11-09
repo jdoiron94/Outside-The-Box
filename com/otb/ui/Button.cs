@@ -58,12 +58,14 @@ namespace OutsideTheBox {
         /// The method should be passed a Power object in the future
         /// </summary>
         /// <param name="inputManager">The input manager to check player experience with</param>
-        public void unlockPower(InputManager inputManager) {
-            int amount = 500;
-            if (!inputManager.getPlayerManager().spendExperience(amount)) {
+        public void unlockPower(InputManager inputManager, int powerID) {
+            PlayerManager playerManager = inputManager.getPlayerManager();
+            int amount = playerManager.getPowers()[powerID].getExpCost();
+
+            if (!playerManager.spendExperience(amount)) {
                 return;
             } else {
-                //
+                playerManager.unlockPower(powerID);
             }
         }
     }
