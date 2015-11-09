@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+
 
 using System;
 using System.Collections.Generic;
@@ -18,6 +20,7 @@ namespace OutsideTheBox {
         private readonly PowerBar powerbar;
         private KeyBox keyBox; 
         private List<BasePower> powers;
+        private Texture2D[] powButtons;
 
         private int health;
         private int mana;
@@ -32,7 +35,7 @@ namespace OutsideTheBox {
         private const byte MAX_HEALTH = 0x64;
         private const int MAX_MANA = 500; 
 
-        public PlayerManager(Player player, ContentManager cm, int health, int mana, int totalExp, int currentExp, DisplayBar healthBar, DisplayBar manaBar, KeyBox keyBox) {
+        public PlayerManager(Player player, ContentManager cm, int health, int mana, int totalExp, int currentExp, DisplayBar healthBar, DisplayBar manaBar, KeyBox keyBox, Texture2D[] powButtons) {
             this.player = player;
             this.health = health;
             this.mana = mana;
@@ -44,15 +47,15 @@ namespace OutsideTheBox {
             healthCooldown = 0;
             manaCooldown = 0;
             totalMana = 100;
-            SlowTime slow = new SlowTime(0, 2, 20, 1000, 200, 200, true, false);
-            Dash dash = new Dash(1, 4, 5, 1000, 20, 15, true, false);
+            SlowTime slow = new SlowTime(0, 2, 20, 1000, 200, 200, true, false, powButtons[4]);
+            Dash dash = new Dash(1, 4, 5, 1000, 20, 15, true, false, powButtons[3]);
             dash.setEffect(cm.Load<SoundEffect>("audio/Sound Effects/dashSound"));
-            Confuse confuse = new Confuse(3, 7, 20, 1000, 200, 50, true, false);
+            Confuse confuse = new Confuse(3, 7, 20, 1000, 200, 50, true, false, powButtons[2]);
             powers = new List<BasePower> { slow, dash, confuse /*, new Mindread(true, false, inputManager)*/};
         }
 
-        public PlayerManager(Player player, ContentManager cm, DisplayBar healthBar, DisplayBar manaBar, KeyBox keyBox) :
-            this(player, cm, 100, 100, 0, 0, healthBar, manaBar, keyBox) {
+        public PlayerManager(Player player, ContentManager cm, DisplayBar healthBar, DisplayBar manaBar, KeyBox keyBox, Texture2D[] powButtons) :
+            this(player, cm, 100, 100, 0, 0, healthBar, manaBar, keyBox, powButtons) {
         }
 
         /// <summary>

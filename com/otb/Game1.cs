@@ -222,14 +222,30 @@ namespace OutsideTheBox {
             Texture2D nullBox = Content.Load<Texture2D>("sprites/objects/KeyOutlineNull");
             Texture2D key = Content.Load<Texture2D>("sprites/objects/KeyFrame1");
             Texture2D powerbar = Content.Load<Texture2D>("ui/powerbar");
-     
+
+            Texture2D button1 = Content.Load<Texture2D>("menus/assets/button_mind_read");
+            Texture2D button2 = Content.Load<Texture2D>("menus/assets/button_clairvoyance");
+            Texture2D button3 = Content.Load<Texture2D>("menus/assets/button_confusion");
+            Texture2D button4 = Content.Load<Texture2D>("menus/assets/button_dash");
+            Texture2D button5 = Content.Load<Texture2D>("menus/assets/button_slow_time");
+            Texture2D button6 = Content.Load<Texture2D>("menus/assets/button_invisibility");
+            Texture2D button7 = Content.Load<Texture2D>("menus/assets/button_fire_bolt");
+            Texture2D button8 = Content.Load<Texture2D>("menus/assets/button_ice_bolt");
+            Texture2D button9 = Content.Load<Texture2D>("menus/assets/button_lightning_bolt");
+            Texture2D[] buttonTextures = { button1, button2, button3, button4, button5, button6, button7, button8, button9 };
+            Button[] menuButtons = { new Button(button1, new Vector2(270F, 140F)), new Button(button2, new Vector2(270F, 220F)),
+                                       new Button(button3, new Vector2(270F, 310F)), new Button(button4, new Vector2(355F, 140F)),
+                                       new Button(button5, new Vector2(355F, 220F)), new Button(button6, new Vector2(355F, 310F)),
+                                       new Button(button7, new Vector2(445F, 140F)), new Button(button8, new Vector2(445F, 220F)),
+                                       new Button(button9, new Vector2(445F, 310F)) };
+
 
             midX = (graphics.PreferredBackBufferWidth - playur.Width) / 2;
             midY = (graphics.PreferredBackBufferHeight - playur.Height) / 2;
             player = new Player(playur, Vector2.Zero, Direction.South, 100, 50, 0, 3);
             player.setProjectile(new Projectile(player, bullet, 5, 250, boltSound));
             KeyBox keyBox = new KeyBox(new Texture2D[] { normBox, nullBox, key }, new Vector2 (750F, 20F));
-            playerManager = new PlayerManager(player, Content, new DisplayBar(health, new Vector2(20F, 20F), Color.Red, back), new DisplayBar(mana, new Vector2(20F, 50F), Color.Blue, back, 100), keyBox);
+            playerManager = new PlayerManager(player, Content, new DisplayBar(health, new Vector2(20F, 20F), Color.Red, back), new DisplayBar(mana, new Vector2(20F, 50F), Color.Blue, back, 100), keyBox, buttonTextures);
             player.loadTextures(Content);
             PowerBar powBar = new PowerBar(powerbar, new Vector2(midX - 20F, 20F));
 
@@ -304,20 +320,7 @@ namespace OutsideTheBox {
             level = levels[0];
             levelIndex = 0;
 
-            Texture2D button1 = Content.Load<Texture2D>("menus/assets/button_mind_read");
-            Texture2D button2 = Content.Load<Texture2D>("menus/assets/button_clairvoyance");
-            Texture2D button3 = Content.Load<Texture2D>("menus/assets/button_confusion");
-            Texture2D button4 = Content.Load<Texture2D>("menus/assets/button_dash");
-            Texture2D button5 = Content.Load<Texture2D>("menus/assets/button_slow_time");
-            Texture2D button6 = Content.Load<Texture2D>("menus/assets/button_invisibility");
-            Texture2D button7 = Content.Load<Texture2D>("menus/assets/button_fire_bolt");
-            Texture2D button8 = Content.Load<Texture2D>("menus/assets/button_ice_bolt");
-            Texture2D button9 = Content.Load<Texture2D>("menus/assets/button_lightning_bolt");
-            Button[] menuButtons = { new Button(button1, new Vector2(270F, 140F)), new Button(button2, new Vector2(270F, 220F)),
-                                       new Button(button3, new Vector2(270F, 310F)), new Button(button4, new Vector2(355F, 140F)),
-                                       new Button(button5, new Vector2(355F, 220F)), new Button(button6, new Vector2(355F, 310F)),
-                                       new Button(button7, new Vector2(445F, 140F)), new Button(button8, new Vector2(445F, 220F)),
-                                       new Button(button9, new Vector2(445F, 310F)) };
+            
 
             Texture2D pauseScreen = Content.Load<Texture2D>("menus/PausePlaceholderScreen");
             pauseMenu = new Menu(pauseScreen, menuButtons);
@@ -326,7 +329,7 @@ namespace OutsideTheBox {
             target = new Target(targ);
 
             Screen[] screens = { new Screen("Menu"), new Screen("Normal", true), new Screen("Telekinesis-Select"), new Screen("Telekinesis-Move"), new Screen("Start") };
-            MindRead read = new MindRead(2, 1, 20, 1000, 200, 100, true, false);
+            MindRead read = new MindRead(2, 1, 20, 1000, 200, 100, true, false, button1);
             inputManager = new InputManager(this, player, level, pauseMenu, target, playerManager, screens, read);
             keyBox.update(inputManager);
             level.setInputManager(inputManager);
