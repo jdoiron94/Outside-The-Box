@@ -1,7 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Input;
-using OutsideTheBox.com.otb.api.wrapper.locatable;
 using System;
 
 namespace OutsideTheBox {
@@ -208,13 +207,6 @@ namespace OutsideTheBox {
                 playerManager.incrementExperience(t.getExp());
                 playerManager.levelMana(t.getManaIncrementationValue());
                 gCollision = null;
-            }else if (gCollision!=null &&gCollision is Key)
-            {
-                Key k = (Key) gCollision;
-                k.setCollected(true);
-                playerManager.getKeyBox().setUnlocked(true);
-                level.unlockDoors();
-                gCollision = null;
             }
             else if (gCollision != null && gCollision is Door)
             {
@@ -402,7 +394,7 @@ namespace OutsideTheBox {
             playerManager.setManaDrainRate(5);
             if (lastState == ButtonState.Pressed && state == ButtonState.Released)
             {
-                foreach (GameObject obj in level.getObjectsAndKeys())
+                foreach (GameObject obj in level.getObjects())
                 {
                     if (obj.isLiftable())
                     {
