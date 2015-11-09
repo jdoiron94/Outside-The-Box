@@ -67,9 +67,9 @@ namespace OutsideTheBox {
             string projectilePrefix = "sprites/projectiles/";
             string[] projectileNames = { "Bullet", "Fire", "Ice", "Lightning", "Paralysis", "Confusion" };
             string prefix = "sprites/entities/player/";
-            string[] names = { "Forward", "Back", "Left", "Right" };
+            string[] names = { "Forward", "Backward", "Left", "Right" };
             foreach (string s in names) {
-                Texture2D[] array = s == "Forward" ? southFacing : s == "Back" ? northFacing : s == "Left" ? westFacing : eastFacing;
+                Texture2D[] array = s == "Forward" ? southFacing : s == "Backward" ? northFacing : s == "Left" ? westFacing : eastFacing;
                 for (int i = 1; i <= 4; i++) {
                     array[i - 1] = cm.Load<Texture2D>(prefix + s + i);
                 }

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
-using OutsideTheBox.com.otb.api.wrapper;
+
 using System;
 using System.Collections.Generic;
 
@@ -15,7 +15,7 @@ namespace OutsideTheBox {
         private readonly Player player;
         private readonly DisplayBar healthBar;
         private readonly DisplayBar manaBar;
-
+        private readonly PowerBar powerbar;
         private KeyBox keyBox; 
         private List<BasePower> powers;
 
