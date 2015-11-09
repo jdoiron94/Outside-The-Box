@@ -245,7 +245,7 @@ namespace OutsideTheBox {
                 }
                
             }
-            if (lastKeyState.IsKeyDown(Keys.H) && currentKeyState.IsKeyUp(Keys.H))
+            if (lastKeyState.IsKeyDown(Keys.E) && currentKeyState.IsKeyUp(Keys.E))
             {
                 if (mindRead.validate()) {
                     playerManager.depleteMana(mindRead.getManaCost());
@@ -257,7 +257,7 @@ namespace OutsideTheBox {
             }
             mindRead.activate(level);
             SlowTime slowmo = (SlowTime)playerManager.getPowers()[0];
-            if (lastKeyState.IsKeyDown(Keys.L) && currentKeyState.IsKeyUp(Keys.L))
+            if (lastKeyState.IsKeyDown(Keys.A) && currentKeyState.IsKeyUp(Keys.A))
             {
                 if (slowmo.validate()) {
                     playerManager.depleteMana(slowmo.getManaCost());
@@ -265,7 +265,7 @@ namespace OutsideTheBox {
             }
             slowmo.activate(level);
             Dash dash = (Dash)playerManager.getPowers()[1];
-            if (lastKeyState.IsKeyDown(Keys.K) && currentKeyState.IsKeyUp(Keys.K))
+            if (lastKeyState.IsKeyDown(Keys.W) && currentKeyState.IsKeyUp(Keys.W))
             {
                 if (dash.validate()) {
                     playerManager.depleteMana(dash.getManaCost());
@@ -273,14 +273,14 @@ namespace OutsideTheBox {
             }
             dash.activate(level);
             Confuse confuse = (Confuse)playerManager.getPowers()[2];
-            if (lastKeyState.IsKeyDown(Keys.C) && currentKeyState.IsKeyUp(Keys.C))
+            if (lastKeyState.IsKeyDown(Keys.S) && currentKeyState.IsKeyUp(Keys.S))
             {
                 if (confuse.validate()) {
                     playerManager.depleteMana(confuse.getManaCost());
                 }
             }
             confuse.activate(level);
-            if (currentKeyState.IsKeyDown(Keys.W))
+            if (currentKeyState.IsKeyDown(Keys.Up))
             {
                 player.setDirection(Direction.North);
                 player.updateMovement();
@@ -290,11 +290,11 @@ namespace OutsideTheBox {
                     player.deriveY(-velocity);
                 }
             }
-            else if (lastKeyState.IsKeyDown(Keys.W) && currentKeyState.IsKeyUp(Keys.W))
+            else if (lastKeyState.IsKeyDown(Keys.Up) && currentKeyState.IsKeyUp(Keys.Up))
             {
                 stagnant = true;
             }
-            else if (currentKeyState.IsKeyDown(Keys.S))
+            else if (currentKeyState.IsKeyDown(Keys.Down))
             {
                 player.setDirection(Direction.South);
                 player.updateMovement();
@@ -304,11 +304,11 @@ namespace OutsideTheBox {
                     player.deriveY(velocity);
                 }
             }
-            else if (lastKeyState.IsKeyDown(Keys.S) && currentKeyState.IsKeyUp(Keys.S))
+            else if (lastKeyState.IsKeyDown(Keys.Down) && currentKeyState.IsKeyUp(Keys.Down))
             {
                 stagnant = true;
             }
-            else if (currentKeyState.IsKeyDown(Keys.A))
+            else if (currentKeyState.IsKeyDown(Keys.Left))
             {
                 player.setDirection(Direction.West);
                 player.updateMovement();
@@ -318,11 +318,11 @@ namespace OutsideTheBox {
                     player.deriveX(-velocity);
                 }
             }
-            else if (lastKeyState.IsKeyDown(Keys.A) && currentKeyState.IsKeyUp(Keys.A))
+            else if (lastKeyState.IsKeyDown(Keys.Left) && currentKeyState.IsKeyUp(Keys.Left))
             {
                 stagnant = true;
             }
-            else if (currentKeyState.IsKeyDown(Keys.D))
+            else if (currentKeyState.IsKeyDown(Keys.Right))
             {
                 player.setDirection(Direction.East);
                 player.updateMovement();
@@ -332,7 +332,7 @@ namespace OutsideTheBox {
                     player.deriveX(velocity);
                 }
             }
-            else if (lastKeyState.IsKeyDown(Keys.D) && currentKeyState.IsKeyUp(Keys.D))
+            else if (lastKeyState.IsKeyDown(Keys.Right) && currentKeyState.IsKeyUp(Keys.Right))
             {
                 stagnant = true;
             }
@@ -369,7 +369,7 @@ namespace OutsideTheBox {
                     
                 }
             }
-                if (lastKeyState.IsKeyDown(Keys.X) && currentKeyState.IsKeyUp(Keys.X))
+                if (lastKeyState.IsKeyDown(Keys.Q) && currentKeyState.IsKeyUp(Keys.Q))
             {
                 level.setMode(1);
                 screenManager.setActiveScreen(2);
@@ -422,7 +422,7 @@ namespace OutsideTheBox {
             {
                 playerManager.depleteMana(1);
             }
-            if (currentKeyState.IsKeyDown(Keys.W))
+            if (currentKeyState.IsKeyDown(Keys.Up))
             {
                 selectedObject.setDirection(Direction.North);
                 selectedObject.setDestination(new Vector2(selectedObject.getLocation().X, selectedObject.getLocation().Y - velocity));
@@ -435,7 +435,7 @@ namespace OutsideTheBox {
                     }
                 }
             }
-            else if (currentKeyState.IsKeyDown(Keys.S))
+            else if (currentKeyState.IsKeyDown(Keys.Down))
             {
                 selectedObject.setDirection(Direction.South);
                 selectedObject.setDestination(new Vector2(selectedObject.getLocation().X, selectedObject.getLocation().Y + velocity));
@@ -448,7 +448,7 @@ namespace OutsideTheBox {
                     }
                 }
             }
-            else if (currentKeyState.IsKeyDown(Keys.A))
+            else if (currentKeyState.IsKeyDown(Keys.Left))
             {
                 selectedObject.setDirection(Direction.West);
                 selectedObject.setDestination(new Vector2(selectedObject.getLocation().X - velocity, selectedObject.getLocation().Y));
@@ -461,7 +461,7 @@ namespace OutsideTheBox {
                     }
                 }
             }
-            else if (currentKeyState.IsKeyDown(Keys.D))
+            else if (currentKeyState.IsKeyDown(Keys.Right))
             {
                 selectedObject.setDirection(Direction.East);
                 selectedObject.setDestination(new Vector2(selectedObject.getLocation().X + velocity, selectedObject.getLocation().Y));
