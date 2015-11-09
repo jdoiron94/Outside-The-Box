@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
-using OutsideTheBox.com.otb.api.wrapper;
+
 using System;
 using System.Collections.Generic;
 
@@ -30,6 +30,7 @@ namespace OutsideTheBox {
         private List<GameObject> objects;
         private List<DisplayBar> displayBars;
         private List<ThoughtBubble> thoughts;
+        private List<PowerBar> powerBars;
 
         private List<Token> tokens;
         private List<Door> doors;
@@ -41,7 +42,7 @@ namespace OutsideTheBox {
         private bool debug;
         private int index;
 
-        public Level(Game1 game, Player player, Texture2D map, Npc[] npcs, GameObject[] objects, DisplayBar[] displayBars, Token[] tokens, Door[] doors, Wall[] walls, ThoughtBubble[] thoughts, PressButton[] pressButtons, int index) {
+        public Level(Game1 game, Player player, Texture2D map, Npc[] npcs, GameObject[] objects, DisplayBar[] displayBars, PowerBar[] powerBars, Token[] tokens, Door[] doors, Wall[] walls, ThoughtBubble[] thoughts, PressButton[] pressButtons, int index) {
             this.game = game;
             this.player = player;
             this.map = map;
@@ -51,6 +52,8 @@ namespace OutsideTheBox {
             this.objects.AddRange(objects);
             this.displayBars = new List<DisplayBar>(displayBars.Length);
             this.displayBars.AddRange(displayBars);
+            this.powerBars = new List<PowerBar>(powerBars.Length);
+            this.powerBars.AddRange(powerBars);
             this.tokens = new List<Token>(tokens.Length);
             this.tokens.AddRange(tokens);
             this.doors = new List<Door>(doors.Length);
@@ -448,6 +451,10 @@ namespace OutsideTheBox {
             }
             foreach (DisplayBar db in displayBars) {
                 db.draw(batch);
+            }
+            foreach (PowerBar pb in powerBars)
+            {
+                pb.draw(batch);
             }
             foreach (Token t in tokens) {
                 t.draw(batch, mode);

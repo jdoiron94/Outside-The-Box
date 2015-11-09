@@ -3,11 +3,12 @@ using Microsoft.Xna.Framework;
 
 namespace OutsideTheBox
 {
-    class PowerBar
+    public class PowerBar
     {
         private readonly Texture2D texture;
         private readonly Vector2 location;
         private readonly Rectangle bounds;
+        private Rectangle powerBar;
         
 
 
@@ -41,6 +42,15 @@ namespace OutsideTheBox
         public Vector2 getLocation()
         {
             return location;
+        }
+
+        /// <summary>
+        /// Returns the powerbar's bounds
+        /// </summary>
+        /// <returns>Returns the display bar's bounds</returns>
+        public Rectangle gePowerBar()
+        {
+            return powerBar;
         }
 
         /// <summary>

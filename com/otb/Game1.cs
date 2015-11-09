@@ -231,6 +231,7 @@ namespace OutsideTheBox {
             KeyBox keyBox = new KeyBox(new Texture2D[] { normBox, nullBox, key }, new Vector2 (750F, 20F));
             playerManager = new PlayerManager(player, Content, new DisplayBar(health, new Vector2(20F, 20F), Color.Red, back), new DisplayBar(mana, new Vector2(20F, 50F), Color.Blue, back, 100), keyBox);
             player.loadTextures(Content);
+            PowerBar powBar = new PowerBar(powerbar, new Vector2(midX - 20F, 20F));
 
             Texture2D male1 = Content.Load<Texture2D>("sprites/entities/npcs/NormieMaleStand1");
             Texture2D male2 = Content.Load<Texture2D>("sprites/entities/npcs/NormieMaleStand2");
@@ -291,9 +292,9 @@ namespace OutsideTheBox {
             Texture2D l2 = Content.Load<Texture2D>("sprites/levels/Level1Map");
             Texture2D l3 = Content.Load<Texture2D>("sprites/levels/StorageRoom");
             Texture2D bubble = Content.Load<Texture2D>("sprites/thoughts/PassBubble1");
-            Level level1 = new Level(this, player, l1, new Npc[] { npc, npc2, npc5 }, new GameObject[] { obj2, obj }, new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() }, new Token[] { token1, token2, token3 }, new Door[] { door1 }, new Wall[0], new ThoughtBubble[0], new PressButton[] { }, 1);
-            Level level2 = new Level(this, player, l2, new Npc[] { npc3, npc4, npc6 }, new GameObject[0], new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() }, new Token[] { token4 }, new Door[] { door2, door3 }, new Wall[] { wall1, wall2, wall3, wall4, wall5, wall6 }, new ThoughtBubble[] { new ThoughtBubble(bubble, font, Vector2.Zero, npc3, false, false) }, new PressButton[] { }, 2);
-            Level level3 = new Level(this, player, l3, new Npc[] { npc7, npc8, npc9, npc10 }, new GameObject[0], new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() }, new Token[] { token5 }, new Door[] { door4 }, new Wall[] { }, new ThoughtBubble[] { }, new PressButton[] { }, 3);
+            Level level1 = new Level(this, player, l1, new Npc[] { npc, npc2, npc5 }, new GameObject[] { obj2, obj }, new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() }, new PowerBar[] {powBar}, new Token[] { token1, token2, token3 }, new Door[] { door1 }, new Wall[0], new ThoughtBubble[0], new PressButton[] { }, 1);
+            Level level2 = new Level(this, player, l2, new Npc[] { npc3, npc4, npc6 }, new GameObject[0], new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() }, new PowerBar[] { powBar }, new Token[] { token4 }, new Door[] { door2, door3 }, new Wall[] { wall1, wall2, wall3, wall4, wall5, wall6 }, new ThoughtBubble[] { new ThoughtBubble(bubble, font, Vector2.Zero, npc3, false, false) }, new PressButton[] { }, 2);
+            Level level3 = new Level(this, player, l3, new Npc[] { npc7, npc8, npc9, npc10 }, new GameObject[0], new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() }, new PowerBar[] { powBar }, new Token[] { token5 }, new Door[] { door4 }, new Wall[] { }, new ThoughtBubble[] { }, new PressButton[] { }, 3);
             level1.setPlayerOrigin(new Vector2(0F, 0F));
             level2.setPlayerOrigin(new Vector2(40F, 391F));
             levels = new List<Level>();
