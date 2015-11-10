@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OutsideTheBox", "OutsideTheBox.csproj", "{1F90E5E5-29E7-477E-BCB0-3D4FB9A5DE1D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OutsideTheBox", "OutsideTheBox.csproj", "{881CDC27-66F3-494B-A5AC-376E29CED563}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FB272642-909F-4AA4-A268-562F91AF9BE0}"
 EndProject
@@ -13,10 +13,10 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1F90E5E5-29E7-477E-BCB0-3D4FB9A5DE1D}.Debug|x86.ActiveCfg = Debug|x86
-		{1F90E5E5-29E7-477E-BCB0-3D4FB9A5DE1D}.Debug|x86.Build.0 = Debug|x86
-		{1F90E5E5-29E7-477E-BCB0-3D4FB9A5DE1D}.Release|x86.ActiveCfg = Release|x86
-		{1F90E5E5-29E7-477E-BCB0-3D4FB9A5DE1D}.Release|x86.Build.0 = Release|x86
+		{881CDC27-66F3-494B-A5AC-376E29CED563}.Debug|x86.ActiveCfg = Debug|x86
+		{881CDC27-66F3-494B-A5AC-376E29CED563}.Debug|x86.Build.0 = Debug|x86
+		{881CDC27-66F3-494B-A5AC-376E29CED563}.Release|x86.ActiveCfg = Release|x86
+		{881CDC27-66F3-494B-A5AC-376E29CED563}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

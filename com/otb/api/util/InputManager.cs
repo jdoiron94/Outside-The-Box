@@ -208,6 +208,13 @@ namespace OutsideTheBox {
                 playerManager.levelMana(t.getManaIncrementationValue());
                 gCollision = null;
             }
+            else if (gCollision != null && gCollision is Key)
+            {
+                Key k = (Key)gCollision;
+                k.setCollected(true);
+                k.setUnlocked(true);
+                level.unlockDoors();
+            }
             else if (gCollision != null && gCollision is Door)
             {
                 Door d = (Door)gCollision;
@@ -394,7 +401,7 @@ namespace OutsideTheBox {
             playerManager.setManaDrainRate(5);
             if (lastState == ButtonState.Pressed && state == ButtonState.Released)
             {
-                foreach (GameObject obj in level.getObjects())
+                foreach (GameObject obj in level.getObjectsAndKeys())
                 {
                     if (obj.isLiftable())
                     {

@@ -131,6 +131,13 @@
                     if (e.getDestinationBounds().Intersects(t.getBounds()) && !t.isCollected()) {
                         return t;
                     }
+                foreach (Key k in level.getKeys())
+                    {
+                        if (e.getDestinationBounds().Intersects(k.getBounds()) && !k.isCollected())
+                        {
+                            return k;
+                        }
+                    }
                 }
             }
             return null;

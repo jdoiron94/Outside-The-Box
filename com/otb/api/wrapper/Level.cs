@@ -32,6 +32,8 @@ namespace OutsideTheBox {
         private List<ThoughtBubble> thoughts;
 
         private List<Token> tokens;
+        private List<Key> keys; 
+
         private List<Door> doors;
         private List<Wall> walls;
         private List<Cubicle> cubicles;
@@ -42,7 +44,7 @@ namespace OutsideTheBox {
         private bool debug;
         private int index;
 
-        public Level(Game1 game, Player player, Texture2D map, Npc[] npcs, GameObject[] objects, DisplayBar[] displayBars, Token[] tokens, Door[] doors, Wall[] walls, ThoughtBubble[] thoughts, PressButton[] pressButtons, int index) {
+        public Level(Game1 game, Player player, Texture2D map, Npc[] npcs, GameObject[] objects, DisplayBar[] displayBars, Token[] tokens, Door[] doors, Wall[] walls, ThoughtBubble[] thoughts, PressButton[] pressButtons, Key[] keys, int index) {
             this.game = game;
             this.player = player;
             this.map = map;
@@ -54,6 +56,8 @@ namespace OutsideTheBox {
             this.displayBars.AddRange(displayBars);
             this.tokens = new List<Token>(tokens.Length);
             this.tokens.AddRange(tokens);
+            this.keys = new List<Key>(keys.Length);
+            this.keys.AddRange(keys);
             this.doors = new List<Door>(doors.Length);
             this.doors.AddRange(doors);
             this.pressButtons = new List<PressButton>(pressButtons.Length);
@@ -135,6 +139,17 @@ namespace OutsideTheBox {
             return objects;
         }
 
+        public List<GameObject> getObjectsAndKeys()
+        {
+            List<GameObject> list = new List<GameObject>();
+            foreach (GameObject o in objects)
+                list.Add(o);
+            foreach (Key k in keys)
+                list.Add(k);
+
+            return list; 
+        }
+
         /// <summary>
         /// Returns all of the level's active projectiles
         /// </summary>
@@ -156,6 +171,15 @@ namespace OutsideTheBox {
         /// <returns>Returns a list of all of the game objects in the level</returns>
         public List<Token> getTokens() {
             return tokens;
+        }
+
+        /// <summary>
+        /// Returns all of the level's game tokens
+        /// </summary>
+        /// <returns>Returns a list of all of the game objects in the level</returns>
+        public List<Key> getKeys()
+        {
+            return keys;
         }
 
         /// <summary>
@@ -261,10 +285,11 @@ namespace OutsideTheBox {
         /// <summary>
         /// Resets the level's tokens
         /// </summary>
-        public void resetTokens() {
-            foreach (Token t in tokens) {
+        public void resetCollectibles() {
+            foreach (Token t in tokens)
                 t.setCollected(false);
-            }
+            foreach (Key k in keys)
+                k.setCollected(false);
         }
 
         /// <summary>
@@ -471,6 +496,14 @@ namespace OutsideTheBox {
                 t.draw(batch, mode);
                 if (debug && !t.isCollected()) {
                     game.outline(batch, t.getBounds());
+                }
+            }
+            foreach (Key k in keys)
+            {
+                k.draw(batch, mode);
+                if(debug && !k.isCollected())
+                {
+                    game.outline(batch, k.getBounds());
                 }
             }
             playerManager.getKeyBox().draw(batch);
