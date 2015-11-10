@@ -8,8 +8,8 @@ namespace OutsideTheBox {
 
     public class SlowTime : BasePower {
 
-        public SlowTime(int id, int slotId, int manaCost, int expCost, int cooldown, int duration, bool unlocked, bool activated, Texture2D barIcon) :
-            base(id, slotId, manaCost, expCost, cooldown, duration, unlocked, activated, barIcon) {
+        public SlowTime(int id, int slotId, int manaCost, int expCost, int cooldown, int duration, bool unlocked, bool activated, Texture2D icon) :
+            base(id, slotId, manaCost, expCost, cooldown, duration, unlocked, activated, icon) {
         }
 
         /// <summary>

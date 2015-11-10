@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{1F90E5E5-29E7-477E-BCB0-3D4FB9A5DE1D}</ProjectGuid>
+    <ProjectGuid>{881CDC27-66F3-494B-A5AC-376E29CED563}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>OutsideTheBox</RootNamespace>
@@ -58,6 +58,7 @@
     <Compile Include="com\otb\api\wrapper\ability\BasePower.cs" />
     <Compile Include="com\otb\api\wrapper\KeyBox.cs" />
     <Compile Include="com\otb\api\wrapper\locatable\Collectible.cs" />
+    <Compile Include="com\otb\api\wrapper\locatable\Key.cs" />
     <Compile Include="com\otb\api\wrapper\locatable\PressButton.cs" />
     <Compile Include="com\otb\ui\Button.cs" />
     <Compile Include="com\otb\api\wrapper\ability\Confuse.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="com\otb\api\wrapper\Direction.cs" />
     <Compile Include="com\otb\ui\DisplayBar.cs" />
     <Compile Include="com\otb\api\wrapper\locatable\GameObject.cs" />
+    <Compile Include="com\otb\api\wrapper\locatable\Cubicle.cs" />
     <Compile Include="com\otb\api\util\InputManager.cs" />
     <Compile Include="com\otb\api\wrapper\Level.cs" />
     <Compile Include="com\otb\api\wrapper\locatable\Entity.cs" />
@@ -407,7 +409,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\ui\powerbar.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Icon.ico" />
   </ItemGroup>

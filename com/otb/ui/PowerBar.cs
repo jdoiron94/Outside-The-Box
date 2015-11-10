@@ -8,9 +8,6 @@ namespace OutsideTheBox
         private readonly Texture2D texture;
         private readonly Vector2 location;
         private readonly Rectangle bounds;
-        private Rectangle powerBar;
-        
-
 
         public PowerBar(Texture2D texture, Vector2 location)
         {
@@ -42,15 +39,6 @@ namespace OutsideTheBox
         public Vector2 getLocation()
         {
             return location;
-        }
-
-        /// <summary>
-        /// Returns the powerbar's bounds
-        /// </summary>
-        /// <returns>Returns the display bar's bounds</returns>
-        public Rectangle gePowerBar()
-        {
-            return powerBar;
         }
 
         /// <summary>

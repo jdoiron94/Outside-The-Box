@@ -1,7 +1,7 @@
 # Files
 *.suo
 *.doc
-Content/Thumbs.db
+*.db
 *.stackdump
 
 # Directories

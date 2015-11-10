@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using OutsideTheBox.com.otb.api.wrapper.locatable;
 
 namespace OutsideTheBox {
 
@@ -13,13 +12,11 @@ namespace OutsideTheBox {
         private int exp;
 
         private readonly TokenType type;
-        private readonly Texture2D side;
 
-        public Token(Texture2D texture, Texture2D side, Vector2 location, TokenType type) :
+        public Token(Texture2D texture, Vector2 location, TokenType type) :
             base(texture, location, false)
         {
             this.type = type;
-            this.side = side; 
             exp = (int) type;
         }
 
