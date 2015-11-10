@@ -302,7 +302,7 @@ namespace OutsideTheBox {
             Cubicle cube4 = new Cubicle(width - 230F, 280F, 150, 150, this, Direction.West, wall);
 
             Level level1 = new Level(this, player, l1, new Npc[] { npc, npc2, npc3 }, new GameObject[] { }, new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() },
-                new Token[] { token1, token2 }, new Door[] { door1 }, new Wall[] { }, new ThoughtBubble[] { }, new PressButton[] { }, 0);
+                new Token[] { token1, token2 }, new Door[] { door1 }, new Wall[] { }, new ThoughtBubble[] { }, new PressButton[] { }, new Key[] { }, 0);
             level1.addCubicle(cube1);
             level1.addCubicle(cube2);
             level1.addCubicle(cube3);

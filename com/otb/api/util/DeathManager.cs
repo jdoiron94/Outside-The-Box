@@ -96,7 +96,7 @@ namespace OutsideTheBox {
             inputManager.getLevel().resetNpcs(npcs, npcLocations);
             inputManager.getLevel().resetObjects(objectLocations);
             inputManager.getLevel().resetDoors(doorsUnlocked);
-            inputManager.getLevel().resetTokens();
+            inputManager.getLevel().resetCollectibles();
         }
     }
 }
