@@ -276,8 +276,9 @@ namespace OutsideTheBox {
             //npc9.setProjectile(new Projectile(npc9, bullet, 10, 500, boltSound));
             //npc10.setProjectile(new Projectile(npc10, bullet, 10, 500, boltSound));
 
-            Texture2D door = Content.Load<Texture2D>("sprites/objects/DoorTexture");
-            Door door1 = new Door(door, null, new Vector2((width - 64F) / 2F, height - 10F), Direction.East, false, true, 64, 10, true);
+            Texture2D door = Content.Load<Texture2D>("sprites/objects/DoorOpen");
+            Texture2D doorClosed = Content.Load<Texture2D>("sprites/objects/Door");
+            Door door1 = new Door(new Texture2D[] {door, doorClosed}, null, new Vector2((width - 64F) / 2F, height - 10F), Direction.East, false, true, 64, 10, true);
             //Door door2 = new Door(door, null, new Vector2(0F, height - 89F), Direction.West, false, false, 10, 64, true);
             //Door door3 = new Door(door, null, new Vector2(width - 10F, height - 89F), Direction.East, false, true, 10, 64, false);
             //Door door4 = new Door(door, null, new Vector2(0F, height - 89F), Direction.West, false, false, 10, 64, true);
@@ -312,7 +313,7 @@ namespace OutsideTheBox {
             PressButton p2 = new PressButton(pBTextures, new Vector2(200F, 200F), true, false);
 
             Level level1 = new Level(this, player, l1, new Npc[] { npc, npc2, npc3 }, new GameObject[] { }, new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() },
-            new Token[] { token1, token2 }, new Door[] { door1 }, new Wall[] { }, new ThoughtBubble[] { }, new PressButton[] {p1, p2}, new Key[] {}, 0);
+            new Token[] { token1, token2 }, new Door[] { door1 }, new Wall[] { }, new ThoughtBubble[] { }, new PressButton[] { }, new Key[] {}, 0);
             level1.addCubicle(cube1);
             level1.addCubicle(cube2);
             level1.addCubicle(cube3);

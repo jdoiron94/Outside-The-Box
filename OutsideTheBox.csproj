@@ -175,7 +175,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\sprites\objects\Door.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\sprites\objects\DoorOpen.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
