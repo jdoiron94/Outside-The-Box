@@ -231,6 +231,11 @@ namespace OutsideTheBox {
             Texture2D button7 = Content.Load<Texture2D>("menus/assets/button_fire_bolt");
             Texture2D button8 = Content.Load<Texture2D>("menus/assets/button_ice_bolt");
             Texture2D button9 = Content.Load<Texture2D>("menus/assets/button_lightning_bolt");
+
+            Texture2D pOff = Content.Load<Texture2D>("sprites/objects/PressButtonOff");
+            Texture2D pOn  = Content.Load<Texture2D>("sprites/objects/PressButtonOn");
+            Texture2D pDeactivated = Content.Load<Texture2D>("sprites/objects/PressButtonDeactivated");
+
             Texture2D[] buttonTextures = { button1, button2, button3, button4, button5, button6, button7, button8, button9 };
             Button[] menuButtons = { new Button(button1, new Vector2(270F, 140F)), new Button(button2, new Vector2(270F, 220F)),
                                        new Button(button3, new Vector2(270F, 310F)), new Button(button4, new Vector2(355F, 140F)),
@@ -302,9 +307,12 @@ namespace OutsideTheBox {
             Cubicle cube4 = new Cubicle(width - 230F, 280F, 150, 150, this, Direction.West, wall);
 
             Key k = new Key(key, new Vector2(200F, 200F));
+            Texture2D[] pBTextures = new Texture2D[] {pOn, pOff, pDeactivated};
+            PressButton p1 = new PressButton(pBTextures, new Vector2(300F, 400F), false, false);
+            PressButton p2 = new PressButton(pBTextures, new Vector2(200F, 200F), true, false);
 
             Level level1 = new Level(this, player, l1, new Npc[] { npc, npc2, npc3 }, new GameObject[] { }, new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() },
-            new Token[] { token1, token2 }, new Door[] { door1 }, new Wall[] { }, new ThoughtBubble[] { }, new PressButton[] { }, new Key[] {k}, 0);
+            new Token[] { token1, token2 }, new Door[] { door1 }, new Wall[] { }, new ThoughtBubble[] { }, new PressButton[] {p1, p2}, new Key[] {}, 0);
             level1.addCubicle(cube1);
             level1.addCubicle(cube2);
             level1.addCubicle(cube3);

@@ -150,6 +150,7 @@ namespace OutsideTheBox {
             lastKeyState = currentKeyState;
             currentKeyState = Keyboard.GetState();
             Screen active = screenManager.getActiveScreen();
+            collisionManager.updatePressButtons(player);
             if (currentKeyState.IsKeyDown(Keys.Escape)) {
                 game.Exit();
             }

@@ -462,6 +462,14 @@ namespace OutsideTheBox {
         /// <param name="batch">The SpriteBatch to perform the drawing</param>
         public void draw(SpriteBatch batch) {
             batch.Draw(map, Vector2.Zero, Color.White);
+            foreach (PressButton p in pressButtons)
+            {
+                p.draw(batch);
+                if (debug)
+                {
+                    game.outline(batch, p.getBounds());
+                }
+            }
             foreach (Projectile p in projectiles) {
                 p.draw(batch);
                 if (debug) {
@@ -492,6 +500,7 @@ namespace OutsideTheBox {
             if (debug) {
                 game.outline(batch, player.getBounds());
             }
+
             foreach (Token t in tokens) {
                 t.draw(batch, mode);
                 if (debug && !t.isCollected()) {

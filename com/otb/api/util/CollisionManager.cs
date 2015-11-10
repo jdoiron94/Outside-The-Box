@@ -91,6 +91,28 @@
             return null;
         }
 
+        public void updatePressButtons(Entity e)
+        {
+            foreach(PressButton p in level.getPressButtons())
+            {
+                bool pushed = false;
+                if(!p.isDeactivated())
+                {
+                    foreach (GameObject g in level.getObjects())
+                        if (p != g && g.getDestinationBounds().Intersects(p.getBounds()))
+                            pushed = true;
+
+                    foreach (Npc n in level.getNpcs())
+                        if (n.getDestinationBounds().Intersects(p.getBounds()))
+                            pushed = true;
+
+                    if (e.getDestinationBounds().Intersects(p.getBounds()))
+                        pushed = true; 
+                }
+                p.setPushed(pushed); 
+            }
+        }
+
         /// <summary>
         /// Returns the entity's colliding entity
         /// </summary>

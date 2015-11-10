@@ -9,74 +9,27 @@ namespace OutsideTheBox {
 
     public class PressButton : GameObject
     {
-        private Texture2D texture;
+        private Texture2D textureOn;
+        private Texture2D textureOff;
+        private Texture2D textureDeactivated; 
 
-        private Vector2 location;
-        private Rectangle bounds;
-        private bool pushable;
+        private bool deactivated;
         private bool pushed;
 
-        public PressButton(Texture2D texture,Vector2 location, bool pushable, bool pushed) :
-            base(texture, location) {
-                //this.texture = texture;
-                this.pushable = pushable;
-                //this.location = location;
-                this.pushed = pushed;
-            }
-            
-
-        /// <summary>
-        /// Returns the game object's texture
-        /// </summary>
-        /// <returns>Returns the game object's texture</returns>
-        public Texture2D getTexture()
+        public PressButton(Texture2D[] texture,Vector2 location, bool deactivated, bool pushed) :
+            base(texture[0], location)
         {
-            return texture;
-        }
+            textureOn = texture[0];
+            textureOff = texture[1];
+            textureDeactivated = texture[2];
 
-
-        /// <summary>
-        /// Returns the game object's location
-        /// </summary>
-        /// <returns>Returns the game object's location</returns>
-        public Vector2 getLocation()
-        {
-            return location;
-        }
-
-
-        public void setLocation(Vector2 location)
-        {
-            this.location = location;
-        }
-    
-        /// <summary>
-        /// Returns the game object's bounds
-        /// </summary>
-        /// <returns></returns>
-        public Rectangle getBounds()
-        {
-            return bounds;
-        }
-
-        public void setBounds(int y, int x)
-        {
-            bounds.Height = y;
-            bounds.Width = x;
+            this.deactivated = deactivated;
+            this.pushed = pushed;
         }
 
         public void setPushed(bool pushed)
         {
             this.pushed = pushed;
-        }
-
-        /// <summary>
-        /// Returns if the game object can be pushable
-        /// </summary>
-        /// <returns>Returns true if the game object is pushable; otherwise, false</returns>
-        public bool isPushable()
-        {
-            return pushable;
         }
 
         /// <summary>
@@ -88,48 +41,37 @@ namespace OutsideTheBox {
             return pushed;
         }
 
-  
-        /// <summary>
-        /// Derives the game object's x coordinate in location and bounds by the specified x amount
-        /// </summary>
-        /// <param name="x">The x amount to be derived by</param>
-        public void deriveX(int x)
+        public void setDeactivated(bool value)
         {
-            location.X += x;
-            bounds.X += x;
+            deactivated = value; 
         }
 
         /// <summary>
-        /// Derives the game object's y coordinate in location and bounds by the specified y amount
+        /// Returns if the game object can be pushable
         /// </summary>
-        /// <param name="y">The y amount to be derived by</param>
-        public void deriveY(int y)
+        /// <returns>Returns true if the game object is pushable; otherwise, false</returns>
+        public bool isDeactivated()
         {
-            location.Y += y;
-            bounds.Y += y;
+            return deactivated;
         }
 
+        
 
         /// <summary>
-        /// Returns whether or not the game object is currently on the screen
-        /// </summary>
-        /// <param name="game">The game instance to check its viewport bounds</param>
-        /// <returns>Returns true if the game object is currently on the screen; otherwise, false</returns>
-        public bool isOnScreen(Game1 game)
-        {
-            return location.X >= -texture.Width && location.X <= game.getWidth() && location.Y >= -texture.Height && location.Y <= game.getHeight();
-        }
-
-        /// <summary>
-        /// Draws the game object
+        /// Draws Press Button
         /// </summary>
         /// <param name="batch">The SpriteBatch to draw with</param>
-        /// <param name="mode">The game's telekinesis mode to draw with respect to</param>
-        public void draw(SpriteBatch batch, byte mode)
+        public void draw(SpriteBatch batch)
         {
-
-                batch.Draw(texture, location, Color.White);
-
+            if(deactivated)
+            {
+                batch.Draw(textureDeactivated, getLocation(), Color.White);
+            }
+            else
+            {
+                batch.Draw(pushed ? textureOn : textureOff, getLocation(), Color.White);
+            }
+                       
         }
     }
 }
