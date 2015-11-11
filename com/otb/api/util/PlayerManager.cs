@@ -13,12 +13,12 @@ namespace OutsideTheBox {
     /// </summary>
 
     public class PlayerManager {
-
+        
         private readonly Player player;
         private readonly DisplayBar healthBar;
         private readonly DisplayBar manaBar;
         private readonly PowerBar powerbar;
-        private KeyBox keyBox;
+        private KeyBox keyBox; 
         private List<BasePower> powers;
         private Texture2D[] powButtons;
 
@@ -33,7 +33,7 @@ namespace OutsideTheBox {
         private int manaDrainMax;
 
         private const byte MAX_HEALTH = 0x64;
-        private const int MAX_MANA = 500;
+        private const int MAX_MANA = 500; 
 
         public PlayerManager(Player player, ContentManager cm, int health, int mana, int totalExp, int currentExp, DisplayBar healthBar, DisplayBar manaBar, KeyBox keyBox, Texture2D[] powButtons) {
             this.player = player;
@@ -43,7 +43,7 @@ namespace OutsideTheBox {
             this.currentExp = currentExp;
             this.healthBar = healthBar;
             this.manaBar = manaBar;
-            this.keyBox = keyBox;
+            this.keyBox = keyBox; 
             healthCooldown = 0;
             manaCooldown = 0;
             totalMana = 100;
@@ -74,7 +74,8 @@ namespace OutsideTheBox {
             return powers;
         }
 
-        public void unlockPower(int powerID) {
+        public void unlockPower(int powerID)
+        {
             powers[powerID].setUnlocked(true);
         }
 
@@ -126,8 +127,9 @@ namespace OutsideTheBox {
             return manaBar;
         }
 
-        public KeyBox getKeyBox() {
-            return keyBox;
+        public KeyBox getKeyBox()
+        {
+            return keyBox; 
         }
 
         /// <summary>
@@ -265,9 +267,10 @@ namespace OutsideTheBox {
         /// Levels up the player's mana
         /// </summary>
         /// <param name="percentageValue">The percent to up mana by</param>
-        public void levelMana(int value) {
+        public void levelMana(int value)
+        {
             totalMana = Math.Min(MAX_MANA, (totalMana + value));
-            //manaBar.increaseSize(totalMana);
+            manaBar.increaseSize(totalMana);
         }
 
         /// <summary>

@@ -123,7 +123,8 @@ namespace OutsideTheBox {
         /// Returns the projectile's sound
         /// </summary>
         /// <returns>Returns the projectile's sound effect</returns>
-        public SoundEffect getSound() {
+        public SoundEffect getSound()
+        {
             return sound;
         }
 
@@ -160,14 +161,14 @@ namespace OutsideTheBox {
             location.Y += y;
             bounds.Y += y;
         }
-
-        /// <summary>
-        /// Returns whether or not the projectile is currently on the screen
-        /// </summary>
-        /// <param name="game">The game instance to check viewport bounds from</param>
-        /// <returns>Returns true if the projectile is currently on screen; otherwise, false</returns>
-        public bool isOnScreen(Game1 game) {
-            return location.X >= -texture.Width && location.X <= game.getWidth() && location.Y >= -texture.Height && location.Y <= game.getHeight() - 41;
+        
+    /// <summary>
+    /// Returns whether or not the projectile is currently on the screen
+    /// </summary>
+    /// <param name="game">The game instance to check viewport bounds from</param>
+    /// <returns>Returns true if the projectile is currently on screen; otherwise, false</returns>
+    public bool isOnScreen(Game1 game) {
+            return location.X >= -texture.Width && location.X <= game.getWidth() && location.Y >= -texture.Height && location.Y <= game.getHeight();
         }
 
         /// <summary>

@@ -32,14 +32,14 @@ namespace OutsideTheBox {
         private List<ThoughtBubble> thoughts;
 
         private List<Token> tokens;
-        private List<Key> keys;
+        private List<Key> keys; 
 
         private List<Door> doors;
         private List<Wall> walls;
         private List<Cubicle> cubicles;
         private List<Projectile> projectiles;
         private List<PressButton> pressButtons;
-        private KeyBox keyBox;
+        private KeyBox keyBox; 
 
         private bool debug;
         private int index;
@@ -139,14 +139,15 @@ namespace OutsideTheBox {
             return objects;
         }
 
-        public List<GameObject> getObjectsAndKeys() {
+        public List<GameObject> getObjectsAndKeys()
+        {
             List<GameObject> list = new List<GameObject>();
             foreach (GameObject o in objects)
                 list.Add(o);
             foreach (Key k in keys)
                 list.Add(k);
 
-            return list;
+            return list; 
         }
 
         /// <summary>
@@ -176,7 +177,8 @@ namespace OutsideTheBox {
         /// Returns all of the level's game tokens
         /// </summary>
         /// <returns>Returns a list of all of the game objects in the level</returns>
-        public List<Key> getKeys() {
+        public List<Key> getKeys()
+        {
             return keys;
         }
 
@@ -192,7 +194,8 @@ namespace OutsideTheBox {
         /// Returns the level's pushButton list
         /// </summary>
         /// <returns>Returns the door list</returns>
-        public List<PressButton> getPressButtons() {
+        public List<PressButton> getPressButtons()
+        {
             return pressButtons;
         }
 
@@ -380,23 +383,25 @@ namespace OutsideTheBox {
                 projectile.update(game, projectile.getOwner());
                 if (projectile.isActive()) {
                     foreach (Npc e in npcs) {
-                        if (projectile.getOwner() == e) {
-                            if (collisionManager.collides(projectile, player)) {
+                        if (e.isOnScreen(game)) {
+                            if (projectile.getOwner() == e) {
+                                if (collisionManager.collides(projectile, player)) {
+                                    projectile.setActive(false);
+                                    playerManager.damagePlayer(5);
+                                    Console.WriteLine(playerManager.getHealth());
+                                }
+                                break;
+                            } else if (collisionManager.collides(projectile, e)) {
                                 projectile.setActive(false);
-                                playerManager.damagePlayer(5);
-                                Console.WriteLine(playerManager.getHealth());
+                                e.deriveHealth(-5);
+                                Console.WriteLine("npc health: " + e.getCurrentHealth());
+                                break;
                             }
-                            break;
-                        } else if (collisionManager.collides(projectile, e)) {
-                            projectile.setActive(false);
-                            e.deriveHealth(-5);
-                            Console.WriteLine("npc health: " + e.getCurrentHealth());
-                            break;
                         }
                     }
                     if (projectile.isActive()) {
                         foreach (GameObject e in objects) {
-                            if (collisionManager.collides(projectile, e)) {
+                            if (e.isOnScreen(game) && collisionManager.collides(projectile, e)) {
                                 projectile.setActive(false);
                                 break;
                             }
@@ -404,7 +409,7 @@ namespace OutsideTheBox {
                     }
                     if (projectile.isActive()) {
                         foreach (Wall w in walls) {
-                            if (collisionManager.collides(projectile, w)) {
+                            if (w.isOnScreen(game) && collisionManager.collides(projectile, w)) {
                                 projectile.setActive(false);
                                 break;
                             }
@@ -412,7 +417,7 @@ namespace OutsideTheBox {
                     }
                     if (projectile.isActive()) {
                         foreach (Door d in doors) {
-                            if (collisionManager.collides(projectile, d)) {
+                            if (d.isOnScreen(game) && collisionManager.collides(projectile, d)) {
                                 projectile.setActive(false);
                                 break;
                             }
@@ -443,8 +448,10 @@ namespace OutsideTheBox {
             }
         }
 
-        public void unlockDoors() {
-            foreach (Door d in doors) {
+        public void unlockDoors()
+        {
+            foreach(Door d in doors)
+            {
                 d.unlockDoor(true);
             }
         }
@@ -455,9 +462,11 @@ namespace OutsideTheBox {
         /// <param name="batch">The SpriteBatch to perform the drawing</param>
         public void draw(SpriteBatch batch) {
             batch.Draw(map, Vector2.Zero, Color.White);
-            foreach (PressButton p in pressButtons) {
+            foreach (PressButton p in pressButtons)
+            {
                 p.draw(batch);
-                if (debug) {
+                if (debug)
+                {
                     game.outline(batch, p.getBounds());
                 }
             }
@@ -470,19 +479,21 @@ namespace OutsideTheBox {
             foreach (GameObject o in objects) {
                 if (o.isOnScreen(game)) {
                     o.draw(batch, mode);
-                }
-                if (debug) {
-                    game.outline(batch, o.getBounds());
+                    if (debug) {
+                        game.outline(batch, o.getBounds());
+                    }
                 }
             }
             foreach (Cubicle c in cubicles) {
                 c.draw(batch, debug);
             }
             foreach (Npc n in npcs) {
-                n.draw(batch);
-                if (debug) {
-                    game.outline(batch, n.getBounds());
-                    game.outline(batch, n.getLineOfSight());
+                if (n.isOnScreen(game)) {
+                    n.draw(batch);
+                    if (debug) {
+                        game.outline(batch, n.getBounds());
+                        game.outline(batch, n.getLineOfSight());
+                    }
                 }
             }
             batch.Draw(player.getTexture(), player.getBounds(), Color.White);
@@ -496,9 +507,11 @@ namespace OutsideTheBox {
                     game.outline(batch, t.getBounds());
                 }
             }
-            foreach (Key k in keys) {
+            foreach (Key k in keys)
+            {
                 k.draw(batch, mode);
-                if (debug && !k.isCollected()) {
+                if(debug && !k.isCollected())
+                {
                     game.outline(batch, k.getBounds());
                 }
             }

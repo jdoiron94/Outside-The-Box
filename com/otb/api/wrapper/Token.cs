@@ -14,7 +14,8 @@ namespace OutsideTheBox {
         private readonly TokenType type;
 
         public Token(Texture2D texture, Vector2 location, TokenType type) :
-            base(texture, location, false) {
+            base(texture, location, false)
+        {
             this.type = type;
             exp = (int) type;
         }
@@ -27,21 +28,28 @@ namespace OutsideTheBox {
             return exp;
         }
 
-        public int getManaIncrementationValue() {
-            if (type == TokenType.Bronze) {
-                return 2;
-            } else if (type == TokenType.Silver) {
-                return 5;
-            } else if (type == TokenType.Gold) {
-                return 10;
-            } else if (type == TokenType.Emerald) {
-                return 15;
-            } else if (type == TokenType.Ruby) {
-                return 20;
-            } else if (type == TokenType.Diamond) {
-                return 50;
+        public int getManaIncrementationValue()
+        {
+            if(type == TokenType.Bronze)
+            {
+                return 2; 
+            }else if(type == TokenType.Silver)
+            {
+                return 5; 
+            }else if(type == TokenType.Gold)
+            {
+                return 10; 
+            }else if(type == TokenType.Emerald)
+            {
+                return 15; 
+            }else if(type == TokenType.Ruby)
+            {
+                return 20; 
+            }else if(type == TokenType.Diamond)
+            {
+                return 50; 
             }
-            return 0;
+            return 0; 
         }
     }
 }

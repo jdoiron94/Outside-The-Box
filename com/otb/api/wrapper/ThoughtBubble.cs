@@ -75,34 +75,38 @@ namespace OutsideTheBox {
         /// <summary>
         /// Sets the random number for the thought
         /// </summary>
-        public void setRand() {
+        public void setRand()
+        {
             Random rand = new Random();
             setThought(rand.Next(4));
         }
 
-        public void updateThought() {
-            setRand();
+        public void updateThought()
+        {
+            setRand(); 
         }
 
         /// <summary>
         /// Sets the thought bubble's speak
         /// </summary>
-        public string setThought(int caseSwitch) {
-            switch (caseSwitch) {
+        public string setThought(int caseSwitch)
+        {
+            switch (caseSwitch)
+            {
                 case 1:
-                    key = true;
-                    return thought = "H7&64";
+                    key = true; 
+                    return thought = "H7&64"; 
                 case 2:
-                    key = false;
+                    key = false; 
                     return thought = "The only good psychic is\na marginalized, improverished, and\noppressed psychic";
                 case 3:
-                    key = false;
+                    key = false; 
                     return thought = "I'm an armed guard";
                 case 4:
-                    key = false;
+                    key = false; 
                     return thought = "They will not get in my mind.\nNo sir";
                 default:
-                    key = false;
+                    key = false; 
                     return thought = "I do not hear Steve's thoughts\nI DO NOT!";
             }
         }
@@ -113,7 +117,7 @@ namespace OutsideTheBox {
         /// <param name="batch">The SpriteBatch to draw with</param>
         public void draw(SpriteBatch batch) {
             Vector2 fontLocation = getLocation();
-            fontLocation.Y = fontLocation.Y + 25;
+            fontLocation.Y = fontLocation.Y + 25; 
             fontLocation.X = fontLocation.X + 75;
             if (revealed) {
                 batch.Draw(getTexture(), getLocation(), Color.White);

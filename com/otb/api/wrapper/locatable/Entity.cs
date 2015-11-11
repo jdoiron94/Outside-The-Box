@@ -73,9 +73,11 @@ namespace OutsideTheBox {
                 for (int i = 1; i <= 4; i++) {
                     array[i - 1] = cm.Load<Texture2D>(prefix + s + i);
                 }
-                foreach (string p in projectileNames) {
-                    Texture2D[] projectileArray = { };
-                    for (int o = 1; o <= 5; o++) {
+            foreach (string p in projectileNames)
+                {
+                    Texture2D[] projectileArray = {};
+                    for (int o = 1; o <= 5; o++)
+                    {
                         //projectileArray[o - 1] = cm.Load<Texture2D>(projectilePrefix + p + "Orb");
                     }
                 }
@@ -374,6 +376,15 @@ namespace OutsideTheBox {
         /// <returns>Returns true if the entity is dead; otherwise, false</returns>
         public bool isDead() {
             return currentHealth <= 0;
+        }
+
+        /// <summary>
+        /// Returns whether or not the entity is currently on the game screen
+        /// </summary>
+        /// <param name="game">The game instance to check for viewport bounds</param>
+        /// <returns>Returns true if the entity is currently on screen; otherwise, false</returns>
+        public bool isOnScreen(Game1 game) {
+            return location.X >= -texture.Width && location.X <= game.getWidth() && location.Y >= -texture.Height && location.Y <= game.getHeight();
         }
 
         /// <summary>

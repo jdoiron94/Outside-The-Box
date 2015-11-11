@@ -12,16 +12,11 @@ namespace OutsideTheBox {
         private Texture2D texture;
         private Vector2 location;
         private Rectangle bounds;
-<<<<<<< HEAD
         private readonly Game1 game;
-=======
-        private int actionID;
->>>>>>> origin/master
 
-        public Button(Texture2D texture, Vector2 location, int actionID) {
+        public Button(Texture2D texture, Vector2 location) {
             this.texture = texture;
             this.location = location;
-            this.actionID = actionID;
             bounds = new Rectangle((int) location.X, (int) location.Y, texture.Width, texture.Height);
         }
 
@@ -47,10 +42,6 @@ namespace OutsideTheBox {
         /// <returns>Returns the button's bounds</returns>
         public Rectangle getBounds() {
             return bounds;
-        }
-
-        public int getActionID() {
-            return actionID;
         }
 
         /// <summary>
@@ -98,16 +89,5 @@ namespace OutsideTheBox {
                 playerManager.unlockPower(powerID);
             }
         }
-
-        public void equipPower(InputManager inputManager, int powerID) {
-
-
-        }
-
-        public void displayInstructions(InputManager inputManager) {
-            ScreenManager screenManager = inputManager.getScreenManager();
-            screenManager.setActiveScreen(5);
-        }
-
     }
 }

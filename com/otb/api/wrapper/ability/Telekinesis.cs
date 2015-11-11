@@ -5,9 +5,10 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace OutsideTheBox {
-
-    public class Telekinesis : BasePower {
+namespace OutsideTheBox.com.otb.api.wrapper.ability
+{
+    public class Telekinesis : BasePower
+    {
         /*private int ID;
         private int slotID;
         private bool unlocked;
