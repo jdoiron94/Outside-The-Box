@@ -12,10 +12,12 @@ namespace OutsideTheBox {
         private Texture2D texture;
         private Vector2 location;
         private Rectangle bounds;
+        private int actionID;
 
-        public Button(Texture2D texture, Vector2 location) {
+        public Button(Texture2D texture, Vector2 location, int actionID) {
             this.texture = texture;
             this.location = location;
+            this.actionID = actionID;
             bounds = new Rectangle((int) location.X, (int) location.Y, texture.Width, texture.Height);
         }
 
@@ -43,6 +45,10 @@ namespace OutsideTheBox {
             return bounds;
         }
 
+        public int getActionID() {
+            return actionID;
+        }
+
         /// <summary>
         /// Handles exiting of the menu
         /// </summary>
@@ -68,5 +74,16 @@ namespace OutsideTheBox {
                 playerManager.unlockPower(powerID);
             }
         }
+
+        public void equipPower(InputManager inputManager, int powerID) {
+
+
+        }
+
+        public void displayInstructions(InputManager inputManager) {
+            ScreenManager screenManager = inputManager.getScreenManager();
+            screenManager.setActiveScreen(5);
+        }
+
     }
 }

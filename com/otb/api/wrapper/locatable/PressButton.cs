@@ -5,20 +5,19 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace OutsideTheBox { 
+namespace OutsideTheBox {
 
-    public class PressButton : GameObject
-    {
+    public class PressButton : GameObject {
+
         private Texture2D textureOn;
         private Texture2D textureOff;
-        private Texture2D textureDeactivated; 
+        private Texture2D textureDeactivated;
 
         private bool deactivated;
         private bool pushed;
 
-        public PressButton(Texture2D[] texture,Vector2 location, bool deactivated, bool pushed) :
-            base(texture[0], location)
-        {
+        public PressButton(Texture2D[] texture, Vector2 location, bool deactivated, bool pushed) :
+            base(texture[0], location) {
             textureOn = texture[0];
             textureOff = texture[1];
             textureDeactivated = texture[2];
@@ -27,8 +26,7 @@ namespace OutsideTheBox {
             this.pushed = pushed;
         }
 
-        public void setPushed(bool pushed)
-        {
+        public void setPushed(bool pushed) {
             this.pushed = pushed;
         }
 
@@ -36,42 +34,35 @@ namespace OutsideTheBox {
         /// Returns if the game object is pushed
         /// </summary>
         /// <returns>Returns true if the game object is pushed; otherwise, false</returns>
-        public bool isPushed()
-        {
+        public bool isPushed() {
             return pushed;
         }
 
-        public void setDeactivated(bool value)
-        {
-            deactivated = value; 
+        public void setDeactivated(bool value) {
+            deactivated = value;
         }
 
         /// <summary>
         /// Returns if the game object can be pushable
         /// </summary>
         /// <returns>Returns true if the game object is pushable; otherwise, false</returns>
-        public bool isDeactivated()
-        {
+        public bool isDeactivated() {
             return deactivated;
         }
 
-        
+
 
         /// <summary>
         /// Draws Press Button
         /// </summary>
         /// <param name="batch">The SpriteBatch to draw with</param>
-        public void draw(SpriteBatch batch)
-        {
-            if(deactivated)
-            {
+        public void draw(SpriteBatch batch) {
+            if (deactivated) {
                 batch.Draw(textureDeactivated, getLocation(), Color.White);
-            }
-            else
-            {
+            } else {
                 batch.Draw(pushed ? textureOn : textureOff, getLocation(), Color.White);
             }
-                       
+
         }
     }
 }

@@ -26,6 +26,7 @@ namespace OutsideTheBox {
         private Target target;
         private MouseState mouse;
         private Texture2D startMenu;
+        private Texture2D instructions;
         private SpriteFont font;
 
         private Texture2D pixel;
@@ -181,9 +182,9 @@ namespace OutsideTheBox {
         //
         protected override void Initialize() {
             base.Initialize();
-            //graphics.PreferredBackBufferWidth = x;
-            //graphics.PreferredBackBufferHeight = y;
-            //graphics.ApplyChanges();
+            graphics.PreferredBackBufferWidth = 800;
+            graphics.PreferredBackBufferHeight = 521;
+            graphics.ApplyChanges();
             Window.Title = "Outside The Box";
         }
 
@@ -195,7 +196,7 @@ namespace OutsideTheBox {
             base.LoadContent();
             spriteBatch = new SpriteBatch(GraphicsDevice);
             width = 800;
-            height = 480;
+            height = 521;
 
             factorySong = Content.Load<Song>("audio/songs/Factory");
             MediaPlayer.IsRepeating = true;
@@ -206,6 +207,7 @@ namespace OutsideTheBox {
             boltSound = Content.Load<SoundEffect>("audio/Sound Effects/boltSound");
             dashSound = Content.Load<SoundEffect>("audio/Sound Effects/dashSound");
             startMenu = Content.Load<Texture2D>("menus/StartMenu");
+            instructions = Content.Load<Texture2D>("menus/instructions");
 
             Texture2D playur = Content.Load<Texture2D>("sprites/entities/player/Standing1");
             Texture2D bullet = Content.Load<Texture2D>("sprites/projectiles/BulletOrb");
@@ -233,28 +235,28 @@ namespace OutsideTheBox {
             Texture2D button9 = Content.Load<Texture2D>("menus/assets/button_lightning_bolt");
 
             Texture2D pOff = Content.Load<Texture2D>("sprites/objects/PressButtonOff");
-            Texture2D pOn  = Content.Load<Texture2D>("sprites/objects/PressButtonOn");
+            Texture2D pOn = Content.Load<Texture2D>("sprites/objects/PressButtonOn");
             Texture2D pDeactivated = Content.Load<Texture2D>("sprites/objects/PressButtonDeactivated");
 
             Texture2D[] buttonTextures = { button1, button2, button3, button4, button5, button6, button7, button8, button9 };
-            Button[] menuButtons = { new Button(button1, new Vector2(270F, 140F)), new Button(button2, new Vector2(270F, 220F)),
-                                       new Button(button3, new Vector2(270F, 310F)), new Button(button4, new Vector2(355F, 140F)),
-                                       new Button(button5, new Vector2(355F, 220F)), new Button(button6, new Vector2(355F, 310F)),
-                                       new Button(button7, new Vector2(445F, 140F)), new Button(button8, new Vector2(445F, 220F)),
-                                       new Button(button9, new Vector2(445F, 310F)) };
+            Button[] menuButtons = { new Button(button1, new Vector2(270F, 140F), 0), new Button(button2, new Vector2(270F, 220F), 1),
+                                       new Button(button3, new Vector2(270F, 310F), 2), new Button(button4, new Vector2(355F, 140F), 3),
+                                       new Button(button5, new Vector2(355F, 220F), 4), new Button(button6, new Vector2(355F, 310F), 5),
+                                       new Button(button7, new Vector2(445F, 140F), 6), new Button(button8, new Vector2(445F, 220F), 7),
+                                       new Button(button9, new Vector2(445F, 310F), 8) };
 
             midX = (graphics.PreferredBackBufferWidth - playur.Width) / 2;
             midY = (graphics.PreferredBackBufferHeight - playur.Height) / 2;
             player = new Player(playur, new Vector2(125F, 295F), Direction.South, 100, 50, 0, 3);
             player.setProjectile(new Projectile(player, lightningOrb, 5, 250, 0.25F, boltSound));
             KeyBox keyBox = new KeyBox(new Texture2D[] { normBox, nullBox, key }, new Vector2(750F, 20F));
-            playerManager = new PlayerManager(player, Content, new DisplayBar(health, new Vector2(20F, 20F), Color.Red, back), new DisplayBar(mana, new Vector2(20F, 50F), Color.Blue, back, 100), keyBox, buttonTextures);
+            playerManager = new PlayerManager(player, Content, new DisplayBar(health, new Vector2(252F, height - 41F), Color.Red, back, 549, 20), new DisplayBar(mana, new Vector2(252F, height - 21F), Color.Blue, back, 549, 21), keyBox, buttonTextures);
             player.loadTextures(Content);
-            powerBar = new PowerBar(powerbar, new Vector2(midX - 20F, 20F));
+            powerBar = new PowerBar(powerbar, new Vector2(0F, height - 41F));
 
             Texture2D male1 = Content.Load<Texture2D>("sprites/entities/npcs/NormieMaleStand1");
             Texture2D male2 = Content.Load<Texture2D>("sprites/entities/npcs/NormieMaleStand2");
-            Npc npc = new Npc(this, male1, new Vector2(430F, height - 94F), Direction.East, new NpcDefinition("Normie", new string[0], new int[0]), 150, 0x5);
+            Npc npc = new Npc(this, male1, new Vector2(430F, height - 135F), Direction.East, new NpcDefinition("Normie", new string[0], new int[0]), 150, 0x5);
             Npc npc2 = new Npc(this, male2, new Vector2(80F, 205F), Direction.East, new NpcDefinition("Normie2", new string[0], new int[0]), 150, 0x5);
             Npc npc3 = new Npc(this, male2, new Vector2(666F, 205F), Direction.East, new NpcDefinition("Normie3", new string[0], new int[0]), 150, 0x5);
             //Npc npc2 = new Npc(this, male1, new Vector2(midX + 350F, midY + 100F), Direction.East, new NpcDefinition("Normie2", new string[0], new int[0]), 150, 0x5);
@@ -278,7 +280,7 @@ namespace OutsideTheBox {
 
             Texture2D door = Content.Load<Texture2D>("sprites/objects/DoorOpen");
             Texture2D doorClosed = Content.Load<Texture2D>("sprites/objects/Door");
-            Door door1 = new Door(new Texture2D[] {door, doorClosed}, null, new Vector2((width - 64F) / 2F, height - 10F), Direction.East, false, true, 64, 10, true);
+            Door door1 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2((width - 64F) / 2F, height - 51F), Direction.East, false, true, 64, 10, true);
             //Door door2 = new Door(door, null, new Vector2(0F, height - 89F), Direction.West, false, false, 10, 64, true);
             //Door door3 = new Door(door, null, new Vector2(width - 10F, height - 89F), Direction.East, false, true, 10, 64, false);
             //Door door4 = new Door(door, null, new Vector2(0F, height - 89F), Direction.West, false, false, 10, 64, true);
@@ -298,7 +300,7 @@ namespace OutsideTheBox {
             //Texture2D l3 = Content.Load<Texture2D>("sprites/levels/StorageRoom");
 
             Texture2D desk = Content.Load<Texture2D>("sprites/objects/ComputerDesk");
-            GameObject desk1 = new GameObject(desk, new Vector2(125F, 145F));
+            GameObject desk1 = new GameObject(desk, new Vector2(125F, 145F), true);
 
             Cubicle cube1 = new Cubicle(80F, 30F, 150, 150, this, Direction.East, wall);
             cube1.addObject(desk1);
@@ -308,12 +310,12 @@ namespace OutsideTheBox {
             Cubicle cube4 = new Cubicle(width - 230F, 280F, 150, 150, this, Direction.West, wall);
 
             Key k = new Key(key, new Vector2(200F, 200F));
-            Texture2D[] pBTextures = new Texture2D[] {pOn, pOff, pDeactivated};
+            Texture2D[] pBTextures = new Texture2D[] { pOn, pOff, pDeactivated };
             PressButton p1 = new PressButton(pBTextures, new Vector2(300F, 400F), false, false);
             PressButton p2 = new PressButton(pBTextures, new Vector2(200F, 200F), true, false);
 
             Level level1 = new Level(this, player, l1, new Npc[] { npc, npc2, npc3 }, new GameObject[] { }, new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() },
-            new Token[] { token1, token2 }, new Door[] { door1 }, new Wall[] { }, new ThoughtBubble[] { }, new PressButton[] { }, new Key[] {}, 0);
+            new Token[] { token1, token2 }, new Door[] { door1 }, new Wall[] { }, new ThoughtBubble[] { }, new PressButton[] { }, new Key[] { }, 0);
             level1.addCubicle(cube1);
             level1.addCubicle(cube2);
             level1.addCubicle(cube3);
@@ -335,7 +337,7 @@ namespace OutsideTheBox {
             Texture2D targ = Content.Load<Texture2D>("sprites/cursors/TargetingCursor");
             target = new Target(targ);
 
-            Screen[] screens = { new Screen("Menu"), new Screen("Normal", true), new Screen("Telekinesis-Select"), new Screen("Telekinesis-Move"), new Screen("Start") };
+            Screen[] screens = { new Screen("Menu"), new Screen("Normal", true), new Screen("Telekinesis-Select"), new Screen("Telekinesis-Move"), new Screen("Start"), new Screen("Instructions") };
             MindRead read = new MindRead(2, 1, 20, 1000, 200, 100, true, false, button1);
             inputManager = new InputManager(this, player, level, pauseMenu, target, playerManager, screens, read);
             keyBox.update(inputManager);
@@ -388,7 +390,7 @@ namespace OutsideTheBox {
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime) {
             base.Draw(gameTime);
-            GraphicsDevice.Clear(Color.Black);
+            GraphicsDevice.Clear(Color.White);
             spriteBatch.Begin();
             level.draw(spriteBatch);
             if (pauseMenu.isActive()) {
@@ -403,6 +405,9 @@ namespace OutsideTheBox {
             }
             if (inputManager.getScreenManager().getActiveScreen().getName() == "Start") {
                 spriteBatch.Draw(startMenu, new Vector2(-290F, -100F), Color.White);
+            }
+            if (inputManager.getScreenManager().getActiveScreen().getName() == "Instructions") {
+                spriteBatch.Draw(instructions, Vector2.Zero, Color.White);
             }
             powerBar.draw(spriteBatch);
             spriteBatch.End();
