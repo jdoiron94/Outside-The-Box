@@ -78,13 +78,6 @@ namespace OutsideTheBox {
             displayBar.Width = width;
         }
 
-        public void increaseSize(int width) {
-            //displayBar.Width = width;
-            backBar.Width = width;
-            outlineBar.Width = width + 20;
-
-        }
-
         /// <summary>
         /// Draws the display bar
         /// </summary>

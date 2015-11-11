@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-
 using System;
 using System.Collections.Generic;
 
@@ -32,7 +31,7 @@ namespace OutsideTheBox {
         private int manaDrainRate;
         private int manaDrainMax;
 
-        private const byte MAX_HEALTH = 0x64;
+        private const int MAX_HEALTH = 100;
         private const int MAX_MANA = 500;
 
         public PlayerManager(Player player, ContentManager cm, int health, int mana, int totalExp, int currentExp, DisplayBar healthBar, DisplayBar manaBar, KeyBox keyBox, Texture2D[] powButtons, PowerBar powerbar) {
@@ -183,7 +182,9 @@ namespace OutsideTheBox {
         /// <param name="damage">The amount of damage to inflict</param>
         public void damagePlayer(int damage) {
             player.deriveHealth(-2);
-            healthBar.setWidth((health = Math.Max(0, health - damage)) * 2);
+            health = Math.Max(0, health - damage);
+            int width = (int) (((float) health / MAX_HEALTH) * 549.0F);
+            healthBar.setWidth(width);
         }
 
         /// <summary>
@@ -191,7 +192,9 @@ namespace OutsideTheBox {
         /// </summary>
         public void regenerateHealth() {
             player.deriveHealth(2);
-            healthBar.setWidth((health = Math.Min(MAX_HEALTH, health + 1)) * 2);
+            health = Math.Min(MAX_HEALTH, health + 1);
+            int width = (int) (((float) health / MAX_HEALTH) * 549.0F);
+            healthBar.setWidth(width);
         }
 
         /// <summary>
@@ -239,9 +242,8 @@ namespace OutsideTheBox {
         /// <param name="mana">The amount of mana to deplete</param>
         public void depleteMana(int damage) {
             mana = Math.Max(0, mana - damage);
-            //int w_mod = (int) (200D * damage) / totalMana;
-            //int width = manaBar.getWidth();
-            manaBar.setWidth(mana);
+            int width = (int) (((float) mana / totalMana) * 549.0F);
+            manaBar.setWidth(width);
         }
 
         /// <summary>
@@ -250,7 +252,8 @@ namespace OutsideTheBox {
         public void regenerateMana() {
             int regeneration = (int) (totalMana * .01);
             mana = Math.Min(totalMana, mana + regeneration);
-            manaBar.setWidth(mana);
+            int width = (int) (((float) mana / totalMana) * 549.0F);
+            manaBar.setWidth(width);
         }
 
         /// <summary>

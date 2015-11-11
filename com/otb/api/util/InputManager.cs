@@ -369,7 +369,7 @@ namespace OutsideTheBox {
         private void updateTelekinesisMove(GameTime time) {
             playerManager.updateManaDrainRate();
             if (playerManager.getManaDrainRate() == 5) {
-                //playerManager.depleteMana(1);
+                playerManager.depleteMana(1);
             }
             if (currentKeyState.IsKeyDown(Keys.Up)) {
                 selectedObject.setDirection(Direction.North);
@@ -377,7 +377,7 @@ namespace OutsideTheBox {
                 if (selectedObject.getDestination().Y > 0 && collisionManager.isValid(selectedObject)) {
                     selectedObject.deriveY(-velocity);
                     if (playerManager.getManaDrainRate() == 5) {
-                        //playerManager.depleteMana(2);
+                        playerManager.depleteMana(2);
                     }
                 }
             } else if (currentKeyState.IsKeyDown(Keys.Down)) {
@@ -386,7 +386,7 @@ namespace OutsideTheBox {
                 if (selectedObject.getDestination().Y < height - selectedObject.getTexture().Height && collisionManager.isValid(selectedObject)) {
                     selectedObject.deriveY(velocity);
                     if (playerManager.getManaDrainRate() == 5) {
-                        //playerManager.depleteMana(2);
+                        playerManager.depleteMana(2);
                     }
                 }
             } else if (currentKeyState.IsKeyDown(Keys.Left)) {
@@ -395,7 +395,7 @@ namespace OutsideTheBox {
                 if (selectedObject.getDestination().X > 0 && collisionManager.isValid(selectedObject)) {
                     selectedObject.deriveX(-velocity);
                     if (playerManager.getManaDrainRate() == 5) {
-                        //playerManager.depleteMana(2);
+                        playerManager.depleteMana(2);
                     }
                 }
             } else if (currentKeyState.IsKeyDown(Keys.Right)) {
@@ -404,7 +404,7 @@ namespace OutsideTheBox {
                 if (selectedObject.getDestination().X < width && collisionManager.isValid(selectedObject)) {
                     selectedObject.deriveX(velocity);
                     if (playerManager.getManaDrainRate() == 5) {
-                        //playerManager.depleteMana(2);
+                        playerManager.depleteMana(2);
                     }
                 }
             } else {
