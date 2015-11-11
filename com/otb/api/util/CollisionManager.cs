@@ -91,25 +91,25 @@
             return null;
         }
 
-        public void updatePressButtons(Entity e)
-        {
-            foreach(PressButton p in level.getPressButtons())
-            {
+        public void updatePressButtons(Entity e) {
+            foreach (PressButton p in level.getPressButtons()) {
                 bool pushed = false;
-                if(!p.isDeactivated())
-                {
-                    foreach (GameObject g in level.getObjects())
-                        if (p != g && g.getDestinationBounds().Intersects(p.getBounds()))
+                if (!p.isDeactivated()) {
+                    foreach (GameObject g in level.getObjects()) {
+                        if (p != g && g.getDestinationBounds().Intersects(p.getBounds())) {
                             pushed = true;
-
-                    foreach (Npc n in level.getNpcs())
-                        if (n.getDestinationBounds().Intersects(p.getBounds()))
+                        }
+                    }
+                    foreach (Npc n in level.getNpcs()) {
+                        if (n.getDestinationBounds().Intersects(p.getBounds())) {
                             pushed = true;
-
-                    if (e.getDestinationBounds().Intersects(p.getBounds()))
-                        pushed = true; 
+                        }
+                    }
+                    if (e.getDestinationBounds().Intersects(p.getBounds())) {
+                        pushed = true;
+                    }
                 }
-                p.setPushed(pushed); 
+                p.setPushed(pushed);
             }
         }
 
@@ -153,10 +153,8 @@
                     if (e.getDestinationBounds().Intersects(t.getBounds()) && !t.isCollected()) {
                         return t;
                     }
-                foreach (Key k in level.getKeys())
-                    {
-                        if (e.getDestinationBounds().Intersects(k.getBounds()) && !k.isCollected())
-                        {
+                    foreach (Key k in level.getKeys()) {
+                        if (e.getDestinationBounds().Intersects(k.getBounds()) && !k.isCollected()) {
                             return k;
                         }
                     }

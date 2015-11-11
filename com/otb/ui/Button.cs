@@ -75,14 +75,12 @@ namespace OutsideTheBox {
             }
         }
 
-        public void equipPower(InputManager inputManager, int powerID)
-        {
-            
+        public void equipPower(InputManager inputManager, int powerID) {
+
 
         }
 
-        public void displayInstructions(InputManager inputManager)
-        {
+        public void displayInstructions(InputManager inputManager) {
             ScreenManager screenManager = inputManager.getScreenManager();
             screenManager.setActiveScreen(5);
         }
