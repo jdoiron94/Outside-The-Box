@@ -35,7 +35,7 @@ namespace OutsideTheBox {
         private const byte MAX_HEALTH = 0x64;
         private const int MAX_MANA = 500;
 
-        public PlayerManager(Player player, ContentManager cm, int health, int mana, int totalExp, int currentExp, DisplayBar healthBar, DisplayBar manaBar, KeyBox keyBox, Texture2D[] powButtons) {
+        public PlayerManager(Player player, ContentManager cm, int health, int mana, int totalExp, int currentExp, DisplayBar healthBar, DisplayBar manaBar, KeyBox keyBox, Texture2D[] powButtons, PowerBar powerbar) {
             this.player = player;
             this.health = health;
             this.mana = mana;
@@ -44,6 +44,7 @@ namespace OutsideTheBox {
             this.healthBar = healthBar;
             this.manaBar = manaBar;
             this.keyBox = keyBox;
+            this.powerbar = powerbar; 
             healthCooldown = 0;
             manaCooldown = 0;
             totalMana = 100;
@@ -54,8 +55,8 @@ namespace OutsideTheBox {
             powers = new List<BasePower> { slow, dash, confuse /*, new Mindread(true, false, inputManager)*/};
         }
 
-        public PlayerManager(Player player, ContentManager cm, DisplayBar healthBar, DisplayBar manaBar, KeyBox keyBox, Texture2D[] powButtons) :
-            this(player, cm, 100, 100, 0, 0, healthBar, manaBar, keyBox, powButtons) {
+        public PlayerManager(Player player, ContentManager cm, DisplayBar healthBar, DisplayBar manaBar, KeyBox keyBox, Texture2D[] powButtons, PowerBar powerbar) :
+            this(player, cm, 100, 100, 0, 0, healthBar, manaBar, keyBox, powButtons, powerbar) {
         }
 
         /// <summary>
@@ -128,6 +129,11 @@ namespace OutsideTheBox {
 
         public KeyBox getKeyBox() {
             return keyBox;
+        }
+
+        public PowerBar getPowerBar()
+        {
+            return powerbar; 
         }
 
         /// <summary>

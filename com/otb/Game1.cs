@@ -30,7 +30,7 @@ namespace OutsideTheBox {
         private SpriteFont font;
 
         private Texture2D pixel;
-        private PowerBar powerBar;
+        //private PowerBar powerBar;
 
         private Song factorySong;
         private SoundEffect dashSound;
@@ -222,7 +222,7 @@ namespace OutsideTheBox {
             Texture2D normBox = Content.Load<Texture2D>("sprites/objects/KeyOutline");
             Texture2D nullBox = Content.Load<Texture2D>("sprites/objects/KeyOutlineNull");
             Texture2D key = Content.Load<Texture2D>("sprites/objects/KeyFrame1");
-            Texture2D powerbar = Content.Load<Texture2D>("ui/powerbar");
+            Texture2D powerbarText = Content.Load<Texture2D>("ui/powerbar");
 
             Texture2D button1 = Content.Load<Texture2D>("menus/assets/button_mind_read");
             Texture2D button2 = Content.Load<Texture2D>("menus/assets/button_clairvoyance");
@@ -249,10 +249,11 @@ namespace OutsideTheBox {
             midY = (graphics.PreferredBackBufferHeight - playur.Height) / 2;
             player = new Player(playur, new Vector2(125F, 295F), Direction.South, 100, 50, 0, 3);
             player.setProjectile(new Projectile(player, lightningOrb, 5, 250, 0.25F, boltSound));
+            PowerBar powerBar = new PowerBar(powerbarText, new Vector2(0F, height - 41F));
             KeyBox keyBox = new KeyBox(new Texture2D[] { normBox, nullBox, key }, new Vector2(750F, 20F));
-            playerManager = new PlayerManager(player, Content, new DisplayBar(health, new Vector2(252F, height - 41F), Color.Red, back, 549, 20), new DisplayBar(mana, new Vector2(252F, height - 21F), Color.Blue, back, 549, 21), keyBox, buttonTextures);
+            playerManager = new PlayerManager(player, Content, new DisplayBar(health, new Vector2(252F, height - 41F), Color.Red, back, 549, 20), new DisplayBar(mana, new Vector2(252F, height - 21F), Color.Blue, back, 549, 21), keyBox, buttonTextures, powerBar);
             player.loadTextures(Content);
-            powerBar = new PowerBar(powerbar, new Vector2(0F, height - 41F));
+            
 
             Texture2D male1 = Content.Load<Texture2D>("sprites/entities/npcs/NormieMaleStand1");
             Texture2D male2 = Content.Load<Texture2D>("sprites/entities/npcs/NormieMaleStand2");
@@ -409,7 +410,7 @@ namespace OutsideTheBox {
             if (inputManager.getScreenManager().getActiveScreen().getName() == "Instructions") {
                 spriteBatch.Draw(instructions, Vector2.Zero, Color.White);
             }
-            powerBar.draw(spriteBatch);
+
             spriteBatch.End();
         }
     }

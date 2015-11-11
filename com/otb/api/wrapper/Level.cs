@@ -521,6 +521,8 @@ namespace OutsideTheBox {
             foreach (DisplayBar db in displayBars) {
                 db.draw(batch);
             }
+
+            playerManager.getPowerBar().draw(batch);
         }
     }
 }
