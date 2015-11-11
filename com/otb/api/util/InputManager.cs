@@ -235,14 +235,16 @@ namespace OutsideTheBox {
                     collisionManager.setLevel(level);
                     game.setLevel(level);
 
-                    if (d.getDirection() == Direction.East) {
-                        player.setLocation(new Vector2(40F, d.getLocation().Y));
-                    } else if (d.getDirection() == Direction.West) {
-                        player.setLocation(new Vector2(696F, d.getLocation().Y));
-                    } else if (d.getDirection() == Direction.North) {
-                        player.setLocation(new Vector2(d.getLocation().X, 376F)); // untested
+                    Door newDoor = d.getDoor();
+
+                    if (newDoor.getDirection() == Direction.East) {
+                        player.setLocation(new Vector2(newDoor.getLocation().X+10F, newDoor.getLocation().Y));
+                    } else if (newDoor.getDirection() == Direction.West) {
+                        player.setLocation(new Vector2(newDoor.getLocation().X-10F, newDoor.getLocation().Y));
+                    } else if (newDoor.getDirection() == Direction.North) {
+                        player.setLocation(new Vector2(newDoor.getLocation().X, newDoor.getLocation().Y+10F)); // untested
                     } else {
-                        player.setLocation(new Vector2(d.getLocation().X, 104F)); // untested
+                        player.setLocation(new Vector2(newDoor.getLocation().X, newDoor.getLocation().Y-10F)); // untested
                     }
                     playerManager.getKeyBox().update(this);
                 }

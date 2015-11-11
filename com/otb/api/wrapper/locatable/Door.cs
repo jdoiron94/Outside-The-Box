@@ -15,10 +15,13 @@ namespace OutsideTheBox {
         private Texture2D open;
         private Texture2D closed;
 
-        public Door(Texture2D[] texture, Projectile projectile, Vector2 location, Direction direction, bool liftable, bool next, int width, int height, bool unlocked) :
+        private Door door; 
+
+        public Door(Texture2D[] texture, Projectile projectile, Vector2 location, Direction direction, bool liftable, bool next, int width, int height, bool unlocked, Door door) :
             base(texture[0], projectile, location, direction, liftable, width, height) {
             this.next = next;
             this.unlocked = unlocked;
+            this.door = door; 
             open = texture[0];
             closed = texture[1];
         }
@@ -39,6 +42,11 @@ namespace OutsideTheBox {
             return next;
         }
 
+
+        public Door getDoor()
+        {
+            return door; 
+        }
         /// <summary>
         /// Returns whether or not the door is unlocked
         /// </summary>

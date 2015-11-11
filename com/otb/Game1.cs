@@ -258,8 +258,8 @@ namespace OutsideTheBox {
             KeyBox keyBox = new KeyBox(new Texture2D[] { normBox, nullBox, key }, new Vector2(750F, 20F));
             playerManager = new PlayerManager(player, Content, new DisplayBar(health, new Vector2(252F, height - 41F), Color.Red, back, 549, 20), new DisplayBar(mana, new Vector2(252F, height - 21F), Color.Blue, back, 549, 21), keyBox, buttonTextures, powerBar);
             player.loadTextures(Content);
-            
 
+            List<GameObject> Level1Objects = new List<GameObject>(); 
             Texture2D male1 = Content.Load<Texture2D>("sprites/entities/npcs/NormieMaleStand1");
             Texture2D male2 = Content.Load<Texture2D>("sprites/entities/npcs/NormieMaleStand2");
             Npc npc = new Npc(this, male1, new Vector2(430F, height - 135F), Direction.East, new NpcDefinition("Normie", new string[0], new int[0]), 150, 0x5);
@@ -286,18 +286,22 @@ namespace OutsideTheBox {
 
             Texture2D door = Content.Load<Texture2D>("sprites/objects/DoorOpen");
             Texture2D doorClosed = Content.Load<Texture2D>("sprites/objects/Door");
-            Door door1 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2((width - 64F) / 2F, height - 51F), Direction.East, false, true, 64, 10, true);
+            Door door1 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2((width - 64F) / 2F, height - 51F), Direction.East, false, true, 64, 10, true, null);
+            Level1Objects.Add(door1);
             //Door door2 = new Door(door, null, new Vector2(0F, height - 89F), Direction.West, false, false, 10, 64, true);
             //Door door3 = new Door(door, null, new Vector2(width - 10F, height - 89F), Direction.East, false, true, 10, 64, false);
             //Door door4 = new Door(door, null, new Vector2(0F, height - 89F), Direction.West, false, false, 10, 64, true);
 
             barrier b1 = new barrier(new Texture2D[] { bOpenV, bClosedV }, new Vector2(200F, 400F));
+            Level1Objects.Add(b1);
 
             Texture2D bronze = Content.Load<Texture2D>("sprites/objects/BronzeBar");
             Texture2D silver = Content.Load<Texture2D>("sprites/objects/SilverBar");
             Texture2D gold = Content.Load<Texture2D>("sprites/objects/GoldBar");
             Token token1 = new Token(bronze, new Vector2(midX + 260F, midY + 140F), TokenType.Bronze);
             Token token2 = new Token(silver, new Vector2(midX, midY), TokenType.Silver);
+            Level1Objects.Add(token1);
+            Level1Objects.Add(token2);
             //Token token3 = new Token(gold, new Vector2(200F, 200F), TokenType.Gold);
             //Token token4 = new Token(gold, new Vector2(200F, 200F), TokenType.Gold);
 
@@ -318,13 +322,14 @@ namespace OutsideTheBox {
             Cubicle cube4 = new Cubicle(width - 230F, 280F, 150, 150, this, Direction.West, wall);
 
             Key k = new Key(key, new Vector2(200F, 200F));
+            Level1Objects.Add(k);
             Texture2D[] pBTextures = new Texture2D[] { pOn, pOff, pDeactivated };
             
             BarrierButton p1 = new BarrierButton(pBTextures, new Vector2(200F, 200F), false, false, b1);
             ActivateButton p2 = new ActivateButton(pBTextures, new Vector2(300F, 400F), false, false, p1);
-
-            Level level1 = new Level(this, player, l1, new Npc[] { npc, npc2, npc3 }, new GameObject[] { }, new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() },
-            new Token[] { token1, token2 }, new Door[] { door1 }, new Wall[] { }, new ThoughtBubble[] { }, new PressButton[] {p1, p2}, new Key[] { }, new barrier[] {b1 }, 0);
+            Level1Objects.Add(p1);
+            Level1Objects.Add(p2);
+            Level level1 = new Level(this, player, l1, new Npc[] { npc, npc2, npc3 }, Level1Objects.ToArray(), 0);
             level1.addCubicle(cube1);
             level1.addCubicle(cube2);
             level1.addCubicle(cube3);

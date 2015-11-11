@@ -3,6 +3,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 
 namespace OutsideTheBox {
 
@@ -13,14 +14,15 @@ namespace OutsideTheBox {
     public class Menu {
 
         private Texture2D background;
-        private Button[] buttons;
+        private List<Button> buttons;
         private InputManager inputManager;
         private bool active;
 
         public Menu(Texture2D texture, Button[] buttons) {
             this.background = texture;
-            this.buttons = buttons;
-            this.active = false;
+            this.buttons = new List<Button>(buttons.Length);
+            this.buttons.AddRange(buttons);
+            active = false;
         }
 
         /// <summary>
@@ -43,7 +45,7 @@ namespace OutsideTheBox {
         /// Returns the menu's button array
         /// </summary>
         /// <returns>Returns the menu's buttons</returns>
-        public Button[] getButtons() {
+        public List<Button> getButtons() {
             return buttons;
         }
 
@@ -59,7 +61,7 @@ namespace OutsideTheBox {
         /// Handles mouse input
         /// </summary>
         public void reactToMouseClick() {
-            for (int i = 0; i < buttons.Length; i++) {
+            for (int i = 0; i < buttons.Count; i++) {
                 if (buttons[i].getBounds().Contains(new Point(Mouse.GetState().X, Mouse.GetState().Y))) {
                     int id = buttons[i].getActionID();
                     switch (id) {

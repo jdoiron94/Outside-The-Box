@@ -44,7 +44,7 @@ namespace OutsideTheBox {
         private bool debug;
         private int index;
 
-        public Level(Game1 game, Player player, Texture2D map, Npc[] npcs, GameObject[] objects, DisplayBar[] displayBars, Token[] tokens, Door[] doors, Wall[] walls, ThoughtBubble[] thoughts, PressButton[] pressButtons, Key[] keys, barrier[] barriers, int index) {
+        public Level(Game1 game, Player player, Texture2D map, Npc[] npcs, GameObject[] objects, int index) {
             this.game = game;
             this.player = player;
             this.map = map;
@@ -52,28 +52,59 @@ namespace OutsideTheBox {
             this.npcs.AddRange(npcs);
             this.objects = new List<GameObject>(objects.Length);
             this.objects.AddRange(objects);
-            this.displayBars = new List<DisplayBar>(displayBars.Length);
-            this.displayBars.AddRange(displayBars);
-            this.tokens = new List<Token>(tokens.Length);
-            this.tokens.AddRange(tokens);
-            this.keys = new List<Key>(keys.Length);
-            this.keys.AddRange(keys);
-            this.doors = new List<Door>(doors.Length);
-            this.doors.AddRange(doors);
-            this.pressButtons = new List<PressButton>(pressButtons.Length);
-            this.pressButtons.AddRange(pressButtons);
-            this.walls = new List<Wall>(walls.Length);
-            this.walls.AddRange(walls);
-            this.cubicles = new List<Cubicle>();
-            this.thoughts = new List<ThoughtBubble>(thoughts.Length);
-            this.thoughts.AddRange(thoughts);
-            this.barriers = new List<barrier>(barriers.Length);
-            this.barriers.AddRange(barriers);
+            tokens = new List<Token>();
+            doors = new List<Door>();
+            keys = new List<Key>();
+            barriers = new List<barrier>();
+            thoughts = new List<ThoughtBubble>();
+            walls = new List<Wall>();
+            pressButtons = new List<PressButton>();
+
+            sortObjects();
+            cubicles = new List<Cubicle>();
             active = true;
             selectedObject = null;
             debug = false;
             projectiles = new List<Projectile>();
             this.index = index;
+        }
+
+        public void sortObjects()
+        {
+            List<GameObject> newObjects = new List<GameObject>(); 
+
+            foreach(GameObject o in objects)
+            {
+                if (o is Token)
+                {
+                    tokens.Add((Token)o);
+                }
+                else if(o is Door)
+                {
+                    doors.Add((Door)o);
+                }
+                else if (o is Wall)
+                {
+                    walls.Add((Wall)o);
+                }
+                else if (o is PressButton)
+                {
+                    pressButtons.Add((PressButton)o);
+                }
+                else if (o is Key)
+                {
+                    keys.Add((Key)o);
+                }
+                else if (o is barrier)
+                {
+                    barriers.Add((barrier)o);
+                }
+                else
+                {
+                    newObjects.Add(o);
+                }
+            }
+            objects = newObjects; 
         }
 
         /// <summary>
@@ -533,9 +564,8 @@ namespace OutsideTheBox {
             foreach (ThoughtBubble tb in thoughts) {
                 tb.draw(batch);
             }
-            foreach (DisplayBar db in displayBars) {
-                db.draw(batch);
-            }
+            playerManager.getHealthBar().draw(batch);
+            playerManager.getManaBar().draw(batch);
 
             playerManager.getPowerBar().draw(batch);
         }
