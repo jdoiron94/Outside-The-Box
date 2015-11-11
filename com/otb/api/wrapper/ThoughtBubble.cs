@@ -118,7 +118,6 @@ namespace OutsideTheBox {
             if (revealed) {
                 batch.Draw(getTexture(), getLocation(), Color.White);
                 batch.DrawString(font, thought, fontLocation, Color.Black);
-
             }
         }
     }

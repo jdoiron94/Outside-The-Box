@@ -185,6 +185,7 @@ namespace OutsideTheBox {
             health = Math.Max(0, health - damage);
             int width = (int) (((float) health / MAX_HEALTH) * 549.0F);
             healthBar.setWidth(width);
+            healthBar.setText(health + "/" + MAX_HEALTH);
         }
 
         /// <summary>
@@ -195,6 +196,7 @@ namespace OutsideTheBox {
             health = Math.Min(MAX_HEALTH, health + 1);
             int width = (int) (((float) health / MAX_HEALTH) * 549.0F);
             healthBar.setWidth(width);
+            healthBar.setText(health + "/" + MAX_HEALTH);
         }
 
         /// <summary>
@@ -244,6 +246,7 @@ namespace OutsideTheBox {
             mana = Math.Max(0, mana - damage);
             int width = (int) (((float) mana / totalMana) * 549.0F);
             manaBar.setWidth(width);
+            manaBar.setText(mana + "/" + totalMana);
         }
 
         /// <summary>
@@ -254,6 +257,7 @@ namespace OutsideTheBox {
             mana = Math.Min(totalMana, mana + regeneration);
             int width = (int) (((float) mana / totalMana) * 549.0F);
             manaBar.setWidth(width);
+            manaBar.setText(mana + "/" + totalMana);
         }
 
         /// <summary>
@@ -276,7 +280,6 @@ namespace OutsideTheBox {
         /// <param name="percentageValue">The percent to up mana by</param>
         public void levelMana(int value) {
             totalMana = Math.Min(MAX_MANA, (totalMana + value));
-            //manaBar.increaseSize(totalMana);
         }
 
         /// <summary>

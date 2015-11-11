@@ -179,9 +179,6 @@ namespace OutsideTheBox {
                 case Direction.East:
                     lineOfSight = new Rectangle((int) location.X + texture.Width, (int) location.Y, texture.Width * 3, texture.Height);
                     break;
-                case Direction.None:
-                    lineOfSight = new Rectangle((int) location.X, (int) location.Y, texture.Width, texture.Height);
-                    break;
                 default:
                     lineOfSight = new Rectangle((int) location.X, (int) location.Y, texture.Width, texture.Height);
                     break;

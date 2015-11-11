@@ -43,7 +43,6 @@ namespace OutsideTheBox {
         /// <param name="batch">The SpriteBatch to draw with</param>
         public void draw(SpriteBatch batch) {
             batch.Draw(texture, location, Color.White);
-
         }
     }
 }

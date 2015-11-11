@@ -220,12 +220,12 @@ namespace OutsideTheBox {
                 k.setCollected(true);
                 k.setUnlocked(true);
                 level.unlockDoors();
-            } else if (gCollision != null && gCollision is Door) {
+            }/* else if (gCollision != null && gCollision is Door) {
                 Door d = (Door) gCollision;
                 if (d.isUnlocked()) {
                     int index = (game.getLevelIndex()) + (d.getNext() ? 1 : -1);
                     level.setActive(false);
-                    game.setLevel(index);
+                    //game.setLevel(index);
                     level = game.getLevel(index);
                     deathManager = new DeathManager(this);
                     setDeathManager(deathManager);
@@ -249,7 +249,7 @@ namespace OutsideTheBox {
                     playerManager.getKeyBox().update(this);
                 }
 
-            }
+            }*/
             if (lastKeyState.IsKeyDown(Keys.E) && currentKeyState.IsKeyUp(Keys.E)) {
                 if (mindRead.validate()) {
                     playerManager.depleteMana(mindRead.getManaCost());

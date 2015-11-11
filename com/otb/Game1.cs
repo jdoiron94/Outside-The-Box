@@ -256,7 +256,7 @@ namespace OutsideTheBox {
             player.setProjectile(new Projectile(player, lightningOrb, 5, 250, 0.25F, boltSound));
             PowerBar powerBar = new PowerBar(powerbarText, new Vector2(0F, height - 41F));
             KeyBox keyBox = new KeyBox(new Texture2D[] { normBox, nullBox, key }, new Vector2(750F, 20F));
-            playerManager = new PlayerManager(player, Content, new DisplayBar(health, new Vector2(252F, height - 41F), Color.Red, back, 549, 20), new DisplayBar(mana, new Vector2(252F, height - 21F), Color.Blue, back, 549, 21), keyBox, buttonTextures, powerBar);
+            playerManager = new PlayerManager(player, Content, new DisplayBar(health, font, new Vector2(252F, height - 41F), Color.Red, back, 549, 20), new DisplayBar(mana, font, new Vector2(252F, height - 21F), Color.Blue, back, 549, 21), keyBox, buttonTextures, powerBar);
             player.loadTextures(Content);
 
             List<GameObject> Level1Objects = new List<GameObject>(); 
