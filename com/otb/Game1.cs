@@ -22,10 +22,10 @@ namespace OutsideTheBox {
         private PlayerManager playerManager;
         private InputManager inputManager;
         private Menu pauseMenu;
+        private Menu startMenu;
         private Texture2D cursor;
         private Target target;
         private MouseState mouse;
-        private Texture2D startMenu;
         private SpriteFont font;
 
         private Texture2D pixel;
@@ -199,13 +199,11 @@ namespace OutsideTheBox {
 
             factorySong = Content.Load<Song>("audio/songs/Factory");
             MediaPlayer.IsRepeating = true;
-            MediaPlayer.Play(factorySong);
 
             font = Content.Load<SpriteFont>("fonts/font1");
 
             boltSound = Content.Load<SoundEffect>("audio/Sound Effects/boltSound");
             dashSound = Content.Load<SoundEffect>("audio/Sound Effects/dashSound");
-            startMenu = Content.Load<Texture2D>("menus/StartMenu");
 
             Texture2D playur = Content.Load<Texture2D>("sprites/entities/player/Standing1");
             Texture2D bullet = Content.Load<Texture2D>("sprites/projectiles/BulletOrb");
@@ -231,6 +229,8 @@ namespace OutsideTheBox {
             Texture2D button7 = Content.Load<Texture2D>("menus/assets/button_fire_bolt");
             Texture2D button8 = Content.Load<Texture2D>("menus/assets/button_ice_bolt");
             Texture2D button9 = Content.Load<Texture2D>("menus/assets/button_lightning_bolt");
+            Texture2D startButton = Content.Load<Texture2D>("menus/assets/StartButton");
+            Texture2D exitButton = Content.Load<Texture2D>("menus/assets/ExitButton");
 
             Texture2D pOff = Content.Load<Texture2D>("sprites/objects/PressButtonOff");
             Texture2D pOn  = Content.Load<Texture2D>("sprites/objects/PressButtonOn");
@@ -242,6 +242,7 @@ namespace OutsideTheBox {
                                        new Button(button5, new Vector2(355F, 220F)), new Button(button6, new Vector2(355F, 310F)),
                                        new Button(button7, new Vector2(445F, 140F)), new Button(button8, new Vector2(445F, 220F)),
                                        new Button(button9, new Vector2(445F, 310F)) };
+            Button[] startButtons = { new Button(startButton, new Vector2(200F, 270F)), new Button(exitButton, new Vector2(200F, 340f))};
 
             midX = (graphics.PreferredBackBufferWidth - playur.Width) / 2;
             midY = (graphics.PreferredBackBufferHeight - playur.Height) / 2;
@@ -330,17 +331,21 @@ namespace OutsideTheBox {
             levelIndex = 0;
 
             Texture2D pauseScreen = Content.Load<Texture2D>("menus/PausePlaceholderScreen");
+            Texture2D startScreen = Content.Load<Texture2D>("menus/StartMenu");
             pauseMenu = new Menu(pauseScreen, menuButtons);
+            startMenu = new Menu(startScreen, startButtons);
+
 
             Texture2D targ = Content.Load<Texture2D>("sprites/cursors/TargetingCursor");
             target = new Target(targ);
 
             Screen[] screens = { new Screen("Menu"), new Screen("Normal", true), new Screen("Telekinesis-Select"), new Screen("Telekinesis-Move"), new Screen("Start") };
             MindRead read = new MindRead(2, 1, 20, 1000, 200, 100, true, false, button1);
-            inputManager = new InputManager(this, player, level, pauseMenu, target, playerManager, screens, read);
+            inputManager = new InputManager(this, player, level, pauseMenu, startMenu, target, playerManager, screens, read);
             keyBox.update(inputManager);
             level.setInputManager(inputManager);
             pauseMenu.setInputManager(inputManager);
+            startMenu.setInputManager(inputManager);
             inputManager.setDeathManager(new DeathManager(inputManager));
 
             cursor = Content.Load<Texture2D>("sprites/cursors/Cursor");
@@ -375,9 +380,10 @@ namespace OutsideTheBox {
             base.Update(gameTime);
             playerManager.updateHealthCooldown();
             inputManager.update(gameTime);
-            if (level.isActive()) {
+            if (level.isActive() == true) {
                 level.updateProjectiles();
                 level.updateNpcs(gameTime);
+                
             }
             mouse = Mouse.GetState();
         }
@@ -387,6 +393,8 @@ namespace OutsideTheBox {
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime) {
+            startMenu.setActive(true);
+            level.setActive(true);
             base.Draw(gameTime);
             GraphicsDevice.Clear(Color.Black);
             spriteBatch.Begin();
@@ -394,6 +402,7 @@ namespace OutsideTheBox {
             if (pauseMenu.isActive()) {
                 pauseMenu.draw(spriteBatch);
             }
+    
             if (mouse != null) {
                 if (level.getMode() < 1) {
                     spriteBatch.Draw(cursor, new Vector2(mouse.X, mouse.Y), Color.White);
@@ -402,9 +411,14 @@ namespace OutsideTheBox {
                 }
             }
             if (inputManager.getScreenManager().getActiveScreen().getName() == "Start") {
-                spriteBatch.Draw(startMenu, new Vector2(-290F, -100F), Color.White);
+                startMenu.setActive(true);
+                startMenu.draw(spriteBatch);
+                }
+                if (level.isActive() == true)
+            {
+                powerBar.draw(spriteBatch);
+                MediaPlayer.Play(factorySong);
             }
-            powerBar.draw(spriteBatch);
             spriteBatch.End();
         }
     }
