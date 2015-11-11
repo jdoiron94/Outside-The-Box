@@ -320,7 +320,11 @@ namespace OutsideTheBox {
         /// <param name="e">The entity</param>
         /// <returns>Returns the Euclidean distance to the specified entity</returns>
         public int getDistance(Entity e) {
-            return (int) Math.Sqrt(Math.Pow(e.getLocation().X - location.X, 2D) + Math.Pow(e.getLocation().Y - location.Y, 2D));
+            double eLocX = e.getLocation().X + (e.getTexture().Width / 2);
+            double eLocY = e.getLocation().Y + (e.getTexture().Height / 2);
+            double locX = location.X + (texture.Width / 2);
+            double locY = location.Y + (texture.Height / 2);
+            return (int) Math.Sqrt(Math.Pow(eLocX - locX, 2.0D) + Math.Pow(eLocY - locY, 2.0D)) - (e.getTexture().Width / 2) - (texture.Width / 2);
         }
 
         /// <summary>
@@ -329,7 +333,9 @@ namespace OutsideTheBox {
         /// <param name="e">The entity</param>
         /// <returns>Returns the horizontal Euclidean distance to the specified entity</returns>
         public int getHDistance(Entity e) {
-            return (int) Math.Sqrt(Math.Pow(e.getLocation().X - location.X, 2D));
+            double eLowX = e.getLocation().X + (e.getTexture().Width / 2);
+            double locX = location.X + (texture.Width / 2);
+            return (int) Math.Sqrt(Math.Pow(eLowX - locX, 2.0D)) - (e.getTexture().Width / 2) - (texture.Width / 2);
         }
 
         /// <summary>
@@ -338,7 +344,9 @@ namespace OutsideTheBox {
         /// <param name="e"></param>
         /// <returns></returns>
         public int getVDistance(Entity e) {
-            return (int) Math.Sqrt(Math.Pow(e.getLocation().Y - location.Y, 2D));
+            double eLocY = e.getLocation().Y + (e.getTexture().Height / 2);
+            double locY = location.Y + (texture.Height / 2);
+            return (int) Math.Sqrt(Math.Pow(eLocY - locY, 2.0D)) - (e.getTexture().Height / 2) - (texture.Height / 2);
         }
 
         /// <summary>
