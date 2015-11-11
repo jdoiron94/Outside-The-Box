@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using OutsideTheBox.com.otb.api.wrapper;
 using OutsideTheBox.com.otb.api.wrapper.locatable;
 using System.Collections.Generic;
 
@@ -239,6 +240,9 @@ namespace OutsideTheBox {
             Texture2D pOn = Content.Load<Texture2D>("sprites/objects/PressButtonOn");
             Texture2D pDeactivated = Content.Load<Texture2D>("sprites/objects/PressButtonDeactivated");
 
+            Texture2D bOpenV = Content.Load<Texture2D>("sprites/objects/BarrierOpenVertical");
+            Texture2D bClosedV = Content.Load<Texture2D>("sprites/objects/BarrierClosedVertical");
+
             Texture2D[] buttonTextures = { button1, button2, button3, button4, button5, button6, button7, button8, button9 };
             Button[] menuButtons = { new Button(button1, new Vector2(270F, 140F), 0), new Button(button2, new Vector2(270F, 220F), 1),
                                        new Button(button3, new Vector2(270F, 310F), 2), new Button(button4, new Vector2(355F, 140F), 3),
@@ -287,6 +291,8 @@ namespace OutsideTheBox {
             //Door door3 = new Door(door, null, new Vector2(width - 10F, height - 89F), Direction.East, false, true, 10, 64, false);
             //Door door4 = new Door(door, null, new Vector2(0F, height - 89F), Direction.West, false, false, 10, 64, true);
 
+            barrier b1 = new barrier(new Texture2D[] { bOpenV, bClosedV }, new Vector2(200F, 400F));
+
             Texture2D bronze = Content.Load<Texture2D>("sprites/objects/BronzeBar");
             Texture2D silver = Content.Load<Texture2D>("sprites/objects/SilverBar");
             Texture2D gold = Content.Load<Texture2D>("sprites/objects/GoldBar");
@@ -313,11 +319,11 @@ namespace OutsideTheBox {
 
             Key k = new Key(key, new Vector2(200F, 200F));
             Texture2D[] pBTextures = new Texture2D[] { pOn, pOff, pDeactivated };
-            PressButton p1 = new PressButton(pBTextures, new Vector2(300F, 400F), false, false);
-            PressButton p2 = new PressButton(pBTextures, new Vector2(200F, 200F), true, false);
+            PressButton p1 = new PressButton(pBTextures, new Vector2(300F, 400F), false, false, PressButtonType.Barrier);
+            PressButton p2 = new PressButton(pBTextures, new Vector2(200F, 200F), true, false, PressButtonType.Barrier);
 
             Level level1 = new Level(this, player, l1, new Npc[] { npc, npc2, npc3 }, new GameObject[] { }, new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() },
-            new Token[] { token1, token2 }, new Door[] { door1 }, new Wall[] { }, new ThoughtBubble[] { }, new PressButton[] { }, new Key[] { }, new barrier[] { }, 0);
+            new Token[] { token1, token2 }, new Door[] { door1 }, new Wall[] { }, new ThoughtBubble[] { }, new PressButton[] { }, new Key[] { }, new barrier[] {b1 }, 0);
             level1.addCubicle(cube1);
             level1.addCubicle(cube2);
             level1.addCubicle(cube3);

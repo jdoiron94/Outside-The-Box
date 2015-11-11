@@ -202,6 +202,7 @@ namespace OutsideTheBox {
                 }
 
             }
+
             GameObject gCollision = collisionManager.getObjectCollision(player);
             if (gCollision != null && gCollision is Token) {
                 Token t = (Token) gCollision;

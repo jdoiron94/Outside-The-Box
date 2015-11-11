@@ -40,7 +40,6 @@ namespace OutsideTheBox {
         private List<Projectile> projectiles;
         private List<PressButton> pressButtons;
         private List<barrier> barriers; 
-        private KeyBox keyBox;
 
         private bool debug;
         private int index;
@@ -521,6 +520,14 @@ namespace OutsideTheBox {
                 batch.Draw(w.getTexture(), w.getBounds(), Color.White);
                 if (debug) {
                     game.outline(batch, w.getBounds());
+                }
+            }
+            foreach(barrier b in barriers)
+            {
+                b.draw(batch);
+                if (debug)
+                {
+                    game.outline(batch, b.getBounds());
                 }
             }
             foreach (ThoughtBubble tb in thoughts) {

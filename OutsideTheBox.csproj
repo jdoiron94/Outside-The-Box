@@ -61,6 +61,9 @@
     <Compile Include="com\otb\api\wrapper\locatable\Collectible.cs" />
     <Compile Include="com\otb\api\wrapper\locatable\Key.cs" />
     <Compile Include="com\otb\api\wrapper\locatable\PressButton.cs" />
+    <Compile Include="com\otb\api\wrapper\PressButtonType.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="com\otb\ui\Button.cs" />
     <Compile Include="com\otb\api\wrapper\ability\Confuse.cs" />
     <Compile Include="com\otb\api\wrapper\ability\Dash.cs" />

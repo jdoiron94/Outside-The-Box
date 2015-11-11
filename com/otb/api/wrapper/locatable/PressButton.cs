@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OutsideTheBox.com.otb.api.wrapper;
 
 namespace OutsideTheBox {
 
@@ -16,7 +17,9 @@ namespace OutsideTheBox {
         private bool deactivated;
         private bool pushed;
 
-        public PressButton(Texture2D[] texture, Vector2 location, bool deactivated, bool pushed) :
+        PressButtonType type; 
+
+        public PressButton(Texture2D[] texture, Vector2 location, bool deactivated, bool pushed, PressButtonType type) :
             base(texture[0], location) {
             textureOn = texture[0];
             textureOff = texture[1];
@@ -24,6 +27,7 @@ namespace OutsideTheBox {
 
             this.deactivated = deactivated;
             this.pushed = pushed;
+            this.type = type;
         }
 
         public void setPushed(bool pushed) {
@@ -50,7 +54,10 @@ namespace OutsideTheBox {
             return deactivated;
         }
 
-
+        public PressButtonType getType()
+        {
+            return type; 
+        }
 
         /// <summary>
         /// Draws Press Button
