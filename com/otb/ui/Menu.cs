@@ -16,9 +16,6 @@ namespace OutsideTheBox {
         private Button[] buttons;
         private InputManager inputManager;
         private bool active;
-        private readonly Game1 game;
-        private Menu startMenu;
-        private Level level;
 
         public Menu(Texture2D texture, Button[] buttons) {
             this.background = texture;
@@ -76,32 +73,6 @@ namespace OutsideTheBox {
                         case 2:
                             //unlock power 2
                             buttons[i].unlockPower(inputManager, 2);
-                            break;
-                        default:
-                            Console.WriteLine("oops");
-                            break;
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// Handles start menu mouse input
-        /// </summary>
-        public void reactToStartMouseClick()
-        {
-            for (int i = 0; i < buttons.Length; i++)
-            {
-                if (buttons[i].getBounds().Contains(new Point(Mouse.GetState().X, Mouse.GetState().Y)))
-                {
-                    switch (i)
-                    {
-                        case 0:
-                            startMenu.setActive(false);
-                            level.setActive(true);
-                            break;
-                        case 1:
-                            game.Exit();
                             break;
                         default:
                             Console.WriteLine("oops");

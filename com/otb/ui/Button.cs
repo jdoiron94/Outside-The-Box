@@ -12,7 +12,6 @@ namespace OutsideTheBox {
         private Texture2D texture;
         private Vector2 location;
         private Rectangle bounds;
-        private readonly Game1 game;
 
         public Button(Texture2D texture, Vector2 location) {
             this.texture = texture;
@@ -52,26 +51,6 @@ namespace OutsideTheBox {
             inputManager.getScreenManager().setActiveScreen(1);
             inputManager.getMenu().setActive(false);
             inputManager.getLevel().setActive(true);
-        }
-
-        /// <summary>
-        /// Handles starting the game
-        /// </summary>
-        /// <param name="inputManager">The input manager to control screens with</param>
-        public void startGame(InputManager inputManager)
-        {
-            inputManager.getScreenManager().setActiveScreen(1);
-            inputManager.getStartMenu().setActive(false);
-            inputManager.getLevel().setActive(true);
-        }
-
-        /// <summary>
-        /// Handles exiting of the menu
-        /// </summary>
-        /// <param name="inputManager">The input manager to control screens with</param>
-        public void exitGame(InputManager inputManager)
-        {
-            game.Exit();
         }
 
         /// <summary>

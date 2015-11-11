@@ -14,7 +14,6 @@ namespace OutsideTheBox {
         private readonly Game1 game;
         private readonly Player player;
         private readonly Menu pauseMenu;
-        private readonly Menu startMenu;
         private readonly PlayerManager playerManager;
         private readonly CollisionManager collisionManager;
         private readonly ScreenManager screenManager;
@@ -41,12 +40,11 @@ namespace OutsideTheBox {
 
         private const byte WAIT = 0x4;
 
-        public InputManager(Game1 game, Player player, Level level, Menu pauseMenu, Menu startMenu, Target target, PlayerManager playerManager, Screen[] screens, MindRead mindRead) {
+        public InputManager(Game1 game, Player player, Level level, Menu pauseMenu, Target target, PlayerManager playerManager, Screen[] screens, MindRead mindRead) {
             this.game = game;
             this.player = player;
             this.level = level;
             this.pauseMenu = pauseMenu;
-            this.startMenu = startMenu;
             this.target = target;
             this.playerManager = playerManager;
             this.mindRead = mindRead;
@@ -94,15 +92,6 @@ namespace OutsideTheBox {
         /// <returns>Returns the pause menu</returns>
         public Menu getMenu() {
             return pauseMenu;
-        }
-
-        /// <summary>
-        /// Returns the start menu
-        /// </summary>
-        /// <returns>Returns the start menu</returns>
-        public Menu getStartMenu()
-        {
-            return startMenu;
         }
 
         /// <summary>
@@ -178,7 +167,7 @@ namespace OutsideTheBox {
             }
             if (active.getName() == "Start") {
                 if (lastKeyState.IsKeyDown(Keys.Space) && currentKeyState.IsKeyUp(Keys.Space)) {
-                    level.setActive(true);
+                    level.setMode(0);
                     screenManager.setActiveScreen(1);
                 }
             } else if (active.getName() == "Normal") {
@@ -427,7 +416,7 @@ namespace OutsideTheBox {
                     }
                 }
             }
-            else if (lastKeyState.IsKeyDown(Keys.Q) && currentKeyState.IsKeyUp(Keys.Q))
+            else if (lastKeyState.IsKeyDown(Keys.X) && currentKeyState.IsKeyUp(Keys.X))
             {
                 level.setMode(0);
                 screenManager.setActiveScreen(1);
@@ -557,7 +546,7 @@ namespace OutsideTheBox {
                     screenManager.setActiveScreen(1);
                 }
             }
-            else if ((lastKeyState.IsKeyDown(Keys.Q) && currentKeyState.IsKeyUp(Keys.Q)) || playerManager.getMana() == 0)
+            else if ((lastKeyState.IsKeyDown(Keys.X) && currentKeyState.IsKeyUp(Keys.X)) || playerManager.getMana() == 0)
             {
                 selectedObject.setSelected(false);
                 selectedObject = null;
@@ -573,7 +562,6 @@ namespace OutsideTheBox {
             if (lastState == ButtonState.Pressed && state == ButtonState.Released)
             {
                 pauseMenu.reactToMouseClick();
-                startMenu.reactToStartMouseClick();
             }
             else if (lastKeyState.IsKeyDown(Keys.M) && currentKeyState.IsKeyUp(Keys.M))
             {
