@@ -170,6 +170,13 @@ namespace OutsideTheBox {
                     level.setMode(0);
                     screenManager.setActiveScreen(1);
                 }
+            } else if (active.getName() == "Instructions") {
+                pauseMenu.setActive(false);
+                if (lastKeyState.IsKeyDown(Keys.M) && currentKeyState.IsKeyUp(Keys.M))
+                {
+                    screenManager.setActiveScreen(0);
+                    pauseMenu.setActive(true);
+                }
             } else if (active.getName() == "Normal") {
                 updateNormal(time);
             } else if (active.getName() == "Telekinesis-Select") {
