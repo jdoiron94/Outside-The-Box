@@ -17,7 +17,7 @@ namespace OutsideTheBox {
         private Direction direction;
         private Rectangle bounds;
         private Rectangle destinationBounds;
-        
+
         private readonly bool liftable;
         private bool selected;
         private double lastFired;
@@ -47,7 +47,7 @@ namespace OutsideTheBox {
         public GameObject(Texture2D texture, Vector2 location) :
             this(texture, location, false) {
         }
-        
+
         /// <summary>
         /// Returns the game object's texture
         /// </summary>
@@ -206,7 +206,7 @@ namespace OutsideTheBox {
         /// <param name="game">The game instance to check its viewport bounds</param>
         /// <returns>Returns true if the game object is currently on the screen; otherwise, false</returns>
         public bool isOnScreen(Game1 game) {
-            return location.X >= -texture.Width && location.X <= game.getWidth() && location.Y >= -texture.Height && location.Y <= game.getHeight();
+            return location.X >= -texture.Width && location.X <= game.getWidth() && location.Y >= -texture.Height && location.Y <= game.getHeight() - 41;
         }
 
         /// <summary>

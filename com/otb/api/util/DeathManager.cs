@@ -17,7 +17,7 @@ namespace OutsideTheBox {
         private int health;
         private int mana;
         private int totalMana;
-        
+
         private int levelMode;
         private List<Npc> npcs;
         private List<Vector2> npcLocations;

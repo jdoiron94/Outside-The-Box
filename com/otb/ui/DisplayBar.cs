@@ -19,27 +19,15 @@ namespace OutsideTheBox {
         private Rectangle backBar;
         private Rectangle outlineBar;
 
-        public DisplayBar(Texture2D texture, Vector2 location, Color displayColor, Texture2D gradient) {
+        public DisplayBar(Texture2D texture, Vector2 location, Color displayColor, Texture2D gradient, int width, int height) {
             this.texture = texture;
-            this.gradient = gradient;
             this.location = location;
-            displayBar = new Rectangle((int) location.X, (int) location.Y + 5, 200, 10);
-            backBar = new Rectangle((int) location.X, (int) location.Y + 5, 200, 10);
-            outlineBar = new Rectangle((int) location.X - 10, (int) location.Y, 220, 20);
             this.displayColor = displayColor;
+            this.gradient = gradient;
+            displayBar = new Rectangle((int) location.X, (int) location.Y + 5, width, 10);
+            backBar = new Rectangle((int) location.X, (int) location.Y + 5, width, 10);
+            outlineBar = new Rectangle((int) location.X, (int) location.Y, width, 20);
             bounds = new Rectangle((int) location.X, (int) location.Y, 1, 1);
-        }
-
-        public DisplayBar(Texture2D texture, Vector2 location, Color displayColor, Texture2D gradient, int width)
-        {
-            this.texture = texture;
-            this.gradient = gradient;
-            this.location = location;
-            displayBar = new Rectangle((int)location.X, (int)location.Y + 5, width, 10);
-            backBar = new Rectangle((int)location.X, (int)location.Y + 5, width, 10);
-            outlineBar = new Rectangle((int)location.X - 10, (int)location.Y, width+20, 20);
-            this.displayColor = displayColor;
-            bounds = new Rectangle((int)location.X, (int)location.Y, 1, 1);
         }
 
         /// <summary>
@@ -90,11 +78,10 @@ namespace OutsideTheBox {
             displayBar.Width = width;
         }
 
-        public void increaseSize(int width)
-        {
+        public void increaseSize(int width) {
             //displayBar.Width = width;
             backBar.Width = width;
-            outlineBar.Width = width + 20; 
+            outlineBar.Width = width + 20;
 
         }
 

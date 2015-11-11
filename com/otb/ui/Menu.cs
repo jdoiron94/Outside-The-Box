@@ -64,18 +64,43 @@ namespace OutsideTheBox {
         public void reactToMouseClick() {
             for (int i = 0; i < buttons.Length; i++) {
                 if (buttons[i].getBounds().Contains(new Point(Mouse.GetState().X, Mouse.GetState().Y))) {
-                    switch (i) {
+                    int id = buttons[i].getActionID();
+                    switch (id) {
                         case 0:
                             //unlock power 0
                             buttons[i].unlockPower(inputManager, 0);
                             break;
                         case 1:
-                            //unlock power 1
                             buttons[i].unlockPower(inputManager, 1);
                             break;
                         case 2:
-                            //unlock power 2
                             buttons[i].unlockPower(inputManager, 2);
+                            break;
+                        case 3:
+                            buttons[i].unlockPower(inputManager, 2);
+                            break;
+                        case 4:
+                            buttons[i].displayInstructions(inputManager);
+                            break;
+                        case 5:
+                            buttons[i].unlockPower(inputManager, 2);
+                            break;
+                        case 6:
+                            buttons[i].unlockPower(inputManager, 2);
+                            break;
+                        case 7:
+                            buttons[i].unlockPower(inputManager, 2);
+                            break;
+                        case 8:
+                            buttons[i].displayInstructions(inputManager);
+                            Console.WriteLine("hfjsdhfksdkfjbsdf");
+                            break;
+                        case 9:
+                            buttons[i].displayInstructions(inputManager);
+                            Console.WriteLine("hfjsdhfksdkfjbsdf");
+                            break;
+                        case 10:
+                            buttons[i].displayInstructions(inputManager);
                             break;
                         default:
                             Console.WriteLine("oops");
