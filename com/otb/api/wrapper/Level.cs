@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
-
+using OutsideTheBox.com.otb.api.wrapper.locatable;
 using System;
 using System.Collections.Generic;
 
@@ -39,12 +39,13 @@ namespace OutsideTheBox {
         private List<Cubicle> cubicles;
         private List<Projectile> projectiles;
         private List<PressButton> pressButtons;
+        private List<barrier> barriers; 
         private KeyBox keyBox;
 
         private bool debug;
         private int index;
 
-        public Level(Game1 game, Player player, Texture2D map, Npc[] npcs, GameObject[] objects, DisplayBar[] displayBars, Token[] tokens, Door[] doors, Wall[] walls, ThoughtBubble[] thoughts, PressButton[] pressButtons, Key[] keys, int index) {
+        public Level(Game1 game, Player player, Texture2D map, Npc[] npcs, GameObject[] objects, DisplayBar[] displayBars, Token[] tokens, Door[] doors, Wall[] walls, ThoughtBubble[] thoughts, PressButton[] pressButtons, Key[] keys, barrier[] barriers, int index) {
             this.game = game;
             this.player = player;
             this.map = map;
@@ -67,6 +68,8 @@ namespace OutsideTheBox {
             this.cubicles = new List<Cubicle>();
             this.thoughts = new List<ThoughtBubble>(thoughts.Length);
             this.thoughts.AddRange(thoughts);
+            this.barriers = new List<barrier>(barriers.Length);
+            this.barriers.AddRange(barriers);
             active = true;
             selectedObject = null;
             debug = false;
@@ -202,6 +205,11 @@ namespace OutsideTheBox {
         /// <returns>Returns the wall list</returns>
         public List<Wall> getWalls() {
             return walls;
+        }
+
+        public List<barrier> getBarriers()
+        {
+            return barriers; 
         }
 
         /// <summary>

@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using OutsideTheBox.com.otb.api.wrapper.locatable;
 using System.Collections.Generic;
 
 namespace OutsideTheBox {
@@ -316,7 +317,7 @@ namespace OutsideTheBox {
             PressButton p2 = new PressButton(pBTextures, new Vector2(200F, 200F), true, false);
 
             Level level1 = new Level(this, player, l1, new Npc[] { npc, npc2, npc3 }, new GameObject[] { }, new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() },
-            new Token[] { token1, token2 }, new Door[] { door1 }, new Wall[] { }, new ThoughtBubble[] { }, new PressButton[] { }, new Key[] { }, 0);
+            new Token[] { token1, token2 }, new Door[] { door1 }, new Wall[] { }, new ThoughtBubble[] { }, new PressButton[] { }, new Key[] { }, new barrier[] { }, 0);
             level1.addCubicle(cube1);
             level1.addCubicle(cube2);
             level1.addCubicle(cube3);
