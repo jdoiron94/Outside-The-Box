@@ -64,11 +64,10 @@ namespace OutsideTheBox {
                     int id = buttons[i].getActionID();
                     switch (id) {
                         case 0:
-                            //unlock power 0
-                            buttons[i].unlockPower(inputManager, 0);
+                            buttons[i].displayInstructions(inputManager);
                             break;
                         case 1:
-                            buttons[i].unlockPower(inputManager, 1);
+                            buttons[i].quitGame(inputManager);
                             break;
                         case 2:
                             buttons[i].unlockPower(inputManager, 2);
@@ -94,7 +93,6 @@ namespace OutsideTheBox {
                             break;
                         case 9:
                             buttons[i].displayInstructions(inputManager);
-                            Console.WriteLine("hfjsdhfksdkfjbsdf");
                             break;
                         case 10:
                             buttons[i].displayInstructions(inputManager);

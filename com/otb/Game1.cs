@@ -225,16 +225,18 @@ namespace OutsideTheBox {
             Texture2D nullBox = Content.Load<Texture2D>("sprites/objects/KeyOutlineNull");
             Texture2D key = Content.Load<Texture2D>("sprites/objects/KeyFrame1");
             Texture2D powerbarText = Content.Load<Texture2D>("ui/powerbar");
-
-            Texture2D button1 = Content.Load<Texture2D>("menus/assets/button_mind_read");
-            Texture2D button2 = Content.Load<Texture2D>("menus/assets/button_clairvoyance");
+            
+            Texture2D button1 = Content.Load<Texture2D>("menus/assets/button_instructions");
+            Texture2D button2 = Content.Load<Texture2D>("menus/assets/button_quit");
+            //Texture2D button1 = Content.Load<Texture2D>("menus/assets/button_mind_read");
+            //Texture2D button2 = Content.Load<Texture2D>("menus/assets/button_clairvoyance");
             Texture2D button3 = Content.Load<Texture2D>("menus/assets/button_confusion");
             Texture2D button4 = Content.Load<Texture2D>("menus/assets/button_dash");
             Texture2D button5 = Content.Load<Texture2D>("menus/assets/button_slow_time");
-            Texture2D button6 = Content.Load<Texture2D>("menus/assets/button_invisibility");
-            Texture2D button7 = Content.Load<Texture2D>("menus/assets/button_fire_bolt");
-            Texture2D button8 = Content.Load<Texture2D>("menus/assets/button_ice_bolt");
-            Texture2D button9 = Content.Load<Texture2D>("menus/assets/button_lightning_bolt");
+            //Texture2D button6 = Content.Load<Texture2D>("menus/assets/button_invisibility");
+            //Texture2D button7 = Content.Load<Texture2D>("menus/assets/button_fire_bolt");
+            //Texture2D button8 = Content.Load<Texture2D>("menus/assets/button_ice_bolt");
+            //Texture2D button9 = Content.Load<Texture2D>("menus/assets/button_lightning_bolt");
 
             Texture2D pOff = Content.Load<Texture2D>("sprites/objects/PressButtonOff");
             Texture2D pOn = Content.Load<Texture2D>("sprites/objects/PressButtonOn");
@@ -243,12 +245,10 @@ namespace OutsideTheBox {
             Texture2D bOpenV = Content.Load<Texture2D>("sprites/objects/BarrierOpenVertical");
             Texture2D bClosedV = Content.Load<Texture2D>("sprites/objects/BarrierClosedVertical");
 
-            Texture2D[] buttonTextures = { button1, button2, button3, button4, button5, button6, button7, button8, button9 };
+            Texture2D[] buttonTextures = { button1, button2, button3, button4, button5};
             Button[] menuButtons = { new Button(button1, new Vector2(270F, 140F), 0), new Button(button2, new Vector2(270F, 220F), 1),
-                                       new Button(button3, new Vector2(270F, 310F), 2), new Button(button4, new Vector2(355F, 140F), 3),
-                                       new Button(button5, new Vector2(355F, 220F), 4), new Button(button6, new Vector2(355F, 310F), 5),
-                                       new Button(button7, new Vector2(445F, 140F), 6), new Button(button8, new Vector2(445F, 220F), 7),
-                                       new Button(button9, new Vector2(445F, 310F), 8) };
+                                   new Button(button3, new Vector2(270F, 310F), 0), new Button(button4, new Vector2(270F, 310F), 0),
+                                   new Button(button5, new Vector2(270F, 310F), 0),};
 
             midX = (graphics.PreferredBackBufferWidth - playur.Width) / 2;
             midY = (graphics.PreferredBackBufferHeight - playur.Height) / 2;

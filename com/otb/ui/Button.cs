@@ -85,5 +85,10 @@ namespace OutsideTheBox {
             screenManager.setActiveScreen(5);
         }
 
+        public void quitGame(InputManager inputManager)
+        {
+            inputManager.getGame().Exit();
+        }
+
     }
 }
