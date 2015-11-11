@@ -17,9 +17,7 @@ namespace OutsideTheBox {
         private bool deactivated;
         private bool pushed;
 
-        PressButtonType type; 
-
-        public PressButton(Texture2D[] texture, Vector2 location, bool deactivated, bool pushed, PressButtonType type) :
+        public PressButton(Texture2D[] texture, Vector2 location, bool deactivated, bool pushed) :
             base(texture[0], location) {
             textureOn = texture[0];
             textureOff = texture[1];
@@ -27,7 +25,6 @@ namespace OutsideTheBox {
 
             this.deactivated = deactivated;
             this.pushed = pushed;
-            this.type = type;
         }
 
         public void setPushed(bool pushed) {
@@ -54,9 +51,9 @@ namespace OutsideTheBox {
             return deactivated;
         }
 
-        public PressButtonType getType()
+        public virtual void update()
         {
-            return type; 
+
         }
 
         /// <summary>

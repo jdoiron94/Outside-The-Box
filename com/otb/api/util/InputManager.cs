@@ -203,6 +203,11 @@ namespace OutsideTheBox {
 
             }
 
+            foreach(PressButton pb in level.getPressButtons())
+            {
+                pb.update(); 
+            }
+
             GameObject gCollision = collisionManager.getObjectCollision(player);
             if (gCollision != null && gCollision is Token) {
                 Token t = (Token) gCollision;

@@ -319,11 +319,12 @@ namespace OutsideTheBox {
 
             Key k = new Key(key, new Vector2(200F, 200F));
             Texture2D[] pBTextures = new Texture2D[] { pOn, pOff, pDeactivated };
-            PressButton p1 = new PressButton(pBTextures, new Vector2(300F, 400F), false, false, PressButtonType.Barrier);
-            PressButton p2 = new PressButton(pBTextures, new Vector2(200F, 200F), true, false, PressButtonType.Barrier);
+            
+            BarrierButton p1 = new BarrierButton(pBTextures, new Vector2(200F, 200F), false, false, b1);
+            ActivateButton p2 = new ActivateButton(pBTextures, new Vector2(300F, 400F), false, false, p1);
 
             Level level1 = new Level(this, player, l1, new Npc[] { npc, npc2, npc3 }, new GameObject[] { }, new DisplayBar[] { playerManager.getHealthBar(), playerManager.getManaBar() },
-            new Token[] { token1, token2 }, new Door[] { door1 }, new Wall[] { }, new ThoughtBubble[] { }, new PressButton[] { }, new Key[] { }, new barrier[] {b1 }, 0);
+            new Token[] { token1, token2 }, new Door[] { door1 }, new Wall[] { }, new ThoughtBubble[] { }, new PressButton[] {p1, p2}, new Key[] { }, new barrier[] {b1 }, 0);
             level1.addCubicle(cube1);
             level1.addCubicle(cube2);
             level1.addCubicle(cube3);
