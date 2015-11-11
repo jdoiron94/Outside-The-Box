@@ -143,6 +143,9 @@ namespace OutsideTheBox {
         /// <param name="time">The game time to respect</param>
         /// <param name="player">The player to react to</param>
         public void react(GameTime time, Player player) {
+            if (getProjectile() == null) {
+                return;
+            }
             setFacing(player);
             if (getDistance(player) <= 100) {
                 foreach (Npc n in game.getLevel().getNpcs()) {

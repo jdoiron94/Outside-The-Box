@@ -9,10 +9,12 @@ namespace OutsideTheBox {
 
     public class AIPath {
 
-        // TODO: Support delays between moving directions and animations
+        // TODO: npc animations
 
         private int state;
-        private byte ticks;
+        private int ticks;
+        private int wait;
+        private bool stagnant;
 
         private readonly int[] path;
         private readonly int[] delays;
@@ -33,6 +35,8 @@ namespace OutsideTheBox {
             this.directions = directions;
             state = 0;
             ticks = 0;
+            wait = 0;
+            stagnant = false;
         }
 
         /// <summary>
@@ -80,6 +84,15 @@ namespace OutsideTheBox {
         /// </summary>
         public void update() {
             npc.setDirection(directions[state]);
+            if (stagnant && wait < delays[state]) {
+                wait++;
+                return;
+            } else if (stagnant) {
+                stagnant = false;
+                wait = 0;
+                state = (state + 1) % path.Length;
+                npc.setDirection(directions[state]);
+            }
             switch (npc.getDirection()) {
                 case Direction.North:
                     if (npc.getLocation().Y > path[state]) {
@@ -93,7 +106,9 @@ namespace OutsideTheBox {
                             ticks++;
                         }
                     }
-                    state = npc.getLocation().Y <= path[state] ? (state + 1) % path.Length : state;
+                    if (npc.getLocation().Y <= path[state]) {
+                        stagnant = true;
+                    }
                     break;
                 case Direction.South:
                     if (npc.getLocation().Y < path[state]) {
@@ -107,7 +122,9 @@ namespace OutsideTheBox {
                             ticks++;
                         }
                     }
-                    state = npc.getLocation().Y >= path[state] ? (state + 1) % path.Length : state;
+                    if (npc.getLocation().Y >= path[state]) {
+                        stagnant = true;
+                    }
                     break;
                 case Direction.West:
                     if (npc.getLocation().X > path[state]) {
@@ -121,7 +138,9 @@ namespace OutsideTheBox {
                             ticks++;
                         }
                     }
-                    state = npc.getLocation().X <= path[state] ? (state + 1) % path.Length : state;
+                    if (npc.getLocation().X <= path[state]) {
+                        stagnant = true;
+                    }
                     break;
                 case Direction.East:
                     if (npc.getLocation().X < path[state]) {
@@ -135,7 +154,9 @@ namespace OutsideTheBox {
                             ticks++;
                         }
                     }
-                    state = npc.getLocation().X >= path[state] ? (state + 1) % path.Length : state;
+                    if (npc.getLocation().X >= path[state]) {
+                        stagnant = true;
+                    }
                     break;
             }
         }
