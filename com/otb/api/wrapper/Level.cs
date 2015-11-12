@@ -396,22 +396,24 @@ namespace OutsideTheBox {
                 Projectile projectile = projectiles[i];
                 projectile.update(game, projectile.getOwner());
                 if (projectile.isActive()) {
-                    foreach (Npc e in npcs) {
-                        if (projectile.getOwner() == e) {
+                    foreach (Npc n in npcs) {
+                        if (projectile.getOwner() == n) {
                             if (collisionManager.collides(projectile, player)) {
                                 projectile.setActive(false);
                                 playerManager.damagePlayer(5);
                                 Console.WriteLine(playerManager.getHealth());
                             }
                             break;
-                        } else if (collisionManager.collides(projectile, e)) {
+                        } else if (collisionManager.collides(projectile, n)) {
                             projectile.setActive(false);
-                            e.deriveHealth(-5);
-                            DisplayBar bar = e.getDisplayBar();
+                            n.deriveHealth(-5);
+                            n.setHit(true);
+                            n.restCombatTicks();
+                            DisplayBar bar = n.getDisplayBar();
                             if (bar != null) {
-                                bar.update(e.getCurrentHealth(), e.getMaxHealth());
+                                bar.update(n.getCurrentHealth(), n.getMaxHealth());
                             }
-                            Console.WriteLine("npc health: " + e.getCurrentHealth());
+                            Console.WriteLine("npc health: " + n.getCurrentHealth());
                             break;
                         }
                     }
@@ -532,7 +534,7 @@ namespace OutsideTheBox {
             foreach (Npc n in npcs) {
                 n.draw(batch);
                 DisplayBar bar = n.getDisplayBar();
-                if (bar != null) {
+                if (bar != null && n.wasHit() && n.getCombatTicks() < 250) {
                     bar.draw(batch);
                 }
                 if (debug) {

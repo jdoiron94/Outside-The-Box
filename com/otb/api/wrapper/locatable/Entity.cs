@@ -33,8 +33,9 @@ namespace OutsideTheBox {
         private double lastFired;
         private int[] frames;
         private int ticks;
+        private int combatTicks;
 
-        private const byte WAIT = 0x5;
+        private const int WAIT = 5;
 
         public Entity(Texture2D texture, Projectile projectile, Vector2 location, Direction direction, int maxHealth, int velocity) {
             this.texture = texture;
@@ -54,6 +55,7 @@ namespace OutsideTheBox {
             lastFired = -1;
             frames = new int[4];
             ticks = 0;
+            combatTicks = 0;
         }
 
         public Entity(Texture2D texture, Vector2 location, Direction direction, int health, int velocity) :
@@ -65,8 +67,8 @@ namespace OutsideTheBox {
         /// </summary>
         /// <param name="cm">The ContentManager to load sprites</param>
         public void loadTextures(ContentManager cm) {
-            string projectilePrefix = "sprites/projectiles/";
-            string[] projectileNames = { "Bullet", "Fire", "Ice", "Lightning", "Paralysis", "Confusion" };
+            //string projectilePrefix = "sprites/projectiles/";
+            //string[] projectileNames = { "Bullet", "Fire", "Ice", "Lightning", "Paralysis", "Confusion" };
             string prefix = "sprites/entities/player/";
             string[] names = { "Forward", "Backward", "Left", "Right" };
             foreach (string s in names) {
@@ -74,12 +76,12 @@ namespace OutsideTheBox {
                 for (int i = 1; i <= 4; i++) {
                     array[i - 1] = cm.Load<Texture2D>(prefix + s + i);
                 }
-                foreach (string p in projectileNames) {
+                /*foreach (string p in projectileNames) {
                     Texture2D[] projectileArray = { };
                     for (int o = 1; o <= 5; o++) {
                         //projectileArray[o - 1] = cm.Load<Texture2D>(projectilePrefix + p + "Orb");
                     }
-                }
+                }*/
             }
         }
 
@@ -120,6 +122,28 @@ namespace OutsideTheBox {
             } else {
                 texture = eastFacing[0];
             }
+        }
+
+        /// <summary>
+        /// Returns the amount of ticks since combat
+        /// </summary>
+        /// <returns>Returns the amount of ticks since combat</returns>
+        public int getCombatTicks() {
+            return combatTicks;
+        }
+
+        /// <summary>
+        /// Adds a combat tick
+        /// </summary>
+        public void addCombatTicks() {
+            combatTicks++;
+        }
+
+        /// <summary>
+        /// Resets the combat ticks
+        /// </summary>
+        public void restCombatTicks() {
+            combatTicks = 0;
         }
 
         /// <summary>

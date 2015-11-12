@@ -22,6 +22,7 @@ namespace OutsideTheBox {
         private readonly bool wander;
 
         private int ticks;
+        private bool hit;
 
         private AIPath path;
         private Rectangle lineOfSight;
@@ -35,6 +36,7 @@ namespace OutsideTheBox {
             this.reactTime = reactTime;
             this.wander = wander;
             ticks = 0;
+            hit = false; 
         }
 
         public Npc(Game1 game, Texture2D texture, Vector2 location, Direction direction, NpcDefinition def, int[] offsets, int radius, byte reactTime, bool wander) :
@@ -43,6 +45,22 @@ namespace OutsideTheBox {
 
         public Npc(Game1 game, Texture2D texture, Vector2 location, Direction direction, NpcDefinition def, int radius, byte reactTime) :
             this(game, texture, location, direction, def, new int[0], radius, reactTime, false) {
+        }
+
+        /// <summary>
+        /// Returns whether or not the npc has been hit
+        /// </summary>
+        /// <returns>Returns true if the npc has been hit; otherwise, false</returns>
+        public bool wasHit() {
+            return hit;
+        }
+
+        /// <summary>
+        /// Sets the npc's hit status
+        /// </summary>
+        /// <param name="hit">The boolean to set</param>
+        public void setHit(bool hit) {
+            this.hit = hit;
         }
 
         /// <summary>
@@ -190,6 +208,7 @@ namespace OutsideTheBox {
         /// </summary>
         /// <param name="time">The game time to respect</param>
         public void update(GameTime time) {
+            addCombatTicks();
             if (path != null) {
                 path.update();
                 updateLineOfSight();
