@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 
 namespace OutsideTheBox {
 
@@ -19,6 +18,8 @@ namespace OutsideTheBox {
         protected bool unlocked;
         protected bool activated;
 
+        private PlayerManager manager;
+
         private Texture2D icon;
         private SoundEffect effect;
         private Projectile projectile;
@@ -33,6 +34,14 @@ namespace OutsideTheBox {
             this.unlocked = unlocked;
             this.activated = activated;
             this.icon = icon;
+        }
+
+        /// <summary>
+        /// Sets the player manager
+        /// </summary>
+        /// <param name="manager">The player manager to set</param>
+        public void setPlayerManager(PlayerManager manager) {
+            this.manager = manager;
         }
 
         /// <summary>
@@ -174,11 +183,12 @@ namespace OutsideTheBox {
         /// </summary>
         /// <returns>Returns true if the power may be activated; otherwise, false</returns>
         public bool validate() {
-            if (isUnlocked() && !isActivated() && isCooldownMet()) {
+            if (isUnlocked() && !isActivated() && isCooldownMet() && manager.getMana() >= manaCost) {
                 setActivated(true);
                 playEffect();
+                return true;
             }
-            return activated;
+            return false;
         }
 
         /// <summary>

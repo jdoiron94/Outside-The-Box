@@ -58,8 +58,6 @@ namespace OutsideTheBox {
                         case Direction.East:
                             level.getPlayer().deriveX(6);
                             break;
-                        default:
-                            break;
                     }
                     updateDuration();
                 } else {

@@ -48,9 +48,12 @@ namespace OutsideTheBox {
             manaCooldown = 0;
             totalMana = 100;
             SlowTime slow = new SlowTime(0, 2, 20, 1000, 200, 200, true, false, powButtons[4]);
+            slow.setPlayerManager(this);
             Dash dash = new Dash(1, 4, 5, 1000, 20, 15, true, false, powButtons[3]);
             dash.setEffect(cm.Load<SoundEffect>("audio/Sound Effects/dashSound"));
+            dash.setPlayerManager(this);
             Confuse confuse = new Confuse(3, 7, 20, 1000, 200, 50, true, false, powButtons[2]);
+            confuse.setPlayerManager(this);
             powers = new List<BasePower> { slow, dash, confuse /*, new Mindread(true, false, inputManager)*/};
         }
 

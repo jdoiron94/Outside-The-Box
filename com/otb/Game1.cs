@@ -353,6 +353,7 @@ namespace OutsideTheBox {
 
             Screen[] screens = { new Screen("Menu"), new Screen("Normal", true), new Screen("Telekinesis-Select"), new Screen("Telekinesis-Move"), new Screen("Start"), new Screen("Instructions") };
             MindRead read = new MindRead(2, 1, 20, 1000, 200, 100, true, false, button1);
+            read.setPlayerManager(playerManager);
             inputManager = new InputManager(this, player, level, pauseMenu, target, playerManager, screens, read);
             keyBox.update(inputManager);
             level.setInputManager(inputManager);
