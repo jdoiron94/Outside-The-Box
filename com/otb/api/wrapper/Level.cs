@@ -59,7 +59,6 @@ namespace OutsideTheBox {
             thoughts = new List<ThoughtBubble>();
             walls = new List<Wall>();
             pressButtons = new List<PressButton>();
-
             sortObjects();
             cubicles = new List<Cubicle>();
             active = true;
@@ -336,34 +335,6 @@ namespace OutsideTheBox {
         }
 
         /// <summary>
-        /// Derives the player, all objects, and NPCs by the specified x amount
-        /// </summary>
-        /// <param name="x">The x amount to be derived by</param>
-        public void deriveX(int x) {
-            player.deriveX(x);
-            foreach (GameObject g in objects) {
-                g.deriveX(x);
-            }
-            foreach (Npc e in npcs) {
-                e.deriveX(x);
-            }
-        }
-
-        /// <summary>
-        /// Derives the player, all objects, and NPCs by the specified y amount
-        /// </summary>
-        /// <param name="y">The y amount to be derived by</param>
-        public void deriveY(int y) {
-            player.deriveY(y);
-            foreach (GameObject g in objects) {
-                g.deriveY(y);
-            }
-            foreach (Npc e in npcs) {
-                e.deriveY(y);
-            }
-        }
-
-        /// <summary>
         /// Sets the input manager and player manager for the level
         /// </summary>
         /// <param name="inputManager">The InputManager instance to be set for the level</param>
@@ -428,6 +399,10 @@ namespace OutsideTheBox {
                         } else if (collisionManager.collides(projectile, e)) {
                             projectile.setActive(false);
                             e.deriveHealth(-5);
+                            DisplayBar bar = e.getDisplayBar();
+                            if (bar != null) {
+                                bar.update(e.getCurrentHealth(), e.getMaxHealth());
+                            }
                             Console.WriteLine("npc health: " + e.getCurrentHealth());
                             break;
                         }
@@ -516,18 +491,6 @@ namespace OutsideTheBox {
             foreach (Cubicle c in cubicles) {
                 c.draw(batch, debug);
             }
-            foreach (Npc n in npcs) {
-                n.draw(batch);
-                if (debug) {
-                    game.outline(batch, n.getBounds());
-                    game.outline(batch, n.getLineOfSight());
-                }
-            }
-            batch.Draw(player.getTexture(), player.getBounds(), Color.White);
-            if (debug) {
-                game.outline(batch, player.getBounds());
-            }
-
             foreach (Token t in tokens) {
                 t.draw(batch, mode);
                 if (debug && !t.isCollected()) {
@@ -540,7 +503,6 @@ namespace OutsideTheBox {
                     game.outline(batch, k.getBounds());
                 }
             }
-            playerManager.getKeyBox().draw(batch);
             foreach (Door d in doors) {
                 batch.Draw(d.getTexture(), d.getBounds(), Color.White);
                 if (debug) {
@@ -553,20 +515,33 @@ namespace OutsideTheBox {
                     game.outline(batch, w.getBounds());
                 }
             }
-            foreach(Barrier b in barriers)
-            {
+            foreach (Barrier b in barriers) {
                 b.draw(batch);
-                if (debug)
-                {
+                if (debug) {
                     game.outline(batch, b.getBounds());
                 }
+            }
+            foreach (Npc n in npcs) {
+                n.draw(batch);
+                DisplayBar bar = n.getDisplayBar();
+                if (bar != null) {
+                    bar.draw(batch);
+                }
+                if (debug) {
+                    game.outline(batch, n.getBounds());
+                    game.outline(batch, n.getLineOfSight());
+                }
+            }
+            batch.Draw(player.getTexture(), player.getBounds(), Color.White);
+            if (debug) {
+                game.outline(batch, player.getBounds());
             }
             foreach (ThoughtBubble tb in thoughts) {
                 tb.draw(batch);
             }
+            playerManager.getKeyBox().draw(batch);
             playerManager.getHealthBar().draw(batch);
             playerManager.getManaBar().draw(batch);
-
             playerManager.getPowerBar().draw(batch);
         }
     }

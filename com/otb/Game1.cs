@@ -255,7 +255,7 @@ namespace OutsideTheBox {
             player.setProjectile(new Projectile(player, lightningOrb, 5, 250, 0.25F, boltSound));
             PowerBar powerBar = new PowerBar(powerbarText, new Vector2(0F, height - 41F));
             KeyBox keyBox = new KeyBox(new Texture2D[] { normBox, nullBox, key }, new Vector2(750F, 20F));
-            playerManager = new PlayerManager(player, Content, new DisplayBar(health, font, new Vector2(252F, height - 41F), Color.Red, back, 549, 20), new DisplayBar(mana, font, new Vector2(252F, height - 21F), Color.Blue, back, 549, 21), keyBox, buttonTextures, powerBar);
+            playerManager = new PlayerManager(player, Content, new DisplayBar(health, font, new Vector2(252F, height - 41F), back, 549, 20), new DisplayBar(mana, font, new Vector2(252F, height - 21F), back, 549, 21), keyBox, buttonTextures, powerBar);
             player.loadTextures(Content);
 
             List<GameObject> Level1Objects = new List<GameObject>(); 
@@ -363,8 +363,11 @@ namespace OutsideTheBox {
 
             pixel = new Texture2D(GraphicsDevice, 1, 1);
             pixel.SetData(new Color[] { Color.White });
+            npc.setDisplayBar(new DisplayBar(health, font, new Vector2(npc.getLocation().X, npc.getLocation().Y - 5.0F), null, 64, 15));
             npc.setPath(new AIPath(npc, this, new int[] { midX - 105, midY - 180, midX + 120, midY + 165 }, new int[] { 60, 60, 60, 60 }, new Direction[] { Direction.West, Direction.North, Direction.East, Direction.South }));
+            npc2.setDisplayBar(new DisplayBar(health, font, new Vector2(npc2.getLocation().X, npc2.getLocation().Y - 5.0F), null, 64, 15));
             npc2.setPath(new AIPath(npc2, this, new int[] { 80, 175 }, new int[] { 45, 45 }, new Direction[] { Direction.West, Direction.East }));
+            npc3.setDisplayBar(new DisplayBar(health, font, new Vector2(npc3.getLocation().X, npc3.getLocation().Y - 5.0F), null, 64, 15));
             npc3.setPath(new AIPath(npc3, this, new int[] { 570, 665 }, new int[] { 45, 45 }, new Direction[] { Direction.West, Direction.East }));
             //npc3.setPath(new AIPath(npc3, this, new int[] { midX - 100, midY - 100, midX + 100, midY + 150 }, new int[0], new Direction[] { Direction.West, Direction.North, Direction.East, Direction.South }));
             //npc4.setPath(new AIPath(npc4, this, new int[] { 200, 60 }, new int[0], new Direction[] { Direction.East, Direction.West }));

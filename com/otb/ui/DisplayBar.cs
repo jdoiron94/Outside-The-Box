@@ -14,29 +14,25 @@ namespace OutsideTheBox {
 
         private readonly Texture2D texture;
         private readonly Texture2D gradient;
-        private readonly Vector2 location;
-        private readonly Rectangle bounds;
-        private readonly Color displayColor;
         private readonly SpriteFont font;
 
+        private Vector2 location;
         private Rectangle displayBar;
         private Rectangle backBar;
         private Rectangle outlineBar;
 
         private string text;
 
-        public DisplayBar(Texture2D texture, SpriteFont font, Vector2 location, Color displayColor, Texture2D gradient, int width, int height) {
+        public DisplayBar(Texture2D texture, SpriteFont font, Vector2 location, Texture2D gradient, int width, int height) {
             this.texture = texture;
             this.font = font;
             this.location = location;
-            this.displayColor = displayColor;
             this.gradient = gradient;
             this.width = width;
             this.height = height;
-            displayBar = new Rectangle((int) location.X, (int) location.Y + 5, width, 10);
-            backBar = new Rectangle((int) location.X, (int) location.Y + 5, width, 10);
-            outlineBar = new Rectangle((int) location.X, (int) location.Y, width, 20);
-            bounds = new Rectangle((int) location.X, (int) location.Y, 1, 1);
+            outlineBar = new Rectangle((int) location.X, (int) location.Y, width, height);
+            backBar = new Rectangle((int) location.X, (int) location.Y + 5, width, height - 10);
+            displayBar = new Rectangle((int) location.X, (int) location.Y + 5, width, height - 10);
             text = "100/100";
         }
 
@@ -65,27 +61,11 @@ namespace OutsideTheBox {
         }
 
         /// <summary>
-        /// Returns the display bar's color
-        /// </summary>
-        /// <returns>Returns the display bar's color</returns>
-        public Color getDisplayColor() {
-            return displayColor;
-        }
-
-        /// <summary>
         /// Returns the width of the display bar
         /// </summary>
         /// <returns>Returns the display bar's width</returns>
         public int getWidth() {
             return displayBar.Width;
-        }
-
-        /// <summary>
-        /// Sets the display bar's width
-        /// </summary>
-        /// <param name="width">The width to set</param>
-        public void setWidth(int width) {
-            displayBar.Width = width;
         }
 
         /// <summary>
@@ -97,11 +77,46 @@ namespace OutsideTheBox {
         }
 
         /// <summary>
+        /// Updates the whole display bar
+        /// </summary>
+        /// <param name="current">The current value</param>
+        /// <param name="max">The max value</param>
+        public void update(int current, int max) {
+            text = current + "/" + max;
+            int width = (int) (((float) current / max) * this.width);
+            displayBar.Width = width;
+        }
+
+        /// <summary>
+        /// Derives the x coordinate bounds for all components
+        /// </summary>
+        /// <param name="x">The x amount to derive by</param>
+        public void deriveX(int x) {
+            location.X += x;
+            outlineBar.X += x;
+            backBar.X += x;
+            displayBar.X += x;
+        }
+
+        /// <summary>
+        /// Derives the y coordinate bounds for all components
+        /// </summary>
+        /// <param name="y">The y amount to derive by</param>
+        public void deriveY(int y) {
+            location.Y += y;
+            outlineBar.Y += y;
+            backBar.Y += y;
+            displayBar.Y += y;
+        }
+
+        /// <summary>
         /// Draws the display bar
         /// </summary>
         /// <param name="batch">The SpriteBatch to draw with</param>
         public void draw(SpriteBatch batch) {
-            batch.Draw(gradient, outlineBar, Color.White);
+            if (gradient != null) {
+                batch.Draw(gradient, outlineBar, Color.White);
+            }
             batch.Draw(texture, backBar, Color.Black);
             batch.Draw(texture, displayBar, Color.White);
             Vector2 size = font.MeasureString(text);

@@ -19,6 +19,7 @@ namespace OutsideTheBox {
         private Direction direction;
         private Rectangle bounds;
         private Rectangle destinationBounds;
+        private DisplayBar healthBar;
 
         private Texture2D[] northFacing;
         private Texture2D[] southFacing;
@@ -119,6 +120,22 @@ namespace OutsideTheBox {
             } else {
                 texture = eastFacing[0];
             }
+        }
+
+        /// <summary>
+        /// Returns the display bar
+        /// </summary>
+        /// <returns>Returns the display bar</returns>
+        public DisplayBar getDisplayBar() {
+            return healthBar;
+        }
+
+        /// <summary>
+        /// Sets the npc's display bar
+        /// </summary>
+        /// <param name="bar">The display bar to set</param>
+        public void setDisplayBar(DisplayBar bar) {
+            healthBar = bar;
         }
 
         /// <summary>
@@ -234,6 +251,9 @@ namespace OutsideTheBox {
         public void deriveX(int x) {
             location.X += x;
             bounds.X += x;
+            if (healthBar != null) {
+                healthBar.deriveX(x);
+            }
         }
 
         /// <summary>
@@ -243,6 +263,9 @@ namespace OutsideTheBox {
         public void deriveY(int y) {
             location.Y += y;
             bounds.Y += y;
+            if (healthBar != null) {
+                healthBar.deriveY(y);
+            }
         }
 
         /// <summary>

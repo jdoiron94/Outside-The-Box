@@ -186,9 +186,7 @@ namespace OutsideTheBox {
         public void damagePlayer(int damage) {
             player.deriveHealth(-2);
             health = Math.Max(0, health - damage);
-            int width = (int) (((float) health / MAX_HEALTH) * 549.0F);
-            healthBar.setWidth(width);
-            healthBar.setText(health + "/" + MAX_HEALTH);
+            healthBar.update(health, MAX_HEALTH);
         }
 
         /// <summary>
@@ -197,9 +195,7 @@ namespace OutsideTheBox {
         public void regenerateHealth() {
             player.deriveHealth(2);
             health = Math.Min(MAX_HEALTH, health + 1);
-            int width = (int) (((float) health / MAX_HEALTH) * 549.0F);
-            healthBar.setWidth(width);
-            healthBar.setText(health + "/" + MAX_HEALTH);
+            healthBar.update(health, MAX_HEALTH);
         }
 
         /// <summary>
@@ -247,9 +243,7 @@ namespace OutsideTheBox {
         /// <param name="mana">The amount of mana to deplete</param>
         public void depleteMana(int damage) {
             mana = Math.Max(0, mana - damage);
-            int width = (int) (((float) mana / totalMana) * 549.0F);
-            manaBar.setWidth(width);
-            manaBar.setText(mana + "/" + totalMana);
+            manaBar.update(mana, totalMana);
         }
 
         /// <summary>
@@ -258,9 +252,7 @@ namespace OutsideTheBox {
         public void regenerateMana() {
             int regeneration = (int) (totalMana * .01);
             mana = Math.Min(totalMana, mana + regeneration);
-            int width = (int) (((float) mana / totalMana) * 549.0F);
-            manaBar.setWidth(width);
-            manaBar.setText(mana + "/" + totalMana);
+            manaBar.update(mana, totalMana);
         }
 
         /// <summary>
