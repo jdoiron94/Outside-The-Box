@@ -450,7 +450,7 @@ namespace OutsideTheBox {
                     level.setMode(0);
                     screenManager.setActiveScreen(1);
                 }
-            } else if ((lastKeyState.IsKeyDown(Keys.X) && currentKeyState.IsKeyUp(Keys.X)) || playerManager.getMana() == 0) {
+            } else if ((lastKeyState.IsKeyDown(Keys.Q) && currentKeyState.IsKeyUp(Keys.Q)) || playerManager.getMana() == 0) {
                 selectedObject.setSelected(false);
                 selectedObject = null;
                 level.setMode(0);
