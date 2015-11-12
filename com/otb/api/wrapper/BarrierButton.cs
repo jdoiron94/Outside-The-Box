@@ -1,34 +1,34 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using OutsideTheBox.com.otb.api.wrapper.locatable;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace OutsideTheBox.com.otb.api.wrapper
-{
-    public class BarrierButton : PressButton
-    {
-        private barrier barrier; 
+namespace OutsideTheBox {
 
-        public BarrierButton(Texture2D[] Textures, Vector2 location, bool deactivated, bool pushed, barrier barrier):
-            base(Textures, location, deactivated, pushed)
-        {
-            this.barrier = barrier; 
+    public class BarrierButton : PressButton {
+
+        private readonly Barrier barrier;
+
+        public BarrierButton(Texture2D[] Textures, Vector2 location, bool deactivated, bool pushed, Barrier barrier) :
+            base(Textures, location, deactivated, pushed) {
+            this.barrier = barrier;
         }
 
-        public barrier getBarrier()
-        {
+        /// <summary>
+        /// Returns the barrier button
+        /// </summary>
+        /// <returns>Returns the barrier button</returns>
+        public Barrier getBarrier() {
             return barrier;
         }
 
-        public override void update()
-        {
-            if (!isDeactivated())
-                barrier.setState(isPushed() ? true : false);
-            else
+        /// <summary>
+        /// Handles updating the barrier button
+        /// </summary>
+        public override void update() {
+            if (!isDeactivated()) {
+                barrier.setState(isPushed());
+            } else {
                 barrier.setState(false);
+            }
         }
     }
 }

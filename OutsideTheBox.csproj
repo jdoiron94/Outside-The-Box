@@ -60,7 +60,7 @@
     <Compile Include="com\otb\api\wrapper\BarrierButton.cs" />
     <Compile Include="com\otb\api\wrapper\DoorButton.cs" />
     <Compile Include="com\otb\api\wrapper\KeyBox.cs" />
-    <Compile Include="com\otb\api\wrapper\locatable\barrier.cs" />
+    <Compile Include="com\otb\api\wrapper\locatable\Barrier.cs" />
     <Compile Include="com\otb\api\wrapper\locatable\Collectible.cs" />
     <Compile Include="com\otb\api\wrapper\locatable\Key.cs" />
     <Compile Include="com\otb\api\wrapper\locatable\PressButton.cs" />

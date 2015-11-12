@@ -1,6 +1,4 @@
-﻿using OutsideTheBox.com.otb.api.wrapper.locatable;
-
-namespace OutsideTheBox {
+﻿namespace OutsideTheBox {
 
     /// <summary>
     /// Collision class which deals with interactions of objects, entities, and projectiles.
@@ -90,7 +88,7 @@ namespace OutsideTheBox {
                     return d;
                 }
             }
-            foreach (barrier b in level.getBarriers())
+            foreach (Barrier b in level.getBarriers())
                 if (b != o && o.getDestinationBounds().Intersects(b.getBounds()))
                     return b; 
 
@@ -154,7 +152,7 @@ namespace OutsideTheBox {
                     return d;
                 }
             }
-            foreach(barrier b in level.getBarriers())
+            foreach(Barrier b in level.getBarriers())
             {
                 if (e.getDestinationBounds().Intersects(b.getBounds()) && !b.isOpen())
                     return b; 

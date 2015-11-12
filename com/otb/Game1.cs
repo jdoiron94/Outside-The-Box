@@ -3,8 +3,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-using OutsideTheBox.com.otb.api.wrapper;
-using OutsideTheBox.com.otb.api.wrapper.locatable;
+
 using System.Collections.Generic;
 
 namespace OutsideTheBox {
@@ -292,7 +291,7 @@ namespace OutsideTheBox {
             //Door door3 = new Door(door, null, new Vector2(width - 10F, height - 89F), Direction.East, false, true, 10, 64, false);
             //Door door4 = new Door(door, null, new Vector2(0F, height - 89F), Direction.West, false, false, 10, 64, true);
 
-            barrier b1 = new barrier(new Texture2D[] { bOpenV, bClosedV }, new Vector2(200F, 400F));
+            Barrier b1 = new Barrier(new Texture2D[] { bOpenV, bClosedV }, new Vector2(200F, 400F));
             Level1Objects.Add(b1);
 
             Texture2D bronze = Content.Load<Texture2D>("sprites/objects/BronzeBar");

@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿namespace OutsideTheBox {
 
-namespace OutsideTheBox.com.otb.api.wrapper
-{
-    public enum PressButtonType
-    {
-        Door, 
+    public enum PressButtonType {
+
+        Door,
         Press,
         Barrier
     }

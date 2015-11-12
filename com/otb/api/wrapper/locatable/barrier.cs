@@ -1,48 +1,51 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace OutsideTheBox.com.otb.api.wrapper.locatable
-{
-    public class barrier : GameObject
-    {
-        private Texture2D open;
-        private Texture2D closed;
-        private bool state; 
+namespace OutsideTheBox {
 
-        public barrier(Texture2D[] textures, Vector2 location) : 
-            base(textures[0], location)
-        {
+    public class Barrier : GameObject {
+
+        private readonly Texture2D open;
+        private readonly Texture2D closed;
+
+        private bool state;
+
+        public Barrier(Texture2D[] textures, Vector2 location) :
+            base(textures[0], location) {
             open = textures[0];
             closed = textures[1];
-            state = false; 
+            state = false;
         }
 
-        public barrier(Texture2D[] textures, Vector2 location, bool state) :
-            base(textures[0], location)
-        {
+        public Barrier(Texture2D[] textures, Vector2 location, bool state) :
+            base(textures[0], location) {
             open = textures[0];
             closed = textures[1];
             this.state = state;
         }
 
-        public void setState(bool value)
-        {
-            state = value; 
+        /// <summary>
+        /// Sets the barrier's state
+        /// </summary>
+        /// <param name="value">The boolean to be set</param>
+        public void setState(bool value) {
+            state = value;
         }
 
-        public bool isOpen()
-        {
-            return state; 
+        /// <summary>
+        /// Returns whether or not the barrier is open
+        /// </summary>
+        /// <returns>Returns true if the barrier is open; otherwise, false</returns>
+        public bool isOpen() {
+            return state;
         }
 
-        public void draw(SpriteBatch batch)
-        {
+        /// <summary>
+        /// Draws the barrier
+        /// </summary>
+        /// <param name="batch">The SpriteBatch to draw with</param>
+        public void draw(SpriteBatch batch) {
             batch.Draw(state ? open : closed, getLocation(), Color.White);
         }
-
     }
 }

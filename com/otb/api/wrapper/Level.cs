@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
-using OutsideTheBox.com.otb.api.wrapper.locatable;
+
 using System;
 using System.Collections.Generic;
 
@@ -39,7 +39,7 @@ namespace OutsideTheBox {
         private List<Cubicle> cubicles;
         private List<Projectile> projectiles;
         private List<PressButton> pressButtons;
-        private List<barrier> barriers; 
+        private List<Barrier> barriers; 
 
         private bool debug;
         private int index;
@@ -55,7 +55,7 @@ namespace OutsideTheBox {
             tokens = new List<Token>();
             doors = new List<Door>();
             keys = new List<Key>();
-            barriers = new List<barrier>();
+            barriers = new List<Barrier>();
             thoughts = new List<ThoughtBubble>();
             walls = new List<Wall>();
             pressButtons = new List<PressButton>();
@@ -95,9 +95,9 @@ namespace OutsideTheBox {
                 {
                     keys.Add((Key)o);
                 }
-                else if (o is barrier)
+                else if (o is Barrier)
                 {
-                    barriers.Add((barrier)o);
+                    barriers.Add((Barrier)o);
                 }
                 else
                 {
@@ -237,7 +237,7 @@ namespace OutsideTheBox {
             return walls;
         }
 
-        public List<barrier> getBarriers()
+        public List<Barrier> getBarriers()
         {
             return barriers; 
         }
@@ -553,7 +553,7 @@ namespace OutsideTheBox {
                     game.outline(batch, w.getBounds());
                 }
             }
-            foreach(barrier b in barriers)
+            foreach(Barrier b in barriers)
             {
                 b.draw(batch);
                 if (debug)
