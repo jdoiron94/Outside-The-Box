@@ -366,7 +366,7 @@ namespace OutsideTheBox {
                         }
                     }
                 }
-            } else if (lastKeyState.IsKeyDown(Keys.X) && currentKeyState.IsKeyUp(Keys.X)) {
+            } else if (lastKeyState.IsKeyDown(Keys.Q) && currentKeyState.IsKeyUp(Keys.Q)) {
                 level.setMode(0);
                 screenManager.setActiveScreen(1);
             }
@@ -374,9 +374,6 @@ namespace OutsideTheBox {
 
         private void updateTelekinesisMove(GameTime time) {
             playerManager.updateManaDrainRate();
-            if (playerManager.getManaDrainRate() == 5) {
-                playerManager.depleteMana(1);
-            }
             if (currentKeyState.IsKeyDown(Keys.Up)) {
                 selectedObject.setDirection(Direction.North);
                 selectedObject.setDestination(new Vector2(selectedObject.getLocation().X, selectedObject.getLocation().Y - velocity));
