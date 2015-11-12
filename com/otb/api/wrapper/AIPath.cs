@@ -98,7 +98,7 @@ namespace OutsideTheBox {
                     if (npc.getLocation().Y > path[state]) {
                         if (ticks >= SKIPPED_FRAMES) {
                             npc.setDestination(new Vector2(npc.getLocation().X, npc.getLocation().Y - npc.getVelocity()));
-                            if (collisionManager.isValid(npc)) {
+                            if (collisionManager.isValid(npc, false)) {
                                 npc.deriveY(-npc.getVelocity());
                             }
                             ticks = 0;
@@ -114,7 +114,7 @@ namespace OutsideTheBox {
                     if (npc.getLocation().Y < path[state]) {
                         if (ticks >= SKIPPED_FRAMES) {
                             npc.setDestination(new Vector2(npc.getLocation().X, npc.getLocation().Y + npc.getVelocity()));
-                            if (collisionManager.isValid(npc)) {
+                            if (collisionManager.isValid(npc, false)) {
                                 npc.deriveY(npc.getVelocity());
                             }
                             ticks = 0;
@@ -130,7 +130,7 @@ namespace OutsideTheBox {
                     if (npc.getLocation().X > path[state]) {
                         if (ticks >= SKIPPED_FRAMES) {
                             npc.setDestination(new Vector2(npc.getLocation().X - npc.getVelocity(), npc.getLocation().Y));
-                            if (collisionManager.isValid(npc)) {
+                            if (collisionManager.isValid(npc, false)) {
                                 npc.deriveX(-npc.getVelocity());
                             }
                             ticks = 0;
@@ -146,7 +146,7 @@ namespace OutsideTheBox {
                     if (npc.getLocation().X < path[state]) {
                         if (ticks >= SKIPPED_FRAMES) {
                             npc.setDestination(new Vector2(npc.getLocation().X + npc.getVelocity(), npc.getLocation().Y));
-                            if (collisionManager.isValid(npc)) {
+                            if (collisionManager.isValid(npc, false)) {
                                 npc.deriveX(npc.getVelocity());
                             }
                             ticks = 0;

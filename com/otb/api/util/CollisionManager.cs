@@ -143,7 +143,7 @@ namespace OutsideTheBox {
         /// </summary>
         /// <param name="e">The entity to check</param>
         /// <returns>Returns the object colliding with the entity; otherwise, null</returns>
-        public GameObject getObjectCollision(Entity e) {
+        public GameObject getObjectCollision(Entity e, bool collectibles) {
             foreach (GameObject g in level.getObjects()) {
                 if (e.getDestinationBounds().Intersects(g.getDestinationBounds())) {
                     return g;
@@ -164,7 +164,7 @@ namespace OutsideTheBox {
                     return b;
                 }
             }
-            if (e == player) {
+            if (e == player && collectibles) {
                 foreach (Token t in level.getTokens()) {
                     if (e.getDestinationBounds().Intersects(t.getBounds()) && !t.isCollected()) {
                         return t;
@@ -202,8 +202,8 @@ namespace OutsideTheBox {
         /// </summary>
         /// <param name="e">The entity to check</param>
         /// <returns>Returns true if the entity collides with an object; otherwise, false</returns>
-        public bool hitObject(Entity e) {
-            return getObjectCollision(e) != null;
+        public bool hitObject(Entity e, bool collectibles) {
+            return getObjectCollision(e, collectibles) != null;
         }
 
         /// <summary>
@@ -240,8 +240,8 @@ namespace OutsideTheBox {
         /// </summary>
         /// <param name="e">The entity</param>
         /// <returns>Returns true if the entity's movement does not collide; otherwise, false</returns>
-        public bool isValid(Entity e) {
-            return !hitEntity(e) && !hitObject(e);
+        public bool isValid(Entity e, bool collectibles) {
+            return !hitEntity(e) && !hitObject(e, collectibles);
         }
 
         /// <summary>

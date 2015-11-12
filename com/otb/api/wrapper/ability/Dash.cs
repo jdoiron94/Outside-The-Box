@@ -54,28 +54,28 @@ namespace OutsideTheBox {
                         case Direction.North:
                             destination = new Vector2(level.getPlayer().getLocation().X, level.getPlayer().getLocation().Y - 6);
                             level.getPlayer().setDestination(destination);
-                            if (manager.isValid(level.getPlayer())) {
+                            if (manager.isValid(level.getPlayer(), false)) {
                                 level.getPlayer().deriveY(-6);
                             }
                             break;
                         case Direction.South:
                             destination = new Vector2(level.getPlayer().getLocation().X, level.getPlayer().getLocation().Y + 6);
                             level.getPlayer().setDestination(destination);
-                            if (manager.isValid(level.getPlayer())) {
+                            if (manager.isValid(level.getPlayer(), false)) {
                                 level.getPlayer().deriveY(6);
                             }
                             break;
                         case Direction.West:
                             destination = new Vector2(level.getPlayer().getLocation().X - 6, level.getPlayer().getLocation().Y);
                             level.getPlayer().setDestination(destination);
-                            if (manager.isValid(level.getPlayer())) {
+                            if (manager.isValid(level.getPlayer(), false)) {
                                 level.getPlayer().deriveX(-6);
                             }
                             break;
                         case Direction.East:
                             destination = new Vector2(level.getPlayer().getLocation().X + 6, level.getPlayer().getLocation().Y);
                             level.getPlayer().setDestination(destination);
-                            if (manager.isValid(level.getPlayer())) {
+                            if (manager.isValid(level.getPlayer(), false)) {
                                 level.getPlayer().deriveX(6);
                             }
                             break;
