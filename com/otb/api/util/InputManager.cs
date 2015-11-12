@@ -156,7 +156,7 @@ namespace OutsideTheBox {
                 deathManager.resetGame();
             }
             if (collisionManager.playerSpotted(level)) {
-                playerManager.setHealth(0);
+                //playerManager.setHealth(0);
             }
             if (lastKeyState.IsKeyDown(Keys.F1) && currentKeyState.IsKeyUp(Keys.F1)) {
                 foreach (Level l in game.getLevels()) {

@@ -274,6 +274,14 @@ namespace OutsideTheBox {
         }
 
         /// <summary>
+        /// Returns the collision manager
+        /// </summary>
+        /// <returns>Returns the collsion manager</returns>
+        public CollisionManager getCollisionManager() {
+            return collisionManager;
+        }
+
+        /// <summary>
         /// Sets the level's active status
         /// </summary>
         /// <param name="active">Active status bool to set</param>

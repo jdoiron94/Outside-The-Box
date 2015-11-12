@@ -1,4 +1,6 @@
-﻿namespace OutsideTheBox {
+﻿using System;
+
+namespace OutsideTheBox {
 
     /// <summary>
     /// Collision class which deals with interactions of objects, entities, and projectiles.
@@ -79,22 +81,27 @@
                 }
             }
             foreach (Wall w in level.getWalls()) {
-                if (w != o && o.getDestinationBounds().Intersects(w.getBounds())) {
+                if (w != o && o.getDestinationBounds().Intersects(w.getDestinationBounds())) {
                     return w;
                 }
             }
             foreach (Door d in level.getDoors()) {
-                if (d != o && o.getDestinationBounds().Intersects(d.getBounds())) {
+                if (d != o && o.getDestinationBounds().Intersects(d.getDestinationBounds())) {
                     return d;
                 }
             }
-            foreach (Barrier b in level.getBarriers())
-                if (b != o && o.getDestinationBounds().Intersects(b.getBounds()))
-                    return b; 
-
+            foreach (Barrier b in level.getBarriers()) {
+                if (b != o && o.getDestinationBounds().Intersects(b.getDestinationBounds())) {
+                    return b;
+                }
+            }
             return null;
         }
 
+        /// <summary>
+        /// Updates pressable buttons
+        /// </summary>
+        /// <param name="e">The entity which is pressing the button</param>
         public void updatePressButtons(Entity e) {
             foreach (PressButton p in level.getPressButtons()) {
                 bool pushed = false;
@@ -143,29 +150,29 @@
                 }
             }
             foreach (Wall w in level.getWalls()) {
-                if (e.getDestinationBounds().Intersects(w.getBounds())) {
+                if (e.getDestinationBounds().Intersects(w.getDestinationBounds())) {
                     return w;
                 }
             }
             foreach (Door d in level.getDoors()) {
-                if (e.getDestinationBounds().Intersects(d.getBounds())) {
+                if (e.getDestinationBounds().Intersects(d.getDestinationBounds())) {
                     return d;
                 }
             }
-            foreach(Barrier b in level.getBarriers())
-            {
-                if (e.getDestinationBounds().Intersects(b.getBounds()) && !b.isOpen())
-                    return b; 
+            foreach (Barrier b in level.getBarriers()) {
+                if (e.getDestinationBounds().Intersects(b.getDestinationBounds()) && !b.isOpen()) {
+                    return b;
+                }
             }
             if (e == player) {
                 foreach (Token t in level.getTokens()) {
                     if (e.getDestinationBounds().Intersects(t.getBounds()) && !t.isCollected()) {
                         return t;
                     }
-                    foreach (Key k in level.getKeys()) {
-                        if (e.getDestinationBounds().Intersects(k.getBounds()) && !k.isCollected()) {
-                            return k;
-                        }
+                }
+                foreach (Key k in level.getKeys()) {
+                    if (e.getDestinationBounds().Intersects(k.getBounds()) && !k.isCollected()) {
+                        return k;
                     }
                 }
             }

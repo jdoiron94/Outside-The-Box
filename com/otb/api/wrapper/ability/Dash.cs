@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace OutsideTheBox {
     
@@ -7,6 +8,8 @@ namespace OutsideTheBox {
     /// </summary>
 
     public class Dash : BasePower {
+
+        private CollisionManager manager;
 
         public Dash(int id, int slotId, int manaCost, int expCost, int cooldown, int duration, bool unlocked, bool activated, Texture2D icon) :
             base(id, slotId, manaCost, expCost, cooldown, duration, unlocked, activated, icon) {
@@ -43,20 +46,38 @@ namespace OutsideTheBox {
         /// </summary>
         /// <param name="level">The level the power is activating on</param>
         public override void activate(Level level) {
+            manager = level.getCollisionManager();
             if (activated) {
+                Vector2 destination;
                 if (duration < 15) {
                     switch (level.getPlayer().getDirection()) {
                         case Direction.North:
-                            level.getPlayer().deriveY(-6);
+                            destination = new Vector2(level.getPlayer().getLocation().X, level.getPlayer().getLocation().Y - 6);
+                            level.getPlayer().setDestination(destination);
+                            if (manager.isValid(level.getPlayer())) {
+                                level.getPlayer().deriveY(-6);
+                            }
                             break;
                         case Direction.South:
-                            level.getPlayer().deriveY(6);
+                            destination = new Vector2(level.getPlayer().getLocation().X, level.getPlayer().getLocation().Y + 6);
+                            level.getPlayer().setDestination(destination);
+                            if (manager.isValid(level.getPlayer())) {
+                                level.getPlayer().deriveY(6);
+                            }
                             break;
                         case Direction.West:
-                            level.getPlayer().deriveX(-6);
+                            destination = new Vector2(level.getPlayer().getLocation().X - 6, level.getPlayer().getLocation().Y);
+                            level.getPlayer().setDestination(destination);
+                            if (manager.isValid(level.getPlayer())) {
+                                level.getPlayer().deriveX(-6);
+                            }
                             break;
                         case Direction.East:
-                            level.getPlayer().deriveX(6);
+                            destination = new Vector2(level.getPlayer().getLocation().X + 6, level.getPlayer().getLocation().Y);
+                            level.getPlayer().setDestination(destination);
+                            if (manager.isValid(level.getPlayer())) {
+                                level.getPlayer().deriveX(6);
+                            }
                             break;
                     }
                     updateDuration();
