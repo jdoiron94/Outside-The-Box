@@ -219,6 +219,7 @@ namespace OutsideTheBox {
             Texture2D paralysisOrb = Content.Load<Texture2D>("sprites/projectiles/ParalysisOrb");
             Texture2D health = Content.Load<Texture2D>("ui/HealthBarTexture");
             Texture2D back = Content.Load<Texture2D>("ui/BackBarTexture");
+            Texture2D green = Content.Load<Texture2D>("ui/EnemyBarText");
             Texture2D mana = Content.Load<Texture2D>("ui/ManaBarTexture");
             Texture2D normBox = Content.Load<Texture2D>("sprites/objects/KeyOutline");
             Texture2D nullBox = Content.Load<Texture2D>("sprites/objects/KeyOutlineNull");
@@ -363,11 +364,14 @@ namespace OutsideTheBox {
 
             pixel = new Texture2D(GraphicsDevice, 1, 1);
             pixel.SetData(new Color[] { Color.White });
-            npc.setDisplayBar(new DisplayBar(health, font, new Vector2(npc.getLocation().X, npc.getLocation().Y - 5.0F), null, 64, 15));
+            npc.setDisplayBar(new DisplayBar(green, font, new Vector2(npc.getLocation().X, npc.getLocation().Y - 5.0F), null, 64, 15));
+            npc.getDisplayBar().setColor(Color.Red);
             npc.setPath(new AIPath(npc, this, new int[] { midX - 105, midY - 180, midX + 120, midY + 165 }, new int[] { 60, 60, 60, 60 }, new Direction[] { Direction.West, Direction.North, Direction.East, Direction.South }));
-            npc2.setDisplayBar(new DisplayBar(health, font, new Vector2(npc2.getLocation().X, npc2.getLocation().Y - 5.0F), null, 64, 15));
+            npc2.setDisplayBar(new DisplayBar(green, font, new Vector2(npc2.getLocation().X, npc2.getLocation().Y - 5.0F), null, 64, 15));
+            npc2.getDisplayBar().setColor(Color.Red);
             npc2.setPath(new AIPath(npc2, this, new int[] { 80, 175 }, new int[] { 45, 45 }, new Direction[] { Direction.West, Direction.East }));
-            npc3.setDisplayBar(new DisplayBar(health, font, new Vector2(npc3.getLocation().X, npc3.getLocation().Y - 5.0F), null, 64, 15));
+            npc3.setDisplayBar(new DisplayBar(green, font, new Vector2(npc3.getLocation().X, npc3.getLocation().Y - 5.0F), null, 64, 15));
+            npc3.getDisplayBar().setColor(Color.Red);
             npc3.setPath(new AIPath(npc3, this, new int[] { 570, 665 }, new int[] { 45, 45 }, new Direction[] { Direction.West, Direction.East }));
             //npc3.setPath(new AIPath(npc3, this, new int[] { midX - 100, midY - 100, midX + 100, midY + 150 }, new int[0], new Direction[] { Direction.West, Direction.North, Direction.East, Direction.South }));
             //npc4.setPath(new AIPath(npc4, this, new int[] { 200, 60 }, new int[0], new Direction[] { Direction.East, Direction.West }));

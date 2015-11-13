@@ -20,6 +20,7 @@ namespace OutsideTheBox {
         private Rectangle displayBar;
         private Rectangle backBar;
         private Rectangle outlineBar;
+        private Color color;
 
         private string text;
 
@@ -33,7 +34,16 @@ namespace OutsideTheBox {
             outlineBar = new Rectangle((int) location.X, (int) location.Y, width, height);
             backBar = new Rectangle((int) location.X, (int) location.Y + 5, width, height - 10);
             displayBar = new Rectangle((int) location.X, (int) location.Y + 5, width, height - 10);
+            color = Color.Black;
             text = "100/100";
+        }
+
+        /// <summary>
+        /// Sets the display bar's back color
+        /// </summary>
+        /// <param name="color">The color to set</param>
+        public void setColor(Color color) {
+            this.color = color;
         }
 
         /// <summary>
@@ -117,7 +127,7 @@ namespace OutsideTheBox {
             if (gradient != null) {
                 batch.Draw(gradient, outlineBar, Color.White);
             }
-            batch.Draw(texture, backBar, Color.Black);
+            batch.Draw(texture, backBar, color);
             batch.Draw(texture, displayBar, Color.White);
             Vector2 size = font.MeasureString(text);
             Vector2 loc = new Vector2(location.X + ((width - size.X) / 2), location.Y + ((height - size.Y) / 2));
