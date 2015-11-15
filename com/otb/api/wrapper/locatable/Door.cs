@@ -47,6 +47,12 @@ namespace OutsideTheBox {
         {
             return door; 
         }
+
+        public void setDoor(Door door)
+        {
+            this.door = door;
+        }
+
         /// <summary>
         /// Returns whether or not the door is unlocked
         /// </summary>
