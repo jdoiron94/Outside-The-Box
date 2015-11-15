@@ -363,15 +363,15 @@ namespace OutsideTheBox {
             MindRead read = new MindRead(2, 1, 20, 1000, 200, 100, true, false, button1);
             read.setPlayerManager(playerManager);
             
+            cursor = Content.Load<Texture2D>("sprites/cursors/Cursor");
+            Texture2D targ = Content.Load<Texture2D>("sprites/cursors/TargetingCursor");
+            target = new Target(targ);
+            
             inputManager = new InputManager(this, player, level, pauseMenu, target, playerManager, screens, read);
             keyBox.update(inputManager);
             level.setInputManager(inputManager);
             pauseMenu.setInputManager(inputManager);
             inputManager.setDeathManager(new DeathManager(inputManager));
-
-            cursor = Content.Load<Texture2D>("sprites/cursors/Cursor");
-            Texture2D targ = Content.Load<Texture2D>("sprites/cursors/TargetingCursor");
-            target = new Target(targ);
 
             pixel = new Texture2D(GraphicsDevice, 1, 1);
             pixel.SetData(new Color[] { Color.White });
