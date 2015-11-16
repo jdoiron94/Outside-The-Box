@@ -262,6 +262,7 @@ namespace OutsideTheBox {
             List<GameObject> Level1Objects = new List<GameObject>(); 
             Texture2D male1 = Content.Load<Texture2D>("sprites/entities/npcs/NormieMaleStand1");
             Texture2D male2 = Content.Load<Texture2D>("sprites/entities/npcs/NormieMaleStand2");
+            Texture2D lineofsight = Content.Load<Texture2D>("sprites/entities/npcs/GuardLineofSight");
             Npc npc = new Npc(this, male1, new Vector2(430F, height - 135F), Direction.East, new NpcDefinition("Normie", new string[0], new int[0]), 150, 0x5);
             Npc npc2 = new Npc(this, male2, new Vector2(80F, 205F), Direction.East, new NpcDefinition("Normie2", new string[0], new int[0]), 150, 0x5);
             Npc npc3 = new Npc(this, male2, new Vector2(666F, 205F), Direction.East, new NpcDefinition("Normie3", new string[0], new int[0]), 150, 0x5);
