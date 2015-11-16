@@ -238,8 +238,7 @@ namespace OutsideTheBox {
                                    new Button(button5, new Vector2(270F, 310F), 0),};
             Texture2D pauseScreen = Content.Load<Texture2D>("menus/PausePlaceholderScreen");
             pauseMenu = new Menu(pauseScreen, menuButtons);
-<<<<<<< HEAD
-=======
+
 
         //GAME OBJECTS
             Texture2D desk = Content.Load<Texture2D>("sprites/objects/ComputerDesk");
@@ -268,6 +267,7 @@ namespace OutsideTheBox {
             Texture2D door = Content.Load<Texture2D>("sprites/objects/DoorOpen");
             Texture2D doorClosed = Content.Load<Texture2D>("sprites/objects/Door");
             Door door1 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2((width - 64F) / 2F, height - 51F), Direction.East, false, true, 64, 10, true, null);
+            Door door2 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2((width - 64F) / 2F, 0F), Direction.North, false, false, 64, 10, true, door1);
 
             //BARRIERS
             Texture2D bOpenV = Content.Load<Texture2D>("sprites/objects/BarrierOpenVertical");
@@ -285,10 +285,11 @@ namespace OutsideTheBox {
         //NPCS
             Texture2D male1 = Content.Load<Texture2D>("sprites/entities/npcs/NormieMaleStand1");
             Texture2D male2 = Content.Load<Texture2D>("sprites/entities/npcs/NormieMaleStand2");
+            Texture2D lineofsight = Content.Load<Texture2D>("sprites/entities/npcs/GuardLineofSight");
             Npc npc = new Npc(this, male1, new Vector2(430F, height - 135F), Direction.East, new NpcDefinition("Normie", new string[0], new int[0]), 150, 0x5);
             Npc npc2 = new Npc(this, male2, new Vector2(80F, 205F), Direction.East, new NpcDefinition("Normie2", new string[0], new int[0]), 150, 0x5);
             Npc npc3 = new Npc(this, male2, new Vector2(666F, 205F), Direction.East, new NpcDefinition("Normie3", new string[0], new int[0]), 150, 0x5);
->>>>>>> origin/master
+
 
             midX = (graphics.PreferredBackBufferWidth - playur.Width) / 2;
             midY = (graphics.PreferredBackBufferHeight - playur.Height) / 2;
@@ -299,58 +300,8 @@ namespace OutsideTheBox {
             playerManager = new PlayerManager(player, Content, new DisplayBar(health, font, new Vector2(252F, height - 41F), back, 549, 20), new DisplayBar(mana, font, new Vector2(252F, height - 21F), back, 549, 21), keyBox, buttonTextures, powerBar);
             player.loadTextures(Content);
 
-<<<<<<< HEAD
-        //GAME OBJECTS
-            Texture2D desk = Content.Load<Texture2D>("sprites/objects/ComputerDesk");
-            GameObject desk1 = new GameObject(desk, new Vector2(125F, 145F), true);
 
-            //COLLECTIBLES 
-            Texture2D bronze = Content.Load<Texture2D>("sprites/objects/BronzeBar");
-            Texture2D silver = Content.Load<Texture2D>("sprites/objects/SilverBar");
-            Texture2D gold = Content.Load<Texture2D>("sprites/objects/GoldBar");
-            Token token1 = new Token(bronze, new Vector2(midX + 260F, midY + 140F), TokenType.Bronze);
-            Token token2 = new Token(silver, new Vector2(midX, midY), TokenType.Silver);
-            Key k = new Key(key, new Vector2(200F, 200F));
-
-            //WALLS
-            Texture2D wall = Content.Load<Texture2D>("sprites/objects/WallTexture");
-
-            //CUBICLES
-            Cubicle cube1 = new Cubicle(80F, 30F, 150, 150, this, Direction.East, wall);
-            cube1.addObject(desk1);
-            Cubicle cube2 = new Cubicle(80F, 280F, 150, 150, this, Direction.East, wall);
-            Cubicle cube3 = new Cubicle(width - 230F, 30F, 150, 150, this, Direction.West, wall);
-            cube3.addObject(token1);
-            Cubicle cube4 = new Cubicle(width - 230F, 280F, 150, 150, this, Direction.West, wall);
-
-            //DOORS
-            Texture2D door = Content.Load<Texture2D>("sprites/objects/DoorOpen");
-            Texture2D doorClosed = Content.Load<Texture2D>("sprites/objects/Door");
-            Door door1 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2((width - 64F) / 2F, height - 51F), Direction.South, false, true, 64, 10, true, null);
-            Door door2 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2((width - 64F) / 2F, 0F), Direction.North, false, false, 64, 10, true, door1);
-            door1.setDoor(door2);
-
-            //BARRIERS
-            Texture2D bOpenV = Content.Load<Texture2D>("sprites/objects/BarrierOpenVertical");
-            Texture2D bClosedV = Content.Load<Texture2D>("sprites/objects/BarrierClosedVertical");
-            Barrier b1 = new Barrier(new Texture2D[] { bOpenV, bClosedV }, new Vector2(200F, 330F));
-
-            //PRESS/BARRIER/ACTIVATION BUTTONS
-            Texture2D pOff = Content.Load<Texture2D>("sprites/objects/PressButtonOff");
-            Texture2D pOn = Content.Load<Texture2D>("sprites/objects/PressButtonOn");
-            Texture2D pDeactivated = Content.Load<Texture2D>("sprites/objects/PressButtonDeactivated");
-            Texture2D[] pBTextures = new Texture2D[] { pOn, pOff, pDeactivated };
-            BarrierButton p1 = new BarrierButton(pBTextures, new Vector2(200F, 200F), false, false, b1);
-            ActivateButton p2 = new ActivateButton(pBTextures, new Vector2(300F, 400F), false, false, p1);
-
-        //NPCS
-            Texture2D male1 = Content.Load<Texture2D>("sprites/entities/npcs/NormieMaleStand1");
-            Texture2D male2 = Content.Load<Texture2D>("sprites/entities/npcs/NormieMaleStand2");
-            Npc npc = new Npc(this, male1, new Vector2(430F, height - 135F), Direction.East, new NpcDefinition("Normie", new string[0], new int[0]), 150, 0x5);
-            Npc npc2 = new Npc(this, male2, new Vector2(80F, 205F), Direction.East, new NpcDefinition("Normie2", new string[0], new int[0]), 150, 0x5);
-            Npc npc3 = new Npc(this, male2, new Vector2(666F, 205F), Direction.East, new NpcDefinition("Normie3", new string[0], new int[0]), 150, 0x5);
-
-
+        
         //LEVELS
 
             //LEVEL 1
@@ -413,35 +364,34 @@ namespace OutsideTheBox {
             //Token token3 = new Token(gold, new Vector2(200F, 200F), TokenType.Gold);
             //Token token4 = new Token(gold, new Vector2(200F, 200F), TokenType.Gold);
 
-=======
 
         //LEVELS
 
             //LEVEL 1
-            List<GameObject> Level1Objects = new List<GameObject>();
-            Level1Objects.Add(door1);
-            Level1Objects.Add(b1);
-            Level1Objects.Add(token1);
-            Level1Objects.Add(token2);
-            Texture2D l1 = Content.Load<Texture2D>("sprites/levels/Level1");
-            Level1Objects.Add(k);
-            Level1Objects.Add(p1);
-            Level1Objects.Add(p2);
-            Level level1 = new Level(this, player, l1, new Npc[] { npc, npc2, npc3 }, Level1Objects.ToArray(), 0);
-            level1.addCubicle(cube1);
-            level1.addCubicle(cube2);
-            level1.addCubicle(cube3);
-            level1.addCubicle(cube4);
-            level1.setPlayerOrigin(new Vector2(125F, 295F));
+            //List<GameObject> Level1Objects = new List<GameObject>();
+            //Level1Objects.Add(door1);
+            //Level1Objects.Add(b1);
+            //Level1Objects.Add(token1);
+           // Level1Objects.Add(token2);
+            //Texture2D l1 = Content.Load<Texture2D>("sprites/levels/Level1");
+           // Level1Objects.Add(k);
+           // Level1Objects.Add(p1);
+           // Level1Objects.Add(p2);
+            //Level level1 = new Level(this, player, l1, new Npc[] { npc, npc2, npc3 }, Level1Objects.ToArray(), 0);
+            //level1.addCubicle(cube1);
+           // level1.addCubicle(cube2);
+           // level1.addCubicle(cube3);
+           // level1.addCubicle(cube4);
+          //  level1.setPlayerOrigin(new Vector2(125F, 295F));
             //level2.setPlayerOrigin(new Vector2(40F, 391F));
 
 
-            levels = new List<Level>();
-            levels.Add(level1);
+           // levels = new List<Level>();
+           // levels.Add(level1);
             //levels.Add(level2);
             //levels.Add(level3);
-            level = levels[0];
-            levelIndex = 0;
+           // level = levels[0];
+           // levelIndex = 0;
 
 
             //Npc npc2 = new Npc(this, male1, new Vector2(midX + 350F, midY + 100F), Direction.East, new NpcDefinition("Normie2", new string[0], new int[0]), 150, 0x5);
@@ -468,7 +418,7 @@ namespace OutsideTheBox {
             //Token token3 = new Token(gold, new Vector2(200F, 200F), TokenType.Gold);
             //Token token4 = new Token(gold, new Vector2(200F, 200F), TokenType.Gold);
 
->>>>>>> origin/master
+
             //Texture2D l2 = Content.Load<Texture2D>("sprites/levels/Level1Map");
             //Texture2D l3 = Content.Load<Texture2D>("sprites/levels/StorageRoom");
 
@@ -481,19 +431,19 @@ namespace OutsideTheBox {
             
             MindRead read = new MindRead(2, 1, 20, 1000, 200, 100, true, false, button1);
             read.setPlayerManager(playerManager);
-<<<<<<< HEAD
+
 
             cursor = Content.Load<Texture2D>("sprites/cursors/Cursor");
             Texture2D targ = Content.Load<Texture2D>("sprites/cursors/TargetingCursor");
             target = new Target(targ);
 
-=======
+
             
             cursor = Content.Load<Texture2D>("sprites/cursors/Cursor");
-            Texture2D targ = Content.Load<Texture2D>("sprites/cursors/TargetingCursor");
-            target = new Target(targ);
+            Texture2D targetting = Content.Load<Texture2D>("sprites/cursors/TargetingCursor");
+            target = new Target(targetting);
             
->>>>>>> origin/master
+
             inputManager = new InputManager(this, player, level, pauseMenu, target, playerManager, screens, read);
             keyBox.update(inputManager);
             level.setInputManager(inputManager);
