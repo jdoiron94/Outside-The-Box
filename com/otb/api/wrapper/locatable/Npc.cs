@@ -15,6 +15,7 @@ namespace OutsideTheBox {
 
         private readonly Game1 game;
         private readonly NpcDefinition def;
+        private Texture2D sight;
 
         private readonly int[] offsets;
         private readonly int radius;
@@ -24,10 +25,12 @@ namespace OutsideTheBox {
         private int ticks;
         private bool hit;
 
+        private float angle = 0;
+
         private AIPath path;
         private Rectangle lineOfSight;
 
-        public Npc(Game1 game, Texture2D texture, Vector2 location, Direction direction, NpcDefinition def, int[] offsets, int maxHealth, int velocity, int radius, byte reactTime, bool wander) :
+        public Npc(Game1 game, Texture2D texture, Texture2D sight, Vector2 location, Direction direction, NpcDefinition def, int[] offsets, int maxHealth, int velocity, int radius, byte reactTime, bool wander) :
             base(texture, location, direction, maxHealth, velocity) {
             this.game = game;
             this.def = def;
@@ -36,15 +39,16 @@ namespace OutsideTheBox {
             this.reactTime = reactTime;
             this.wander = wander;
             ticks = 0;
-            hit = false; 
+            hit = false;
+            this.sight = sight;
         }
 
-        public Npc(Game1 game, Texture2D texture, Vector2 location, Direction direction, NpcDefinition def, int[] offsets, int radius, byte reactTime, bool wander) :
-            this(game, texture, location, direction, def, offsets, 100, 3, radius, reactTime, wander) {
+        public Npc(Game1 game, Texture2D texture, Texture2D sight, Vector2 location, Direction direction, NpcDefinition def, int[] offsets, int radius, byte reactTime, bool wander) :
+            this(game, texture, sight, location, direction, def, offsets, 100, 3, radius, reactTime, wander) {
         }
 
-        public Npc(Game1 game, Texture2D texture, Vector2 location, Direction direction, NpcDefinition def, int radius, byte reactTime) :
-            this(game, texture, location, direction, def, new int[0], radius, reactTime, false) {
+        public Npc(Game1 game, Texture2D texture, Texture2D sight, Vector2 location, Direction direction, NpcDefinition def, int radius, byte reactTime) :
+            this(game, texture, sight, location, direction, def, new int[0], radius, reactTime, false) {
         }
 
         /// <summary>
@@ -214,6 +218,37 @@ namespace OutsideTheBox {
                 updateLineOfSight();
             } else if (isWithin(game.getPlayer())) {
                 react(time, game.getPlayer());
+            }
+        }
+
+        public void draw(SpriteBatch batch)
+        {
+            batch.Draw(texture, location, Color.White);
+            Rectangle sourceRectangle = new Rectangle(0, 0, sight.Width, sight.Height);
+            
+            switch (getDirection())
+            {
+                case Direction.North:
+
+                    angle = 0;
+                    batch.Draw(sight, location, sourceRectangle, Color.White, angle, new Vector2((texture.Width / 2) - 32f, texture.Height + 120f), 1.0f, SpriteEffects.None, 1);
+                    break;
+                case Direction.South:
+                    angle = 0;
+                    batch.Draw(sight, location, sourceRectangle, Color.White, angle, new Vector2((texture.Width / 2) - 32f, texture.Height - 120f), 1.0f, SpriteEffects.FlipVertically, 1);
+                    break;
+                case Direction.West:
+                    angle = 165;
+                    batch.Draw(sight, location, sourceRectangle, Color.White, angle, new Vector2((texture.Width / 2) - 30f, texture.Height - 40f), 1.0f, SpriteEffects.FlipVertically, 1);
+                    break;
+                case Direction.East:
+                    angle = 165;
+                    batch.Draw(sight, location, sourceRectangle, Color.White, angle, new Vector2((texture.Width / 2) - 30f, texture.Height + 170f), 1.0f, SpriteEffects.None, 1);
+                    break;
+                default:
+                    angle = 0;
+                    batch.Draw(sight, location, sourceRectangle, Color.White, angle, new Vector2((texture.Width / 2) - 32f, texture.Height + 120f), 1.0f, SpriteEffects.None, 1);
+                    break;
             }
         }
     }
