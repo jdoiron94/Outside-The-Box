@@ -17,11 +17,10 @@ namespace OutsideTheBox {
 
         private Door door; 
 
-        public Door(Texture2D[] texture, Projectile projectile, Vector2 location, Direction direction, bool liftable, bool next, int width, int height, bool unlocked, Door door) :
+        public Door(Texture2D[] texture, Projectile projectile, Vector2 location, Direction direction, bool liftable, bool next, int width, int height, bool unlocked) :
             base(texture[0], projectile, location, direction, liftable, width, height) {
             this.next = next;
             this.unlocked = unlocked;
-            this.door = door; 
             open = texture[0];
             closed = texture[1];
         }
@@ -40,17 +39,6 @@ namespace OutsideTheBox {
         /// <returns>Returns true if the door leads to a new level; otherwise, false</returns>
         public bool getNext() {
             return next;
-        }
-
-
-        public Door getDoor()
-        {
-            return door; 
-        }
-
-        public void setDoor(Door door)
-        {
-            this.door = door;
         }
 
         /// <summary>

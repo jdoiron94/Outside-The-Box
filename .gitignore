@@ -3,6 +3,7 @@
 *.doc
 *.db
 *.stackdump
+*.htm
 
 # Directories
 .vs
