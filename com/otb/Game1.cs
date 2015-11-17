@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using OutsideTheBox.com.otb.api.wrapper.locatable;
 using System;
 using System.Collections.Generic;
 
@@ -287,12 +288,19 @@ namespace OutsideTheBox {
             playerManager = new PlayerManager(player, Content, new DisplayBar(health, font, new Vector2(252F, height - 41F), back, 549, 20), new DisplayBar(mana, font, new Vector2(252F, height - 21F), back, 549, 21), keyBox, buttonTextures, powerBar);
             player.loadTextures(Content);
 
+            //Pits
+
+            Texture2D lavaPit = Content.Load<Texture2D>("sprites/objects/Lava");
+            LavaPit p1 = new LavaPit(lavaPit, new Vector2(300F, 200F), 64, 128);
+             
+
             //LEVELS
             //LEVEL 1
             List<GameObject> Level1Objects = new List<GameObject>();
             Level1Objects.Add(door1);
             Level1Objects.Add(token1);
             Level1Objects.Add(token2);
+            Level1Objects.Add(p1);
             Texture2D l1 = Content.Load<Texture2D>("sprites/levels/Level1Map");
             Level level1 = new Level(this, player, l1, new Npc[] { npc, npc2, npc3 }, Level1Objects.ToArray(), 0);
             level1.addCubicle(cube1);

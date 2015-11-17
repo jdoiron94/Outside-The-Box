@@ -14,7 +14,7 @@ namespace OutsideTheBox.com.otb.api.wrapper.locatable
         public LavaPit(Texture2D texture, Vector2 location, int width, int height):
             base(texture, location, width, height)
         {
-            damage = 5; 
+            damage = 2; 
         }
 
         public int getDamage()

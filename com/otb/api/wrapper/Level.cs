@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
-
+using OutsideTheBox.com.otb.api.wrapper.locatable;
 using System;
 using System.Collections.Generic;
 
@@ -39,7 +39,8 @@ namespace OutsideTheBox {
         private List<Cubicle> cubicles;
         private List<Projectile> projectiles;
         private List<PressButton> pressButtons;
-        private List<Barrier> barriers; 
+        private List<Barrier> barriers;
+        private List<Pit> Pits; 
 
         private bool debug;
         private int index;
@@ -59,6 +60,7 @@ namespace OutsideTheBox {
             thoughts = new List<ThoughtBubble>();
             walls = new List<Wall>();
             pressButtons = new List<PressButton>();
+            Pits = new List<Pit>();
             sortObjects();
             cubicles = new List<Cubicle>();
             active = true;
@@ -96,7 +98,11 @@ namespace OutsideTheBox {
                 }
                 else if (o is Barrier)
                 {
-                    barriers.Add((Barrier)o);
+                    barriers.Add((Barrier) o);
+                }
+                else if (o is Pit)
+                {
+                    Pits.Add((Pit) o);
                 }
                 else
                 {
@@ -218,6 +224,11 @@ namespace OutsideTheBox {
         /// <returns>Returns the door list</returns>
         public List<Door> getDoors() {
             return doors;
+        }
+
+        public List<Pit> getPits()
+        {
+            return Pits; 
         }
 
         /// <summary>
@@ -478,6 +489,14 @@ namespace OutsideTheBox {
         /// <param name="batch">The SpriteBatch to perform the drawing</param>
         public void draw(SpriteBatch batch) {
             batch.Draw(map, Vector2.Zero, Color.White);
+            foreach (Pit pit in Pits)
+            {
+                pit.draw(batch);
+                if(debug)
+                {
+                    game.outline(batch, pit.getBounds());
+                }
+            }
             foreach (PressButton p in pressButtons) {
                 p.draw(batch);
                 if (debug) {

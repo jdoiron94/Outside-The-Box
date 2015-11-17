@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OutsideTheBox.com.otb.api.wrapper.locatable;
+using System;
 
 namespace OutsideTheBox {
 
@@ -95,6 +96,11 @@ namespace OutsideTheBox {
                     return b;
                 }
             }
+            foreach (Pit pi in level.getPits())
+            {
+                if (pi != o && o.getDestinationBounds().Intersects(pi.getDestinationBounds()))
+                    return pi; 
+            }
             return null;
         }
 
@@ -164,6 +170,11 @@ namespace OutsideTheBox {
                     return b;
                 }
             }
+            foreach (Pit pi in level.getPits())
+            {
+                if (e.getDestinationBounds().Intersects(pi.getDestinationBounds()))
+                    return pi; 
+            }
             if (e == player && collectibles) {
                 foreach (Token t in level.getTokens()) {
                     if (e.getDestinationBounds().Intersects(t.getBounds()) && !t.isCollected()) {
@@ -203,7 +214,10 @@ namespace OutsideTheBox {
         /// <param name="e">The entity to check</param>
         /// <returns>Returns true if the entity collides with an object; otherwise, false</returns>
         public bool hitObject(Entity e, bool collectibles) {
-            return getObjectCollision(e, collectibles) != null;
+            if (getObjectCollision(e, collectibles) is Pit)
+                return false; 
+            else
+                return getObjectCollision(e, collectibles) != null;
         }
 
         /// <summary>

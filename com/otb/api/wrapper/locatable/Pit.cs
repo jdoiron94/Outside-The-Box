@@ -14,7 +14,8 @@ namespace OutsideTheBox.com.otb.api.wrapper.locatable
         public Pit(Texture2D texture, Vector2 location, int width, int height):
             base(texture, location)
         {
-            size = new Rectangle((int) getLocation().X, (int) getLocation().Y, width, height); 
+            size = new Rectangle((int) getLocation().X, (int) getLocation().Y, width, height);
+            setBounds(size);
         }
 
         public virtual void update(InputManager inputManager)

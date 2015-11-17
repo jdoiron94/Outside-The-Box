@@ -124,6 +124,11 @@ namespace OutsideTheBox {
             return bounds;
         }
 
+        public void setBounds(Rectangle rect)
+        {
+            bounds = rect; 
+        }
+
         /// <summary>
         /// Returns if the game object can be lifted
         /// </summary>

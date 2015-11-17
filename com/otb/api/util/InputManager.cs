@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using OutsideTheBox.com.otb.api.wrapper.locatable;
 
 namespace OutsideTheBox {
 
@@ -243,6 +244,10 @@ namespace OutsideTheBox {
                     }
                     playerManager.getKeyBox().update(this);
                 }
+            }else if(gCollision != null && gCollision is Pit)
+            {
+                Pit p = (Pit)gCollision;
+                p.update(this);
             }
             if (lastKeyState.IsKeyDown(Keys.E) && currentKeyState.IsKeyUp(Keys.E)) {
                 if (mindRead.validate()) {
