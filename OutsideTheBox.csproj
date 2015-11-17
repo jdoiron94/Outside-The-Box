@@ -63,6 +63,8 @@
     <Compile Include="com\otb\api\wrapper\locatable\Barrier.cs" />
     <Compile Include="com\otb\api\wrapper\locatable\Collectible.cs" />
     <Compile Include="com\otb\api\wrapper\locatable\Key.cs" />
+    <Compile Include="com\otb\api\wrapper\locatable\LavaPit.cs" />
+    <Compile Include="com\otb\api\wrapper\locatable\Pit.cs" />
     <Compile Include="com\otb\api\wrapper\locatable\PressButton.cs" />
     <Compile Include="com\otb\api\wrapper\PressButtonType.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -218,6 +220,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\sprites\objects\KeyOutlineNull.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\sprites\objects\Lava.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\sprites\objects\PottedPlant.png">
