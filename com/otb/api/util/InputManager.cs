@@ -249,7 +249,7 @@ namespace OutsideTheBox {
                 Pit p = (Pit)gCollision;
                 p.update(this);
                 if (gCollision is LavaPit) { 
-                 p.playEffect();
+                 //p.playEffect();
                 }
             }
             if (lastKeyState.IsKeyDown(Keys.E) && currentKeyState.IsKeyUp(Keys.E)) {
