@@ -22,6 +22,11 @@ namespace OutsideTheBox.com.otb.api.wrapper.locatable
             setDestinationBounds(bounds);
         }
 
+        public Rectangle getSize()
+        {
+            return size; 
+        }
+
         public Rectangle getPitBounds()
         {
             return bounds; 
@@ -44,7 +49,7 @@ namespace OutsideTheBox.com.otb.api.wrapper.locatable
 
         }
 
-        public void draw(SpriteBatch batch)
+        public virtual void draw(SpriteBatch batch)
         {
             batch.Draw(getTexture(), size, Color.White);
         }
