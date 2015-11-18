@@ -70,25 +70,38 @@ namespace OutsideTheBox {
             //string projectilePrefix = "sprites/projectiles/";
             //string[] projectileNames = { "Bullet", "Fire", "Ice", "Lightning", "Paralysis", "Confusion" };
             string prefix = "sprites/entities/player/";
+           
             string[] names = { "Forward", "Backward", "Left", "Right" };
-            foreach (string s in names) {
+            foreach (string s in names)
+            {
                 Texture2D[] array = s == "Forward" ? southFacing : s == "Backward" ? northFacing : s == "Left" ? westFacing : eastFacing;
-                for (int i = 1; i <= 4; i++) {
+                for (int i = 1; i <= 4; i++)
+                {
                     array[i - 1] = cm.Load<Texture2D>(prefix + s + i);
                 }
-                /*foreach (string p in projectileNames) {
-                    Texture2D[] projectileArray = { };
-                    for (int o = 1; o <= 5; o++) {
-                        //projectileArray[o - 1] = cm.Load<Texture2D>(projectilePrefix + p + "Orb");
-                    }
-                }*/
-            }
+            }            
         }
 
-        /// <summary>
-        /// Updates the entity's texture depending on the direction it's facing, using a busy wait
-        /// </summary>
-        public void updateMovement() {
+        public void loadNPCTextures(ContentManager cm)
+        {
+            string npcprefix = "sprites/entities/npcs/";
+            string[] npcnames = { "ForwardNormieMWalk", "BackwardNormieMWalk", "LeftNormieMWalk", "RightNormieMWalk" };
+            foreach (string n in npcnames)
+            {
+                Texture2D[] npcarray = n == "ForwardNormieMWalk" ? southFacing : n == "BackwardNormieMWalk" ? northFacing : n == "LeftNormieMWalk" ? westFacing : eastFacing;
+                for (int i = 1; i <= 4; i++)
+                {
+                    npcarray[i - 1] = cm.Load<Texture2D>(npcprefix + n + i);
+                    System.Diagnostics.Debug.Write(npcprefix + n + i);
+                }
+            }
+
+}
+
+/// <summary>
+/// Updates the entity's texture depending on the direction it's facing, using a busy wait
+/// </summary>
+public void updateMovement() {
             if (ticks >= WAIT) {
                 if (direction == Direction.South) {
                     frames[0] = (frames[0] + 1) % 4;

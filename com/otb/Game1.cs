@@ -295,6 +295,9 @@ namespace OutsideTheBox {
             KeyBox keyBox = new KeyBox(new Texture2D[] { normBox, nullBox, key }, new Vector2(750F, 20F));
             playerManager = new PlayerManager(player, Content, new DisplayBar(health, font, new Vector2(252F, height - 41F), back, 549, 20), new DisplayBar(mana, font, new Vector2(252F, height - 21F), back, 549, 21), keyBox, buttonTextures, powerBar);
             player.loadTextures(Content);
+            npc.loadNPCTextures(Content);
+            npc2.loadNPCTextures(Content);
+            npc3.loadNPCTextures(Content);
 
             //Pits
 
