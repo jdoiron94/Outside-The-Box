@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -11,42 +10,32 @@ namespace OutsideTheBox.com.otb.api.wrapper.locatable
     public class Pit : GameObject
     {
         private Rectangle size;
-        private SoundEffect effect;
+        private Rectangle bounds; 
 
-        public Pit(Texture2D texture, Vector2 location, int width, int height, SoundEffect sound) :
+        public Pit(Texture2D texture, Vector2 location, int width, int height):
             base(texture, location)
         {
-            size = new Rectangle((int)getLocation().X, (int)getLocation().Y, width, height);
-            setBounds(size);
-            setDestinationBounds(size);
+            size = new Rectangle((int) getLocation().X, (int) getLocation().Y, width, height);
+            bounds = new Rectangle((int)getLocation().X, (int)getLocation().Y, width, height);
+
+            setBounds(bounds);
+            setDestinationBounds(bounds);
         }
 
-        /// <summary>
-        /// Returns the pit's sound effect
-        /// </summary>
-        /// <returns>Returns the pit's sound effect</returns>
-        public SoundEffect getEffect()
+        public Rectangle getPitBounds()
         {
-            return effect;
+            return bounds; 
         }
 
-        /// <summary>
-        /// Sets the pit's sound effect
-        /// </summary>
-        /// <param name="effect">The sound effect to set</param>
-        public void setEffect(SoundEffect effect)
+        public void setPitBounds(bool orientation)
         {
-            this.effect = effect;
-        }
-
-        /// <summary>
-        /// Plays the pit's sound effect
-        /// </summary>
-        public void playEffect()
-        {
-            if (effect != null)
+            if (orientation == true)
             {
-                effect.Play();
+                bounds = new Rectangle((int)getLocation().X, (int)getLocation().Y, 1, bounds.Y);
+            }
+            else
+            {
+                bounds = new Rectangle((int)getLocation().X, (int)getLocation().Y, bounds.X, 1);
             }
         }
 
@@ -61,4 +50,3 @@ namespace OutsideTheBox.com.otb.api.wrapper.locatable
         }
     }
 }
-
