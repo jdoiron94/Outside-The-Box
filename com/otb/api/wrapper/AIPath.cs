@@ -100,6 +100,7 @@ namespace OutsideTheBox {
                             npc.setDestination(new Vector2(npc.getLocation().X, npc.getLocation().Y - npc.getVelocity()));
                             if (collisionManager.isValid(npc, false)) {
                                 npc.deriveY(-npc.getVelocity());
+                                npc.updateMovement();
                             }
                             ticks = 0;
                         } else {
@@ -116,6 +117,7 @@ namespace OutsideTheBox {
                             npc.setDestination(new Vector2(npc.getLocation().X, npc.getLocation().Y + npc.getVelocity()));
                             if (collisionManager.isValid(npc, false)) {
                                 npc.deriveY(npc.getVelocity());
+                                npc.updateMovement();
                             }
                             ticks = 0;
                         } else {
@@ -132,6 +134,7 @@ namespace OutsideTheBox {
                             npc.setDestination(new Vector2(npc.getLocation().X - npc.getVelocity(), npc.getLocation().Y));
                             if (collisionManager.isValid(npc, false)) {
                                 npc.deriveX(-npc.getVelocity());
+                                npc.updateMovement();
                             }
                             ticks = 0;
                         } else {
@@ -148,6 +151,7 @@ namespace OutsideTheBox {
                             npc.setDestination(new Vector2(npc.getLocation().X + npc.getVelocity(), npc.getLocation().Y));
                             if (collisionManager.isValid(npc, false)) {
                                 npc.deriveX(npc.getVelocity());
+                                npc.updateMovement();
                             }
                             ticks = 0;
                         } else {
