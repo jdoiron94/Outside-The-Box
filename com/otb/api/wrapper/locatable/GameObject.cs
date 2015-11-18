@@ -98,6 +98,11 @@ namespace OutsideTheBox {
             return destinationBounds;
         }
 
+        public void setDestinationBounds(Rectangle rect)
+        {
+            destinationBounds = rect; 
+        }
+
         /// <summary>
         /// Sets the object's location
         /// </summary>

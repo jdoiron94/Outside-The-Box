@@ -16,6 +16,7 @@ namespace OutsideTheBox.com.otb.api.wrapper.locatable
         {
             size = new Rectangle((int) getLocation().X, (int) getLocation().Y, width, height);
             setBounds(size);
+            setDestinationBounds(size);
         }
 
         public virtual void update(InputManager inputManager)
