@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Audio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,11 @@ namespace OutsideTheBox.com.otb.api.wrapper.locatable
     {
         private int damage; 
         
-        public LavaPit(Texture2D texture, Vector2 location, int width, int height):
-            base(texture, location, width, height)
+        public LavaPit(Texture2D texture, Vector2 location, int width, int height, SoundEffect sound):
+            base(texture, location, width, height, sound)
         {
-            damage = 2; 
+            damage = 2;
+            setEffect(sound);
         }
 
         public int getDamage()

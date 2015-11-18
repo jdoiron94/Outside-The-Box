@@ -302,8 +302,8 @@ namespace OutsideTheBox {
             //Pits
 
             Texture2D lavaPit = Content.Load<Texture2D>("sprites/objects/Lava");
-            LavaPit p1 = new LavaPit(lavaPit, new Vector2(300F, 200F), 64, 128);
-            LavaPit p2 = new LavaPit(lavaPit, new Vector2(0F, 200F), 480, 128);
+            LavaPit p1 = new LavaPit(lavaPit, new Vector2(300F, 200F), 64, 128, lavaSound);
+            LavaPit p2 = new LavaPit(lavaPit, new Vector2(0F, 200F), 480, 128, lavaSound);
              
 
             //LEVELS
