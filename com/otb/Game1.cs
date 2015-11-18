@@ -292,6 +292,7 @@ namespace OutsideTheBox {
 
             Texture2D lavaPit = Content.Load<Texture2D>("sprites/objects/Lava");
             LavaPit p1 = new LavaPit(lavaPit, new Vector2(300F, 200F), 64, 128);
+            LavaPit p2 = new LavaPit(lavaPit, new Vector2(0F, 200F), 480, 128);
              
 
             //LEVELS
@@ -311,18 +312,16 @@ namespace OutsideTheBox {
             //level2.setPlayerOrigin(new Vector2(40F, 391F));
 
             //LEVEL 2
-            /*List<GameObject> Level2Objects = new List<GameObject>();
+            List<GameObject> Level2Objects = new List<GameObject>();
             Level2Objects.Add(door2);
+            Level2Objects.Add(p2);
             Texture2D l2 = Content.Load<Texture2D>("sprites/levels/Level1");
             Level level2 = new Level(this, player, l2, new Npc[] { }, Level2Objects.ToArray(), 0);
-            level2.addCubicle(cube1);
-            level2.addCubicle(cube2);
-            level2.addCubicle(cube3);
-            level2.setPlayerOrigin(new Vector2(100F, 100F));*/
+            //level2.setPlayerOrigin(new Vector2(100F, 100F));
 
             levels = new List<Level>();
             levels.Add(level1);
-            //levels.Add(level2);
+            levels.Add(level2);
             //levels.Add(level3);
             level = levels[0];
             levelIndex = 0;
