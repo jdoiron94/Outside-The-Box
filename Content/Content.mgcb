@@ -37,3 +37,27 @@
 /processorParam:TextureFormat=Compressed
 /build:fonts/font1.spritefont
 
+#begin audio/Sound Effects/buttonSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:audio/Sound Effects/buttonSound.wav
+
+#begin audio/Sound Effects/lavaSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:audio/Sound Effects/lavaSound.wav
+
+#begin audio/Sound Effects/paralyzeSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:audio/Sound Effects/paralyzeSound.wav
+
+#begin audio/Sound Effects/slowSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:audio/Sound Effects/slowSound.wav
+

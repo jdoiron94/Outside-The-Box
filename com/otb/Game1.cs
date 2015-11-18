@@ -36,6 +36,10 @@ namespace OutsideTheBox {
 
         private Song factorySong;
         private SoundEffect dashSound;
+        private SoundEffect buttonSound;
+        private SoundEffect lavaSound;
+        private SoundEffect paralyzeSound;
+        private SoundEffect slowSound;
         private SoundEffect boltSound;
 
         private int midX;
@@ -210,6 +214,10 @@ namespace OutsideTheBox {
 
             boltSound = Content.Load<SoundEffect>("audio/Sound Effects/boltSound");
             dashSound = Content.Load<SoundEffect>("audio/Sound Effects/dashSound");
+            buttonSound = Content.Load<SoundEffect>("audio/Sound Effects/buttonSound");
+            lavaSound = Content.Load<SoundEffect>("audio/Sound Effects/lavaSound");
+            paralyzeSound = Content.Load<SoundEffect>("audio/Sound Effects/paralyzeSound");
+            slowSound = Content.Load<SoundEffect>("audio/Sound Effects/slowSound");
             startMenu = Content.Load<Texture2D>("menus/StartMenu");
             instructions = Content.Load<Texture2D>("menus/instructions");
 
