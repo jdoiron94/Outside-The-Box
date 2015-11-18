@@ -310,7 +310,7 @@ namespace OutsideTheBox {
                 player.setDirection(Direction.East);
                 player.updateMovement();
                 player.setDestination(new Vector2(player.getLocation().X + velocity, player.getLocation().Y));
-                if (player.getDestination().X <= width && collisionManager.isValid(player, true)) {
+                if (player.getDestination().X <= width - 64 && collisionManager.isValid(player, true)) {
                     player.deriveX(velocity);
                 }
             } else if (lastKeyState.IsKeyDown(Keys.Right) && currentKeyState.IsKeyUp(Keys.Right)) {
