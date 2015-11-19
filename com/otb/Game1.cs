@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using OutsideTheBox.com.otb.api.wrapper;
 using OutsideTheBox.com.otb.api.wrapper.locatable;
 using System;
 using System.Collections.Generic;
@@ -240,6 +241,7 @@ namespace OutsideTheBox {
             Texture2D HealthLaserH = Content.Load<Texture2D>("sprites/objects/HPLaserHorizontal");
             Texture2D ManaLaserV = Content.Load<Texture2D>("sprites/objects/ManaLaser");
             Texture2D ManaLaserH = Content.Load<Texture2D>("sprites/objects/ManaLaserHorizontal");
+            Texture2D limitationField = Content.Load<Texture2D>("sprites/objects/PlayerLimitationField");
 
             //MENUS and MENU BUTTONS
             Texture2D button1 = Content.Load<Texture2D>("menus/assets/button_instructions");
@@ -306,10 +308,15 @@ namespace OutsideTheBox {
             //Pits
 
             Texture2D lavaPit = Content.Load<Texture2D>("sprites/objects/Lava");
+            Texture2D buttonOn = Content.Load<Texture2D>("sprites/objects/PressButtonOn");
+            Texture2D buttonOff = Content.Load<Texture2D>("sprites/objects/PressButtonOff");
+            Texture2D buttonNull = Content.Load<Texture2D>("sprites/objects/PressButtonDeactivated"); 
+
             LavaPit p2 = new LavaPit(lavaPit, new Vector2(0F, 200F), 480, 128, lavaSound);
 
             HPLaser laz1 = new HPLaser(HealthLaserV, new Vector2(200F, 300F), 200, 20, true);
-            PlayerLimitationField plf1 = new PlayerLimitationField(HealthLaserV, new Vector2(400F, 400F), 200, 200);
+            PlayerLimitationField plf1 = new PlayerLimitationField(limitationField, new Vector2(400F, 400F), 200, 200);
+            LaserButton lb1 = new LaserButton(new Texture2D[] { buttonOn, buttonOff, buttonNull }, new Vector2(150F, 300F), false, false, laz1); 
              
 
             //LEVELS
@@ -333,6 +340,7 @@ namespace OutsideTheBox {
             Level2Objects.Add(p2);
             Level2Objects.Add(laz1);
             Level2Objects.Add(plf1);
+            Level2Objects.Add(lb1);
             Texture2D l2 = Content.Load<Texture2D>("sprites/levels/Level1");
             Level level2 = new Level(this, player, l2, new Npc[] { }, Level2Objects.ToArray(), 0);
             //level2.setPlayerOrigin(new Vector2(100F, 100F));

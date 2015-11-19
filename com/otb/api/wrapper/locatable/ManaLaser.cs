@@ -17,7 +17,8 @@ namespace OutsideTheBox.com.otb.api.wrapper.locatable
 
         public override void update(InputManager inputManager)
         {
-            inputManager.getPlayerManager().depleteMana(50);
+            if(isActivated())
+                inputManager.getPlayerManager().depleteMana(50);
         }
     }
 }

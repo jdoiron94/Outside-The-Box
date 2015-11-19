@@ -60,6 +60,7 @@
     <Compile Include="com\otb\api\wrapper\BarrierButton.cs" />
     <Compile Include="com\otb\api\wrapper\DoorButton.cs" />
     <Compile Include="com\otb\api\wrapper\KeyBox.cs" />
+    <Compile Include="com\otb\api\wrapper\LaserButton.cs" />
     <Compile Include="com\otb\api\wrapper\locatable\Barrier.cs" />
     <Compile Include="com\otb\api\wrapper\locatable\Collectible.cs" />
     <Compile Include="com\otb\api\wrapper\locatable\HPLaser.cs" />
@@ -275,6 +276,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\sprites\objects\ManaLaserHorizontal.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\sprites\objects\PlayerLimitationField.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\sprites\objects\PottedPlant.png">

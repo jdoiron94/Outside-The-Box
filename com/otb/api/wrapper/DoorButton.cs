@@ -7,9 +7,9 @@ namespace OutsideTheBox {
 
         private readonly Door door;
 
-        public DoorButton(Texture2D[] Textures, Vector2 location, bool deactivated, bool pushed, Door barrier) :
+        public DoorButton(Texture2D[] Textures, Vector2 location, bool deactivated, bool pushed, Door door) :
             base(Textures, location, deactivated, pushed) {
-            this.door = barrier;
+            this.door = door;
         }
 
         /// <summary>
