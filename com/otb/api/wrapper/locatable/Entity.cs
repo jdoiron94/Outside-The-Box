@@ -86,7 +86,6 @@ namespace OutsideTheBox {
                 Texture2D[] npcarray = n == "Forward" ? southFacing : n == "Backward" ? northFacing : n == "Left" ? westFacing : eastFacing;
                 for (int i = 1; i <= 4; i++) {
                     npcarray[i - 1] = cm.Load<Texture2D>(prefix + n + i);
-                    System.Diagnostics.Debug.Write(prefix + n + i);
                 }
             }
         }
