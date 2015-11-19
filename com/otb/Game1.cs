@@ -236,6 +236,10 @@ namespace OutsideTheBox {
             Texture2D nullBox = Content.Load<Texture2D>("sprites/objects/KeyOutlineNull");
             Texture2D key = Content.Load<Texture2D>("sprites/objects/KeyFrame1");
             Texture2D powerbarText = Content.Load<Texture2D>("ui/powerbar");
+            Texture2D HealthLaserV = Content.Load<Texture2D>("sprites/objects/HPLaser");
+            Texture2D HealthLaserH = Content.Load<Texture2D>("sprites/objects/HPLaserHorizontal");
+            Texture2D ManaLaserV = Content.Load<Texture2D>("sprites/objects/ManaLaser");
+            Texture2D ManaLaserH = Content.Load<Texture2D>("sprites/objects/ManaLaserHorizontal");
 
             //MENUS and MENU BUTTONS
             Texture2D button1 = Content.Load<Texture2D>("menus/assets/button_instructions");
@@ -304,6 +308,8 @@ namespace OutsideTheBox {
             Texture2D lavaPit = Content.Load<Texture2D>("sprites/objects/Lava");
             LavaPit p1 = new LavaPit(lavaPit, new Vector2(300F, 200F), 64, 128, lavaSound);
             LavaPit p2 = new LavaPit(lavaPit, new Vector2(0F, 200F), 480, 128, lavaSound);
+
+            HPLaser laz1 = new HPLaser(HealthLaserV, new Vector2(200F, 300F), 200, 20, true);
              
 
             //LEVELS
@@ -326,6 +332,7 @@ namespace OutsideTheBox {
             List<GameObject> Level2Objects = new List<GameObject>();
             Level2Objects.Add(door2);
             Level2Objects.Add(p2);
+            Level2Objects.Add(laz1);
             Texture2D l2 = Content.Load<Texture2D>("sprites/levels/Level1");
             Level level2 = new Level(this, player, l2, new Npc[] { }, Level2Objects.ToArray(), 0);
             //level2.setPlayerOrigin(new Vector2(100F, 100F));

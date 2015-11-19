@@ -13,10 +13,10 @@ namespace OutsideTheBox.com.otb.api.wrapper.locatable
         private int damage; 
         
         public LavaPit(Texture2D texture, Vector2 location, int width, int height, SoundEffect sound):
-            base(texture, location, width, height, sound)
+            base(texture, location, width, height)
         {
             damage = 2;
-            setEffect(sound);
+            //setEffect(sound);
         }
 
         public int getDamage()
