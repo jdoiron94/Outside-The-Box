@@ -188,7 +188,13 @@ namespace OutsideTheBox {
 
 
         private void updateNormal(GameTime time) {
-            if (playerManager.getHealthCooldown() == 35) {
+            if(!(collisionManager.getObjectCollision(player, true) is PlayerLimitationField))
+            {
+                playerManager.setManaLimit(true);
+                playerManager.setHealthLimit(true);
+            }
+
+            if (playerManager.getHealthCooldown() == 35 && playerManager.getHealthLimit() && playerManager.getManaLimit()) {
                 playerManager.regenerateHealth();
                 playerManager.regenerateMana();
             }
@@ -248,6 +254,11 @@ namespace OutsideTheBox {
             {
                 Pit p = (Pit)gCollision;
                 p.update(this);
+                if(p is PlayerLimitationField)
+                {
+                    PlayerLimitationField plf = (PlayerLimitationField)p;
+                    plf.update(this);
+                }
                 if (gCollision is LavaPit) { 
                  //p.playEffect();
                 }
@@ -260,28 +271,38 @@ namespace OutsideTheBox {
                     }
                 }
             }
-            mindRead.activate(level);
-            SlowTime slowmo = (SlowTime) playerManager.getPowers()[0];
-            if (lastKeyState.IsKeyDown(Keys.A) && currentKeyState.IsKeyUp(Keys.A)) {
-                if (slowmo.validate()) {
-                    playerManager.depleteMana(slowmo.getManaCost());
+            if(playerManager.getManaLimit())
+            {
+                mindRead.activate(level);
+                SlowTime slowmo = (SlowTime)playerManager.getPowers()[0];
+                if (lastKeyState.IsKeyDown(Keys.A) && currentKeyState.IsKeyUp(Keys.A))
+                {
+                    if (slowmo.validate())
+                    {
+                        playerManager.depleteMana(slowmo.getManaCost());
+                    }
                 }
-            }
-            slowmo.activate(level);
-            Dash dash = (Dash) playerManager.getPowers()[1];
-            if (lastKeyState.IsKeyDown(Keys.W) && currentKeyState.IsKeyUp(Keys.W)) {
-                if (dash.validate()) {
-                    playerManager.depleteMana(dash.getManaCost());
+                slowmo.activate(level);
+                Dash dash = (Dash)playerManager.getPowers()[1];
+                if (lastKeyState.IsKeyDown(Keys.W) && currentKeyState.IsKeyUp(Keys.W))
+                {
+                    if (dash.validate())
+                    {
+                        playerManager.depleteMana(dash.getManaCost());
+                    }
                 }
-            }
-            dash.activate(level);
-            Confuse confuse = (Confuse) playerManager.getPowers()[2];
-            if (lastKeyState.IsKeyDown(Keys.S) && currentKeyState.IsKeyUp(Keys.S)) {
-                if (confuse.validate()) {
-                    playerManager.depleteMana(confuse.getManaCost());
+                dash.activate(level);
+                Confuse confuse = (Confuse)playerManager.getPowers()[2];
+                if (lastKeyState.IsKeyDown(Keys.S) && currentKeyState.IsKeyUp(Keys.S))
+                {
+                    if (confuse.validate())
+                    {
+                        playerManager.depleteMana(confuse.getManaCost());
+                    }
                 }
+                confuse.activate(level);
             }
-            confuse.activate(level);
+            
             if (currentKeyState.IsKeyDown(Keys.Up)) {
                 player.setDirection(Direction.North);
                 player.updateMovement();
@@ -321,7 +342,7 @@ namespace OutsideTheBox {
             } else {
                 player.setDestination(player.getLocation());
             }
-            if (currentKeyState.IsKeyDown(Keys.Space)) {
+            if (currentKeyState.IsKeyDown(Keys.Space) && playerManager.getManaLimit()) {
                 double ms = time.TotalGameTime.TotalMilliseconds;
                 if ((player.getLastFired() == -1 || ms - player.getLastFired() >= player.getProjectile().getCooldown()) && playerManager.getMana() >= 5) {
                     level.addProjectile(player.createProjectile(ms));

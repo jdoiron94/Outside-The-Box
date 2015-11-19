@@ -34,6 +34,9 @@ namespace OutsideTheBox {
         private const int MAX_HEALTH = 100;
         private const int MAX_MANA = 500;
 
+        private bool manaLimit;
+        private bool healthLimit; 
+
         public PlayerManager(Player player, ContentManager cm, int health, int mana, int totalExp, int currentExp, DisplayBar healthBar, DisplayBar manaBar, KeyBox keyBox, Texture2D[] powButtons, PowerBar powerbar) {
             this.player = player;
             this.health = health;
@@ -57,6 +60,8 @@ namespace OutsideTheBox {
             confuse.setEffect(cm.Load<SoundEffect>("audio/Sound Effects/paralyzeSound"));
             confuse.setPlayerManager(this);
             powers = new List<BasePower> { slow, dash, confuse /*, new Mindread(true, false, inputManager)*/};
+            manaLimit = true;
+            healthLimit = true; 
         }
 
         public PlayerManager(Player player, ContentManager cm, DisplayBar healthBar, DisplayBar manaBar, KeyBox keyBox, Texture2D[] powButtons, PowerBar powerbar) :
@@ -180,6 +185,27 @@ namespace OutsideTheBox {
             this.manaDrainRate = manaDrainRate;
             manaDrainMax = manaDrainRate + 1;
         }
+
+        public void setManaLimit(bool value)
+        {
+            manaLimit = value; 
+        }
+        
+        public bool getManaLimit()
+        {
+            return manaLimit; 
+        }
+
+        public void setHealthLimit(bool value)
+        {
+            healthLimit = value; 
+        }
+
+        public bool getHealthLimit()
+        {
+            return healthLimit; 
+        }
+
 
         /// <summary>
         /// Damages the player by the specified amount

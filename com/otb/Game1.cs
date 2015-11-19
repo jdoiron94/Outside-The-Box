@@ -310,6 +310,7 @@ namespace OutsideTheBox {
             LavaPit p2 = new LavaPit(lavaPit, new Vector2(0F, 200F), 480, 128, lavaSound);
 
             HPLaser laz1 = new HPLaser(HealthLaserV, new Vector2(200F, 300F), 200, 20, true);
+            PlayerLimitationField plf1 = new PlayerLimitationField(HealthLaserV, new Vector2(400F, 400F), 200, 200);
              
 
             //LEVELS
@@ -333,6 +334,7 @@ namespace OutsideTheBox {
             Level2Objects.Add(door2);
             Level2Objects.Add(p2);
             Level2Objects.Add(laz1);
+            Level2Objects.Add(plf1);
             Texture2D l2 = Content.Load<Texture2D>("sprites/levels/Level1");
             Level level2 = new Level(this, player, l2, new Npc[] { }, Level2Objects.ToArray(), 0);
             //level2.setPlayerOrigin(new Vector2(100F, 100F));
