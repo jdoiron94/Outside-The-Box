@@ -284,8 +284,8 @@ namespace OutsideTheBox {
             Door door2 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2((width - 64F) / 2F, 0F), Direction.North, false, false, 64, 10, true);
 
             //NPCS
-            Texture2D male1 = Content.Load<Texture2D>("sprites/entities/npcs/NormieMaleStand1");
-            Texture2D male2 = Content.Load<Texture2D>("sprites/entities/npcs/NormieMaleStand2");
+            Texture2D male1 = Content.Load<Texture2D>("sprites/entities/npcs/Standing1");
+            Texture2D male2 = Content.Load<Texture2D>("sprites/entities/npcs/Standing2");
             Texture2D lineofsight = Content.Load<Texture2D>("ui/LOS");
             Npc npc = new Npc(this, male1, lineofsight, new Vector2(430F, height - 135F), Direction.East, new NpcDefinition("Normie", new string[0], new int[0]), 150, 0x5);
             Npc npc2 = new Npc(this, male2, lineofsight, new Vector2(80F, 205F), Direction.East, new NpcDefinition("Normie2", new string[0], new int[0]), 150, 0x5);
@@ -306,7 +306,6 @@ namespace OutsideTheBox {
             //Pits
 
             Texture2D lavaPit = Content.Load<Texture2D>("sprites/objects/Lava");
-            LavaPit p1 = new LavaPit(lavaPit, new Vector2(300F, 200F), 64, 128, lavaSound);
             LavaPit p2 = new LavaPit(lavaPit, new Vector2(0F, 200F), 480, 128, lavaSound);
 
             HPLaser laz1 = new HPLaser(HealthLaserV, new Vector2(200F, 300F), 200, 20, true);
@@ -319,7 +318,6 @@ namespace OutsideTheBox {
             Level1Objects.Add(door1);
             Level1Objects.Add(token1);
             Level1Objects.Add(token2);
-            Level1Objects.Add(p1);
             Texture2D l1 = Content.Load<Texture2D>("sprites/levels/Level1Map");
             Level level1 = new Level(this, player, l1, new Npc[] { npc, npc2, npc3 }, Level1Objects.ToArray(), 0);
             level1.addCubicle(cube1);
