@@ -11,7 +11,6 @@ namespace OutsideTheBox {
         public LavaPit(Texture2D texture, Vector2 location, SoundEffectInstance effect, int width, int height) :
             base(texture, location, effect, width, height) {
             damage = 2;
-            //setEffect(sound);
         }
 
         public int getDamage() {

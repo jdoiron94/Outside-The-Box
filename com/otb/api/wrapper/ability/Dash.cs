@@ -11,8 +11,8 @@ namespace OutsideTheBox {
 
         private CollisionManager manager;
 
-        public Dash(int id, int slotId, int manaCost, int expCost, int cooldown, int duration, bool unlocked, bool activated, Texture2D icon) :
-            base(id, slotId, manaCost, expCost, cooldown, duration, unlocked, activated, icon) {
+        public Dash(int id, int slotId, int manaCost, int expCost, int cooldown, int duration, bool unlocked, bool activated) :
+            base(id, slotId, manaCost, expCost, cooldown, duration, unlocked, activated) {
         }
 
         /// <summary>

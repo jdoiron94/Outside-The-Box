@@ -19,7 +19,6 @@ namespace OutsideTheBox {
         private readonly PowerBar powerbar;
         private KeyBox keyBox;
         private List<BasePower> powers;
-        //private Texture2D[] powButtons;
 
         private int health;
         private int mana;
@@ -37,7 +36,7 @@ namespace OutsideTheBox {
         private bool manaLimit;
         private bool healthLimit; 
 
-        public PlayerManager(Player player, ContentManager cm, int health, int mana, int totalExp, int currentExp, DisplayBar healthBar, DisplayBar manaBar, KeyBox keyBox, Texture2D[] powButtons, PowerBar powerbar) {
+        public PlayerManager(Player player, ContentManager cm, int health, int mana, int totalExp, int currentExp, DisplayBar healthBar, DisplayBar manaBar, KeyBox keyBox, PowerBar powerbar) {
             this.player = player;
             this.health = health;
             this.mana = mana;
@@ -50,13 +49,13 @@ namespace OutsideTheBox {
             healthCooldown = 0;
             manaCooldown = 0;
             totalMana = 100;
-            SlowTime slow = new SlowTime(0, 2, 20, 1000, 200, 200, true, false, powButtons[4]);
+            SlowTime slow = new SlowTime(0, 2, 20, 1000, 200, 200, true, false);
             slow.setEffect(cm.Load<SoundEffect>("audio/Sound Effects/slowSound"));
             slow.setPlayerManager(this);
-            Dash dash = new Dash(1, 4, 5, 1000, 20, 15, true, false, powButtons[3]);
+            Dash dash = new Dash(1, 4, 5, 1000, 20, 15, true, false);
             dash.setEffect(cm.Load<SoundEffect>("audio/Sound Effects/dashSound"));
             dash.setPlayerManager(this);
-            Confuse confuse = new Confuse(3, 7, 20, 1000, 200, 50, true, false, powButtons[2]);
+            Confuse confuse = new Confuse(3, 7, 20, 1000, 200, 50, true, false);
             confuse.setEffect(cm.Load<SoundEffect>("audio/Sound Effects/paralyzeSound"));
             confuse.setPlayerManager(this);
             powers = new List<BasePower> { slow, dash, confuse /*, new Mindread(true, false, inputManager)*/};
@@ -64,8 +63,8 @@ namespace OutsideTheBox {
             healthLimit = true; 
         }
 
-        public PlayerManager(Player player, ContentManager cm, DisplayBar healthBar, DisplayBar manaBar, KeyBox keyBox, Texture2D[] powButtons, PowerBar powerbar) :
-            this(player, cm, 100, 100, 0, 0, healthBar, manaBar, keyBox, powButtons, powerbar) {
+        public PlayerManager(Player player, ContentManager cm, DisplayBar healthBar, DisplayBar manaBar, KeyBox keyBox, PowerBar powerbar) :
+            this(player, cm, 100, 100, 0, 0, healthBar, manaBar, keyBox, powerbar) {
         }
 
         /// <summary>

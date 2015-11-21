@@ -12,7 +12,6 @@ namespace OutsideTheBox {
 
         private readonly Game1 game;
         private readonly Player player;
-        private readonly Menu pauseMenu;
         private readonly PlayerManager playerManager;
         private readonly CollisionManager collisionManager;
         private readonly ScreenManager screenManager;
@@ -37,15 +36,15 @@ namespace OutsideTheBox {
         private bool stagnant;
         private bool moving;
         private bool powerReveal;
+        private string gameState;
         private string dropText;
 
         private const byte WAIT = 0x4;
 
-        public InputManager(Game1 game, Player player, Level level, Menu pauseMenu, Target target, PlayerManager playerManager, Screen[] screens, MindRead mindRead) {
+        public InputManager(Game1 game, Player player, Level level, Target target, PlayerManager playerManager, Screen[] screens, MindRead mindRead) {
             this.game = game;
             this.player = player;
             this.level = level;
-            this.pauseMenu = pauseMenu;
             this.target = target;
             this.playerManager = playerManager;
             this.mindRead = mindRead;
@@ -105,14 +104,6 @@ namespace OutsideTheBox {
         }
 
         /// <summary>
-        /// Returns the menu
-        /// </summary>
-        /// <returns>Returns the pause menu</returns>
-        public Menu getMenu() {
-            return pauseMenu;
-        }
-
-        /// <summary>
         /// Returns an instance of the player manager
         /// </summary>
         /// <returns>Returns an instance of the player manager</returns>
@@ -167,7 +158,6 @@ namespace OutsideTheBox {
         public void update(GameTime time) {
             lastKeyState = currentKeyState;
             currentKeyState = Keyboard.GetState();
-            Screen active = screenManager.getActiveScreen();
             collisionManager.updatePressButtons(player);
             if (currentKeyState.IsKeyDown(Keys.Escape)) {
                 game.Exit();
@@ -183,35 +173,14 @@ namespace OutsideTheBox {
                     l.toggleDebug();
                 }
             }
-            if (active.getName() == "Start") {
-                if (lastKeyState.IsKeyDown(Keys.Space) && currentKeyState.IsKeyUp(Keys.Space)) {
-                    level.setMode(0);
-                    screenManager.setActiveScreen(1);
-                }
-            } else if (active.getName() == "Instructions") {
-                pauseMenu.setActive(false);
-                if (lastKeyState.IsKeyDown(Keys.M) && currentKeyState.IsKeyUp(Keys.M)) {
-                    screenManager.setActiveScreen(0);
-                    pauseMenu.setActive(true);
-                }
-            } else if (active.getName() == "Normal") {
-                updateNormal(time);
-            } else if (active.getName() == "Telekinesis-Select") {
-                updateSelect(time);
-            } else if (active.getName() == "Telekinesis-Move") {
-                updateTelekinesisMove(time);
-            } else if (active.getName() == "Menu") {
-                updateMenu(time);
-            }
+            updateNormal(time);
         }
-
 
         private void updateNormal(GameTime time) {
             if (!(collisionManager.getObjectCollision(player, true) is PlayerLimitationField)) {
                 playerManager.setManaLimit(true);
                 playerManager.setHealthLimit(true);
             }
-
             if (playerManager.getHealthCooldown() == 35 && playerManager.getHealthLimit() && playerManager.getManaLimit()) {
                 playerManager.regenerateHealth();
                 playerManager.regenerateMana();
@@ -223,13 +192,10 @@ namespace OutsideTheBox {
                     playerManager.getKeyBox().setUnlocked(true);
                     level.unlockDoors();
                 }
-
             }
-
             foreach (PressButton pb in level.getPressButtons()) {
                 pb.update();
             }
-
             GameObject gCollision = collisionManager.getObjectCollision(player, true);
             if (gCollision != null && gCollision is Token) {
                 Token t = (Token) gCollision;
@@ -257,7 +223,6 @@ namespace OutsideTheBox {
                     level.setInputManager(this);
                     collisionManager.setLevel(level);
                     level.setActive(true);
-
                     if (d.getDirection() == Direction.East) {
                         player.setLocation(new Vector2(40F, d.getLocation().Y));
                     } else if (d.getDirection() == Direction.West) {
@@ -312,7 +277,6 @@ namespace OutsideTheBox {
                 }
                 confuse.activate(level);
             }
-
             if (currentKeyState.IsKeyDown(Keys.Up)) {
                 player.setDirection(Direction.North);
                 player.updateMovement();
@@ -382,7 +346,6 @@ namespace OutsideTheBox {
             } else if (lastKeyState.IsKeyDown(Keys.M) && currentKeyState.IsKeyUp(Keys.M)) {
                 screenManager.setActiveScreen(0);
                 level.setActive(false);
-                pauseMenu.setActive(true);
             }
         }
 
@@ -497,10 +460,8 @@ namespace OutsideTheBox {
             lastState = state;
             state = Mouse.GetState().LeftButton;
             if (lastState == ButtonState.Pressed && state == ButtonState.Released) {
-                pauseMenu.reactToMouseClick();
             } else if (lastKeyState.IsKeyDown(Keys.M) && currentKeyState.IsKeyUp(Keys.M)) {
                 screenManager.setActiveScreen(1);
-                pauseMenu.setActive(false);
                 level.setActive(true);
             }
         }

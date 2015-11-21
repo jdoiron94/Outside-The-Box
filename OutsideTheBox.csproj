@@ -53,7 +53,6 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="com\otb\api\wrapper\ability\Telekinesis.cs" />
     <Compile Include="com\otb\api\wrapper\ActivateButton.cs" />
     <Compile Include="com\otb\api\wrapper\AIPath.cs" />
     <Compile Include="com\otb\api\wrapper\ability\BasePower.cs" />
@@ -75,7 +74,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="com\otb\ui\AbilityIcon.cs" />
-    <Compile Include="com\otb\ui\Button.cs" />
     <Compile Include="com\otb\api\wrapper\ability\Confuse.cs" />
     <Compile Include="com\otb\api\wrapper\ability\Dash.cs" />
     <Compile Include="com\otb\api\util\DeathManager.cs" />
@@ -83,7 +81,6 @@
     <Compile Include="com\otb\api\wrapper\locatable\Door.cs" />
     <Compile Include="com\otb\api\wrapper\ability\DrainPower.cs" />
     <Compile Include="com\otb\ui\Hitsplat.cs" />
-    <Compile Include="com\otb\ui\Menu.cs" />
     <Compile Include="com\otb\api\util\CollisionManager.cs" />
     <Compile Include="com\otb\api\wrapper\Direction.cs" />
     <Compile Include="com\otb\ui\DisplayBar.cs" />
@@ -147,9 +144,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\menus\Controls.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\menus\instructions.PNG">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\menus\Title Screen.png">
@@ -246,8 +240,8 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\sprites\objects\Barrier2ClosedH.png">
-  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-</Content>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\sprites\objects\Barrier2ClosedV.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -464,9 +458,6 @@
     <Content Include="Content\menus\assets\CaseFileToken.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\sprites\levels\cubicalRoom.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Content\sprites\cursors\Cursor.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -534,9 +525,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\sprites\entities\npcs\Left4.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\menus\PausePlaceholderScreen.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\menus\assets\resume_button.gif">

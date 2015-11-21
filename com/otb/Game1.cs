@@ -22,7 +22,6 @@ namespace OutsideTheBox {
         private List<Level> levels;
         private PlayerManager playerManager;
         private InputManager inputManager;
-        private Menu pauseMenu;
         private Texture2D cursor;
         private Target target;
         private MouseState mouse;
@@ -234,7 +233,6 @@ namespace OutsideTheBox {
             paralyzeSound = Content.Load<SoundEffect>("audio/sound effects/paralyzeSound");
             slowSound = Content.Load<SoundEffect>("audio/sound effects/slowSound");
             startMenu = Content.Load<Texture2D>("menus/Title Screen");
-            instructions = Content.Load<Texture2D>("menus/instructions");
 
             Texture2D playur = Content.Load<Texture2D>("sprites/entities/player/Standing1");
             Texture2D bullet = Content.Load<Texture2D>("sprites/projectiles/BulletOrb");
@@ -250,25 +248,11 @@ namespace OutsideTheBox {
             Texture2D normBox = Content.Load<Texture2D>("sprites/objects/KeyOutline");
             Texture2D nullBox = Content.Load<Texture2D>("sprites/objects/KeyOutlineNull");
             Texture2D key = Content.Load<Texture2D>("sprites/objects/KeyFrame1");
-            //Texture2D powerbarText = Content.Load<Texture2D>("ui/powerbar");
             Texture2D HealthLaserV = Content.Load<Texture2D>("sprites/objects/HPLaser");
             Texture2D HealthLaserH = Content.Load<Texture2D>("sprites/objects/HPLaserHorizontal");
             Texture2D ManaLaserV = Content.Load<Texture2D>("sprites/objects/ManaLaser");
             Texture2D ManaLaserH = Content.Load<Texture2D>("sprites/objects/ManaLaserHorizontal");
             Texture2D limitationField = Content.Load<Texture2D>("sprites/objects/PlayerLimitationField");
-
-            //MENUS and MENU BUTTONS
-            Texture2D button1 = Content.Load<Texture2D>("menus/assets/button_instructions");
-            Texture2D button2 = Content.Load<Texture2D>("menus/assets/button_quit");
-            Texture2D button3 = Content.Load<Texture2D>("menus/assets/button_confusion");
-            Texture2D button4 = Content.Load<Texture2D>("menus/assets/button_dash");
-            Texture2D button5 = Content.Load<Texture2D>("menus/assets/button_slow_time");
-            Texture2D[] buttonTextures = { button1, button2, button3, button4, button5 };
-            Button[] menuButtons = { new Button(button1, new Vector2(270F, 140F), 0), new Button(button2, new Vector2(270F, 220F), 1),
-                                   new Button(button3, new Vector2(270F, 310F), 0), new Button(button4, new Vector2(270F, 310F), 0),
-                                   new Button(button5, new Vector2(270F, 310F), 0),};
-            Texture2D pauseScreen = Content.Load<Texture2D>("menus/PausePlaceholderScreen");
-            pauseMenu = new Menu(pauseScreen, menuButtons);
 
             //GAME OBJECTS
             Texture2D desk = Content.Load<Texture2D>("sprites/objects/Desk");
@@ -333,7 +317,7 @@ namespace OutsideTheBox {
 
             PowerBar powerBar = new PowerBar(new AbilityIcon[] { tk, ds, mr, cf, sm, bt });
             KeyBox keyBox = new KeyBox(new Texture2D[] { normBox, nullBox, key }, new Vector2(750F, 20F));
-            playerManager = new PlayerManager(player, Content, new DisplayBar(health, font2, new Vector2(240.0F, height - 41.0F), back, 560, 20), new DisplayBar(mana, font2, new Vector2(240.0F, height - 21.0F), back, 560, 20), keyBox, buttonTextures, powerBar);
+            playerManager = new PlayerManager(player, Content, new DisplayBar(health, font2, new Vector2(240.0F, height - 41.0F), back, 560, 20), new DisplayBar(mana, font2, new Vector2(240.0F, height - 21.0F), back, 560, 20), keyBox, powerBar);
             player.loadTextures(Content);
             npc.loadNPCTextures(Content);
             npc2.loadNPCTextures(Content);
@@ -390,7 +374,7 @@ namespace OutsideTheBox {
             Texture2D about = Content.Load<Texture2D>("menus/About");
             screens = new Screen[] { new TitleScreen(startMenu, controls, about, font1, "Normal", true) };
 
-            MindRead read = new MindRead(2, 1, 20, 1000, 200, 100, true, false, button1);
+            MindRead read = new MindRead(2, 1, 20, 1000, 200, 100, true, false);
             read.setPlayerManager(playerManager);
 
             cursor = Content.Load<Texture2D>("sprites/cursors/Cursor");
@@ -401,10 +385,9 @@ namespace OutsideTheBox {
             Texture2D targetting = Content.Load<Texture2D>("sprites/cursors/TargetingCursor");
             target = new Target(targetting);
 
-            inputManager = new InputManager(this, player, level, pauseMenu, target, playerManager, screens, read);
+            inputManager = new InputManager(this, player, level, target, playerManager, screens, read);
             keyBox.update(inputManager);
             level.setInputManager(inputManager);
-            pauseMenu.setInputManager(inputManager);
             inputManager.setDeathManager(new DeathManager(inputManager));
 
             pixel = new Texture2D(GraphicsDevice, 1, 1);
@@ -498,14 +481,6 @@ namespace OutsideTheBox {
                 return;
             }
             level.draw(spriteBatch);
-            /*if (pauseMenu.isActive()) {
-                pauseMenu.draw(spriteBatch);
-            }
-            if (inputManager.getScreenManager().getActiveScreen().getName() == "Start") {
-                spriteBatch.Draw(startMenu, Vector2.Zero, Color.White);
-            } else if (inputManager.getScreenManager().getActiveScreen().getName() == "Instructions") {
-                spriteBatch.Draw(instructions, Vector2.Zero, Color.White);
-            }*/
             spriteBatch.End();
         }
     }

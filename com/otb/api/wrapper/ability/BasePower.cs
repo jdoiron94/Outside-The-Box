@@ -19,12 +19,11 @@ namespace OutsideTheBox {
         protected bool activated;
 
         private PlayerManager manager;
-
-        private Texture2D icon;
+        
         private SoundEffect effect;
         private Projectile projectile;
 
-        public BasePower(int id, int slotId, int manaCost, int expCost, int cooldown, int duration, bool unlocked, bool activated, Texture2D icon) {
+        public BasePower(int id, int slotId, int manaCost, int expCost, int cooldown, int duration, bool unlocked, bool activated) {
             this.id = id;
             this.slotId = slotId;
             this.manaCost = manaCost;
@@ -33,7 +32,6 @@ namespace OutsideTheBox {
             this.duration = duration;
             this.unlocked = unlocked;
             this.activated = activated;
-            this.icon = icon;
         }
 
         /// <summary>
@@ -106,14 +104,6 @@ namespace OutsideTheBox {
         /// <returns>Returns true if the power is activated; otherwise, false</returns>
         public bool isActivated() {
             return activated;
-        }
-
-        /// <summary>
-        /// Returns the power's icon
-        /// </summary>
-        /// <returns>Returns the power's icon</returns>
-        public Texture2D getIcon() {
-            return icon;
         }
 
         /// <summary>
