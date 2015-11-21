@@ -392,8 +392,7 @@ namespace OutsideTheBox {
                         if (projectile.getOwner() == n) {
                             if (collisionManager.collides(projectile, player)) {
                                 projectile.setActive(false);
-                                playerManager.damagePlayer(5);
-                                Console.WriteLine(playerManager.getHealth());
+                                playerManager.damagePlayer(projectile.getDamage());
                             }
                             break;
                         } else if (collisionManager.collides(projectile, n)) {
@@ -403,7 +402,6 @@ namespace OutsideTheBox {
                             n.restCombatTicks();
                             n.getDisplayBar().update(n.getCurrentHealth(), n.getMaxHealth());
                             n.getHitsplat().setHit("" + projectile.getDamage());
-                            Console.WriteLine("npc health: " + n.getCurrentHealth());
                             break;
                         }
                     }

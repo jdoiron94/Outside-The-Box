@@ -47,11 +47,11 @@ namespace OutsideTheBox {
         }
 
         public Npc(Game1 game, Texture2D texture, Texture2D sight, Vector2 location, Direction direction, NpcDefinition def, int[] offsets, int radius, byte reactTime, bool wander) :
-            this(game, texture, sight, location, direction, def, offsets, 100, 3, radius, reactTime, wander) {
+            this(game, texture, sight, location, direction, def, offsets, 100, 3, radius, 10, wander) {
         }
 
         public Npc(Game1 game, Texture2D texture, Texture2D sight, Vector2 location, Direction direction, NpcDefinition def, int radius, byte reactTime) :
-            this(game, texture, sight, location, direction, def, new int[0], radius, reactTime, false) {
+            this(game, texture, sight, location, direction, def, new int[0], radius, 10, false) {
         }
 
         /// <summary>
@@ -164,25 +164,27 @@ namespace OutsideTheBox {
         /// </summary>
         /// <param name="time">The game time to respect</param>
         /// <param name="player">The player to react to</param>
-        public void react(GameTime time, Player player) {
-            if (projectile == null || reactTicks < reactTime) {
+        public void react(GameTime time, Player player, bool face) {
+            if (projectile == null /*|| reactTicks < reactTime */|| (!isFacing(player, 1.75F) && !face)) {
                 reactTicks++;
                 return;
             }
-            setFacing(player);
+            if (face) {
+                setFacing(player);
+            }
             if (getDistance(player) <= 100) {
-                foreach (Npc n in game.getLevel().getNpcs()) {
-                    if (n != null && n != this) {
-                        if (isFacing(n, 1.75F) && (getHDistance(n) <= n.getTexture().Width * 2 || getVDistance(n) <= n.getTexture().Height * 2)) {
-                            return;
-                        }
+            foreach (Npc n in game.getLevel().getNpcs()) {
+                if (n != null && n != this) {
+                    if (isFacing(n, 1.75F) && (getHDistance(n) <= n.getTexture().Width * 2 || getVDistance(n) <= n.getTexture().Height * 2)) {
+                        return;
                     }
                 }
-                double ms = time.TotalGameTime.TotalMilliseconds;
-                if (lastFired == -1 || ms - lastFired >= projectile.getCooldown()) {
-                    game.addProjectile(createProjectile(ms));
-                    reactTicks = 0;
-                }
+            }
+            double ms = time.TotalGameTime.TotalMilliseconds;
+            if (lastFired == -1 || ms - lastFired >= projectile.getCooldown()) {
+                game.addProjectile(createProjectile(ms));
+                reactTicks = 0;
+            }
             }
         }
 
@@ -218,9 +220,10 @@ namespace OutsideTheBox {
             if (path != null) {
                 path.update();
                 updateLineOfSight();
-            } else if (isWithin(game.getPlayer())) {
-                react(time, game.getPlayer());
+                react(time, game.getPlayer(), false);
+                return;
             }
+            react(time, game.getPlayer(), true);
         }
 
         public override void draw(SpriteBatch batch) {

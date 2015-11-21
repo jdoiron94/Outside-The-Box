@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-
 using System;
 
 namespace OutsideTheBox {
@@ -429,10 +428,20 @@ namespace OutsideTheBox {
         /// <param name="scalar">The scaled distance to check</param>
         /// <returns>Returns true if the entity is facing the specified entity; otherwise, false</returns>
         public bool isFacing(Entity e, float scalar) {
-            if (Math.Abs(e.getLocation().X - location.X) <= texture.Width * scalar) {
-                return e.getLocation().Y >= location.Y ? direction == Direction.South : direction == Direction.North;
+            bool horiz = getHDistance(e) <= getVDistance(e);
+            if (!horiz) {
+                if (e.getLocation().X >= location.X) {
+                    return direction == Direction.East;
+                } else {
+                    return direction == Direction.West;
+                }
+            } else {
+                if (e.getLocation().Y >= location.Y) {
+                    return direction == Direction.South;
+                } else {
+                    return direction == Direction.North;
+                }
             }
-            return e.getLocation().X >= location.X ? direction == Direction.East : direction == Direction.West;
         }
 
         /// <summary>

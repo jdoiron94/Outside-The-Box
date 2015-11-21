@@ -261,8 +261,9 @@ namespace OutsideTheBox {
             pauseMenu = new Menu(pauseScreen, menuButtons);
 
             //GAME OBJECTS
-            Texture2D desk = Content.Load<Texture2D>("sprites/objects/ComputerDesk");
-            GameObject desk1 = new GameObject(desk, new Vector2(125F, 145F), true);
+            Texture2D desk = Content.Load<Texture2D>("sprites/objects/Desk");
+            GameObject desk1 = new GameObject(desk, new Vector2(125.0F, 70.0F), true);
+            GameObject desk2 = new GameObject(desk, new Vector2(600.0F, 300.0F), true);
 
             //COLLECTIBLES 
             Texture2D bronze = Content.Load<Texture2D>("sprites/objects/BronzeBar");
@@ -270,7 +271,6 @@ namespace OutsideTheBox {
             Texture2D gold = Content.Load<Texture2D>("sprites/objects/GoldBar");
             Token token1 = new Token(bronze, new Vector2(midX + 260F, midY + 140F), TokenType.Bronze);
             Token token2 = new Token(silver, new Vector2(midX, midY), TokenType.Silver);
-            Console.WriteLine("MIDX: " + midX + ", MIDY: " + midY);
 
             //WALLS
             Texture2D wall = Content.Load<Texture2D>("sprites/objects/WallTexture");
@@ -282,6 +282,7 @@ namespace OutsideTheBox {
             Cubicle cube3 = new Cubicle(width - 230F, 30F, 150, 150, this, Direction.West, wall);
             cube3.addObject(token1);
             Cubicle cube4 = new Cubicle(width - 230F, 280F, 150, 150, this, Direction.West, wall);
+            cube4.addObject(desk2);
 
             //DOORS
             Texture2D door = Content.Load<Texture2D>("sprites/objects/DoorOpen");
@@ -334,7 +335,7 @@ namespace OutsideTheBox {
             Level1Objects.Add(token1);
             Level1Objects.Add(token2);
             Texture2D l1 = Content.Load<Texture2D>("sprites/levels/Level1Map");
-            Level level1 = new Level(this, player, l1, new Npc[] { npc, npc2, npc3 }, Level1Objects.ToArray(), 0);
+            Level level1 = new Level(this, player, l1, new Npc[] { npc/*, npc2, npc3 */}, Level1Objects.ToArray(), 0);
             level1.addCubicle(cube1);
             level1.addCubicle(cube2);
             level1.addCubicle(cube3);
@@ -384,18 +385,27 @@ namespace OutsideTheBox {
             pixel = new Texture2D(GraphicsDevice, 1, 1);
             pixel.SetData(new Color[] { Color.White });
 
+            Projectile n1 = new Projectile(npc, fireOrb, 5, 250, boltSound);
+            n1.setDamage(33);
+            Projectile n2 = new Projectile(npc2, lightningOrb, 10, 500, boltSound);
+            n2.setDamage(75);
+            Projectile n3 = new Projectile(npc3, iceOrb, 7, 333, boltSound);
+            n3.setDamage(20);
             npc.setDisplayBar(new DisplayBar(green, font2, new Vector2(npc.getLocation().X, npc.getLocation().Y - 5.0F), null, 64, 15));
             npc.getDisplayBar().setColor(Color.Red);
             npc.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(npc.getLocation().X + (hitsplat.Width / 2), npc.getLocation().Y + (hitsplat.Height / 2))));
             npc.setPath(new AIPath(npc, this, new int[] { midX - 105, midY - 180, midX + 120, midY + 165 }, new int[] { 60, 60, 60, 60 }, new Direction[] { Direction.West, Direction.North, Direction.East, Direction.South }));
+            npc.setProjectile(n1);
             npc2.setDisplayBar(new DisplayBar(green, font2, new Vector2(npc2.getLocation().X, npc2.getLocation().Y - 5.0F), null, 64, 15));
             npc2.getDisplayBar().setColor(Color.Red);
             npc2.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(npc2.getLocation().X + (hitsplat.Width / 2), npc2.getLocation().Y + (hitsplat.Height / 2))));
             npc2.setPath(new AIPath(npc2, this, new int[] { 80, 175 }, new int[] { 45, 45 }, new Direction[] { Direction.West, Direction.East }));
+            npc2.setProjectile(n2);
             npc3.setDisplayBar(new DisplayBar(green, font2, new Vector2(npc3.getLocation().X, npc3.getLocation().Y - 5.0F), null, 64, 15));
             npc3.getDisplayBar().setColor(Color.Red);
             npc3.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(npc3.getLocation().X + (hitsplat.Width / 2), npc3.getLocation().Y + (hitsplat.Height / 2))));
             npc3.setPath(new AIPath(npc3, this, new int[] { 570, 665 }, new int[] { 45, 45 }, new Direction[] { Direction.West, Direction.East }));
+            npc3.setProjectile(n3);
         }
 
 
