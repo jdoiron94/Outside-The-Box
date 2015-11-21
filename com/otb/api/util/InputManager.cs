@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using OutsideTheBox.com.otb.api.wrapper.locatable;
 
@@ -17,6 +18,7 @@ namespace OutsideTheBox {
         private readonly CollisionManager collisionManager;
         private readonly ScreenManager screenManager;
         private readonly Target target;
+        private readonly SpriteFont font;
 
         private Level level;
         private MindRead mindRead;
@@ -36,6 +38,7 @@ namespace OutsideTheBox {
         private bool stagnant;
         private bool moving;
         private bool powerReveal;
+        private string dropText;
 
         private const byte WAIT = 0x4;
 
@@ -59,6 +62,23 @@ namespace OutsideTheBox {
             ticks = 0;
             stagnant = false;
             moving = false;
+            font = game.getDropFont();
+        }
+
+        /// <summary>
+        /// Returns the drop text
+        /// </summary>
+        /// <returns>Returns the drop text</returns>
+        public string getDropText() {
+            return dropText;
+        }
+
+        /// <summary>
+        /// Sets the drop text
+        /// </summary>
+        /// <param name="dropText">The text to set</param>
+        public void setDropText(string dropText) {
+            this.dropText = dropText;
         }
 
         /// <summary>
@@ -217,6 +237,7 @@ namespace OutsideTheBox {
                 t.setCollected(true);
                 playerManager.incrementExperience(t.getExp());
                 playerManager.levelMana(t.getManaIncrementationValue());
+                dropText = "+ " + t.getExp() + " EXP";
                 gCollision = null;
             } else if (gCollision != null && gCollision is Key) {
                 Key k = (Key) gCollision;

@@ -20,6 +20,7 @@ namespace OutsideTheBox {
         private Player player;
         private Texture2D map;
 
+        private Vector2 dropLocation;
         private Vector2 playerOrigin;
         private GameObject selectedObject;
         private InputManager inputManager;
@@ -44,6 +45,9 @@ namespace OutsideTheBox {
 
         private bool debug;
         private int index;
+        private int textTicks;
+        private string text;
+        private string oldText;
 
         public Level(Game1 game, Player player, Texture2D map, Npc[] npcs, GameObject[] objects, int index) {
             this.game = game;
@@ -547,6 +551,23 @@ namespace OutsideTheBox {
             playerManager.getHealthBar().draw(batch);
             playerManager.getManaBar().draw(batch);
             playerManager.getPowerBar().draw(batch);
+            oldText = text;
+            text = inputManager.getDropText();
+            if (text != null) {
+                if (textTicks < 300) {
+                    if (text != oldText) {
+                        textTicks = 0;
+                    }
+                    Vector2 size = game.getDropFont().MeasureString(text);
+                    dropLocation = new Vector2(game.getWidth() / 2 - (size.X / 2), game.getHeight() / 2 - (size.Y / 2));
+                    batch.DrawString(game.getDropFont(), text, dropLocation, Color.DodgerBlue);
+                    textTicks++;
+                } else {
+                    text = null;
+                    textTicks = 0;
+                    inputManager.setDropText(null);
+                }
+            }
         }
     }
 }

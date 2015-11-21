@@ -33,6 +33,7 @@ namespace OutsideTheBox {
         private SpriteFont font1;
         private SpriteFont font2;
         private SpriteFont font3;
+        private SpriteFont font4;
 
         private Texture2D pixel;
         //private PowerBar powerBar;
@@ -165,6 +166,14 @@ namespace OutsideTheBox {
         }
 
         /// <summary>
+        /// Returns the font used when the player gains health/mana
+        /// </summary>
+        /// <returns>Returns the font used when the player gains health/mana</returns>
+        public SpriteFont getDropFont() {
+            return font4;
+        }
+
+        /// <summary>
         /// Adds a projectile to the game from an NPC
         /// </summary>
         /// <param name="projectile">The projectile to be added</param>
@@ -218,6 +227,7 @@ namespace OutsideTheBox {
             font1 = Content.Load<SpriteFont>("fonts/font1");
             font2 = Content.Load<SpriteFont>("fonts/font2");
             font3 = Content.Load<SpriteFont>("fonts/font3");
+            font4 = Content.Load<SpriteFont>("fonts/font4");
 
             boltSound = Content.Load<SoundEffect>("audio/sound effects/boltSound");
             dashSound = Content.Load<SoundEffect>("audio/sound effects/dashSound");
