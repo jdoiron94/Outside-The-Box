@@ -19,11 +19,35 @@
 /processorParam:TextureFormat=Compressed
 /build:fonts/font1.spritefont
 
+#begin audio/songs/Factory.wma
+/importer:WmaImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:audio/songs/Factory.wma
+
+#begin fonts/font2.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:TextureFormat=Compressed
+/build:fonts/font2.spritefont
+
+#begin audio/sound effects/boltSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:audio/sound effects/boltSound.wav
+
 #begin audio/sound effects/buttonSound.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:audio/sound effects/buttonSound.wav
+
+#begin audio/sound effects/dashSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:audio/sound effects/dashSound.wav
 
 #begin audio/sound effects/lavaSound.wav
 /importer:WavImporter
@@ -42,16 +66,4 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:audio/sound effects/slowSound.wav
-
-#begin audio/songs/Factory.wma
-/importer:WmaImporter
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:audio/songs/Factory.wma
-
-#begin fonts/font2.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:TextureFormat=Compressed
-/build:fonts/font2.spritefont
 
