@@ -26,14 +26,12 @@ namespace OutsideTheBox {
         private Target target;
         private MouseState mouse;
         private Texture2D startMenu;
-        private Texture2D instructions;
         private SpriteFont font1;
         private SpriteFont font2;
         private SpriteFont font3;
         private SpriteFont font4;
 
         private Texture2D pixel;
-        //private PowerBar powerBar;
 
         private Song factorySong;
         private SoundEffect dashSound;
@@ -370,20 +368,16 @@ namespace OutsideTheBox {
             level = levels[0];
             levelIndex = 0;
 
-            Texture2D controls = Content.Load<Texture2D>("menus/Controls");
-            Texture2D about = Content.Load<Texture2D>("menus/About");
-            screens = new Screen[] { new TitleScreen(startMenu, controls, about, font1, "Normal", true) };
-
-            MindRead read = new MindRead(2, 1, 20, 1000, 200, 100, true, false);
-            read.setPlayerManager(playerManager);
-
             cursor = Content.Load<Texture2D>("sprites/cursors/Cursor");
             Texture2D targ = Content.Load<Texture2D>("sprites/cursors/TargetingCursor");
             target = new Target(targ);
 
-            cursor = Content.Load<Texture2D>("sprites/cursors/Cursor");
-            Texture2D targetting = Content.Load<Texture2D>("sprites/cursors/TargetingCursor");
-            target = new Target(targetting);
+            Texture2D controls = Content.Load<Texture2D>("menus/Controls");
+            Texture2D about = Content.Load<Texture2D>("menus/About");
+            screens = new Screen[] { new TitleScreen(startMenu, controls, about, cursor, font1, "Normal", true) };
+
+            MindRead read = new MindRead(2, 1, 20, 1000, 200, 100, true, false);
+            read.setPlayerManager(playerManager);
 
             inputManager = new InputManager(this, player, level, target, playerManager, screens, read);
             keyBox.update(inputManager);
@@ -469,18 +463,16 @@ namespace OutsideTheBox {
                     break;
                 }
             }
-            if (mouse != null) {
-                if (level.getMode() < 1) {
-                    spriteBatch.Draw(cursor, new Vector2(mouse.X, mouse.Y), Color.White);
-                } else {
-                    spriteBatch.Draw(target.getTexture(), new Vector2(mouse.X - (target.getTexture().Width / 2F), mouse.Y - (target.getTexture().Height / 2F)), Color.White);
-                }
-            }
             if (busy) {
                 spriteBatch.End();
                 return;
             }
             level.draw(spriteBatch);
+            if (level.getMode() < 1) {
+                spriteBatch.Draw(cursor, new Vector2(mouse.X, mouse.Y), Color.White);
+            } else {
+                spriteBatch.Draw(target.getTexture(), new Vector2(mouse.X - (target.getTexture().Width / 2F), mouse.Y - (target.getTexture().Height / 2F)), Color.White);
+            }
             spriteBatch.End();
         }
     }

@@ -101,7 +101,6 @@
     <Compile Include="com\otb\ui\TitleScreen.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="com\otb\ui\Screen.cs" />
-    <Compile Include="com\otb\api\util\ScreenManager.cs" />
     <Compile Include="com\otb\ui\Target.cs" />
     <Compile Include="com\otb\api\wrapper\ThoughtBubble.cs" />
     <Compile Include="com\otb\api\wrapper\Token.cs" />

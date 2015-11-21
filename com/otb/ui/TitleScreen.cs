@@ -10,6 +10,7 @@ namespace OutsideTheBox {
         private readonly Texture2D background;
         private readonly Texture2D controls;
         private readonly Texture2D about;
+        private readonly Texture2D cursor;
         private readonly SpriteFont font;
 
         private readonly Rectangle[] backgroundBounds;
@@ -26,11 +27,12 @@ namespace OutsideTheBox {
         private string[] options = { "Start", "Controls", "About" };
         private Vector2[] locations = { new Vector2(650F, 400F), new Vector2(650F, 430F), new Vector2(650F, 460F) };
 
-        public TitleScreen(Texture2D background, Texture2D controls, Texture2D about, SpriteFont font, string name, bool active) :
+        public TitleScreen(Texture2D background, Texture2D controls, Texture2D about, Texture2D cursor, SpriteFont font, string name, bool active) :
             base(name, active) {
             this.background = background;
             this.controls = controls;
             this.about = about;
+            this.cursor = cursor;
             this.font = font;
             texture = background;
             index = 1;
@@ -72,6 +74,7 @@ namespace OutsideTheBox {
                 }
                 batch.DrawString(font, "Back", new Vector2(725F, 475F), Color.GhostWhite);
             }
+            batch.Draw(cursor, new Vector2(curMouse.Position.X, curMouse.Position.Y), Color.White);
         }
 
         public override void update(GameTime time) {

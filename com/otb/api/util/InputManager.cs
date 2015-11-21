@@ -14,7 +14,6 @@ namespace OutsideTheBox {
         private readonly Player player;
         private readonly PlayerManager playerManager;
         private readonly CollisionManager collisionManager;
-        private readonly ScreenManager screenManager;
         private readonly Target target;
         private readonly SpriteFont font;
 
@@ -36,7 +35,7 @@ namespace OutsideTheBox {
         private bool stagnant;
         private bool moving;
         private bool powerReveal;
-        private string gameState;
+        private int gameState;
         private string dropText;
 
         private const byte WAIT = 0x4;
@@ -50,7 +49,6 @@ namespace OutsideTheBox {
             this.mindRead = mindRead;
             powerReveal = false;
             collisionManager = new CollisionManager(player, level);
-            screenManager = new ScreenManager(screens[0], screens);
             selectedObject = null;
             velocity = player.getVelocity();
             width = game.getWidth();
@@ -120,14 +118,6 @@ namespace OutsideTheBox {
         }
 
         /// <summary>
-        /// Returns the screen manager
-        /// </summary>
-        /// <returns>Returns the screen manager</returns>
-        public ScreenManager getScreenManager() {
-            return screenManager;
-        }
-
-        /// <summary>
         /// Returns the power reveal bool
         /// </summary>
         /// <returns>Returns the power reveal bool</returns>
@@ -173,7 +163,13 @@ namespace OutsideTheBox {
                     l.toggleDebug();
                 }
             }
-            updateNormal(time);
+            if (gameState == 0) {
+                updateNormal(time);
+            } else if (gameState == 1) {
+                updateSelect(time);
+            } else if (gameState == 2) {
+                updateTelekinesisMove(time);
+            }
         }
 
         private void updateNormal(GameTime time) {
@@ -332,19 +328,13 @@ namespace OutsideTheBox {
                     ticks++;
                 }
             }
-            if (lastKeyState.IsKeyDown(Keys.Z) && currentKeyState.IsKeyUp(Keys.Z)) {
-                if (player.getProjectile().getTexture().Name == "bullet") {
-
-                }
-            }
             if (lastKeyState.IsKeyDown(Keys.Q) && currentKeyState.IsKeyUp(Keys.Q)) {
+                gameState = 1;
                 level.setMode(1);
-                screenManager.setActiveScreen(2);
                 target.setActive(true);
             } else if (currentKeyState.IsKeyDown(Keys.P)) {
                 playerManager.damagePlayer(2);
             } else if (lastKeyState.IsKeyDown(Keys.M) && currentKeyState.IsKeyUp(Keys.M)) {
-                screenManager.setActiveScreen(0);
                 level.setActive(false);
             }
         }
@@ -359,14 +349,14 @@ namespace OutsideTheBox {
                         if (obj.getBounds().Contains(new Point(Mouse.GetState().X, Mouse.GetState().Y))) {
                             obj.setSelected(true);
                             selectedObject = obj;
+                            gameState = 2;
                             level.setMode(2);
-                            screenManager.setActiveScreen(3);
                         }
                     }
                 }
             } else if (lastKeyState.IsKeyDown(Keys.Q) && currentKeyState.IsKeyUp(Keys.Q)) {
+                gameState = 0;
                 level.setMode(0);
-                screenManager.setActiveScreen(1);
             }
         }
 
@@ -443,16 +433,16 @@ namespace OutsideTheBox {
                     playerManager.depleteMana(1);
                 }
                 if (!moving) {
+                    gameState = 0;
                     selectedObject.setSelected(false);
                     selectedObject = null;
                     level.setMode(0);
-                    screenManager.setActiveScreen(1);
                 }
             } else if ((lastKeyState.IsKeyDown(Keys.Q) && currentKeyState.IsKeyUp(Keys.Q)) || playerManager.getMana() == 0) {
+                gameState = 0;
                 selectedObject.setSelected(false);
                 selectedObject = null;
                 level.setMode(0);
-                screenManager.setActiveScreen(1);
             }
         }
 
@@ -461,7 +451,6 @@ namespace OutsideTheBox {
             state = Mouse.GetState().LeftButton;
             if (lastState == ButtonState.Pressed && state == ButtonState.Released) {
             } else if (lastKeyState.IsKeyDown(Keys.M) && currentKeyState.IsKeyUp(Keys.M)) {
-                screenManager.setActiveScreen(1);
                 level.setActive(true);
             }
         }
