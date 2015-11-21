@@ -1,7 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using OutsideTheBox.com.otb.api.wrapper.locatable;
 
 namespace OutsideTheBox {
 
@@ -278,7 +277,7 @@ namespace OutsideTheBox {
                     plf.update(this);
                 }
                 if (gCollision is LavaPit) {
-                    //p.playEffect();
+                    p.playEffect();
                 }
             }
             if (lastKeyState.IsKeyDown(Keys.E) && currentKeyState.IsKeyUp(Keys.E)) {

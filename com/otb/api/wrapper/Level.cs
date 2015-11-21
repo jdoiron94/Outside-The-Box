@@ -1,8 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
-using OutsideTheBox.com.otb.api.wrapper.locatable;
-using System;
+
 using System.Collections.Generic;
 
 namespace OutsideTheBox {

@@ -3,9 +3,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-using OutsideTheBox.com.otb.api.wrapper;
-using OutsideTheBox.com.otb.api.wrapper.locatable;
-using System;
+
 using System.Collections.Generic;
 
 namespace OutsideTheBox {
@@ -348,10 +346,10 @@ namespace OutsideTheBox {
             Texture2D buttonOff = Content.Load<Texture2D>("sprites/objects/PressButtonOff");
             Texture2D buttonNull = Content.Load<Texture2D>("sprites/objects/PressButtonDeactivated");
 
-            LavaPit p2 = new LavaPit(lavaPit, new Vector2(0F, 200F), 480, 128, lavaSound);
+            LavaPit p2 = new LavaPit(lavaPit, new Vector2(0F, 200F), lavaSound.CreateInstance(), 480, 128);
 
-            HPLaser laz1 = new HPLaser(HealthLaserV, new Vector2(200F, 300F), 200, 20, true);
-            PlayerLimitationField plf1 = new PlayerLimitationField(limitationField, new Vector2(400F, 400F), 200, 200);
+            HPLaser laz1 = new HPLaser(HealthLaserV, new Vector2(200F, 300F), null, 200, 20, true);
+            PlayerLimitationField plf1 = new PlayerLimitationField(limitationField, new Vector2(400F, 400F), null, 200, 200);
             LaserButton lb1 = new LaserButton(new Texture2D[] { buttonOn, buttonOff, buttonNull }, new Vector2(150F, 300F), false, false, laz1);
 
 

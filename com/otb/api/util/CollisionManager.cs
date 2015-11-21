@@ -1,7 +1,4 @@
-﻿using OutsideTheBox.com.otb.api.wrapper.locatable;
-using System;
-
-namespace OutsideTheBox {
+﻿namespace OutsideTheBox {
 
     /// <summary>
     /// Collision class which deals with interactions of objects, entities, and projectiles.
