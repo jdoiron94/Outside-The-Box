@@ -53,7 +53,7 @@ namespace OutsideTheBox {
             selectedObject = null;
             velocity = player.getVelocity();
             width = game.getWidth();
-            height = game.getHeight() - 41;
+            height = game.getHeight() - 40;
             lastKeyState = new KeyboardState();
             currentKeyState = new KeyboardState();
             ticks = 0;

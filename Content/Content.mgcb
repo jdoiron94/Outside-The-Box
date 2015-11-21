@@ -67,3 +67,9 @@
 /processorParam:Quality=Best
 /build:audio/sound effects/slowSound.wav
 
+#begin fonts/font3.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:TextureFormat=Compressed
+/build:fonts/font3.spritefont
+

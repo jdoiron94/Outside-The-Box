@@ -5,36 +5,18 @@ namespace OutsideTheBox {
 
     public class PowerBar {
 
-        private readonly Texture2D texture;
-        private readonly Vector2 location;
-        private readonly Rectangle bounds;
+        private readonly AbilityIcon[] icons;
 
-        public PowerBar(Texture2D texture, Vector2 location) {
-            this.texture = texture;
-            this.location = location;
-            bounds = new Rectangle((int) location.X, (int) location.Y, 1, 1);
-        }
-
-        public PowerBar(Texture2D texture, Vector2 location, int width) {
-            this.texture = texture;
-            this.location = location;
-            bounds = new Rectangle((int) location.X, (int) location.Y, 1, 1);
+        public PowerBar(AbilityIcon[] icons) {
+            this.icons = icons;
         }
 
         /// <summary>
-        /// Returns the power bar's texture
+        /// Returns the ability icons belonging to the power bar
         /// </summary>
-        /// <returns>Returns the power bar's texture</returns>
-        public Texture2D getTexture() {
-            return texture;
-        }
-
-        /// <summary>
-        /// Returns the power bar's location
-        /// </summary>
-        /// <returns>Returns the power bar's location</returns>
-        public Vector2 getLocation() {
-            return location;
+        /// <returns>Returns the ability icons belonging to the power bar</returns>
+        public AbilityIcon[] getIcons() {
+            return icons;
         }
 
         /// <summary>
@@ -42,7 +24,9 @@ namespace OutsideTheBox {
         /// </summary>
         /// <param name="batch">The SpriteBatch to draw with</param>
         public void draw(SpriteBatch batch) {
-            batch.Draw(texture, location, Color.White);
+            foreach (AbilityIcon ai in icons) {
+                ai.draw(batch);
+            }
         }
     }
 }

@@ -165,7 +165,7 @@ namespace OutsideTheBox {
         /// <param name="time">The game time to respect</param>
         /// <param name="player">The player to react to</param>
         public void react(GameTime time, Player player, bool face) {
-            if (projectile == null /*|| reactTicks < reactTime */|| (!isFacing(player, 1.75F) && !face)) {
+            if (projectile == null || reactTicks < reactTime || (!isFacing(player, 1.75F) && !face)) {
                 reactTicks++;
                 return;
             }
@@ -173,18 +173,18 @@ namespace OutsideTheBox {
                 setFacing(player);
             }
             if (getDistance(player) <= 100) {
-            foreach (Npc n in game.getLevel().getNpcs()) {
-                if (n != null && n != this) {
-                    if (isFacing(n, 1.75F) && (getHDistance(n) <= n.getTexture().Width * 2 || getVDistance(n) <= n.getTexture().Height * 2)) {
-                        return;
+                foreach (Npc n in game.getLevel().getNpcs()) {
+                    if (n != null && n != this) {
+                        if (isFacing(n, 1.75F) && (getHDistance(n) <= n.getTexture().Width * 2 || getVDistance(n) <= n.getTexture().Height * 2)) {
+                            return;
+                        }
                     }
                 }
-            }
-            double ms = time.TotalGameTime.TotalMilliseconds;
-            if (lastFired == -1 || ms - lastFired >= projectile.getCooldown()) {
-                game.addProjectile(createProjectile(ms));
-                reactTicks = 0;
-            }
+                double ms = time.TotalGameTime.TotalMilliseconds;
+                if (lastFired == -1 || ms - lastFired >= projectile.getCooldown()) {
+                    game.addProjectile(createProjectile(ms));
+                    reactTicks = 0;
+                }
             }
         }
 

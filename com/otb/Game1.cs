@@ -32,6 +32,7 @@ namespace OutsideTheBox {
         private Texture2D instructions;
         private SpriteFont font1;
         private SpriteFont font2;
+        private SpriteFont font3;
 
         private Texture2D pixel;
         //private PowerBar powerBar;
@@ -206,9 +207,9 @@ namespace OutsideTheBox {
             base.LoadContent();
             spriteBatch = new SpriteBatch(GraphicsDevice);
             width = 800;
-            height = 521;
+            height = 520;
             midX = (width / 2);
-            midY = (height - 41) / 2;
+            midY = (height - 40) / 2;
 
             factorySong = Content.Load<Song>("audio/songs/Factory");
             MediaPlayer.IsRepeating = true;
@@ -216,6 +217,7 @@ namespace OutsideTheBox {
 
             font1 = Content.Load<SpriteFont>("fonts/font1");
             font2 = Content.Load<SpriteFont>("fonts/font2");
+            font3 = Content.Load<SpriteFont>("fonts/font3");
 
             boltSound = Content.Load<SoundEffect>("audio/sound effects/boltSound");
             dashSound = Content.Load<SoundEffect>("audio/sound effects/dashSound");
@@ -240,7 +242,7 @@ namespace OutsideTheBox {
             Texture2D normBox = Content.Load<Texture2D>("sprites/objects/KeyOutline");
             Texture2D nullBox = Content.Load<Texture2D>("sprites/objects/KeyOutlineNull");
             Texture2D key = Content.Load<Texture2D>("sprites/objects/KeyFrame1");
-            Texture2D powerbarText = Content.Load<Texture2D>("ui/powerbar");
+            //Texture2D powerbarText = Content.Load<Texture2D>("ui/powerbar");
             Texture2D HealthLaserV = Content.Load<Texture2D>("sprites/objects/HPLaser");
             Texture2D HealthLaserH = Content.Load<Texture2D>("sprites/objects/HPLaserHorizontal");
             Texture2D ManaLaserV = Content.Load<Texture2D>("sprites/objects/ManaLaser");
@@ -306,9 +308,24 @@ namespace OutsideTheBox {
             Projectile p = new Projectile(player, lightningOrb, 5, 250, 0.25F, boltSound);
             p.setDamage(25);
             player.setProjectile(p);
-            PowerBar powerBar = new PowerBar(powerbarText, new Vector2(0F, height - 41F));
+
+            Texture2D teleText = Content.Load<Texture2D>("ui/Telekinesis");
+            Texture2D dashText = Content.Load<Texture2D>("ui/Dash");
+            Texture2D mindText = Content.Load<Texture2D>("ui/Mind Read");
+            Texture2D confText = Content.Load<Texture2D>("ui/Confuse");
+            Texture2D slowText = Content.Load<Texture2D>("ui/Slowmo");
+            Texture2D boltText = Content.Load<Texture2D>("ui/Bolt");
+
+            AbilityIcon tk = new AbilityIcon(teleText, new Vector2(0.0F, height - 41.0F), font3, "Q");
+            AbilityIcon ds = new AbilityIcon(dashText, new Vector2(40.0F, height - 41.0F), font3, "W");
+            AbilityIcon mr = new AbilityIcon(mindText, new Vector2(80.0F, height - 41.0F), font3, "E");
+            AbilityIcon cf = new AbilityIcon(confText, new Vector2(120.0F, height - 41.0F), font3, "S");
+            AbilityIcon sm = new AbilityIcon(slowText, new Vector2(160.0F, height - 41.0F), font3, "A");
+            AbilityIcon bt = new AbilityIcon(boltText, new Vector2(200.0F, height - 41.0F), font3, "Space");
+
+            PowerBar powerBar = new PowerBar(new AbilityIcon[] { tk, ds, mr, cf, sm, bt });
             KeyBox keyBox = new KeyBox(new Texture2D[] { normBox, nullBox, key }, new Vector2(750F, 20F));
-            playerManager = new PlayerManager(player, Content, new DisplayBar(health, font2, new Vector2(252F, height - 41F), back, 549, 20), new DisplayBar(mana, font2, new Vector2(252F, height - 21F), back, 549, 21), keyBox, buttonTextures, powerBar);
+            playerManager = new PlayerManager(player, Content, new DisplayBar(health, font2, new Vector2(240.0F, height - 41.0F), back, 560, 20), new DisplayBar(mana, font2, new Vector2(240.0F, height - 21.0F), back, 560, 20), keyBox, buttonTextures, powerBar);
             player.loadTextures(Content);
             npc.loadNPCTextures(Content);
             npc2.loadNPCTextures(Content);
@@ -335,7 +352,7 @@ namespace OutsideTheBox {
             Level1Objects.Add(token1);
             Level1Objects.Add(token2);
             Texture2D l1 = Content.Load<Texture2D>("sprites/levels/Level1Map");
-            Level level1 = new Level(this, player, l1, new Npc[] { npc/*, npc2, npc3 */}, Level1Objects.ToArray(), 0);
+            Level level1 = new Level(this, player, l1, new Npc[] { npc, npc2, npc3 }, Level1Objects.ToArray(), 0);
             level1.addCubicle(cube1);
             level1.addCubicle(cube2);
             level1.addCubicle(cube3);

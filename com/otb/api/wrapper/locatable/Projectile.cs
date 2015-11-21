@@ -184,7 +184,7 @@ namespace OutsideTheBox {
         /// <param name="game">The game instance to check viewport bounds from</param>
         /// <returns>Returns true if the projectile is currently on screen; otherwise, false</returns>
         public bool isOnScreen(Game1 game) {
-            return location.X >= -texture.Width && location.X <= game.getWidth() && location.Y >= -texture.Height && location.Y <= game.getHeight() - 41;
+            return location.X >= -texture.Width && location.X <= game.getWidth() && location.Y >= -texture.Height && location.Y <= game.getHeight() - 40;
         }
 
         /// <summary>
