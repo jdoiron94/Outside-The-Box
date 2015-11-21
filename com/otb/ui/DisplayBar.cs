@@ -131,7 +131,7 @@ namespace OutsideTheBox {
             batch.Draw(texture, displayBar, Color.White);
             Vector2 size = font.MeasureString(text);
             Vector2 loc = new Vector2(location.X + ((width - size.X) / 2), location.Y + ((height - size.Y) / 2));
-            batch.DrawString(font, text, loc, Color.White);
+            batch.DrawString(font, text, loc, Color.GhostWhite);
         }
     }
 }

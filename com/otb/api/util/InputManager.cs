@@ -49,7 +49,7 @@ namespace OutsideTheBox {
             this.mindRead = mindRead;
             powerReveal = false;
             collisionManager = new CollisionManager(player, level);
-            screenManager = new ScreenManager(screens[4], screens);
+            screenManager = new ScreenManager(screens[0], screens);
             selectedObject = null;
             velocity = player.getVelocity();
             width = game.getWidth();
@@ -188,8 +188,7 @@ namespace OutsideTheBox {
 
 
         private void updateNormal(GameTime time) {
-            if(!(collisionManager.getObjectCollision(player, true) is PlayerLimitationField))
-            {
+            if (!(collisionManager.getObjectCollision(player, true) is PlayerLimitationField)) {
                 playerManager.setManaLimit(true);
                 playerManager.setHealthLimit(true);
             }
@@ -250,17 +249,15 @@ namespace OutsideTheBox {
                     }
                     playerManager.getKeyBox().update(this);
                 }
-            }else if(gCollision != null && gCollision is Pit)
-            {
-                Pit p = (Pit)gCollision;
+            } else if (gCollision != null && gCollision is Pit) {
+                Pit p = (Pit) gCollision;
                 p.update(this);
-                if(p is PlayerLimitationField)
-                {
-                    PlayerLimitationField plf = (PlayerLimitationField)p;
+                if (p is PlayerLimitationField) {
+                    PlayerLimitationField plf = (PlayerLimitationField) p;
                     plf.update(this);
                 }
-                if (gCollision is LavaPit) { 
-                 //p.playEffect();
+                if (gCollision is LavaPit) {
+                    //p.playEffect();
                 }
             }
             if (lastKeyState.IsKeyDown(Keys.E) && currentKeyState.IsKeyUp(Keys.E)) {
@@ -271,38 +268,31 @@ namespace OutsideTheBox {
                     }
                 }
             }
-            if(playerManager.getManaLimit())
-            {
+            if (playerManager.getManaLimit()) {
                 mindRead.activate(level);
-                SlowTime slowmo = (SlowTime)playerManager.getPowers()[0];
-                if (lastKeyState.IsKeyDown(Keys.A) && currentKeyState.IsKeyUp(Keys.A))
-                {
-                    if (slowmo.validate())
-                    {
+                SlowTime slowmo = (SlowTime) playerManager.getPowers()[0];
+                if (lastKeyState.IsKeyDown(Keys.A) && currentKeyState.IsKeyUp(Keys.A)) {
+                    if (slowmo.validate()) {
                         playerManager.depleteMana(slowmo.getManaCost());
                     }
                 }
                 slowmo.activate(level);
-                Dash dash = (Dash)playerManager.getPowers()[1];
-                if (lastKeyState.IsKeyDown(Keys.W) && currentKeyState.IsKeyUp(Keys.W))
-                {
-                    if (dash.validate())
-                    {
+                Dash dash = (Dash) playerManager.getPowers()[1];
+                if (lastKeyState.IsKeyDown(Keys.W) && currentKeyState.IsKeyUp(Keys.W)) {
+                    if (dash.validate()) {
                         playerManager.depleteMana(dash.getManaCost());
                     }
                 }
                 dash.activate(level);
-                Confuse confuse = (Confuse)playerManager.getPowers()[2];
-                if (lastKeyState.IsKeyDown(Keys.S) && currentKeyState.IsKeyUp(Keys.S))
-                {
-                    if (confuse.validate())
-                    {
+                Confuse confuse = (Confuse) playerManager.getPowers()[2];
+                if (lastKeyState.IsKeyDown(Keys.S) && currentKeyState.IsKeyUp(Keys.S)) {
+                    if (confuse.validate()) {
                         playerManager.depleteMana(confuse.getManaCost());
                     }
                 }
                 confuse.activate(level);
             }
-            
+
             if (currentKeyState.IsKeyDown(Keys.Up)) {
                 player.setDirection(Direction.North);
                 player.updateMovement();

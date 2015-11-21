@@ -13,51 +13,45 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin audio/Sound Effects/boltSound.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:audio/Sound Effects/boltSound.wav
-
-#begin audio/Sound Effects/172206__fins__teleport.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:audio/Sound Effects/172206__fins__teleport.wav
-
 #begin fonts/font1.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
 /processorParam:TextureFormat=Compressed
 /build:fonts/font1.spritefont
 
-#begin audio/Sound Effects/buttonSound.wav
+#begin audio/sound effects/buttonSound.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:audio/Sound Effects/buttonSound.wav
+/build:audio/sound effects/buttonSound.wav
 
-#begin audio/Sound Effects/lavaSound.wav
+#begin audio/sound effects/lavaSound.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:audio/Sound Effects/lavaSound.wav
+/build:audio/sound effects/lavaSound.wav
 
-#begin audio/Sound Effects/paralyzeSound.wav
+#begin audio/sound effects/paralyzeSound.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:audio/Sound Effects/paralyzeSound.wav
+/build:audio/sound effects/paralyzeSound.wav
 
-#begin audio/Sound Effects/slowSound.wav
+#begin audio/sound effects/slowSound.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:audio/Sound Effects/slowSound.wav
+/build:audio/sound effects/slowSound.wav
 
-#begin audio/Factory.wma
+#begin audio/songs/Factory.wma
 /importer:WmaImporter
 /processor:SongProcessor
 /processorParam:Quality=Best
-/build:audio/Factory.wma
+/build:audio/songs/Factory.wma
+
+#begin fonts/font2.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:TextureFormat=Compressed
+/build:fonts/font2.spritefont
 

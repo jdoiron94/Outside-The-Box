@@ -15,7 +15,7 @@ namespace OutsideTheBox {
         private Texture2D open;
         private Texture2D closed;
 
-        private Door door; 
+        //private Door door; 
 
         public Door(Texture2D[] texture, Projectile projectile, Vector2 location, Direction direction, bool liftable, bool next, int width, int height, bool unlocked) :
             base(texture[0], projectile, location, direction, liftable, width, height) {

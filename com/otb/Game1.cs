@@ -30,7 +30,8 @@ namespace OutsideTheBox {
         private MouseState mouse;
         private Texture2D startMenu;
         private Texture2D instructions;
-        private SpriteFont font;
+        private SpriteFont font1;
+        private SpriteFont font2;
 
         private Texture2D pixel;
         //private PowerBar powerBar;
@@ -42,6 +43,8 @@ namespace OutsideTheBox {
         private SoundEffect paralyzeSound;
         private SoundEffect slowSound;
         private SoundEffect boltSound;
+
+        private Screen[] screens;
 
         private int midX;
         private int midY;
@@ -211,15 +214,16 @@ namespace OutsideTheBox {
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Play(factorySong);
 
-            font = Content.Load<SpriteFont>("fonts/font1");
+            font1 = Content.Load<SpriteFont>("fonts/font1");
+            font2 = Content.Load<SpriteFont>("fonts/font2");
 
-            boltSound = Content.Load<SoundEffect>("audio/Sound Effects/boltSound");
-            dashSound = Content.Load<SoundEffect>("audio/Sound Effects/dashSound");
-            buttonSound = Content.Load<SoundEffect>("audio/Sound Effects/buttonSound");
-            lavaSound = Content.Load<SoundEffect>("audio/Sound Effects/lavaSound");
-            paralyzeSound = Content.Load<SoundEffect>("audio/Sound Effects/paralyzeSound");
-            slowSound = Content.Load<SoundEffect>("audio/Sound Effects/slowSound");
-            startMenu = Content.Load<Texture2D>("menus/StartMenu");
+            boltSound = Content.Load<SoundEffect>("audio/sound effects/boltSound");
+            dashSound = Content.Load<SoundEffect>("audio/sound effects/dashSound");
+            buttonSound = Content.Load<SoundEffect>("audio/sound effects/buttonSound");
+            lavaSound = Content.Load<SoundEffect>("audio/sound effects/lavaSound");
+            paralyzeSound = Content.Load<SoundEffect>("audio/sound effects/paralyzeSound");
+            slowSound = Content.Load<SoundEffect>("audio/sound effects/slowSound");
+            startMenu = Content.Load<Texture2D>("menus/Title Screen");
             instructions = Content.Load<Texture2D>("menus/instructions");
 
             Texture2D playur = Content.Load<Texture2D>("sprites/entities/player/Standing1");
@@ -299,7 +303,7 @@ namespace OutsideTheBox {
             player.setProjectile(new Projectile(player, lightningOrb, 5, 250, 0.25F, boltSound));
             PowerBar powerBar = new PowerBar(powerbarText, new Vector2(0F, height - 41F));
             KeyBox keyBox = new KeyBox(new Texture2D[] { normBox, nullBox, key }, new Vector2(750F, 20F));
-            playerManager = new PlayerManager(player, Content, new DisplayBar(health, font, new Vector2(252F, height - 41F), back, 549, 20), new DisplayBar(mana, font, new Vector2(252F, height - 21F), back, 549, 21), keyBox, buttonTextures, powerBar);
+            playerManager = new PlayerManager(player, Content, new DisplayBar(health, font2, new Vector2(252F, height - 41F), back, 549, 20), new DisplayBar(mana, font2, new Vector2(252F, height - 21F), back, 549, 21), keyBox, buttonTextures, powerBar);
             player.loadTextures(Content);
             npc.loadNPCTextures(Content);
             npc2.loadNPCTextures(Content);
@@ -310,14 +314,14 @@ namespace OutsideTheBox {
             Texture2D lavaPit = Content.Load<Texture2D>("sprites/objects/Lava");
             Texture2D buttonOn = Content.Load<Texture2D>("sprites/objects/PressButtonOn");
             Texture2D buttonOff = Content.Load<Texture2D>("sprites/objects/PressButtonOff");
-            Texture2D buttonNull = Content.Load<Texture2D>("sprites/objects/PressButtonDeactivated"); 
+            Texture2D buttonNull = Content.Load<Texture2D>("sprites/objects/PressButtonDeactivated");
 
             LavaPit p2 = new LavaPit(lavaPit, new Vector2(0F, 200F), 480, 128, lavaSound);
 
             HPLaser laz1 = new HPLaser(HealthLaserV, new Vector2(200F, 300F), 200, 20, true);
             PlayerLimitationField plf1 = new PlayerLimitationField(limitationField, new Vector2(400F, 400F), 200, 200);
-            LaserButton lb1 = new LaserButton(new Texture2D[] { buttonOn, buttonOff, buttonNull }, new Vector2(150F, 300F), false, false, laz1); 
-             
+            LaserButton lb1 = new LaserButton(new Texture2D[] { buttonOn, buttonOff, buttonNull }, new Vector2(150F, 300F), false, false, laz1);
+
 
             //LEVELS
             //LEVEL 1
@@ -352,7 +356,9 @@ namespace OutsideTheBox {
             level = levels[0];
             levelIndex = 0;
 
-            Screen[] screens = { new Screen("Menu"), new Screen("Normal", true), new Screen("Telekinesis-Select"), new Screen("Telekinesis-Move"), new Screen("Start"), new Screen("Instructions") };
+            Texture2D controls = Content.Load<Texture2D>("menus/Controls");
+            Texture2D about = Content.Load<Texture2D>("menus/About");
+            screens = new Screen[] { new TitleScreen(startMenu, controls, about, font1, "Normal", true) };
 
             MindRead read = new MindRead(2, 1, 20, 1000, 200, 100, true, false, button1);
             read.setPlayerManager(playerManager);
@@ -374,13 +380,13 @@ namespace OutsideTheBox {
             pixel = new Texture2D(GraphicsDevice, 1, 1);
             pixel.SetData(new Color[] { Color.White });
 
-            npc.setDisplayBar(new DisplayBar(green, font, new Vector2(npc.getLocation().X, npc.getLocation().Y - 5.0F), null, 64, 15));
+            npc.setDisplayBar(new DisplayBar(green, font2, new Vector2(npc.getLocation().X, npc.getLocation().Y - 5.0F), null, 64, 15));
             npc.getDisplayBar().setColor(Color.Red);
             npc.setPath(new AIPath(npc, this, new int[] { midX - 105, midY - 180, midX + 120, midY + 165 }, new int[] { 60, 60, 60, 60 }, new Direction[] { Direction.West, Direction.North, Direction.East, Direction.South }));
-            npc2.setDisplayBar(new DisplayBar(green, font, new Vector2(npc2.getLocation().X, npc2.getLocation().Y - 5.0F), null, 64, 15));
+            npc2.setDisplayBar(new DisplayBar(green, font2, new Vector2(npc2.getLocation().X, npc2.getLocation().Y - 5.0F), null, 64, 15));
             npc2.getDisplayBar().setColor(Color.Red);
             npc2.setPath(new AIPath(npc2, this, new int[] { 80, 175 }, new int[] { 45, 45 }, new Direction[] { Direction.West, Direction.East }));
-            npc3.setDisplayBar(new DisplayBar(green, font, new Vector2(npc3.getLocation().X, npc3.getLocation().Y - 5.0F), null, 64, 15));
+            npc3.setDisplayBar(new DisplayBar(green, font2, new Vector2(npc3.getLocation().X, npc3.getLocation().Y - 5.0F), null, 64, 15));
             npc3.getDisplayBar().setColor(Color.Red);
             npc3.setPath(new AIPath(npc3, this, new int[] { 570, 665 }, new int[] { 45, 45 }, new Direction[] { Direction.West, Direction.East }));
         }
@@ -403,13 +409,23 @@ namespace OutsideTheBox {
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime) {
             base.Update(gameTime);
+            bool busy = false;
+            foreach (Screen s in screens) {
+                if (s.isActive()) {
+                    s.update(gameTime);
+                    busy = true;
+                }
+            }
+            mouse = Mouse.GetState();
+            if (busy) {
+                return;
+            }
             playerManager.updateHealthCooldown();
             inputManager.update(gameTime);
             if (level.isActive()) {
                 level.updateProjectiles();
                 level.updateNpcs(gameTime);
             }
-            mouse = Mouse.GetState();
         }
 
         /// <summary>
@@ -419,10 +435,14 @@ namespace OutsideTheBox {
         protected override void Draw(GameTime gameTime) {
             base.Draw(gameTime);
             GraphicsDevice.Clear(Color.White);
+            bool busy = false;
             spriteBatch.Begin();
-            level.draw(spriteBatch);
-            if (pauseMenu.isActive()) {
-                pauseMenu.draw(spriteBatch);
+            foreach (Screen s in screens) {
+                if (s.isActive()) {
+                    s.draw(spriteBatch);
+                    busy = true;
+                    break;
+                }
             }
             if (mouse != null) {
                 if (level.getMode() < 1) {
@@ -431,13 +451,19 @@ namespace OutsideTheBox {
                     spriteBatch.Draw(target.getTexture(), new Vector2(mouse.X - (target.getTexture().Width / 2F), mouse.Y - (target.getTexture().Height / 2F)), Color.White);
                 }
             }
+            if (busy) {
+                spriteBatch.End();
+                return;
+            }
+            level.draw(spriteBatch);
+            /*if (pauseMenu.isActive()) {
+                pauseMenu.draw(spriteBatch);
+            }
             if (inputManager.getScreenManager().getActiveScreen().getName() == "Start") {
-                spriteBatch.Draw(startMenu, new Vector2(-290F, -100F), Color.White);
-            }
-            if (inputManager.getScreenManager().getActiveScreen().getName() == "Instructions") {
+                spriteBatch.Draw(startMenu, Vector2.Zero, Color.White);
+            } else if (inputManager.getScreenManager().getActiveScreen().getName() == "Instructions") {
                 spriteBatch.Draw(instructions, Vector2.Zero, Color.White);
-            }
-
+            }*/
             spriteBatch.End();
         }
     }

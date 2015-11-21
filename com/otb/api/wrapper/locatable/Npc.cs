@@ -15,14 +15,16 @@ namespace OutsideTheBox {
 
         private readonly Game1 game;
         private readonly NpcDefinition def;
-        private Texture2D sight;
+        private readonly Texture2D sight;
+        private readonly Vector2 origin;
+        private Vector2 losBegin;
 
         private readonly int[] offsets;
         private readonly int radius;
-        private readonly byte reactTime;
+        private readonly int reactTime;
         private readonly bool wander;
 
-        private int ticks;
+        private int reactTicks;
         private bool hit;
 
         private float angle = 0;
@@ -30,7 +32,7 @@ namespace OutsideTheBox {
         private AIPath path;
         private Rectangle lineOfSight;
 
-        public Npc(Game1 game, Texture2D texture, Texture2D sight, Vector2 location, Direction direction, NpcDefinition def, int[] offsets, int maxHealth, int velocity, int radius, byte reactTime, bool wander) :
+        public Npc(Game1 game, Texture2D texture, Texture2D sight, Vector2 location, Direction direction, NpcDefinition def, int[] offsets, int maxHealth, int velocity, int radius, int reactTime, bool wander) :
             base(texture, location, direction, maxHealth, velocity) {
             this.game = game;
             this.def = def;
@@ -38,9 +40,10 @@ namespace OutsideTheBox {
             this.radius = radius;
             this.reactTime = reactTime;
             this.wander = wander;
-            ticks = 0;
+            reactTicks = 0;
             hit = false;
             this.sight = sight;
+            origin = new Vector2(texture.Width / 2F, texture.Height / 2F);
         }
 
         public Npc(Game1 game, Texture2D texture, Texture2D sight, Vector2 location, Direction direction, NpcDefinition def, int[] offsets, int radius, byte reactTime, bool wander) :
@@ -103,7 +106,7 @@ namespace OutsideTheBox {
         /// Returns the npc's reaction time
         /// </summary>
         /// <returns>Returns the npc's reaction time</returns>
-        public byte getReactTime() {
+        public int getReactTime() {
             return reactTime;
         }
 
@@ -156,16 +159,14 @@ namespace OutsideTheBox {
             return Math.Abs(player.getLocation().Y - location.Y) <= radius && Math.Abs(location.X - player.getLocation().X) <= radius;
         }
 
-        public void dodge() {
-        }
-
         /// <summary>
         /// Handles the npc's reaction to the player
         /// </summary>
         /// <param name="time">The game time to respect</param>
         /// <param name="player">The player to react to</param>
         public void react(GameTime time, Player player) {
-            if (getProjectile() == null) {
+            if (projectile == null || reactTicks < reactTime) {
+                reactTicks++;
                 return;
             }
             setFacing(player);
@@ -177,9 +178,10 @@ namespace OutsideTheBox {
                         }
                     }
                 }
-                double totalMilliseconds = time.TotalGameTime.TotalMilliseconds;
-                if (getLastFired() == -1 || totalMilliseconds - getLastFired() >= getProjectile().getCooldown()) {
-                    game.addProjectile(createProjectile(totalMilliseconds));
+                double ms = time.TotalGameTime.TotalMilliseconds;
+                if (lastFired == -1 || ms - lastFired >= projectile.getCooldown()) {
+                    game.addProjectile(createProjectile(ms));
+                    reactTicks = 0;
                 }
             }
         }
@@ -188,22 +190,22 @@ namespace OutsideTheBox {
         /// Updates the npc's line of sight bounds depending on its direction
         /// </summary>
         public void updateLineOfSight() {
-            switch (getDirection()) {
-                case Direction.North:
-                    lineOfSight = new Rectangle((int) location.X, (int) location.Y - texture.Height * 3, texture.Width, texture.Height * 3);
-                    break;
-                case Direction.South:
-                    lineOfSight = new Rectangle((int) location.X, (int) location.Y + texture.Height, texture.Width, texture.Height * 3);
-                    break;
-                case Direction.West:
-                    lineOfSight = new Rectangle((int) location.X - texture.Width * 3, (int) location.Y, texture.Width * 3, texture.Height);
-                    break;
-                case Direction.East:
-                    lineOfSight = new Rectangle((int) location.X + texture.Width, (int) location.Y, texture.Width * 3, texture.Height);
-                    break;
-                default:
-                    lineOfSight = new Rectangle((int) location.X, (int) location.Y, texture.Width, texture.Height);
-                    break;
+            if (direction == Direction.North) {
+                lineOfSight = new Rectangle((int) location.X, (int) location.Y + 10 - texture.Height * 3, texture.Width, (texture.Height * 3));
+                angle = MathHelper.ToRadians(0F);
+                losBegin = new Vector2(location.X, location.Y - lineOfSight.Height + 10F);
+            } else if (direction == Direction.South) {
+                lineOfSight = new Rectangle((int) location.X, (int) location.Y + texture.Height, texture.Width, texture.Height * 3);
+                angle = MathHelper.ToRadians(180F);
+                losBegin = new Vector2(location.X, location.Y + (texture.Height * 3F));
+            } else if (direction == Direction.West) {
+                lineOfSight = new Rectangle((int) location.X + 15 - texture.Width * 3, (int) location.Y, texture.Width * 3, texture.Height);
+                angle = MathHelper.ToRadians(-90F);
+                losBegin = new Vector2(location.X - lineOfSight.Width + 15F, location.Y);
+            } else {
+                lineOfSight = new Rectangle((int) location.X - 15 + texture.Width, (int) location.Y, texture.Width * 3, texture.Height);
+                angle = MathHelper.ToRadians(90F);
+                losBegin = new Vector2(location.X + (texture.Width * 3F) - 15F, location.Y);
             }
         }
 
@@ -221,35 +223,9 @@ namespace OutsideTheBox {
             }
         }
 
-        public void draw(SpriteBatch batch)
-        {
+        public override void draw(SpriteBatch batch) {
             batch.Draw(texture, location, Color.White);
-            Rectangle sourceRectangle = new Rectangle(0, 0, sight.Width, sight.Height);
-            
-            switch (getDirection())
-            {
-                case Direction.North:
-
-                    angle = 0;
-                    batch.Draw(sight, location, sourceRectangle, Color.White, angle, new Vector2((texture.Width / 2) - 32f, texture.Height + 120f), 1.0f, SpriteEffects.None, 1);
-                    break;
-                case Direction.South:
-                    angle = 0;
-                    batch.Draw(sight, location, sourceRectangle, Color.White, angle, new Vector2((texture.Width / 2) - 32f, texture.Height - 120f), 1.0f, SpriteEffects.FlipVertically, 1);
-                    break;
-                case Direction.West:
-                    angle = 165;
-                    batch.Draw(sight, location, sourceRectangle, Color.White, angle, new Vector2((texture.Width / 2) - 30f, texture.Height - 40f), 1.0f, SpriteEffects.FlipVertically, 1);
-                    break;
-                case Direction.East:
-                    angle = 165;
-                    batch.Draw(sight, location, sourceRectangle, Color.White, angle, new Vector2((texture.Width / 2) - 30f, texture.Height + 170f), 1.0f, SpriteEffects.None, 1);
-                    break;
-                default:
-                    angle = 0;
-                    batch.Draw(sight, location, sourceRectangle, Color.White, angle, new Vector2((texture.Width / 2) - 32f, texture.Height + 120f), 1.0f, SpriteEffects.None, 1);
-                    break;
-            }
+            batch.Draw(sight, Vector2.Add(losBegin, origin), null, Color.White, angle, origin, 1F, SpriteEffects.None, 0F);
         }
     }
 }

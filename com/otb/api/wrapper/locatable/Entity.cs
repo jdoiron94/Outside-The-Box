@@ -13,10 +13,10 @@ namespace OutsideTheBox {
     public abstract class Entity {
 
         protected Texture2D texture;
-        private Projectile projectile;
+        protected Projectile projectile;
         protected Vector2 location;
         private Vector2 destination;
-        private Direction direction;
+        protected Direction direction;
         private Rectangle bounds;
         private Rectangle destinationBounds;
         private DisplayBar healthBar;
@@ -30,7 +30,7 @@ namespace OutsideTheBox {
 
         private int velocity;
         private int currentHealth;
-        private double lastFired;
+        protected double lastFired;
         private int[] frames;
         private int ticks;
         private int combatTicks;
@@ -440,7 +440,7 @@ namespace OutsideTheBox {
         /// Draws the entity
         /// </summary>
         /// <param name="batch">The SpriteBatch to draw with</param>
-        public void draw(SpriteBatch batch) {
+        public virtual void draw(SpriteBatch batch) {
             batch.Draw(texture, location, Color.White);
         }
     }

@@ -19,7 +19,7 @@ namespace OutsideTheBox {
         private readonly PowerBar powerbar;
         private KeyBox keyBox;
         private List<BasePower> powers;
-        private Texture2D[] powButtons;
+        //private Texture2D[] powButtons;
 
         private int health;
         private int mana;

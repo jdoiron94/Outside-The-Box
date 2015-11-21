@@ -28,7 +28,7 @@ namespace OutsideTheBox {
 
         private List<Npc> npcs;
         private List<GameObject> objects;
-        private List<DisplayBar> displayBars;
+        //private List<DisplayBar> displayBars;
         private List<ThoughtBubble> thoughts;
 
         private List<Token> tokens;
@@ -40,7 +40,7 @@ namespace OutsideTheBox {
         private List<Projectile> projectiles;
         private List<PressButton> pressButtons;
         private List<Barrier> barriers;
-        private List<Pit> Pits; 
+        private List<Pit> Pits;
 
         private bool debug;
         private int index;
@@ -70,46 +70,29 @@ namespace OutsideTheBox {
             this.index = index;
         }
 
-        public void sortObjects()
-        {
-            List<GameObject> newObjects = new List<GameObject>(); 
+        public void sortObjects() {
+            List<GameObject> newObjects = new List<GameObject>();
 
-            foreach(GameObject o in objects)
-            {
-                if (o is Token)
-                {
-                    tokens.Add((Token)o);
-                }
-                else if(o is Door)
-                {
-                    doors.Add((Door)o);
-                }
-                else if (o is Wall)
-                {
-                    walls.Add((Wall)o);
-                }
-                else if (o is PressButton)
-                {
-                    pressButtons.Add((PressButton)o);
-                }
-                else if (o is Key)
-                {
-                    keys.Add((Key)o);
-                }
-                else if (o is Barrier)
-                {
+            foreach (GameObject o in objects) {
+                if (o is Token) {
+                    tokens.Add((Token) o);
+                } else if (o is Door) {
+                    doors.Add((Door) o);
+                } else if (o is Wall) {
+                    walls.Add((Wall) o);
+                } else if (o is PressButton) {
+                    pressButtons.Add((PressButton) o);
+                } else if (o is Key) {
+                    keys.Add((Key) o);
+                } else if (o is Barrier) {
                     barriers.Add((Barrier) o);
-                }
-                else if (o is Pit)
-                {
+                } else if (o is Pit) {
                     Pits.Add((Pit) o);
-                }
-                else
-                {
+                } else {
                     newObjects.Add(o);
                 }
             }
-            objects = newObjects; 
+            objects = newObjects;
         }
 
         /// <summary>
@@ -226,9 +209,8 @@ namespace OutsideTheBox {
             return doors;
         }
 
-        public List<Pit> getPits()
-        {
-            return Pits; 
+        public List<Pit> getPits() {
+            return Pits;
         }
 
         /// <summary>
@@ -247,9 +229,8 @@ namespace OutsideTheBox {
             return walls;
         }
 
-        public List<Barrier> getBarriers()
-        {
-            return barriers; 
+        public List<Barrier> getBarriers() {
+            return barriers;
         }
 
         /// <summary>
@@ -489,11 +470,9 @@ namespace OutsideTheBox {
         /// <param name="batch">The SpriteBatch to perform the drawing</param>
         public void draw(SpriteBatch batch) {
             batch.Draw(map, Vector2.Zero, Color.White);
-            foreach (Pit pit in Pits)
-            {
+            foreach (Pit pit in Pits) {
                 pit.draw(batch);
-                if(debug)
-                {
+                if (debug) {
                     game.outline(batch, pit.getBounds());
                 }
             }
@@ -557,7 +536,7 @@ namespace OutsideTheBox {
                     bar.draw(batch);
                 }
                 if (debug) {
-                    game.outline(batch, n.getBounds());
+                    //game.outline(batch, n.getBounds());
                     game.outline(batch, n.getLineOfSight());
                 }
             }
