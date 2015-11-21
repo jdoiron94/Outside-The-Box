@@ -94,6 +94,7 @@
     <Compile Include="com\otb\api\wrapper\ability\SlowTime.cs" />
     <Compile Include="com\otb\api\wrapper\locatable\Door.cs" />
     <Compile Include="com\otb\api\wrapper\ability\DrainPower.cs" />
+    <Compile Include="com\otb\ui\Hitsplat.cs" />
     <Compile Include="com\otb\ui\Menu.cs" />
     <Compile Include="com\otb\api\util\CollisionManager.cs" />
     <Compile Include="com\otb\api\wrapper\Direction.cs" />
@@ -482,6 +483,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\menus\Lobby.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\ui\Hitsplat.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\ui\LOS.png">

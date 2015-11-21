@@ -290,6 +290,7 @@ namespace OutsideTheBox {
             Door door2 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2((width - 64F) / 2F, 0F), Direction.North, false, false, 64, 10, true);
 
             //NPCS
+            Texture2D hitsplat = Content.Load<Texture2D>("ui/Hitsplat");
             Texture2D male1 = Content.Load<Texture2D>("sprites/entities/npcs/Standing1");
             Texture2D male2 = Content.Load<Texture2D>("sprites/entities/npcs/Standing2");
             Texture2D lineofsight = Content.Load<Texture2D>("ui/LOS");
@@ -300,7 +301,10 @@ namespace OutsideTheBox {
             midX = (graphics.PreferredBackBufferWidth - playur.Width) / 2;
             midY = (graphics.PreferredBackBufferHeight - playur.Height) / 2;
             player = new Player(playur, new Vector2(125F, 295F), Direction.South, 100, 50, 0, 3);
-            player.setProjectile(new Projectile(player, lightningOrb, 5, 250, 0.25F, boltSound));
+            player.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(player.getLocation().X + (hitsplat.Width / 2), player.getLocation().Y + (hitsplat.Height / 2))));
+            Projectile p = new Projectile(player, lightningOrb, 5, 250, 0.25F, boltSound);
+            p.setDamage(25);
+            player.setProjectile(p);
             PowerBar powerBar = new PowerBar(powerbarText, new Vector2(0F, height - 41F));
             KeyBox keyBox = new KeyBox(new Texture2D[] { normBox, nullBox, key }, new Vector2(750F, 20F));
             playerManager = new PlayerManager(player, Content, new DisplayBar(health, font2, new Vector2(252F, height - 41F), back, 549, 20), new DisplayBar(mana, font2, new Vector2(252F, height - 21F), back, 549, 21), keyBox, buttonTextures, powerBar);
@@ -382,12 +386,15 @@ namespace OutsideTheBox {
 
             npc.setDisplayBar(new DisplayBar(green, font2, new Vector2(npc.getLocation().X, npc.getLocation().Y - 5.0F), null, 64, 15));
             npc.getDisplayBar().setColor(Color.Red);
+            npc.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(npc.getLocation().X + (hitsplat.Width / 2), npc.getLocation().Y + (hitsplat.Height / 2))));
             npc.setPath(new AIPath(npc, this, new int[] { midX - 105, midY - 180, midX + 120, midY + 165 }, new int[] { 60, 60, 60, 60 }, new Direction[] { Direction.West, Direction.North, Direction.East, Direction.South }));
             npc2.setDisplayBar(new DisplayBar(green, font2, new Vector2(npc2.getLocation().X, npc2.getLocation().Y - 5.0F), null, 64, 15));
             npc2.getDisplayBar().setColor(Color.Red);
+            npc2.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(npc2.getLocation().X + (hitsplat.Width / 2), npc2.getLocation().Y + (hitsplat.Height / 2))));
             npc2.setPath(new AIPath(npc2, this, new int[] { 80, 175 }, new int[] { 45, 45 }, new Direction[] { Direction.West, Direction.East }));
             npc3.setDisplayBar(new DisplayBar(green, font2, new Vector2(npc3.getLocation().X, npc3.getLocation().Y - 5.0F), null, 64, 15));
             npc3.getDisplayBar().setColor(Color.Red);
+            npc3.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(npc3.getLocation().X + (hitsplat.Width / 2), npc3.getLocation().Y + (hitsplat.Height / 2))));
             npc3.setPath(new AIPath(npc3, this, new int[] { 570, 665 }, new int[] { 45, 45 }, new Direction[] { Direction.West, Direction.East }));
         }
 

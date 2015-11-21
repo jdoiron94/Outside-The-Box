@@ -24,6 +24,7 @@ namespace OutsideTheBox {
 
         private float rotation;
         private bool active;
+        private int damage;
 
         private SoundEffect sound;
 
@@ -44,6 +45,22 @@ namespace OutsideTheBox {
 
         public Projectile(Entity owner, Texture2D texture, int velocity, int cooldown, SoundEffect sound) :
             this(owner, texture, velocity, cooldown, 0f, sound) {
+        }
+
+        /// <summary>
+        /// Returns the projectile's damage on contact
+        /// </summary>
+        /// <returns>Returns the projectile's damage on contact</returns>
+        public int getDamage() {
+            return damage;
+        }
+
+        /// <summary>
+        /// Sets the projectile's damage
+        /// </summary>
+        /// <param name="damage">The damage to set</param>
+        public void setDamage(int damage) {
+            this.damage = damage;
         }
 
         /// <summary>

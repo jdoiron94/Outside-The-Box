@@ -20,6 +20,7 @@ namespace OutsideTheBox {
         private Rectangle bounds;
         private Rectangle destinationBounds;
         private DisplayBar healthBar;
+        private Hitsplat splat;
 
         private Texture2D[] northFacing;
         private Texture2D[] southFacing;
@@ -127,6 +128,22 @@ namespace OutsideTheBox {
             } else {
                 texture = eastFacing[0];
             }
+        }
+
+        /// <summary>
+        /// Returns the entity's hitsplat
+        /// </summary>
+        /// <returns>Returns the entity's hitsplat</returns>
+        public Hitsplat getHitsplat() {
+            return splat;
+        }
+
+        /// <summary>
+        /// Sets the entity's hitsplat
+        /// </summary>
+        /// <param name="splat">The hitsplat to set</param>
+        public void setHitsplat(Hitsplat splat) {
+            this.splat = splat;
         }
 
         /// <summary>
@@ -283,6 +300,7 @@ namespace OutsideTheBox {
             if (healthBar != null) {
                 healthBar.deriveX(x);
             }
+            splat.deriveX(x);
         }
 
         /// <summary>
@@ -295,6 +313,7 @@ namespace OutsideTheBox {
             if (healthBar != null) {
                 healthBar.deriveY(y);
             }
+            splat.deriveY(y);
         }
 
         /// <summary>
@@ -363,7 +382,9 @@ namespace OutsideTheBox {
         /// <returns>Returns a projectile with a new memory address for the entity</returns>
         public Projectile createProjectile(double lastFired) {
             this.lastFired = lastFired;
-            return new Projectile(projectile.getOwner(), projectile.getTexture(), projectile.getVelocity(), projectile.getCooldown(), projectile.getRotationSpeed(), projectile.getSound());
+            Projectile p = new Projectile(projectile.getOwner(), projectile.getTexture(), projectile.getVelocity(), projectile.getCooldown(), projectile.getRotationSpeed(), projectile.getSound());
+            p.setDamage(projectile.getDamage());
+            return p;
         }
 
         /// <summary>

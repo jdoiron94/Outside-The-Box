@@ -398,13 +398,11 @@ namespace OutsideTheBox {
                             break;
                         } else if (collisionManager.collides(projectile, n)) {
                             projectile.setActive(false);
-                            n.deriveHealth(-5);
+                            n.deriveHealth(-projectile.getDamage());
                             n.setHit(true);
                             n.restCombatTicks();
-                            DisplayBar bar = n.getDisplayBar();
-                            if (bar != null) {
-                                bar.update(n.getCurrentHealth(), n.getMaxHealth());
-                            }
+                            n.getDisplayBar().update(n.getCurrentHealth(), n.getMaxHealth());
+                            n.getHitsplat().setHit("" + projectile.getDamage());
                             Console.WriteLine("npc health: " + n.getCurrentHealth());
                             break;
                         }
@@ -531,12 +529,12 @@ namespace OutsideTheBox {
             }
             foreach (Npc n in npcs) {
                 n.draw(batch);
-                DisplayBar bar = n.getDisplayBar();
-                if (bar != null && n.wasHit() && n.getCombatTicks() < 250) {
-                    bar.draw(batch);
+                if (n.wasHit() && n.getCombatTicks() < 250) {
+                    n.getDisplayBar().draw(batch);
+                    n.getHitsplat().draw(batch);
                 }
                 if (debug) {
-                    //game.outline(batch, n.getBounds());
+                    game.outline(batch, n.getBounds());
                     game.outline(batch, n.getLineOfSight());
                 }
             }
