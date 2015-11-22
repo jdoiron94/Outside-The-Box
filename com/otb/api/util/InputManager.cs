@@ -208,6 +208,7 @@ namespace OutsideTheBox {
             } else if (gCollision != null && gCollision is Door) {
                 Door d = (Door) gCollision;
                 if (d.isUnlocked()) {
+                    level.eliminateCollectibles();
                     int index = (game.getLevelIndex()) + (d.getNext() ? 1 : -1);
                     level.setActive(false);
                     game.setLevel(index);

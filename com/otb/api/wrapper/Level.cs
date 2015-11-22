@@ -319,6 +319,31 @@ namespace OutsideTheBox {
             }
         }
 
+        public void eliminateCollectibles()
+        {
+            List<Token> newTokens = new List<Token>(); 
+            foreach(Token t in tokens)
+            {
+                if(!t.isCollected())
+                {
+                    newTokens.Add(t);
+                }
+            }
+
+            tokens = newTokens;
+
+            List<Key> newKeys = new List<Key>(); 
+            foreach(Key k in keys)
+            {
+                if(!k.isCollected())
+                {
+                    newKeys.Add(k);
+                }
+            }
+
+            keys = newKeys; 
+        }
+
         /// <summary>
         /// Resets the level's tokens
         /// </summary>
