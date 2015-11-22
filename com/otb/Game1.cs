@@ -6,13 +6,15 @@ using Microsoft.Xna.Framework.Media;
 
 using System.Collections.Generic;
 
-namespace OutsideTheBox {
+namespace OutsideTheBox
+{
 
     /// <summary>
     /// Class which handles the whole game
     /// </summary>
 
-    public class Game1 : Game {
+    public class Game1 : Game
+    {
 
         private readonly GraphicsDeviceManager graphics;
 
@@ -50,7 +52,8 @@ namespace OutsideTheBox {
 
         private int levelIndex;
 
-        public Game1() {
+        public Game1()
+        {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
         }
@@ -59,7 +62,8 @@ namespace OutsideTheBox {
         /// Returns the center x coordinate of the game
         /// </summary>
         /// <returns>Returns the center x coordinate of the game, with respect to the player</returns>
-        public int getMidX() {
+        public int getMidX()
+        {
             return midX;
         }
 
@@ -67,7 +71,8 @@ namespace OutsideTheBox {
         /// Returns the center y coordinate of the game
         /// </summary>
         /// <returns>Returns the center y coordinate of the game, with respect to the player</returns>
-        public int getMidY() {
+        public int getMidY()
+        {
             return midY;
         }
 
@@ -75,7 +80,8 @@ namespace OutsideTheBox {
         /// Returns the width of the game
         /// </summary>
         /// <returns>Returns the width of the game</returns>
-        public int getWidth() {
+        public int getWidth()
+        {
             return width;
         }
 
@@ -83,7 +89,8 @@ namespace OutsideTheBox {
         /// Returns the height of the game
         /// </summary>
         /// <returns>Returns the height of the game</returns>
-        public int getHeight() {
+        public int getHeight()
+        {
             return height;
         }
 
@@ -91,7 +98,8 @@ namespace OutsideTheBox {
         /// Returns the mouse state of the game
         /// </summary>
         /// <returns>Returns the mouse state of the game</returns>
-        public MouseState getMouse() {
+        public MouseState getMouse()
+        {
             return mouse;
         }
 
@@ -99,7 +107,8 @@ namespace OutsideTheBox {
         /// Returns an instance of the current level
         /// </summary>
         /// <returns>Returns an instance of the current level</returns>
-        public Level getLevel() {
+        public Level getLevel()
+        {
             return level;
         }
 
@@ -107,7 +116,8 @@ namespace OutsideTheBox {
         /// Sets the game's level
         /// </summary>
         /// <param name="level">The level to set</param>
-        public void setLevel(Level level) {
+        public void setLevel(Level level)
+        {
             this.level = level;
         }
 
@@ -116,7 +126,8 @@ namespace OutsideTheBox {
         /// </summary>
         /// <param name="index">The index to retrieve</param>
         /// <returns>Returns the level at the specified index</returns>
-        public Level getLevel(int index) {
+        public Level getLevel(int index)
+        {
             return levels[index];
         }
 
@@ -124,7 +135,8 @@ namespace OutsideTheBox {
         /// Returns the level list
         /// </summary>
         /// <returns>Returns the list of levels</returns>
-        public List<Level> getLevels() {
+        public List<Level> getLevels()
+        {
             return levels;
         }
 
@@ -132,7 +144,8 @@ namespace OutsideTheBox {
         /// Returns an instance of the player
         /// </summary>
         /// <returns>Returns an instance of the player</returns>
-        public Player getPlayer() {
+        public Player getPlayer()
+        {
             return player;
         }
 
@@ -140,7 +153,8 @@ namespace OutsideTheBox {
         /// Returns the input manager for the game
         /// </summary>
         /// <returns>Returns the input manager</returns>
-        public InputManager getInputManager() {
+        public InputManager getInputManager()
+        {
             return inputManager;
         }
 
@@ -148,7 +162,8 @@ namespace OutsideTheBox {
         /// Sets the level index for the game
         /// </summary>
         /// <param name="index">The index to be set</param>
-        public void setLevel(int index) {
+        public void setLevel(int index)
+        {
             levelIndex = index;
         }
 
@@ -156,7 +171,8 @@ namespace OutsideTheBox {
         /// Returns the level index for the game
         /// </summary>
         /// <returns>Returns the level index</returns>
-        public int getLevelIndex() {
+        public int getLevelIndex()
+        {
             return levelIndex;
         }
 
@@ -164,7 +180,8 @@ namespace OutsideTheBox {
         /// Returns the font used when the player gains health/mana
         /// </summary>
         /// <returns>Returns the font used when the player gains health/mana</returns>
-        public SpriteFont getDropFont() {
+        public SpriteFont getDropFont()
+        {
             return font4;
         }
 
@@ -172,7 +189,8 @@ namespace OutsideTheBox {
         /// Adds a projectile to the game from an NPC
         /// </summary>
         /// <param name="projectile">The projectile to be added</param>
-        public void addProjectile(Projectile projectile) {
+        public void addProjectile(Projectile projectile)
+        {
             level.addProjectile(projectile);
         }
 
@@ -181,7 +199,8 @@ namespace OutsideTheBox {
         /// </summary>
         /// <param name="batch">The SpriteBatch to draw with</param>
         /// <param name="area">The area to be drawn</param>
-        public void outline(SpriteBatch batch, Rectangle area) {
+        public void outline(SpriteBatch batch, Rectangle area)
+        {
             batch.Draw(pixel, new Rectangle(area.X, area.Y, area.Width, 1), Color.Green);
             batch.Draw(pixel, new Rectangle(area.X, area.Y, 1, area.Height), Color.Green);
             batch.Draw(pixel, new Rectangle(area.X + area.Width - 1, area.Y, 1, area.Height), Color.Green);
@@ -195,7 +214,8 @@ namespace OutsideTheBox {
         /// and initialize them as well.
         /// </summary>
         //
-        protected override void Initialize() {
+        protected override void Initialize()
+        {
             base.Initialize();
             graphics.PreferredBackBufferWidth = 800;
             graphics.PreferredBackBufferHeight = 521;
@@ -207,7 +227,8 @@ namespace OutsideTheBox {
         /// LoadContent will be called once per game and is the place to load
         /// all of your content.
         /// </summary>
-        protected override void LoadContent() {
+        protected override void LoadContent()
+        {
             base.LoadContent();
             spriteBatch = new SpriteBatch(GraphicsDevice);
             width = 800;
@@ -252,7 +273,8 @@ namespace OutsideTheBox {
             Texture2D desk = Content.Load<Texture2D>("sprites/objects/Desk");
             GameObject desk1_1 = new GameObject(desk, new Vector2(125.0F, 70.0F), true);
             GameObject desk1_2 = new GameObject(desk, new Vector2(600.0F, 300.0F), true);
-            GameObject box2_1 = new GameObject(box, new Vector2(720F, 200F), true);
+            GameObject box2_1 = new GameObject(box, new Vector2(730F, 200F), true);
+            GameObject box3_1 = new GameObject(box, new Vector2(700F, 400F), true);
 
             //COLLECTIBLES 
             Texture2D bronze = Content.Load<Texture2D>("sprites/objects/BronzeBar");
@@ -263,10 +285,11 @@ namespace OutsideTheBox {
             Token token2_1 = new Token(silver, new Vector2(30F, 60F), TokenType.Silver);
             Token token2_2 = new Token(gold, new Vector2(730F, 400F), TokenType.Gold);
             Token token3_1 = new Token(silver, new Vector2(midX, midY), TokenType.Silver);
-            Token token3_2 = new Token(silver, new Vector2(midX, midY), TokenType.Silver);
+            Token token3_2 = new Token(silver, new Vector2(midX + 100F, midY), TokenType.Silver);
 
             //KEYS 
             Key key2_1 = new Key(key, new Vector2(40F, 60F));
+            Key key3_1 = new Key(key, new Vector2(120F, 20F));
 
             //WALLS
             Texture2D wall = Content.Load<Texture2D>("sprites/objects/WallTexture");
@@ -282,6 +305,10 @@ namespace OutsideTheBox {
             Cubicle cube2_2 = new Cubicle(width - 160, 0F, 150, 150, this, Direction.West, wall);
             Cubicle cube2_3 = new Cubicle(120F, height - 41F - 160F, 150, 150, this, Direction.North, wall);
             Cubicle cube2_4 = new Cubicle(270F, height - 41F - 160F, 250, 150, this, Direction.North, wall);
+            //level 3 cubicles
+            Cubicle cube3_1 = new Cubicle(300, 180F, 150, 150, this, Direction.West, wall);
+            Cubicle cube3_2 = new Cubicle(640F, 0F, 150, 150, this, Direction.South, wall);
+
 
             //DOORS
             Texture2D door = Content.Load<Texture2D>("sprites/objects/DoorOpen");
@@ -290,6 +317,8 @@ namespace OutsideTheBox {
             Door door2to1 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2((width - 64F) / 2F, 0F), Direction.North, false, false, 64, 10, true);
             Door door2to3 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2(width - 10F, height - 200), Direction.East, false, true, 10, 64, false);
             Door door3to2 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2(0F, height - 200), Direction.West, false, false, 10, 64, true);
+            Door door3to4 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2(120F, height - 10), Direction.South, false, true, 64, 10, false);
+            Door door4to3 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2(120F, 0F), Direction.North, false, false, 10, 64, true);
 
             //PITS, LASERS, and BARRIERS
             Texture2D lavaPit = Content.Load<Texture2D>("sprites/objects/Lava");
@@ -304,9 +333,12 @@ namespace OutsideTheBox {
             Texture2D[] barrier2_horizontal = { Content.Load<Texture2D>("sprites/objects/Barrier2OpenH"), Content.Load<Texture2D>("sprites/objects/Barrier2ClosedH") };
             //LavaPit p2 = new LavaPit(lavaPit, new Vector2(0F, 200F), lavaSound.CreateInstance(), 480, 128);
             //PlayerLimitationField plf1 = new PlayerLimitationField(limitationField, new Vector2(400F, 400F), lavaSound.CreateInstance(), 200, 200);
-            HPLaser laz2_1 = new HPLaser(HealthLaserV, new Vector2(630F, 12F), boltSound.CreateInstance(), 140, 10, true);
-            //Barrier bar2_1 = new Barrier(barrier1_vertical, new Vector2(145F, 18F));
+            HPLaser las2_1 = new HPLaser(HealthLaserV, new Vector2(630F, 12F), boltSound.CreateInstance(), 140, 10, true);
             Barrier bar2_1 = new Barrier(barrier2_vertical, new Vector2(145F, 18F));
+
+            HPLaser las3_1 = new HPLaser(HealthLaserV, new Vector2(160F, 640F), boltSound.CreateInstance(), 140, 10, true);
+            HPLaser las3_2 = new HPLaser(HealthLaserV, new Vector2(80F, 80F), boltSound.CreateInstance(), 140, 10, true);
+            Barrier bar3_1 = new Barrier(barrier2_vertical, new Vector2(300F, 180F));
 
             //BUTTONS
             Texture2D buttonOn = Content.Load<Texture2D>("sprites/objects/PressButtonOn");
@@ -315,6 +347,10 @@ namespace OutsideTheBox {
             Texture2D[] button = { buttonOn, buttonOff, buttonNull };
             //LaserButton lb1 = new LaserButton(button, new Vector2(150F, 300F), false, false, laz1);
             BarrierButton barbutt2_1 = new BarrierButton(button, new Vector2(700F, 50F), false, false, bar2_1);
+
+            BarrierButton barbutt3_1 = new BarrierButton(button, new Vector2(540F, 220F), false, false, bar3_1);
+            LaserButton lasbutt3_1 = new LaserButton(button, new Vector2(700F, 40F), false, false, las3_2);
+
 
             //NPCS
             Texture2D male1 = Content.Load<Texture2D>("sprites/entities/npcs/Standing1");
@@ -331,7 +367,7 @@ namespace OutsideTheBox {
             Npc npc2_3 = new Npc(this, male1, lineofsight, new Vector2(100F, 400F), Direction.East, new NpcDefinition("Normie6", new string[0], new int[0]), 150, 0x5);
             //level 3 npcs
             Npc npc3_1 = new Npc(this, male1, lineofsight, new Vector2(430F, height - 135F), Direction.East, new NpcDefinition("Normie7", new string[0], new int[0]), 150, 0x5);
-            Npc npc3_2 = new Npc(this, male1, lineofsight, new Vector2(80F, 205F), Direction.East, new NpcDefinition("Normie8", new string[0], new int[0]), 150, 0x5); 
+            Npc npc3_2 = new Npc(this, male1, lineofsight, new Vector2(80F, 205F), Direction.East, new NpcDefinition("Normie8", new string[0], new int[0]), 150, 0x5);
 
             midX = (graphics.PreferredBackBufferWidth - playur.Width) / 2;
             midY = (graphics.PreferredBackBufferHeight - playur.Height) / 2;
@@ -416,7 +452,7 @@ namespace OutsideTheBox {
             Level2Objects.Add(token2_1);
             Level2Objects.Add(token2_2);
             Level2Objects.Add(key2_1);
-            Level2Objects.Add(laz2_1);
+            Level2Objects.Add(las2_1);
             Level2Objects.Add(bar2_1);
             Level2Objects.Add(barbutt2_1);
             Texture2D l2 = Content.Load<Texture2D>("sprites/levels/Level1");
@@ -428,8 +464,17 @@ namespace OutsideTheBox {
             //LEVEL 3
             List<GameObject> Level3Objects = new List<GameObject>();
             Level3Objects.Add(door3to2);
+            Level3Objects.Add(door3to4);
+            Level3Objects.Add(las3_1);
+            Level3Objects.Add(las3_2);
+            Level3Objects.Add(bar3_1);
+            Level3Objects.Add(barbutt3_1);
+            Level3Objects.Add(lasbutt3_1);
+            Level3Objects.Add(key3_1);
             Texture2D l3 = Content.Load<Texture2D>("sprites/levels/Level1");
             Level level3 = new Level(this, player, l3, new Npc[] { npc3_1, npc3_2 }, Level3Objects.ToArray(), 0);
+            level3.addCubicle(cube3_1);
+            level3.addCubicle(cube3_2);
             level3.setPlayerOrigin(new Vector2(100F, height - 200));
 
             levels = new List<Level>();
@@ -478,7 +523,7 @@ namespace OutsideTheBox {
 
             npc3_1.setPath(new AIPath(npc3_1, this, new int[] { midX - 105, midY - 180, midX + 120, midY + 165 }, new int[] { 60, 60, 60, 60 }, new Direction[] { Direction.West, Direction.North, Direction.East, Direction.South }));
             npc3_2.setPath(new AIPath(npc3_2, this, new int[] { midX - 105, midY - 180, midX + 120, midY + 165 }, new int[] { 60, 60, 60, 60 }, new Direction[] { Direction.West, Direction.North, Direction.East, Direction.South }));
-        
+
         }
 
 
@@ -486,7 +531,8 @@ namespace OutsideTheBox {
         /// UnloadContent will be called once per game and is the place to unload
         /// game-specific content.
         /// </summary>
-        protected override void UnloadContent() {
+        protected override void UnloadContent()
+        {
             base.UnloadContent();
             spriteBatch.Dispose();
             // TODO: Unload any non ContentManager content here
@@ -497,22 +543,27 @@ namespace OutsideTheBox {
         /// checking for collisions, gathering input, and playing audio.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        protected override void Update(GameTime gameTime) {
+        protected override void Update(GameTime gameTime)
+        {
             base.Update(gameTime);
             bool busy = false;
-            foreach (Screen s in screens) {
-                if (s.isActive()) {
+            foreach (Screen s in screens)
+            {
+                if (s.isActive())
+                {
                     s.update(gameTime);
                     busy = true;
                 }
             }
             mouse = Mouse.GetState();
-            if (busy) {
+            if (busy)
+            {
                 return;
             }
             playerManager.updateHealthCooldown();
             inputManager.update(gameTime);
-            if (level.isActive()) {
+            if (level.isActive())
+            {
                 level.updateProjectiles();
                 level.updateNpcs(gameTime);
             }
@@ -522,26 +573,33 @@ namespace OutsideTheBox {
         /// This is called when the game should draw itself.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        protected override void Draw(GameTime gameTime) {
+        protected override void Draw(GameTime gameTime)
+        {
             base.Draw(gameTime);
             GraphicsDevice.Clear(Color.White);
             bool busy = false;
             spriteBatch.Begin();
-            foreach (Screen s in screens) {
-                if (s.isActive()) {
+            foreach (Screen s in screens)
+            {
+                if (s.isActive())
+                {
                     s.draw(spriteBatch);
                     busy = true;
                     break;
                 }
             }
-            if (busy) {
+            if (busy)
+            {
                 spriteBatch.End();
                 return;
             }
             level.draw(spriteBatch);
-            if (level.getMode() < 1) {
+            if (level.getMode() < 1)
+            {
                 spriteBatch.Draw(cursor, new Vector2(mouse.X, mouse.Y), Color.White);
-            } else {
+            }
+            else
+            {
                 spriteBatch.Draw(target.getTexture(), new Vector2(mouse.X - (target.getTexture().Width / 2F), mouse.Y - (target.getTexture().Height / 2F)), Color.White);
             }
             spriteBatch.End();
