@@ -93,11 +93,7 @@
                     return b;
                 }
             }
-            foreach (Pit pi in level.getPits())
-            {
-                if (pi != o && o.getDestinationBounds().Intersects(pi.getDestinationBounds()))
-                    return pi; 
-            }
+            
             return null;
         }
 
