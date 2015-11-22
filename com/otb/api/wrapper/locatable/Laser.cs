@@ -7,10 +7,15 @@ namespace OutsideTheBox {
     public class Laser : Pit {
 
         private bool Activated;
+        private bool defaultValue; 
 
-        public Laser(Texture2D texture, Vector2 Location, SoundEffectInstance effect, int height, int width, bool Activated) :
+        public Laser(Texture2D texture, Vector2 Location, SoundEffectInstance effect, int height, int width, bool Activated, bool? defaultValue = null) :
             base(texture, Location, effect, width, height) {
             this.Activated = Activated;
+            if (defaultValue == null)
+                defaultValue = true;
+            else
+                this.defaultValue = (bool) defaultValue;
         }
 
         public bool isActivated() {
@@ -18,7 +23,10 @@ namespace OutsideTheBox {
         }
 
         public void setActivated(bool value) {
-            Activated = value;
+            if (defaultValue)
+                Activated = value;
+            else
+                Activated = !value; 
         }
 
         public override void draw(SpriteBatch batch) {

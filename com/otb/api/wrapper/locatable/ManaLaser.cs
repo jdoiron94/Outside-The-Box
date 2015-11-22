@@ -6,8 +6,8 @@ namespace OutsideTheBox {
 
     public class ManaLaser : Laser {
 
-        public ManaLaser(Texture2D texture, Vector2 location, SoundEffectInstance effect, int height, int width, bool Activated) :
-            base(texture, location, effect, height, width, Activated) {
+        public ManaLaser(Texture2D texture, Vector2 location, SoundEffectInstance effect, int height, int width, bool Activated, bool? defaultValue = null) :
+            base(texture, location, effect, height, width, Activated, defaultValue) {
 
         }
 
