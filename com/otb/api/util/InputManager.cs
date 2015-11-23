@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace OutsideTheBox {
 
@@ -35,6 +36,7 @@ namespace OutsideTheBox {
         private bool stagnant;
         private bool moving;
         private bool powerReveal;
+        private bool menuShown;
         private int gameState;
         private string dropText;
 
@@ -59,6 +61,7 @@ namespace OutsideTheBox {
             stagnant = false;
             moving = false;
             font = game.getDropFont();
+            this.menuShown = false;
         }
 
         /// <summary>
@@ -169,6 +172,14 @@ namespace OutsideTheBox {
                 updateSelect(time);
             } else if (gameState == 2) {
                 updateTelekinesisMove(time);
+            } else if (gameState == 3) {
+                if (menuShown) {
+                    gameState = 0;
+                    menuShown = false;
+                } else {
+                    menuShown = true;
+                    level.getScreens()[1].setActive(true);
+                }
             }
         }
 
@@ -198,6 +209,8 @@ namespace OutsideTheBox {
                 t.setCollected(true);
                 playerManager.incrementExperience(t.getExp());
                 playerManager.levelMana(t.getManaIncrementationValue());
+                PauseMenu pause = (PauseMenu) level.getScreens()[1];
+                pause.setExperience(pause.getExperience() + t.getExp());
                 dropText = "+ " + t.getExp() + " EXP";
                 gCollision = null;
             } else if (gCollision != null && gCollision is Key) {
@@ -213,6 +226,10 @@ namespace OutsideTheBox {
                     level.setActive(false);
                     game.setLevel(index);
                     level = game.getLevel(index);
+                    //
+                    PauseMenu pause = (PauseMenu) level.getScreens()[1];
+                    pause.setLevel(index);
+                    //
                     game.setLevel(level);
                     deathManager = new DeathManager(this);
                     setDeathManager(deathManager);
@@ -225,9 +242,9 @@ namespace OutsideTheBox {
                     } else if (d.getDirection() == Direction.West) {
                         player.setLocation(new Vector2(696F, d.getLocation().Y));
                     } else if (d.getDirection() == Direction.North) {
-                        player.setLocation(new Vector2(d.getLocation().X, 376F)); // untested
+                        player.setLocation(new Vector2(d.getLocation().X, 376.0F));
                     } else {
-                        player.setLocation(new Vector2(d.getLocation().X, 40F)); // untested
+                        player.setLocation(new Vector2(d.getLocation().X, 40.0F));
                     }
                     playerManager.getKeyBox().update(this);
                 }
@@ -242,7 +259,15 @@ namespace OutsideTheBox {
                     p.playEffect();
                 }
             }
-            if (lastKeyState.IsKeyDown(Keys.E) && currentKeyState.IsKeyUp(Keys.E)) {
+            if (lastKeyState.IsKeyDown(Keys.M) && currentKeyState.IsKeyUp(Keys.M)) {
+                if (gameState == 0) {
+                    gameState = 3;
+                    level.setActive(false);
+                } else {
+                    gameState = 0;
+                    level.setActive(true);
+                }
+            } else if (lastKeyState.IsKeyDown(Keys.E) && currentKeyState.IsKeyUp(Keys.E)) {
                 if (mindRead.validate()) {
                     playerManager.depleteMana(mindRead.getManaCost());
                     foreach (ThoughtBubble th in level.getThoughts()) {
@@ -335,8 +360,6 @@ namespace OutsideTheBox {
                 target.setActive(true);
             } else if (currentKeyState.IsKeyDown(Keys.P)) {
                 playerManager.damagePlayer(2);
-            } else if (lastKeyState.IsKeyDown(Keys.M) && currentKeyState.IsKeyUp(Keys.M)) {
-                level.setActive(false);
             }
         }
 
@@ -444,15 +467,6 @@ namespace OutsideTheBox {
                 selectedObject.setSelected(false);
                 selectedObject = null;
                 level.setMode(0);
-            }
-        }
-
-        private void updateMenu(GameTime time) {
-            lastState = state;
-            state = Mouse.GetState().LeftButton;
-            if (lastState == ButtonState.Pressed && state == ButtonState.Released) {
-            } else if (lastKeyState.IsKeyDown(Keys.M) && currentKeyState.IsKeyUp(Keys.M)) {
-                level.setActive(true);
             }
         }
     }

@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-
+using System;
 using System.Collections.Generic;
 
 namespace OutsideTheBox
@@ -28,9 +28,6 @@ namespace OutsideTheBox
         private Target target;
         private MouseState mouse;
         private Texture2D startMenu;
-        private SpriteFont font1;
-        private SpriteFont font2;
-        private SpriteFont font3;
         private SpriteFont font4;
 
         private Texture2D pixel;
@@ -49,7 +46,6 @@ namespace OutsideTheBox
         private int midY;
         private int width;
         private int height;
-
         private int levelIndex;
 
         public Game1()
@@ -240,10 +236,26 @@ namespace OutsideTheBox
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Play(factorySong);
 
-            font1 = Content.Load<SpriteFont>("fonts/font1");
-            font2 = Content.Load<SpriteFont>("fonts/font2");
-            font3 = Content.Load<SpriteFont>("fonts/font3");
+            SpriteFont font1 = Content.Load<SpriteFont>("fonts/font1");
+            SpriteFont font2 = Content.Load<SpriteFont>("fonts/font2");
+            SpriteFont font3 = Content.Load<SpriteFont>("fonts/font3");
             font4 = Content.Load<SpriteFont>("fonts/font4");
+            SpriteFont font5 = Content.Load<SpriteFont>("fonts/font5");
+            SpriteFont font6 = Content.Load<SpriteFont>("fonts/font6");
+
+            cursor = Content.Load<Texture2D>("sprites/cursors/Cursor");
+            Texture2D targ = Content.Load<Texture2D>("sprites/cursors/TargetingCursor");
+            target = new Target(targ);
+
+            Texture2D gradient = Content.Load<Texture2D>("ui/gradient");
+            startMenu = Content.Load<Texture2D>("menus/Title Screen");
+            Texture2D controls = Content.Load<Texture2D>("menus/Controls");
+            Texture2D about = Content.Load<Texture2D>("menus/About");
+            TitleScreen title = new TitleScreen(startMenu, controls, about, cursor, font1, "Normal", true);
+            PauseMenu pause = new PauseMenu(gradient, cursor, font4, font6, font5, "Pause", false);
+            Hint hint1 = new Hint(gradient, cursor, font6, font4, "you no mi blah blah blah", "Hint 1", false);
+            pause.addHint(hint1);
+            screens = new Screen[] { title, pause };
 
             boltSound = Content.Load<SoundEffect>("audio/sound effects/boltSound");
             dashSound = Content.Load<SoundEffect>("audio/sound effects/dashSound");
@@ -251,7 +263,6 @@ namespace OutsideTheBox
             lavaSound = Content.Load<SoundEffect>("audio/sound effects/lavaSound");
             paralyzeSound = Content.Load<SoundEffect>("audio/sound effects/paralyzeSound");
             slowSound = Content.Load<SoundEffect>("audio/sound effects/slowSound");
-            startMenu = Content.Load<Texture2D>("menus/Title Screen");
 
             Texture2D playur = Content.Load<Texture2D>("sprites/entities/player/Standing1");
             Texture2D bullet = Content.Load<Texture2D>("sprites/projectiles/BulletOrb");
@@ -431,7 +442,6 @@ namespace OutsideTheBox
             npc3_2.getDisplayBar().setColor(Color.Red);
             npc3_2.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(npc3_2.getLocation().X + (hitsplat.Width / 2), npc3_2.getLocation().Y + (hitsplat.Height / 2))));
 
-
             //LEVELS
             //LEVEL 1
             List<GameObject> Level1Objects = new List<GameObject>();
@@ -445,6 +455,7 @@ namespace OutsideTheBox
             level1.addCubicle(cube1_3);
             level1.addCubicle(cube1_4);
             level1.setPlayerOrigin(new Vector2(165F, 100F));
+            level1.setScreens(screens);
 
             //LEVEL 2
             List<GameObject> Level2Objects = new List<GameObject>();
@@ -462,6 +473,7 @@ namespace OutsideTheBox
             level2.addCubicle(cube2_1);
             level2.addCubicle(cube2_2);
             level2.setPlayerOrigin(new Vector2((width - 64F) / 2F, 20F));
+            level2.setScreens(screens);
 
             //LEVEL 3
             List<GameObject> Level3Objects = new List<GameObject>();
@@ -481,12 +493,14 @@ namespace OutsideTheBox
             level3.addCubicle(cube3_2);
             level3.addCubicle(cube3_3);
             level3.setPlayerOrigin(new Vector2(100F, height - 200));
+            level3.setScreens(screens);
 
             List<GameObject> Level4Objects = new List<GameObject>();
             Level4Objects.Add(door4to3);
             Texture2D l4 = Content.Load<Texture2D>("sprites/levels/Level1");
             Level level4 = new Level(this, player, l4, new Npc[] {  }, Level4Objects.ToArray(), 0);
             level4.setPlayerOrigin(new Vector2(120F, 50F));
+            level4.setScreens(screens);
 
             levels = new List<Level>();
             levels.Add(level1);
@@ -495,14 +509,6 @@ namespace OutsideTheBox
             levels.Add(level4);
             level = levels[0];
             levelIndex = 0;
-
-            cursor = Content.Load<Texture2D>("sprites/cursors/Cursor");
-            Texture2D targ = Content.Load<Texture2D>("sprites/cursors/TargetingCursor");
-            target = new Target(targ);
-
-            Texture2D controls = Content.Load<Texture2D>("menus/Controls");
-            Texture2D about = Content.Load<Texture2D>("menus/About");
-            screens = new Screen[] { new TitleScreen(startMenu, controls, about, cursor, font1, "Normal", true) };
 
             MindRead read = new MindRead(2, 1, 20, 1000, 200, 100, true, false);
             read.setPlayerManager(playerManager);
@@ -563,14 +569,17 @@ namespace OutsideTheBox
             {
                 if (s.isActive())
                 {
+                    level.setActive(false);
                     s.update(gameTime);
                     busy = true;
+                    break;
                 }
             }
             mouse = Mouse.GetState();
-            if (busy)
-            {
+            if (busy) {
                 return;
+            } else {
+                level.setActive(true);
             }
             playerManager.updateHealthCooldown();
             inputManager.update(gameTime);
@@ -595,6 +604,8 @@ namespace OutsideTheBox
             {
                 if (s.isActive())
                 {
+                    //level.setActive(false);
+                    Console.WriteLine("BUSY SCREEN");
                     s.draw(spriteBatch);
                     busy = true;
                     break;
@@ -605,6 +616,8 @@ namespace OutsideTheBox
                 spriteBatch.End();
                 return;
             }
+            //level.setActive(true);
+            Console.WriteLine("PLAY THE LEVEL");
             level.draw(spriteBatch);
             if (level.getMode() < 1)
             {

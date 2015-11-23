@@ -28,9 +28,9 @@ namespace OutsideTheBox {
 
         private List<Npc> npcs;
         private List<GameObject> objects;
-        //private List<DisplayBar> displayBars;
         private List<ThoughtBubble> thoughts;
 
+        private Screen[] screens;
         private List<Token> tokens;
         private List<Key> keys;
 
@@ -71,6 +71,14 @@ namespace OutsideTheBox {
             debug = false;
             projectiles = new List<Projectile>();
             this.index = index;
+        }
+
+        public void setScreens(Screen[] screens) {
+            this.screens = screens;
+        }
+
+        public Screen[] getScreens() {
+            return screens;
         }
 
         public void sortObjects() {
