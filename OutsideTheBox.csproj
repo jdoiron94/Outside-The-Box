@@ -80,6 +80,7 @@
     <Compile Include="com\otb\api\wrapper\ability\SlowTime.cs" />
     <Compile Include="com\otb\api\wrapper\locatable\Door.cs" />
     <Compile Include="com\otb\api\wrapper\ability\DrainPower.cs" />
+    <Compile Include="com\otb\ui\Hint.cs" />
     <Compile Include="com\otb\ui\Hitsplat.cs" />
     <Compile Include="com\otb\api\util\CollisionManager.cs" />
     <Compile Include="com\otb\api\wrapper\Direction.cs" />
@@ -97,6 +98,7 @@
     <Compile Include="com\otb\api\util\PlayerManager.cs" />
     <Compile Include="com\otb\Program.cs" />
     <Compile Include="com\otb\api\wrapper\locatable\Projectile.cs" />
+    <Compile Include="com\otb\ui\PauseMenu.cs" />
     <Compile Include="com\otb\ui\PowerBar.cs" />
     <Compile Include="com\otb\ui\TitleScreen.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -494,6 +496,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\ui\EnemyBarText.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\ui\Gradient.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\ui\HealthBarTexture.png">

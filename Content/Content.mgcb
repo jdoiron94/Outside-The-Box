@@ -79,3 +79,15 @@
 /processorParam:TextureFormat=Compressed
 /build:fonts/font4.spritefont
 
+#begin fonts/font5.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:TextureFormat=Compressed
+/build:fonts/font5.spritefont
+
+#begin fonts/font6.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:TextureFormat=Compressed
+/build:fonts/font6.spritefont
+
