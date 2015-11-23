@@ -19,6 +19,12 @@
 /processorParam:TextureFormat=Compressed
 /build:fonts/font1.spritefont
 
+#begin audio/songs/Factory.wma
+/importer:WmaImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:audio/songs/Factory.wma
+
 #begin fonts/font2.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
@@ -72,34 +78,4 @@
 /processor:FontDescriptionProcessor
 /processorParam:TextureFormat=Compressed
 /build:fonts/font4.spritefont
-
-#begin audio/sound effects/barSound.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:audio/sound effects/barSound.wav
-
-#begin audio/sound effects/coinSound.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:audio/sound effects/coinSound.wav
-
-#begin audio/sound effects/jewelSound.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:audio/sound effects/jewelSound.wav
-
-#begin audio/Songs/Factory (Trimmed).mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:audio/Songs/Factory (Trimmed).mp3
-
-#begin audio/Songs/Streets (Trimmed).mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:audio/Songs/Streets (Trimmed).mp3
 
