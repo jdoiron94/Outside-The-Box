@@ -97,8 +97,8 @@ namespace OutsideTheBox {
         public override void draw(SpriteBatch batch) {
             batch.Draw(gradient, Vector2.Zero, Color.White);
             if (viewingHint) {
-                Hint hint = hints[level];
-                hint.draw(batch);
+                Hint h = hints[level];
+                h.draw(batch);
                 return;
             }
             Vector2 pauseSize = large.MeasureString(pause);

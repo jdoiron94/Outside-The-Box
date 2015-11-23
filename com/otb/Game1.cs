@@ -286,6 +286,9 @@ namespace OutsideTheBox
             GameObject desk1_2 = new GameObject(desk, new Vector2(600.0F, 300.0F), true);
             GameObject box2_1 = new GameObject(box, new Vector2(730F, 200F), true);
             GameObject box3_1 = new GameObject(box, new Vector2(700F, 400F), true);
+            GameObject box4_1 = new GameObject(box, new Vector2(280F, 20F), true);
+            GameObject box4_2 = new GameObject(box, new Vector2(40F, 360F), true);
+
 
             //COLLECTIBLES 
             Texture2D bronze = Content.Load<Texture2D>("sprites/objects/BronzeBar");
@@ -297,6 +300,7 @@ namespace OutsideTheBox
             Token token2_2 = new Token(gold, new Vector2(730F, 400F), TokenType.Gold);
             Token token3_1 = new Token(silver, new Vector2(midX, midY), TokenType.Silver);
             Token token3_2 = new Token(silver, new Vector2(midX + 100F, midY), TokenType.Silver);
+            Token token4_1 = new Token(gold, new Vector2(40F, 420F), TokenType.Gold);
 
             //KEYS 
             Key key2_1 = new Key(key, new Vector2(40F, 60F));
@@ -320,18 +324,26 @@ namespace OutsideTheBox
             Cubicle cube3_1 = new Cubicle(300, 180F, 150, 150, this, Direction.West, wall);
             Cubicle cube3_2 = new Cubicle(640F, 0F, 150, 150, this, Direction.South, wall);
             Cubicle cube3_3 = new Cubicle(60F, 0F, 150, 90, this, Direction.South, wall);
-
+            //level 4 cubicles
+            Cubicle cube4_1 = new Cubicle(690F, 0F, 110, 110, this, Direction.West, wall);
+            Cubicle cube4_2 = new Cubicle(0F, 340F, 150, 130, this, Direction.East, wall);
 
 
             //DOORS
             Texture2D door = Content.Load<Texture2D>("sprites/objects/DoorOpen");
             Texture2D doorClosed = Content.Load<Texture2D>("sprites/objects/Door");
             Door door1to2 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2((width - 64F) / 2F, height - 51F), Direction.South, false, true, 64, 10, true);
+
             Door door2to1 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2((width - 64F) / 2F, 0F), Direction.North, false, false, 64, 10, true);
             Door door2to3 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2(width - 10F, height - 200), Direction.East, false, true, 10, 64, false);
+
             Door door3to2 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2(0F, height - 200), Direction.West, false, false, 10, 64, true);
             Door door3to4 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2(120F, 470), Direction.South, false, true, 64, 10, false);
-            Door door4to3 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2(120F, 0F), Direction.North, false, false, 64, 10, true);
+
+            Door door4to3 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2(140F, 0F), Direction.North, false, false, 64, 10, true);
+            Door door4to5 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2(width - 10F, 360F), Direction.East, false, true, 10, 60, true);
+
+            Door door5to4 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2(120F, 470), Direction.South, false, false, 10, 60, true);
 
             //PITS, LASERS, and BARRIERS
             Texture2D lavaPit = Content.Load<Texture2D>("sprites/objects/Lava");
@@ -347,11 +359,18 @@ namespace OutsideTheBox
             //LavaPit p2 = new LavaPit(lavaPit, new Vector2(0F, 200F), lavaSound.CreateInstance(), 480, 128);
             //PlayerLimitationField plf1 = new PlayerLimitationField(limitationField, new Vector2(400F, 400F), lavaSound.CreateInstance(), 200, 200);
             HPLaser las2_1 = new HPLaser(HealthLaserV, new Vector2(630F, 12F), boltSound.CreateInstance(), 140, 10, true);
-            Barrier bar2_1 = new Barrier(barrier2_vertical, new Vector2(145F, 18F));
+            Barrier bar2_1 = new Barrier(barrier2_vertical, new Vector2(145F, 18F), false);
 
             HPLaser las3_1 = new HPLaser(HealthLaserH, new Vector2(70F, 90F), boltSound.CreateInstance(), 10, 140, true);
-            Barrier bar3_1 = new Barrier(barrier2_vertical, new Vector2(300F, 190F));
-            Barrier bar3_2 = new Barrier(barrier2_horizontal, new Vector2(660F, 170F));
+            Barrier bar3_1 = new Barrier(barrier2_vertical, new Vector2(300F, 190F), false);
+            Barrier bar3_2 = new Barrier(barrier2_horizontal, new Vector2(660F, 170F), false);
+
+            LavaPit pit4_1 = new LavaPit(lavaPit, new Vector2(0F, 120F), lavaSound.CreateInstance(), 100, 200);
+            LavaPit pit4_2 = new LavaPit(lavaPit, new Vector2(260F, 120F), lavaSound.CreateInstance(), 540, 200);
+            HPLaser las4_1 = new HPLaser(HealthLaserH, new Vector2(100, 320F), boltSound.CreateInstance(), 10, 160, false, true);
+            HPLaser las4_2 = new HPLaser(HealthLaserV, new Vector2(640F, 320F), boltSound.CreateInstance(), 160, 10, true);
+            Barrier bar4_1 = new Barrier(barrier2_vertical, new Vector2(690F, 0F), false);
+            Barrier bar4_2 = new Barrier(barrier2_vertical, new Vector2(110F, 345F), false);
 
             //BUTTONS
             Texture2D buttonOn = Content.Load<Texture2D>("sprites/objects/PressButtonOn");
@@ -363,6 +382,12 @@ namespace OutsideTheBox
             BarrierButton barbutt3_1 = new BarrierButton(button, new Vector2(540F, 220F), false, false, bar3_1);
             BarrierButton barbutt3_2 = new BarrierButton(button, new Vector2(360F, 220F), false, false, bar3_2);
             LaserButton lasbutt3_1 = new LaserButton(button, new Vector2(700F, 40F), false, false, las3_1);
+
+            BarrierButton barbutt4_1 = new BarrierButton(button, new Vector2(140F, 140F), false, false, bar4_1);
+            BarrierButton barbutt4_2 = new BarrierButton(button, new Vector2(710F, 20F), false, false, bar4_2);
+            LaserButton lasbutt4_1 = new LaserButton(button, new Vector2(710F, 20F), false, false, las4_1);
+            LaserButton lasbutt4_2 = new LaserButton(button, new Vector2(460F, 160F), true, false, las4_2); //deactivated
+            ActivateButton actbutton4_1 = new ActivateButton(button, new Vector2(710F, 20F), false, false, lasbutt4_2);
 
 
             //NPCS
@@ -495,18 +520,46 @@ namespace OutsideTheBox
             level3.setPlayerOrigin(new Vector2(100F, height - 200));
             level3.setScreens(screens);
 
+            //LEVEL 4
             List<GameObject> Level4Objects = new List<GameObject>();
             Level4Objects.Add(door4to3);
+            Level4Objects.Add(door4to5);
+            Level4Objects.Add(token4_1);
+            Level4Objects.Add(box4_1);
+            Level4Objects.Add(box4_2);
+            Level4Objects.Add(pit4_1);
+            Level4Objects.Add(pit4_2);
+            Level4Objects.Add(bar4_1);
+            Level4Objects.Add(bar4_2);
+            Level4Objects.Add(las4_1);
+            Level4Objects.Add(las4_2);
+            Level4Objects.Add(barbutt4_1);
+            Level4Objects.Add(barbutt4_2);
+            Level4Objects.Add(lasbutt4_1);
+            Level4Objects.Add(lasbutt4_2);
+            Level4Objects.Add(actbutton4_1);
             Texture2D l4 = Content.Load<Texture2D>("sprites/levels/Level1");
-            Level level4 = new Level(this, player, l4, new Npc[] {  }, Level4Objects.ToArray(), 0);
-            level4.setPlayerOrigin(new Vector2(120F, 50F));
+            Level level4 = new Level(this, player, l4, new Npc[] { }, Level4Objects.ToArray(), 0);
+            level4.addCubicle(cube4_1);
+            level4.addCubicle(cube4_2);
+            level4.setPlayerOrigin(new Vector2(140F, 50F));
             level4.setScreens(screens);
+
+            //LEVEL 5
+            List<GameObject> Level5Objects = new List<GameObject>();
+            Level4Objects.Add(door5to4);
+            Texture2D l5 = Content.Load<Texture2D>("sprites/levels/Level1");
+            Level level5 = new Level(this, player, l5, new Npc[] { }, Level5Objects.ToArray(), 0);
+            level4.setPlayerOrigin(new Vector2(140F, 50F));
+            level5.setScreens(screens);
+
 
             levels = new List<Level>();
             levels.Add(level1);
             levels.Add(level2);
             levels.Add(level3);
             levels.Add(level4);
+            levels.Add(level5);
             level = levels[0];
             levelIndex = 0;
 
