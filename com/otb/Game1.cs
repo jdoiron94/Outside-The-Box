@@ -253,8 +253,14 @@ namespace OutsideTheBox
             Texture2D about = Content.Load<Texture2D>("menus/About");
             TitleScreen title = new TitleScreen(startMenu, controls, about, cursor, font1, "Normal", true);
             PauseMenu pause = new PauseMenu(gradient, cursor, font4, font6, font5, "Pause", false);
-            Hint hint1 = new Hint(gradient, cursor, font6, font4, "you no mi blah blah blah", "Hint 1", false);
+            Hint hint1 = new Hint(gradient, cursor, font6, font4, "If only someone could give me the password, or if I could brute force it...", "Hint 1", false);
+            Hint hint2 = new Hint(gradient, cursor, font6, font4, "A laser and a key. I'll need to figure out a clever way to push the button.", "Hint 2", false);
+            Hint hint3 = new Hint(gradient, cursor, font6, font4, "I'm going to need that key behind the laser. But, how do I get it?", "Hint 3", false);
+            Hint hint4 = new Hint(gradient, cursor, font6, font4, "Barriers and lasers. I should probably avoid the lava...", "Hint 4", false);
             pause.addHint(hint1);
+            pause.addHint(hint2);
+            pause.addHint(hint3);
+            pause.addHint(hint4);
             screens = new Screen[] { title, pause };
 
             boltSound = Content.Load<SoundEffect>("audio/sound effects/boltSound");
@@ -658,7 +664,6 @@ namespace OutsideTheBox
                 if (s.isActive())
                 {
                     //level.setActive(false);
-                    Console.WriteLine("BUSY SCREEN");
                     s.draw(spriteBatch);
                     busy = true;
                     break;
@@ -670,7 +675,6 @@ namespace OutsideTheBox
                 return;
             }
             //level.setActive(true);
-            Console.WriteLine("PLAY THE LEVEL");
             level.draw(spriteBatch);
             if (level.getMode() < 1)
             {

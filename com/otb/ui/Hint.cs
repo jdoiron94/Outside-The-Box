@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+using System.Text;
 
 namespace OutsideTheBox {
 
@@ -30,58 +31,68 @@ namespace OutsideTheBox {
             this.cursor = cursor;
             this.font1 = font1;
             this.font2 = font2;
-            this.text = text;
+            this.text = wrapText(font1, text, 780);
             this.index = 1;
             this.showing = true;
             this.bounds = new Rectangle(710, 470, 90, 50);
         }
 
-        public Texture2D getGradient() {
-            return gradient;
-        }
-
-        public Texture2D getCursor() {
-            return cursor;
-        }
-
-        public SpriteFont getFont1() {
-            return font1;
-        }
-
-        public SpriteFont getFont2() {
-            return font2;
-        }
-
-        public string getText() {
-            return text;
-        }
-
+        /// <summary>
+        /// Returns whether or not the hint is currently showing
+        /// </summary>
+        /// <returns>Returns true if the hint is currently showing; otherwise, false</returns>
         public bool isShowing() {
             return showing;
         }
 
+        /// <summary>
+        /// Sets the hint's showing status
+        /// </summary>
+        /// <param name="showing">The showing status to set</param>
         public void setShowing(bool showing) {
             this.showing = showing;
         }
 
+        /// <summary>
+        /// Adds a drop shadow to the specified text
+        /// </summary>
+        /// <param name="text">The text to shadow</param>
+        /// <param name="font">The SpriteFont to draw with</param>
+        /// <param name="location">The location to draw the text</param>
+        /// <param name="batch">The SpriteBatch to draw with</param>
         private void shadowText(string text, SpriteFont font, Vector2 location, SpriteBatch batch) {
             batch.DrawString(font, text, new Vector2(location.X + 2, location.Y + 2), Color.DarkSlateGray);
             batch.DrawString(font, text, location, Color.White);
         }
 
-        private void wrapText() {
-            string[] split = text.Split(' ');
-            foreach (string s in split) {
-                Console.WriteLine(s);
+        /// <summary>
+        /// Adds newlines to the text so it will wrap around and not go off-screen horizontally
+        /// </summary>
+        /// <param name="spriteFont">The SpriteFont to draw with</param>
+        /// <param name="text">The text to be drawn</param>
+        /// <param name="maxWidth">The maximum length of the text before a newline is added</param>
+        /// <returns>Returns the resulting wrapped text</returns>
+        private string wrapText(SpriteFont spriteFont, string text, float maxWidth) {
+            string result = "";
+            float curWidth = 0.0F;
+            float spaceWidth = spriteFont.MeasureString(" ").X;
+            foreach (string word in text.Split()) {
+                Vector2 size = spriteFont.MeasureString(word);
+                if (curWidth + size.X < maxWidth) {
+                    result += word + " ";
+                    curWidth += size.X + spaceWidth;
+                } else {
+                    result += "\n" + word + " ";
+                    curWidth = size.X + spaceWidth;
+                }
             }
-            setActive(false);
-            //for (int i = 0; i < 
+            return result;
         }
 
         public override void draw(SpriteBatch batch) {
             batch.Draw(gradient, Vector2.Zero, Color.White);
             Vector2 size = font1.MeasureString(text);
-            Vector2 loc = new Vector2(400.0F - (size.X / 2.0F), 260.0F - (size.Y / 2.0F));
+            Vector2 loc = new Vector2(400.0F - ((size.X - font1.MeasureString(" ").X) / 2.0F), 260.0F - (size.Y / 2.0F));
             batch.DrawString(font1, text, loc, Color.GhostWhite);
             if (index == 1) {
                 shadowText("Back", font2, new Vector2(725F, 475F), batch);

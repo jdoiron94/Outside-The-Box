@@ -40,23 +40,21 @@ namespace OutsideTheBox {
             controlBounds = new Rectangle(717, 474, 52, 25);
         }
 
-        public Texture2D getBackground() {
-            return background;
-        }
-
-        public SpriteFont getFont() {
-            return font;
-        }
-
+        /// <summary>
+        /// Adds a drop shadow to the specified text
+        /// </summary>
+        /// <param name="text">The text to shadow</param>
+        /// <param name="location">The location to draw the text</param>
+        /// <param name="batch">The SpriteBatch to draw with</param>
         private void shadowText(string text, Vector2 location, SpriteBatch batch) {
             batch.DrawString(font, text, new Vector2(location.X + 2, location.Y + 2), Color.DarkSlateGray);
             batch.DrawString(font, text, location, Color.White);
         }
 
         /// <summary>
-        /// 
+        /// Handles drawing of the title screen
         /// </summary>
-        /// <param name="batch"></param>
+        /// <param name="batch">The SpriteBatch to draw with</param>
         public override void draw(SpriteBatch batch) {
             batch.Draw(texture, Vector2.Zero, Color.White);
             if (texture == background) {
@@ -77,6 +75,10 @@ namespace OutsideTheBox {
             batch.Draw(cursor, new Vector2(curMouse.Position.X, curMouse.Position.Y), Color.White);
         }
 
+        /// <summary>
+        /// Handles updating of the title screen
+        /// </summary>
+        /// <param name="time">The GameTime to respect</param>
         public override void update(GameTime time) {
             prevMouse = curMouse;
             curMouse = Mouse.GetState();

@@ -49,54 +49,58 @@ namespace OutsideTheBox {
             this.experience = 0;
         }
 
-        public Texture2D getGradient() {
-            return gradient;
-        }
-
-        public Texture2D getCursor() {
-            return cursor;
-        }
-
-        public SpriteFont getExtraSmallFont() {
-            return xSmall;
-        }
-
-        public SpriteFont getSmallFont() {
-            return small;
-        }
-
-        public SpriteFont getLargeFont() {
-            return large;
-        }
-
-        public int getLevel() {
-            return level;
-        }
-
+        /// <summary>
+        /// Returns the player's experience within the pause menu
+        /// </summary>
+        /// <returns>Returns the player's exp</returns>
         public int getExperience() {
             return experience;
         }
 
+        /// <summary>
+        /// Adds a hint to the pause menu
+        /// </summary>
+        /// <param name="hint">The hint to add</param>
         public void addHint(Hint hint) {
             hints.Add(hint);
         }
 
+        /// <summary>
+        /// Sets the level to later show the correct hint
+        /// </summary>
+        /// <param name="level">The level to set</param>
         public void setLevel(int level) {
             this.level = level;
         }
 
+        /// <summary>
+        /// Sets the player's experience within the pause menu
+        /// </summary>
+        /// <param name="experience">The experience to set</param>
         public void setExperience(int experience) {
             this.experience = experience;
         }
 
+        /// <summary>
+        /// Adds a drop shadow to the specified text
+        /// </summary>
+        /// <param name="text">The text to shadow</param>
+        /// <param name="font">The SpriteFont to draw with</param>
+        /// <param name="location">The location to draw the text</param>
+        /// <param name="batch">The SpriteBatch to draw with</param>
         private void shadowText(string text, SpriteFont font, Vector2 location, SpriteBatch batch) {
             batch.DrawString(font, text, new Vector2(location.X + 2.0F, location.Y + 2.0F), Color.DarkSlateGray);
             batch.DrawString(font, text, location, Color.White);
         }
 
+        /// <summary>
+        /// Handles drawing of the pause menu
+        /// </summary>
+        /// <param name="batch">The SpriteBatch to draw with</param>
         public override void draw(SpriteBatch batch) {
             batch.Draw(gradient, Vector2.Zero, Color.White);
             if (viewingHint) {
+                Console.WriteLine("HINT LEVEL: " + level);
                 Hint h = hints[level];
                 h.draw(batch);
                 return;
@@ -126,6 +130,10 @@ namespace OutsideTheBox {
             batch.Draw(cursor, new Vector2(curMouse.Position.X, curMouse.Position.Y), Color.White);
         }
 
+        /// <summary>
+        /// Handles updating the pause menu
+        /// </summary>
+        /// <param name="time">The GameTime to respect</param>
         public override void update(GameTime time) {
             prevMouse = curMouse;
             curMouse = Mouse.GetState();
