@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace OutsideTheBox {
     
@@ -54,28 +53,28 @@ namespace OutsideTheBox {
                         case Direction.North:
                             destination = new Vector2(level.getPlayer().getLocation().X, level.getPlayer().getLocation().Y - 6);
                             level.getPlayer().setDestination(destination);
-                            if (manager.isValid(level.getPlayer(), false)) {
+                            if (level.getPlayer().getDestination().Y >= 0 && manager.isValid(level.getPlayer(), false)) {
                                 level.getPlayer().deriveY(-6);
                             }
                             break;
                         case Direction.South:
                             destination = new Vector2(level.getPlayer().getLocation().X, level.getPlayer().getLocation().Y + 6);
                             level.getPlayer().setDestination(destination);
-                            if (manager.isValid(level.getPlayer(), false)) {
+                            if (level.getPlayer().getDestination().Y <= 416 && manager.isValid(level.getPlayer(), false)) {
                                 level.getPlayer().deriveY(6);
                             }
                             break;
                         case Direction.West:
                             destination = new Vector2(level.getPlayer().getLocation().X - 6, level.getPlayer().getLocation().Y);
                             level.getPlayer().setDestination(destination);
-                            if (manager.isValid(level.getPlayer(), false)) {
+                            if (level.getPlayer().getDestination().X >= 0 && manager.isValid(level.getPlayer(), false)) {
                                 level.getPlayer().deriveX(-6);
                             }
                             break;
                         case Direction.East:
                             destination = new Vector2(level.getPlayer().getLocation().X + 6, level.getPlayer().getLocation().Y);
                             level.getPlayer().setDestination(destination);
-                            if (manager.isValid(level.getPlayer(), false)) {
+                            if (level.getPlayer().getDestination().X <= 736 && manager.isValid(level.getPlayer(), false)) {
                                 level.getPlayer().deriveX(6);
                             }
                             break;

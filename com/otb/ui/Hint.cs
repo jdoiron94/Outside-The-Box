@@ -69,6 +69,15 @@ namespace OutsideTheBox {
             batch.DrawString(font, text, location, Color.White);
         }
 
+        private void wrapText() {
+            string[] split = text.Split(' ');
+            foreach (string s in split) {
+                Console.WriteLine(s);
+            }
+            setActive(false);
+            //for (int i = 0; i < 
+        }
+
         public override void draw(SpriteBatch batch) {
             batch.Draw(gradient, Vector2.Zero, Color.White);
             Vector2 size = font1.MeasureString(text);
@@ -79,7 +88,6 @@ namespace OutsideTheBox {
             } else {
                 batch.DrawString(font2, "Back", new Vector2(725F, 475F), Color.GhostWhite);
             }
-            // draw back text and shadow by default/hovered
             batch.Draw(cursor, new Vector2(curMouse.Position.X, curMouse.Position.Y), Color.White);
         }
 
