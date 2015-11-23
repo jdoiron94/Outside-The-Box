@@ -23,7 +23,7 @@ namespace OutsideTheBox {
         }
 
         public void setActivated(bool value) {
-            if (defaultValue)
+            if (!defaultValue)
                 Activated = value;
             else
                 Activated = !value; 

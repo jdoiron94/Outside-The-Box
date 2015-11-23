@@ -308,6 +308,8 @@ namespace OutsideTheBox
             //level 3 cubicles
             Cubicle cube3_1 = new Cubicle(300, 180F, 150, 150, this, Direction.West, wall);
             Cubicle cube3_2 = new Cubicle(640F, 0F, 150, 150, this, Direction.South, wall);
+            Cubicle cube3_3 = new Cubicle(60F, 0F, 150, 90, this, Direction.South, wall);
+
 
 
             //DOORS
@@ -317,8 +319,8 @@ namespace OutsideTheBox
             Door door2to1 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2((width - 64F) / 2F, 0F), Direction.North, false, false, 64, 10, true);
             Door door2to3 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2(width - 10F, height - 200), Direction.East, false, true, 10, 64, false);
             Door door3to2 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2(0F, height - 200), Direction.West, false, false, 10, 64, true);
-            Door door3to4 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2(120F, height - 10), Direction.South, false, true, 64, 10, false);
-            Door door4to3 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2(120F, 0F), Direction.North, false, false, 10, 64, true);
+            Door door3to4 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2(120F, 470), Direction.South, false, true, 64, 10, false);
+            Door door4to3 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2(120F, 0F), Direction.North, false, false, 64, 10, true);
 
             //PITS, LASERS, and BARRIERS
             Texture2D lavaPit = Content.Load<Texture2D>("sprites/objects/Lava");
@@ -329,27 +331,27 @@ namespace OutsideTheBox
             Texture2D limitationField = Content.Load<Texture2D>("sprites/objects/PlayerLimitationField");
             Texture2D[] barrier1_vertical = { Content.Load<Texture2D>("sprites/objects/BarrierOpenVertical"), Content.Load<Texture2D>("sprites/objects/BarrierClosedVertical") };
             Texture2D[] barrier1_horizontal = { Content.Load<Texture2D>("sprites/objects/BarrierOpenHorizontal"), Content.Load<Texture2D>("sprites/objects/BarrierClosedHorizontal") };
-            Texture2D[] barrier2_vertical = { Content.Load<Texture2D>("sprites/objects/Barrier2OpenV"), Content.Load<Texture2D>("sprites/objects/Barrier2ClosedV") };
-            Texture2D[] barrier2_horizontal = { Content.Load<Texture2D>("sprites/objects/Barrier2OpenH"), Content.Load<Texture2D>("sprites/objects/Barrier2ClosedH") };
+            Texture2D[] barrier2_vertical = { Content.Load<Texture2D>("sprites/objects/Barrier3OV"), Content.Load<Texture2D>("sprites/objects/Barrier3CV") };
+            Texture2D[] barrier2_horizontal = { Content.Load<Texture2D>("sprites/objects/Barrier3OH"), Content.Load<Texture2D>("sprites/objects/Barrier3CH") };
             //LavaPit p2 = new LavaPit(lavaPit, new Vector2(0F, 200F), lavaSound.CreateInstance(), 480, 128);
             //PlayerLimitationField plf1 = new PlayerLimitationField(limitationField, new Vector2(400F, 400F), lavaSound.CreateInstance(), 200, 200);
             HPLaser las2_1 = new HPLaser(HealthLaserV, new Vector2(630F, 12F), boltSound.CreateInstance(), 140, 10, true);
             Barrier bar2_1 = new Barrier(barrier2_vertical, new Vector2(145F, 18F));
 
-            HPLaser las3_1 = new HPLaser(HealthLaserV, new Vector2(160F, 640F), boltSound.CreateInstance(), 140, 10, true);
-            HPLaser las3_2 = new HPLaser(HealthLaserV, new Vector2(80F, 80F), boltSound.CreateInstance(), 140, 10, true);
-            Barrier bar3_1 = new Barrier(barrier2_vertical, new Vector2(300F, 180F));
+            HPLaser las3_1 = new HPLaser(HealthLaserH, new Vector2(70F, 90F), boltSound.CreateInstance(), 10, 140, true);
+            Barrier bar3_1 = new Barrier(barrier2_vertical, new Vector2(300F, 190F));
+            Barrier bar3_2 = new Barrier(barrier2_horizontal, new Vector2(660F, 170F));
 
             //BUTTONS
             Texture2D buttonOn = Content.Load<Texture2D>("sprites/objects/PressButtonOn");
             Texture2D buttonOff = Content.Load<Texture2D>("sprites/objects/PressButtonOff");
             Texture2D buttonNull = Content.Load<Texture2D>("sprites/objects/PressButtonDeactivated");
             Texture2D[] button = { buttonOn, buttonOff, buttonNull };
-            //LaserButton lb1 = new LaserButton(button, new Vector2(150F, 300F), false, false, laz1);
             BarrierButton barbutt2_1 = new BarrierButton(button, new Vector2(700F, 50F), false, false, bar2_1);
 
             BarrierButton barbutt3_1 = new BarrierButton(button, new Vector2(540F, 220F), false, false, bar3_1);
-            LaserButton lasbutt3_1 = new LaserButton(button, new Vector2(700F, 40F), false, false, las3_2);
+            BarrierButton barbutt3_2 = new BarrierButton(button, new Vector2(360F, 220F), false, false, bar3_2);
+            LaserButton lasbutt3_1 = new LaserButton(button, new Vector2(700F, 40F), false, false, las3_1);
 
 
             //NPCS
@@ -366,8 +368,8 @@ namespace OutsideTheBox
             Npc npc2_2 = new Npc(this, male1, lineofsight, new Vector2(660F, 200F), Direction.West, new NpcDefinition("Normie5", new string[0], new int[0]), 150, 0x5);
             Npc npc2_3 = new Npc(this, male1, lineofsight, new Vector2(100F, 400F), Direction.East, new NpcDefinition("Normie6", new string[0], new int[0]), 150, 0x5);
             //level 3 npcs
-            Npc npc3_1 = new Npc(this, male1, lineofsight, new Vector2(430F, height - 135F), Direction.East, new NpcDefinition("Normie7", new string[0], new int[0]), 150, 0x5);
-            Npc npc3_2 = new Npc(this, male1, lineofsight, new Vector2(80F, 205F), Direction.East, new NpcDefinition("Normie8", new string[0], new int[0]), 150, 0x5);
+            Npc npc3_1 = new Npc(this, male1, lineofsight, new Vector2(420F, 100F), Direction.West, new NpcDefinition("Normie7", new string[0], new int[0]), 150, 0x5);
+            Npc npc3_2 = new Npc(this, male1, lineofsight, new Vector2(540F, 380F), Direction.North, new NpcDefinition("Normie8", new string[0], new int[0]), 150, 0x5);
 
             midX = (graphics.PreferredBackBufferWidth - playur.Width) / 2;
             midY = (graphics.PreferredBackBufferHeight - playur.Height) / 2;
@@ -465,22 +467,32 @@ namespace OutsideTheBox
             List<GameObject> Level3Objects = new List<GameObject>();
             Level3Objects.Add(door3to2);
             Level3Objects.Add(door3to4);
+            Level3Objects.Add(box3_1);
             Level3Objects.Add(las3_1);
-            Level3Objects.Add(las3_2);
             Level3Objects.Add(bar3_1);
+            Level3Objects.Add(bar3_2);
             Level3Objects.Add(barbutt3_1);
+            Level3Objects.Add(barbutt3_2);
             Level3Objects.Add(lasbutt3_1);
             Level3Objects.Add(key3_1);
             Texture2D l3 = Content.Load<Texture2D>("sprites/levels/Level1");
             Level level3 = new Level(this, player, l3, new Npc[] { npc3_1, npc3_2 }, Level3Objects.ToArray(), 0);
             level3.addCubicle(cube3_1);
             level3.addCubicle(cube3_2);
+            level3.addCubicle(cube3_3);
             level3.setPlayerOrigin(new Vector2(100F, height - 200));
+
+            List<GameObject> Level4Objects = new List<GameObject>();
+            Level4Objects.Add(door4to3);
+            Texture2D l4 = Content.Load<Texture2D>("sprites/levels/Level1");
+            Level level4 = new Level(this, player, l4, new Npc[] {  }, Level4Objects.ToArray(), 0);
+            level4.setPlayerOrigin(new Vector2(120F, 50F));
 
             levels = new List<Level>();
             levels.Add(level1);
             levels.Add(level2);
             levels.Add(level3);
+            levels.Add(level4);
             level = levels[0];
             levelIndex = 0;
 
@@ -521,9 +533,9 @@ namespace OutsideTheBox
             npc2_2.setPath(new AIPath(npc2_2, this, new int[] { 180, 660 }, new int[] { 45, 45 }, new Direction[] { Direction.West, Direction.East }));
             npc2_3.setPath(new AIPath(npc2_3, this, new int[] { 600, 300, 100, 400 }, new int[] { 60, 60, 60, 60 }, new Direction[] { Direction.East, Direction.North, Direction.West, Direction.South }));
 
-            npc3_1.setPath(new AIPath(npc3_1, this, new int[] { midX - 105, midY - 180, midX + 120, midY + 165 }, new int[] { 60, 60, 60, 60 }, new Direction[] { Direction.West, Direction.North, Direction.East, Direction.South }));
-            npc3_2.setPath(new AIPath(npc3_2, this, new int[] { midX - 105, midY - 180, midX + 120, midY + 165 }, new int[] { 60, 60, 60, 60 }, new Direction[] { Direction.West, Direction.North, Direction.East, Direction.South }));
-
+            npc3_1.setPath(new AIPath(npc3_1, this, new int[] { 100, 360, 100, 420 }, new int[] { 60, 60, 60, 60 }, new Direction[] { Direction.West, Direction.South, Direction.North, Direction.East }));
+            npc3_2.setPath(new AIPath(npc3_2, this, new int[] { 80, 380 }, new int[] { 60, 60 }, new Direction[] { Direction.North, Direction.South }));
+            
         }
 
 

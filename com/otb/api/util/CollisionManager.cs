@@ -89,7 +89,7 @@
                 }
             }
             foreach (Barrier b in level.getBarriers()) {
-                if (b != o && o.getDestinationBounds().Intersects(b.getDestinationBounds())) {
+                if (b != o && o.getDestinationBounds().Intersects(b.getDestinationBounds()) && !b.isOpen()) {
                     return b;
                 }
             }
