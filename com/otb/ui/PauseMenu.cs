@@ -8,9 +8,10 @@ namespace OutsideTheBox {
 
     public class PauseMenu : Screen {
 
+        private Texture2D texture;
         private readonly Texture2D gradient;
+        private readonly Texture2D controls;
         private readonly Texture2D cursor;
-        private readonly SpriteFont xSmall;
         private readonly SpriteFont small;
         private readonly SpriteFont large;
 
@@ -18,6 +19,7 @@ namespace OutsideTheBox {
         private readonly string exp;
         private readonly string hint;
 
+        private readonly Rectangle controlBounds;
         private readonly Rectangle[] textBounds;
 
         private List<Hint> hints;
@@ -28,14 +30,16 @@ namespace OutsideTheBox {
 
         private bool viewingHint;
         private int index;
+        private int controlIndex;
         private int level;
         private int experience;
 
-        public PauseMenu(Texture2D gradient, Texture2D cursor, SpriteFont xSmall, SpriteFont small, SpriteFont large, string name, bool active) :
+        public PauseMenu(Texture2D gradient, Texture2D controls, Texture2D cursor, SpriteFont small, SpriteFont large, string name, bool active) :
             base(name, active) {
+            this.texture = gradient;
             this.gradient = gradient;
+            this.controls = controls;
             this.cursor = cursor;
-            this.xSmall = xSmall;
             this.small = small;
             this.large = large;
             this.pause = "PAUSE";
@@ -43,7 +47,9 @@ namespace OutsideTheBox {
             this.hint = "HINT";
             this.hints = new List<Hint>(5);
             this.viewingHint = false;
-            this.textBounds = new Rectangle[] { new Rectangle(0, 415, 270, 105), new Rectangle(580, 415, 220, 105), new Rectangle(715, 0, 85, 30) };
+            this.controlBounds = new Rectangle(705, 475, 95, 45);
+            this.textBounds = new Rectangle[] { new Rectangle(0, 460, 120, 60), new Rectangle(700, 465, 100, 55),
+                new Rectangle(710, 0, 90, 50), new Rectangle(0, 0, 155, 65) };
             this.index = 1;
             this.level = 0;
             this.experience = 0;
@@ -99,8 +105,17 @@ namespace OutsideTheBox {
         /// <param name="batch">The SpriteBatch to draw with</param>
         public override void draw(SpriteBatch batch) {
             batch.Draw(gradient, Vector2.Zero, Color.White);
+            if (texture == controls) {
+                batch.Draw(texture, Vector2.Zero, Color.White);
+                if (controlIndex == 1) {
+                    shadowText("Back", small, new Vector2(715.0F, 480.0F), batch);
+                } else {
+                    batch.DrawString(small, "Back", new Vector2(715.0F, 480.0F), Color.GhostWhite);
+                }
+                batch.Draw(cursor, new Vector2(curMouse.Position.X, curMouse.Position.Y), Color.White);
+                return;
+            }
             if (viewingHint) {
-                Console.WriteLine("HINT LEVEL: " + level);
                 Hint h = hints[level];
                 h.draw(batch);
                 return;
@@ -123,9 +138,14 @@ namespace OutsideTheBox {
                 batch.DrawString(small, hint, hintLoc, Color.GhostWhite);
             }
             if (index == 3) {
-                shadowText("Back", xSmall, new Vector2(725.0F, 5.0F), batch);
+                shadowText("Back", small, new Vector2(725.0F, 5.0F), batch);
             } else {
-                batch.DrawString(xSmall, "Back", new Vector2(725.0F, 5.0F), Color.GhostWhite);
+                batch.DrawString(small, "Back", new Vector2(725.0F, 5.0F), Color.GhostWhite);
+            }
+            if (index == 4) {
+                shadowText("Controls", small, new Vector2(15.0F, 15.0F), batch);
+            } else {
+                batch.DrawString(small, "Controls", new Vector2(15.0F, 15.0F), Color.GhostWhite);
             }
             batch.Draw(cursor, new Vector2(curMouse.Position.X, curMouse.Position.Y), Color.White);
         }
@@ -139,7 +159,28 @@ namespace OutsideTheBox {
             curMouse = Mouse.GetState();
             prevKey = curKey;
             curKey = Keyboard.GetState();
-            if (viewingHint) {
+            if (texture == controls) {
+                if (prevKey.IsKeyDown(Keys.M) && curKey.IsKeyUp(Keys.M)
+                || (prevKey.IsKeyDown(Keys.Escape) && curKey.IsKeyUp(Keys.Escape))) {
+                    controlIndex = -1;
+                    texture = gradient;
+                    return;
+                }
+                if (!prevMouse.Position.Equals(curMouse.Position)) {
+                    if (controlBounds.Contains(curMouse.Position)) {
+                        controlIndex = 1;
+                    } else {
+                        controlIndex = -1;
+                    }
+                }
+                if (prevMouse.LeftButton == ButtonState.Pressed && curMouse.LeftButton == ButtonState.Released) {
+                    if (controlIndex == 1) {
+                        controlIndex = -1;
+                        texture = gradient;
+                    }
+                }
+                return;
+            } else if (viewingHint) {
                 Hint hint = hints[level];
                 if (hint.isShowing()) {
                     hint.update(time);
@@ -167,6 +208,8 @@ namespace OutsideTheBox {
                     viewingHint = true;
                 } else if (textBounds[2].Contains(curMouse.Position)) {
                     setActive(false);
+                } else if (textBounds[3].Contains(curMouse.Position)) {
+                    texture = controls;
                 }
             }
             if (prevKey.IsKeyDown(Keys.Left) && curKey.IsKeyUp(Keys.Left)) {
@@ -176,9 +219,11 @@ namespace OutsideTheBox {
             } else if (prevKey.IsKeyDown(Keys.Enter) && curKey.IsKeyUp(Keys.Enter)) {
                 if (index == 2) {
                     viewingHint = true;
+                } else if (index == 4) {
+                    texture = controls;
                 }
-            } else if (prevKey.IsKeyDown(Keys.M) && curKey.IsKeyUp(Keys.M)) {
-                Console.WriteLine("CLOSE BY KEY");
+            } else if (prevKey.IsKeyDown(Keys.M) && curKey.IsKeyUp(Keys.M)
+                || (prevKey.IsKeyDown(Keys.Escape) && curKey.IsKeyUp(Keys.Escape))) {
                 setActive(false);
             }
         }

@@ -1,8 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
-using System.Text;
 
 namespace OutsideTheBox {
 
@@ -10,8 +8,7 @@ namespace OutsideTheBox {
 
         private readonly Texture2D gradient;
         private readonly Texture2D cursor;
-        private readonly SpriteFont font1;
-        private readonly SpriteFont font2;
+        private readonly SpriteFont font;
 
         private readonly Rectangle bounds;
 
@@ -25,13 +22,12 @@ namespace OutsideTheBox {
         private int index;
         private bool showing;
 
-        public Hint(Texture2D gradient, Texture2D cursor, SpriteFont font1, SpriteFont font2, string text, string name, bool active) :
+        public Hint(Texture2D gradient, Texture2D cursor, SpriteFont font, string text, string name, bool active) :
             base(name, active) {
             this.gradient = gradient;
             this.cursor = cursor;
-            this.font1 = font1;
-            this.font2 = font2;
-            this.text = wrapText(font1, text, 780);
+            this.font = font;
+            this.text = wrapText(font, text, 780);
             this.index = 1;
             this.showing = true;
             this.bounds = new Rectangle(710, 470, 90, 50);
@@ -89,27 +85,32 @@ namespace OutsideTheBox {
             return result;
         }
 
+        /// <summary>
+        /// Handles the drawing of the level hint
+        /// </summary>
+        /// <param name="batch">The SpriteBatch to draw with</param>
         public override void draw(SpriteBatch batch) {
             batch.Draw(gradient, Vector2.Zero, Color.White);
-            Vector2 size = font1.MeasureString(text);
-            Vector2 loc = new Vector2(400.0F - ((size.X - font1.MeasureString(" ").X) / 2.0F), 260.0F - (size.Y / 2.0F));
-            batch.DrawString(font1, text, loc, Color.GhostWhite);
+            Vector2 size = font.MeasureString(text);
+            Vector2 loc = new Vector2(400.0F - ((size.X - font.MeasureString(" ").X) / 2.0F), 260.0F - (size.Y / 2.0F));
+            batch.DrawString(font, text, loc, Color.GhostWhite);
             if (index == 1) {
-                shadowText("Back", font2, new Vector2(725F, 475F), batch);
+                shadowText("Back", font, new Vector2(725F, 475F), batch);
             } else {
-                batch.DrawString(font2, "Back", new Vector2(725F, 475F), Color.GhostWhite);
+                batch.DrawString(font, "Back", new Vector2(725F, 475F), Color.GhostWhite);
             }
             batch.Draw(cursor, new Vector2(curMouse.Position.X, curMouse.Position.Y), Color.White);
         }
 
+        /// <summary>
+        /// Handles update of the level font screen
+        /// </summary>
+        /// <param name="time">The GameTime to respect</param>
         public override void update(GameTime time) {
             prevMouse = curMouse;
             curMouse = Mouse.GetState();
             prevKey = curKey;
             curKey = Keyboard.GetState();
-            if (prevMouse.RightButton == ButtonState.Pressed && curMouse.RightButton == ButtonState.Pressed) {
-                Console.WriteLine("Position: " + curMouse.Position);
-            }
             bool hover = false;
             if (bounds.Contains(curMouse.Position)) {
                 index = 1;
