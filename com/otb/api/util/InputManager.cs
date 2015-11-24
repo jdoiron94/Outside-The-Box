@@ -25,6 +25,7 @@ namespace OutsideTheBox {
         private KeyboardState lastKeyState;
         private KeyboardState currentKeyState;
 
+        private GameState gameState;
         private ButtonState lastState;
         private ButtonState state;
 
@@ -37,7 +38,6 @@ namespace OutsideTheBox {
         private bool moving;
         private bool powerReveal;
         private bool menuShown;
-        private int gameState;
         private string dropText;
 
         private const byte WAIT = 0x4;
@@ -62,6 +62,7 @@ namespace OutsideTheBox {
             moving = false;
             font = game.getDropFont();
             this.menuShown = false;
+            this.gameState = GameState.Normal;
         }
 
         /// <summary>
@@ -166,15 +167,15 @@ namespace OutsideTheBox {
                     l.toggleDebug();
                 }
             }
-            if (gameState == 0) {
+            if (gameState == GameState.Normal) {
                 updateNormal(time);
-            } else if (gameState == 1) {
+            } else if (gameState == GameState.TelekinesisSelect) {
                 updateSelect(time);
-            } else if (gameState == 2) {
+            } else if (gameState == GameState.TelekinesisMovement) {
                 updateTelekinesisMove(time);
-            } else if (gameState == 3) {
+            } else if (gameState == GameState.PauseMenu) {
                 if (menuShown) {
-                    gameState = 0;
+                    gameState = GameState.Normal;
                     menuShown = false;
                 } else {
                     menuShown = true;
@@ -260,11 +261,11 @@ namespace OutsideTheBox {
                 }
             }
             if (lastKeyState.IsKeyDown(Keys.M) && currentKeyState.IsKeyUp(Keys.M)) {
-                if (gameState == 0) {
-                    gameState = 3;
+                if (gameState == GameState.Normal) {
+                    gameState = GameState.PauseMenu;
                     level.setActive(false);
                 } else {
-                    gameState = 0;
+                    gameState = GameState.Normal;
                     level.setActive(true);
                 }
             } else if (lastKeyState.IsKeyDown(Keys.E) && currentKeyState.IsKeyUp(Keys.E)) {
@@ -355,7 +356,7 @@ namespace OutsideTheBox {
                 }
             }
             if (lastKeyState.IsKeyDown(Keys.Q) && currentKeyState.IsKeyUp(Keys.Q)) {
-                gameState = 1;
+                gameState = GameState.TelekinesisSelect;
                 level.setMode(1);
                 target.setActive(true);
             } else if (currentKeyState.IsKeyDown(Keys.P)) {
@@ -373,13 +374,13 @@ namespace OutsideTheBox {
                         if (obj.getBounds().Contains(new Point(Mouse.GetState().X, Mouse.GetState().Y))) {
                             obj.setSelected(true);
                             selectedObject = obj;
-                            gameState = 2;
+                            gameState = GameState.TelekinesisMovement;
                             level.setMode(2);
                         }
                     }
                 }
             } else if (lastKeyState.IsKeyDown(Keys.Q) && currentKeyState.IsKeyUp(Keys.Q)) {
-                gameState = 0;
+                gameState = GameState.Normal;
                 level.setMode(0);
             }
         }
@@ -457,13 +458,13 @@ namespace OutsideTheBox {
                     playerManager.depleteMana(1);
                 }
                 if (!moving) {
-                    gameState = 0;
+                    gameState = GameState.Normal;
                     selectedObject.setSelected(false);
                     selectedObject = null;
                     level.setMode(0);
                 }
             } else if ((lastKeyState.IsKeyDown(Keys.Q) && currentKeyState.IsKeyUp(Keys.Q)) || playerManager.getMana() == 0) {
-                gameState = 0;
+                gameState = GameState.Normal;
                 selectedObject.setSelected(false);
                 selectedObject = null;
                 level.setMode(0);

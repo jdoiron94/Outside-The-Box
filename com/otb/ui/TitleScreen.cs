@@ -25,7 +25,7 @@ namespace OutsideTheBox {
         private KeyboardState curKey;
 
         private string[] options = { "Start", "Controls", "About" };
-        private Vector2[] locations = { new Vector2(650F, 400F), new Vector2(650F, 430F), new Vector2(650F, 460F) };
+        private Vector2[] locations = { new Vector2(650.0F, 400.0F), new Vector2(650.0F, 430.0F), new Vector2(650.0F, 460.0F) };
 
         public TitleScreen(Texture2D background, Texture2D controls, Texture2D about, Texture2D cursor, SpriteFont font, string name, bool active) :
             base(name, active) {
@@ -47,7 +47,7 @@ namespace OutsideTheBox {
         /// <param name="location">The location to draw the text</param>
         /// <param name="batch">The SpriteBatch to draw with</param>
         private void shadowText(string text, Vector2 location, SpriteBatch batch) {
-            batch.DrawString(font, text, new Vector2(location.X + 2, location.Y + 2), Color.DarkSlateGray);
+            batch.DrawString(font, text, new Vector2(location.X + 2.0F, location.Y + 2.0F), Color.DarkSlateGray);
             batch.DrawString(font, text, location, Color.White);
         }
 
@@ -67,10 +67,10 @@ namespace OutsideTheBox {
                 }
             } else {
                 if (index == 0) {
-                    shadowText("Back", new Vector2(725F, 475F), batch);
+                    shadowText("Back", new Vector2(725.0F, 475.0F), batch);
                     return;
                 }
-                batch.DrawString(font, "Back", new Vector2(725F, 475F), Color.GhostWhite);
+                batch.DrawString(font, "Back", new Vector2(725.0F, 475.0F), Color.GhostWhite);
             }
             batch.Draw(cursor, new Vector2(curMouse.Position.X, curMouse.Position.Y), Color.White);
         }
