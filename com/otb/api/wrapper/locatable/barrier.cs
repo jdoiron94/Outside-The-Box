@@ -9,12 +9,14 @@ namespace OutsideTheBox {
         private readonly Texture2D closed;
 
         private bool state;
+        private bool defaultValue;
 
         public Barrier(Texture2D[] textures, Vector2 location) :
             base(textures[0], location) {
             open = textures[0];
             closed = textures[1];
             state = false;
+            defaultValue = false;
         }
 
         public Barrier(Texture2D[] textures, Vector2 location, bool state) :
@@ -22,6 +24,10 @@ namespace OutsideTheBox {
             open = textures[0];
             closed = textures[1];
             this.state = state;
+            if (state)
+                defaultValue = true;
+            else
+                defaultValue = false;
         }
 
         /// <summary>
@@ -29,7 +35,10 @@ namespace OutsideTheBox {
         /// </summary>
         /// <param name="value">The boolean to be set</param>
         public void setState(bool value) {
-            state = value;
+            if (!defaultValue)
+                state = value;
+            else
+                state = !value; 
         }
 
         /// <summary>

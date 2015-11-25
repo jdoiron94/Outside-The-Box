@@ -26,9 +26,7 @@ namespace OutsideTheBox {
         public override void update() {
             if (!isDeactivated()) {
                 barrier.setState(isPushed());
-            } else {
-                barrier.setState(false);
-            }
+            } 
         }
     }
 }

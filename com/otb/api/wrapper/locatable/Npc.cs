@@ -110,6 +110,11 @@ namespace OutsideTheBox {
             return reactTime;
         }
 
+        public void setReactTicks(int reactTicks)
+        {
+            this.reactTicks = reactTicks;
+        }
+
         /// <summary>
         /// Returns the npc's static ai pathing
         /// </summary>
@@ -228,7 +233,8 @@ namespace OutsideTheBox {
 
         public override void draw(SpriteBatch batch) {
             batch.Draw(texture, location, Color.White);
-            batch.Draw(sight, Vector2.Add(losBegin, origin), null, Color.White, angle, origin, 1F, SpriteEffects.None, 0F);
+            if (sight != null) 
+                batch.Draw(sight, Vector2.Add(losBegin, origin), null, Color.White, angle, origin, 1F, SpriteEffects.None, 0F);
         }
     }
 }

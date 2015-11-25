@@ -465,6 +465,17 @@ namespace OutsideTheBox {
                             }
                         }
                     }
+                    if (projectile.isActive())
+                    {
+                        foreach (Barrier b in barriers)
+                        {
+                            if (!b.isOpen() && collisionManager.collides(projectile, b))
+                            {
+                                projectile.setActive(false);
+                                break;
+                            }
+                        }
+                    }
                 }
                 if (!projectile.isActive()) {
                     projectiles.RemoveAt(i);

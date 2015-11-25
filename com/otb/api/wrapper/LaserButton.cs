@@ -25,7 +25,7 @@ namespace OutsideTheBox {
         /// </summary>
         public override void update() {
             if (!isDeactivated()) {
-                laser.setActivated(!isPushed());
+                laser.setActivated(isPushed());
             }
         }
     }

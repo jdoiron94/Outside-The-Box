@@ -277,7 +277,8 @@ namespace OutsideTheBox {
         /// Regenerates the appropriate amount of mana for the player, based on their total experience
         /// </summary>
         public void regenerateMana() {
-            int regeneration = (int) (totalMana * .01);
+            //int regeneration = (int) (totalMana * .01);
+            int regeneration = (int) (1 + totalExp * .001);
             mana = Math.Min(totalMana, mana + regeneration);
             manaBar.update(mana, totalMana);
         }
