@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -14,6 +15,7 @@ namespace OutsideTheBox {
         private readonly Texture2D cursor;
         private readonly SpriteFont small;
         private readonly SpriteFont large;
+        private readonly SoundEffectInstance effect;
 
         private readonly string pause;
         private readonly string exp;
@@ -34,7 +36,10 @@ namespace OutsideTheBox {
         private int level;
         private int experience;
 
-        public PauseMenu(Texture2D gradient, Texture2D controls, Texture2D cursor, SpriteFont small, SpriteFont large, string name, bool active) :
+        private string lastHovered;
+        private string curHovered;
+
+        public PauseMenu(Texture2D gradient, Texture2D controls, Texture2D cursor, SpriteFont small, SpriteFont large, SoundEffectInstance effect, string name, bool active) :
             base(name, active) {
             this.texture = gradient;
             this.gradient = gradient;
@@ -42,6 +47,7 @@ namespace OutsideTheBox {
             this.cursor = cursor;
             this.small = small;
             this.large = large;
+            this.effect = effect;
             this.pause = "PAUSE";
             this.exp = "EXP: ";
             this.hint = "HINT";
@@ -53,6 +59,16 @@ namespace OutsideTheBox {
             this.index = 1;
             this.level = 0;
             this.experience = 0;
+        }
+
+        public SoundEffectInstance getEffect() {
+            return effect;
+        }
+
+        public void playEffect() {
+            if (effect != null && effect.State != SoundState.Playing) {
+                effect.Play();
+            }
         }
 
         /// <summary>
@@ -164,6 +180,7 @@ namespace OutsideTheBox {
                 || (prevKey.IsKeyDown(Keys.Escape) && curKey.IsKeyUp(Keys.Escape))) {
                     controlIndex = -1;
                     texture = gradient;
+                    playEffect();
                     return;
                 }
                 if (!prevMouse.Position.Equals(curMouse.Position)) {
@@ -177,6 +194,7 @@ namespace OutsideTheBox {
                     if (controlIndex == 1) {
                         controlIndex = -1;
                         texture = gradient;
+                        playEffect();
                     }
                 }
                 return;
@@ -206,10 +224,13 @@ namespace OutsideTheBox {
             if (prevMouse.LeftButton == ButtonState.Pressed && curMouse.LeftButton == ButtonState.Released) {
                 if (textBounds[1].Contains(curMouse.Position)) {
                     viewingHint = true;
+                    playEffect();
                 } else if (textBounds[2].Contains(curMouse.Position)) {
                     setActive(false);
+                    playEffect();
                 } else if (textBounds[3].Contains(curMouse.Position)) {
                     texture = controls;
+                    playEffect();
                 }
             }
             if (prevKey.IsKeyDown(Keys.Left) && curKey.IsKeyUp(Keys.Left)) {
@@ -221,10 +242,12 @@ namespace OutsideTheBox {
                     viewingHint = true;
                 } else if (index == 4) {
                     texture = controls;
+                    playEffect();
                 }
             } else if (prevKey.IsKeyDown(Keys.M) && curKey.IsKeyUp(Keys.M)
                 || (prevKey.IsKeyDown(Keys.Escape) && curKey.IsKeyUp(Keys.Escape))) {
                 setActive(false);
+                playEffect();
             }
         }
     }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace OutsideTheBox {
@@ -14,8 +15,8 @@ namespace OutsideTheBox {
         private int experience;
         private int currentMana;
 
-        public Player(Texture2D texture, Vector2 location, Direction direction, int maxHealth, int maxMana, int experience, int velocity) :
-            base(texture, location, direction, maxHealth, velocity) {
+        public Player(Texture2D texture, Vector2 location, SoundEffectInstance effect, Direction direction, int maxHealth, int maxMana, int experience, int velocity) :
+            base(texture, location, effect, direction, maxHealth, velocity) {
             this.maxMana = maxMana;
             this.experience = experience;
             this.location = location;

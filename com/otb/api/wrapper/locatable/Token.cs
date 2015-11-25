@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace OutsideTheBox {
@@ -13,8 +14,8 @@ namespace OutsideTheBox {
 
         private readonly TokenType type;
 
-        public Token(Texture2D texture, Vector2 location, TokenType type) :
-            base(texture, location, false) {
+        public Token(Texture2D texture, Vector2 location, SoundEffect effect, TokenType type) :
+            base(texture, location, effect, false) {
             this.type = type;
             exp = (int) type;
         }

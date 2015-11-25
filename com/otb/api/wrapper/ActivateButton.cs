@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace OutsideTheBox {
@@ -7,8 +8,8 @@ namespace OutsideTheBox {
 
         private readonly PressButton button;
 
-        public ActivateButton(Texture2D[] Textures, Vector2 location, bool deactivated, bool pushed, PressButton button) :
-            base(Textures, location, deactivated, pushed) {
+        public ActivateButton(Texture2D[] Textures, Vector2 location, SoundEffectInstance effect, bool deactivated, bool pushed, PressButton button) :
+            base(Textures, location, effect, deactivated, pushed) {
             this.button = button;
         }
 
@@ -26,9 +27,7 @@ namespace OutsideTheBox {
         public override void update() {
             if (!isDeactivated()) {
                 button.setDeactivated(!isPushed());
-            }
-            else
-            {
+            } else {
                 //button.setDeactivated(true);
             }
         }

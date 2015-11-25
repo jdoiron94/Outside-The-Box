@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace OutsideTheBox {
@@ -7,8 +8,8 @@ namespace OutsideTheBox {
 
         private readonly Barrier barrier;
 
-        public BarrierButton(Texture2D[] Textures, Vector2 location, bool deactivated, bool pushed, Barrier barrier) :
-            base(Textures, location, deactivated, pushed) {
+        public BarrierButton(Texture2D[] Textures, Vector2 location, SoundEffectInstance effect, bool deactivated, bool pushed, Barrier barrier) :
+            base(Textures, location, effect, deactivated, pushed) {
             this.barrier = barrier;
         }
 

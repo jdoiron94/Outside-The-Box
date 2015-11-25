@@ -1,14 +1,18 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace OutsideTheBox {
 
     public class Collectible : GameObject {
 
+        private readonly SoundEffect effect;
+
         private bool collected;
 
-        public Collectible(Texture2D Texture, Vector2 Location, bool liftable) :
+        public Collectible(Texture2D Texture, Vector2 Location, SoundEffect effect, bool liftable) :
             base(Texture, Location, liftable) {
+            this.effect = effect;
             collected = false;
         }
 
@@ -26,6 +30,16 @@ namespace OutsideTheBox {
         /// <returns>Returns the token's collected status</returns>
         public bool isCollected() {
             return collected;
+        }
+
+        public SoundEffect getEffect() {
+            return effect;
+        }
+
+        public void playEffect() {
+            if (effect != null) {
+                effect.Play();
+            }
         }
 
         /// <summary>

@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace OutsideTheBox {
 
@@ -7,27 +9,34 @@ namespace OutsideTheBox {
 
         private readonly Texture2D open;
         private readonly Texture2D closed;
+        private readonly SoundEffectInstance effect;
 
         private bool state;
         private bool defaultValue;
 
-        public Barrier(Texture2D[] textures, Vector2 location) :
+        public Barrier(Texture2D[] textures, Vector2 location, SoundEffectInstance effect) :
             base(textures[0], location) {
-            open = textures[0];
-            closed = textures[1];
-            state = false;
-            defaultValue = false;
+            this.open = textures[0];
+            this.closed = textures[1];
+            this.effect = effect;
+            this.state = false;
+            this.defaultValue = false;
         }
 
-        public Barrier(Texture2D[] textures, Vector2 location, bool state) :
-            base(textures[0], location) {
-            open = textures[0];
-            closed = textures[1];
+        public Barrier(Texture2D[] textures, Vector2 location, SoundEffectInstance effect, bool state) :
+            this(textures, location, effect) {
             this.state = state;
-            if (state)
-                defaultValue = true;
-            else
-                defaultValue = false;
+            this.defaultValue = state;
+        }
+
+        public SoundEffectInstance getEffect() {
+            return effect;
+        }
+
+        public void playEffect() {
+            if (effect != null && effect.State != SoundState.Playing) {
+                effect.Play();
+            }
         }
 
         /// <summary>
@@ -35,10 +44,25 @@ namespace OutsideTheBox {
         /// </summary>
         /// <param name="value">The boolean to be set</param>
         public void setState(bool value) {
-            if (!defaultValue)
+            /*if (state != value) {
+                Console.WriteLine("BARRIER STATE FROM " + state + " TO " + value);
+                playEffect();
+                this.state = value;
+                //state = defaultValue ? !value : value;
+            }?*/
+            if (defaultValue) {
+                if (state != !value) {
+                    Console.WriteLine("BARRIER STATE FROM " + state + " TO " + value);
+                    playEffect();
+                }
+                state = !value;
+            } else {
+                if (state != value) {
+                    Console.WriteLine("BARRIER STATE FROM " + state + " TO " + value);
+                    playEffect();
+                }
                 state = value;
-            else
-                state = !value; 
+            }
         }
 
         /// <summary>

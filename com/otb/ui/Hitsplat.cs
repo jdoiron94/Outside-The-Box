@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace OutsideTheBox {
@@ -8,13 +9,19 @@ namespace OutsideTheBox {
         private readonly SpriteFont font;
         private readonly Texture2D splat;
         private Vector2 location;
+        private readonly SoundEffectInstance effect;
 
         private string hit;
 
-        public Hitsplat(SpriteFont font, Texture2D splat, Vector2 location) {
+        public Hitsplat(SpriteFont font, Texture2D splat, Vector2 location, SoundEffectInstance effect) {
             this.font = font;
             this.splat = splat;
             this.location = location;
+            this.effect = effect;
+        }
+
+        public SoundEffectInstance getEffect() {
+            return effect;
         }
 
         /// <summary>
@@ -55,6 +62,12 @@ namespace OutsideTheBox {
         /// <param name="x">The y amount to derive by</param>
         public void deriveY(int y) {
             location.Y += y;
+        }
+
+        public void playEffect() {
+            if (effect != null && effect.State != SoundState.Playing) {
+                effect.Play();
+            }
         }
 
         /// <summary>

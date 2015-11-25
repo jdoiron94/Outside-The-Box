@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 
 using System;
@@ -32,8 +33,8 @@ namespace OutsideTheBox {
         private AIPath path;
         private Rectangle lineOfSight;
 
-        public Npc(Game1 game, Texture2D texture, Texture2D sight, Vector2 location, Direction direction, NpcDefinition def, int[] offsets, int maxHealth, int velocity, int radius, int reactTime, bool wander) :
-            base(texture, location, direction, maxHealth, velocity) {
+        public Npc(Game1 game, Texture2D texture, Texture2D sight, Vector2 location, SoundEffectInstance effect, Direction direction, NpcDefinition def, int[] offsets, int maxHealth, int velocity, int radius, int reactTime, bool wander) :
+            base(texture, location, effect, direction, maxHealth, velocity) {
             this.game = game;
             this.def = def;
             this.offsets = offsets;
@@ -46,12 +47,12 @@ namespace OutsideTheBox {
             origin = new Vector2(texture.Width / 2F, texture.Height / 2F);
         }
 
-        public Npc(Game1 game, Texture2D texture, Texture2D sight, Vector2 location, Direction direction, NpcDefinition def, int[] offsets, int radius, byte reactTime, bool wander) :
-            this(game, texture, sight, location, direction, def, offsets, 100, 3, radius, 10, wander) {
+        public Npc(Game1 game, Texture2D texture, Texture2D sight, Vector2 location, SoundEffectInstance effect, Direction direction, NpcDefinition def, int[] offsets, int radius, byte reactTime, bool wander) :
+            this(game, texture, sight, location, effect, direction, def, offsets, 100, 3, radius, 10, wander) {
         }
 
-        public Npc(Game1 game, Texture2D texture, Texture2D sight, Vector2 location, Direction direction, NpcDefinition def, int radius, byte reactTime) :
-            this(game, texture, sight, location, direction, def, new int[0], radius, 10, false) {
+        public Npc(Game1 game, Texture2D texture, Texture2D sight, Vector2 location, SoundEffectInstance effect, Direction direction, NpcDefinition def, int radius, byte reactTime) :
+            this(game, texture, sight, location, effect, direction, def, new int[0], radius, 10, false) {
         }
 
         /// <summary>

@@ -158,6 +158,7 @@ namespace OutsideTheBox {
                 game.Exit();
             }
             if (playerManager.getHealth() <= 0) {
+                player.playEffect();
                 deathManager.resetGame();
             }
             if (collisionManager.playerSpotted(level)) {
@@ -214,12 +215,14 @@ namespace OutsideTheBox {
                 PauseMenu pause = (PauseMenu) level.getScreens()[1];
                 pause.setExperience(pause.getExperience() + t.getExp());
                 dropText = "+ " + t.getExp() + " EXP";
+                t.playEffect();
                 gCollision = null;
             } else if (gCollision != null && gCollision is Key) {
                 Key k = (Key) gCollision;
                 k.setCollected(true);
                 k.setUnlocked(true);
                 level.unlockDoors();
+                k.playEffect();
             } else if (gCollision != null && gCollision is Door) {
                 Door d = (Door) gCollision;
                 if (d.isUnlocked()) {
@@ -253,12 +256,18 @@ namespace OutsideTheBox {
             } else if (gCollision != null && gCollision is Pit) {
                 Pit p = (Pit) gCollision;
                 p.update(this);
+                if (p is Laser) {
+                    Laser laser = (Laser) p;
+                    if (laser.isActivated()) {
+                        p.playEffect();
+                    }
+                } else {
+                    p.playEffect();
+                }
                 if (p is PlayerLimitationField) {
                     PlayerLimitationField plf = (PlayerLimitationField) p;
                     plf.update(this);
-                }
-                if (gCollision is LavaPit) {
-                    p.playEffect();
+                    plf.playEffect();
                 }
             }
             if (lastKeyState.IsKeyDown(Keys.M) && currentKeyState.IsKeyUp(Keys.M)) {

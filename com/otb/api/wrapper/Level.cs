@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
+using System;
 using System.Collections.Generic;
 
 namespace OutsideTheBox {
@@ -448,6 +449,7 @@ namespace OutsideTheBox {
                             if (collisionManager.collides(projectile, player)) {
                                 projectile.setActive(false);
                                 playerManager.damagePlayer(projectile.getDamage());
+                                player.getHitsplat().playEffect();
                             }
                             break;
                         } else if (collisionManager.collides(projectile, n)) {
@@ -457,6 +459,7 @@ namespace OutsideTheBox {
                             n.restCombatTicks();
                             n.getDisplayBar().update(n.getCurrentHealth(), n.getMaxHealth());
                             n.getHitsplat().setHit("" + projectile.getDamage());
+                            n.getHitsplat().playEffect();
                             break;
                         }
                     }
@@ -512,6 +515,8 @@ namespace OutsideTheBox {
             for (int i = 0; i < npcs.Count; i++) {
                 Npc npc = npcs[i];
                 if (npc.isDead()) {
+                    Console.WriteLine("DED NPC");
+                    npc.playEffect();
                     npcs.RemoveAt(i);
                     i--;
                 } else {

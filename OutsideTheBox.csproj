@@ -106,7 +106,7 @@
     <Compile Include="com\otb\ui\Screen.cs" />
     <Compile Include="com\otb\ui\Target.cs" />
     <Compile Include="com\otb\api\wrapper\ThoughtBubble.cs" />
-    <Compile Include="com\otb\api\wrapper\Token.cs" />
+    <Compile Include="com\otb\api\wrapper\locatable\Token.cs" />
     <Compile Include="com\otb\api\wrapper\TokenType.cs" />
     <Compile Include="com\otb\api\wrapper\locatable\Wall.cs" />
   </ItemGroup>

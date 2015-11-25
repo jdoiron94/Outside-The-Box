@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace OutsideTheBox {
@@ -7,8 +8,8 @@ namespace OutsideTheBox {
 
         private bool unlocked;
 
-        public Key(Texture2D Texture, Vector2 Location) :
-            base(Texture, Location, true) {
+        public Key(Texture2D Texture, Vector2 Location, SoundEffect effect) :
+            base(Texture, Location, effect, true) {
             unlocked = false;
         }
 

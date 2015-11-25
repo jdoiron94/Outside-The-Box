@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -20,6 +21,7 @@ namespace OutsideTheBox {
         private Rectangle destinationBounds;
         private DisplayBar healthBar;
         private Hitsplat splat;
+        private SoundEffectInstance effect;
 
         private Texture2D[] northFacing;
         private Texture2D[] southFacing;
@@ -37,29 +39,30 @@ namespace OutsideTheBox {
 
         private const int WAIT = 5;
 
-        public Entity(Texture2D texture, Projectile projectile, Vector2 location, Direction direction, int maxHealth, int velocity) {
+        public Entity(Texture2D texture, Projectile projectile, Vector2 location, SoundEffectInstance effect, Direction direction, int maxHealth, int velocity) {
             this.texture = texture;
             this.projectile = projectile;
             this.location = location;
+            this.effect = effect;
             this.direction = direction;
             this.maxHealth = maxHealth;
             this.velocity = velocity;
-            destination = location;
-            bounds = new Rectangle((int) location.X, (int) location.Y, texture.Width, texture.Height);
-            destinationBounds = new Rectangle(bounds.X, bounds.Y, bounds.Width, bounds.Height);
-            northFacing = new Texture2D[4];
-            southFacing = new Texture2D[4];
-            westFacing = new Texture2D[4];
-            eastFacing = new Texture2D[4];
-            currentHealth = maxHealth;
-            lastFired = -1;
-            frames = new int[4];
-            ticks = 0;
-            combatTicks = 0;
+            this.destination = location;
+            this.bounds = new Rectangle((int) location.X, (int) location.Y, texture.Width, texture.Height);
+            this.destinationBounds = new Rectangle(bounds.X, bounds.Y, bounds.Width, bounds.Height);
+            this.northFacing = new Texture2D[4];
+            this.southFacing = new Texture2D[4];
+            this.westFacing = new Texture2D[4];
+            this.eastFacing = new Texture2D[4];
+            this.currentHealth = maxHealth;
+            this.lastFired = -1;
+            this.frames = new int[4];
+            this.ticks = 0;
+            this.combatTicks = 0;
         }
 
-        public Entity(Texture2D texture, Vector2 location, Direction direction, int health, int velocity) :
-            this(texture, null, location, direction, health, velocity) {
+        public Entity(Texture2D texture, Vector2 location, SoundEffectInstance effect, Direction direction, int health, int velocity) :
+            this(texture, null, location, effect, direction, health, velocity) {
         }
 
         /// <summary>
@@ -126,6 +129,16 @@ namespace OutsideTheBox {
                 texture = westFacing[0];
             } else {
                 texture = eastFacing[0];
+            }
+        }
+
+        public SoundEffectInstance getEffect() {
+            return effect;
+        }
+
+        public void playEffect() {
+            if (effect != null && effect.State != SoundState.Playing) {
+                effect.Play();
             }
         }
 

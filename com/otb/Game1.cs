@@ -31,7 +31,7 @@ namespace OutsideTheBox
         private SpriteFont font4;
 
         private Texture2D pixel;
-
+        
         private SoundEffect dashSound;
         private SoundEffect buttonSound;
         private SoundEffect lavaSound;
@@ -252,16 +252,16 @@ namespace OutsideTheBox
             startMenu = Content.Load<Texture2D>("menus/Title Screen");
             Texture2D controls = Content.Load<Texture2D>("menus/Controls");
             Texture2D about = Content.Load<Texture2D>("menus/About");
-            TitleScreen title = new TitleScreen(startMenu, controls, about, cursor, font1, "Normal", true);
-            PauseMenu pause = new PauseMenu(gradient, controls, cursor, font4, font5, "Pause", false);
-            Hint hint1 = new Hint(gradient, cursor, font4, "If only someone could give me the password, or if I could brute force it...", "Hint 1", false);
-            Hint hint2 = new Hint(gradient, cursor, font4, "A laser and a key. I'll need to figure out a clever way to push the button.", "Hint 2", false);
-            Hint hint3 = new Hint(gradient, cursor, font4, "So many buttons. I can't push all of them myself. Hmmm...", "Hint 3", false);
-            Hint hint4 = new Hint(gradient, cursor, font4, "Looks like that button in the lava is deactivated. How do I fix that? Oh and look at all that gold!", "Hint 4", false);
-            Hint hint5 = new Hint(gradient, cursor, font4, "This floor seems to prevent me from regenerating... Those enemies look dangerous.", "Hint 5", false);
-            Hint hint6 = new Hint(gradient, cursor, font4, "Hmm... Those enemies are really pressin' my buttons. But maybe I should leave them alone.", "Hint 6", false);
-            Hint hint7 = new Hint(gradient, cursor, font4, "No more levels. Thanks for playing our beta! May the box be with you.", "Hint 7", false);
-
+            SoundEffect hoverEffect = Content.Load<SoundEffect>("audio/sound effects/menuButtonSound");
+            TitleScreen title = new TitleScreen(startMenu, controls, about, cursor, font1, hoverEffect.CreateInstance(), "Normal", true);
+            PauseMenu pause = new PauseMenu(gradient, controls, cursor, font4, font5, hoverEffect.CreateInstance(), "Pause", false);
+            Hint hint1 = new Hint(gradient, cursor, font4, hoverEffect.CreateInstance(), "If only someone could give me the password, or if I could brute force it...", "Hint 1", false);
+            Hint hint2 = new Hint(gradient, cursor, font4, hoverEffect.CreateInstance(), "A laser and a key. I'll need to figure out a clever way to push the button.", "Hint 2", false);
+            Hint hint3 = new Hint(gradient, cursor, font4, hoverEffect.CreateInstance(), "So many buttons. I can't push all of them myself. Hmmm...", "Hint 3", false);
+            Hint hint4 = new Hint(gradient, cursor, font4, hoverEffect.CreateInstance(), "Looks like that button in the lava is deactivated. How do I fix that? Oh and look at all that gold!", "Hint 4", false);
+            Hint hint5 = new Hint(gradient, cursor, font4, hoverEffect.CreateInstance(), "This floor seems to prevent me from regenerating... Those enemies look dangerous.", "Hint 5", false);
+            Hint hint6 = new Hint(gradient, cursor, font4, hoverEffect.CreateInstance(), "Hmm... Those enemies are really pressin' my buttons. But maybe I should leave them alone.", "Hint 6", false);
+            Hint hint7 = new Hint(gradient, cursor, font4, hoverEffect.CreateInstance(), "No more levels. Thanks for playing our beta! May the box be with you.", "Hint 7", false);
             pause.addHint(hint1);
             pause.addHint(hint2);
             pause.addHint(hint3);
@@ -309,24 +309,26 @@ namespace OutsideTheBox
             Texture2D bronze = Content.Load<Texture2D>("sprites/objects/BronzeBar");
             Texture2D silver = Content.Load<Texture2D>("sprites/objects/SilverBar");
             Texture2D gold = Content.Load<Texture2D>("sprites/objects/GoldBar");
-            Token token1_1 = new Token(bronze, new Vector2(midX + 260F, midY + 140F), TokenType.Bronze);
-            Token token1_2 = new Token(silver, new Vector2(midX, midY), TokenType.Silver);
-            Token token2_1 = new Token(silver, new Vector2(20F, 60F), TokenType.Silver);
-            Token token2_2 = new Token(gold, new Vector2(730F, 400F), TokenType.Gold);
-            Token token3_1 = new Token(silver, new Vector2(midX, midY), TokenType.Silver);
-            Token token3_2 = new Token(silver, new Vector2(midX + 100F, midY), TokenType.Silver);
-            Token token4_1 = new Token(gold, new Vector2(30F, 420F), TokenType.Gold);
-            Token token4_2 = new Token(gold, new Vector2(50F, 435F), TokenType.Gold);
-            Token token4_3 = new Token(bronze, new Vector2(400F, 380F), TokenType.Bronze);
-            Token token5_1 = new Token(gold, new Vector2(460F, 380F), TokenType.Gold);
-            Token token5_2 = new Token(gold, new Vector2(470F, 400F), TokenType.Gold);
-            Token token5_3 = new Token(silver, new Vector2(640F, 50F), TokenType.Silver);
+            SoundEffect barEffect = Content.Load<SoundEffect>("audio/sound effects/barSound");
+            Token token1_1 = new Token(bronze, new Vector2(midX + 260F, midY + 140F), barEffect, TokenType.Bronze);
+            Token token1_2 = new Token(silver, new Vector2(midX, midY), barEffect, TokenType.Silver);
+            Token token2_1 = new Token(silver, new Vector2(20F, 60F), barEffect, TokenType.Silver);
+            Token token2_2 = new Token(gold, new Vector2(730F, 400F), barEffect, TokenType.Gold);
+            Token token3_1 = new Token(silver, new Vector2(midX, midY), barEffect, TokenType.Silver);
+            Token token3_2 = new Token(silver, new Vector2(midX + 100F, midY), barEffect, TokenType.Silver);
+            Token token4_1 = new Token(gold, new Vector2(30F, 420F), barEffect, TokenType.Gold);
+            Token token4_2 = new Token(gold, new Vector2(50F, 435F), barEffect, TokenType.Gold);
+            Token token4_3 = new Token(bronze, new Vector2(400F, 380F), barEffect, TokenType.Bronze);
+            Token token5_1 = new Token(gold, new Vector2(460F, 380F), barEffect, TokenType.Gold);
+            Token token5_2 = new Token(gold, new Vector2(470F, 400F), barEffect, TokenType.Gold);
+            Token token5_3 = new Token(silver, new Vector2(640F, 50F), barEffect, TokenType.Silver);
 
             //KEYS 
-            Key key2_1 = new Key(key, new Vector2(45F, 60F));
-            Key key3_1 = new Key(key, new Vector2(120F, 20F));
-            Key key5_1 = new Key(key, new Vector2(300F, 380F));
-            Key key6_1 = new Key(key, new Vector2(690F, 50F));
+            SoundEffect keyEffect = Content.Load<SoundEffect>("audio/sound effects/keySound");
+            Key key2_1 = new Key(key, new Vector2(45F, 60F), keyEffect);
+            Key key3_1 = new Key(key, new Vector2(120F, 20F), keyEffect);
+            Key key5_1 = new Key(key, new Vector2(300F, 380F), keyEffect);
+            Key key6_1 = new Key(key, new Vector2(690F, 50F), keyEffect);
 
 
             //WALLS
@@ -362,7 +364,6 @@ namespace OutsideTheBox
             Cubicle cube6_2 = new Cubicle(640F, 0F, 150, 150, this, Direction.West, wall);
 
 
-
             //DOORS
             Texture2D door = Content.Load<Texture2D>("sprites/objects/DoorOpen");
             Texture2D doorClosed = Content.Load<Texture2D>("sprites/objects/Door");
@@ -396,100 +397,101 @@ namespace OutsideTheBox
             Texture2D[] barrier1_horizontal = { Content.Load<Texture2D>("sprites/objects/BarrierOpenHorizontal"), Content.Load<Texture2D>("sprites/objects/BarrierClosedHorizontal") };
             Texture2D[] barrier2_vertical = { Content.Load<Texture2D>("sprites/objects/Barrier3OV"), Content.Load<Texture2D>("sprites/objects/Barrier3CV") };
             Texture2D[] barrier2_horizontal = { Content.Load<Texture2D>("sprites/objects/Barrier3OH"), Content.Load<Texture2D>("sprites/objects/Barrier3CH") };
+            SoundEffect laserEffect = Content.Load<SoundEffect>("audio/sound effects/laserSound");
+            SoundEffect barrierEffect = Content.Load<SoundEffect>("audio/sound effects/barrierSound");
+            HPLaser las2_1 = new HPLaser(HealthLaserV, new Vector2(630F, 12F), laserEffect.CreateInstance(), 140, 10);
+            Barrier bar2_1 = new Barrier(barrier2_vertical, new Vector2(145F, 18F), barrierEffect.CreateInstance());
 
-            HPLaser las2_1 = new HPLaser(HealthLaserV, new Vector2(630F, 12F), boltSound.CreateInstance(), 140, 10);
-            Barrier bar2_1 = new Barrier(barrier2_vertical, new Vector2(145F, 18F));
-
-            HPLaser las3_1 = new HPLaser(HealthLaserH, new Vector2(70F, 90F), boltSound.CreateInstance(), 10, 140);
-            Barrier bar3_1 = new Barrier(barrier2_vertical, new Vector2(300F, 190F));
-            Barrier bar3_2 = new Barrier(barrier2_horizontal, new Vector2(660F, 170F));
+            HPLaser las3_1 = new HPLaser(HealthLaserH, new Vector2(70F, 90F), laserEffect.CreateInstance(), 10, 140);
+            Barrier bar3_1 = new Barrier(barrier2_vertical, new Vector2(300F, 190F), barrierEffect.CreateInstance());
+            Barrier bar3_2 = new Barrier(barrier2_horizontal, new Vector2(660F, 170F), barrierEffect.CreateInstance());
 
             LavaPit pit4_1 = new LavaPit(lavaPit, new Vector2(0F, 120F), lavaSound.CreateInstance(), 100, 200);
             LavaPit pit4_2 = new LavaPit(lavaPit, new Vector2(260F, 120F), lavaSound.CreateInstance(), 540, 200);
-            HPLaser las4_1 = new HPLaser(HealthLaserH, new Vector2(100, 320F), boltSound.CreateInstance(), 10, 160, false);
-            HPLaser las4_2 = new HPLaser(HealthLaserV, new Vector2(640F, 320F), boltSound.CreateInstance(), 160, 10);
-            Barrier bar4_1 = new Barrier(barrier2_vertical, new Vector2(690F, 0F));
-            Barrier bar4_2 = new Barrier(barrier2_vertical, new Vector2(110F, 345F));
+            HPLaser las4_1 = new HPLaser(HealthLaserH, new Vector2(100, 320F), laserEffect.CreateInstance(), 10, 160, false);
+            HPLaser las4_2 = new HPLaser(HealthLaserV, new Vector2(640F, 320F), laserEffect.CreateInstance(), 160, 10);
+            Barrier bar4_1 = new Barrier(barrier2_vertical, new Vector2(690F, 0F), barrierEffect.CreateInstance());
+            Barrier bar4_2 = new Barrier(barrier2_vertical, new Vector2(110F, 345F), barrierEffect.CreateInstance());
 
             PlayerLimitationField lim5_1 = new PlayerLimitationField(limitationField, new Vector2(120F, 200F), lavaSound.CreateInstance(), 560, 120);
-            ManaLaser mlas5_1 = new ManaLaser(ManaLaserV, new Vector2(100F, 200F), boltSound.CreateInstance(), 120, 10);
-            HPLaser las5_1 = new HPLaser(HealthLaserV, new Vector2(690F, 200F), boltSound.CreateInstance(), 120, 10);
-            Barrier bar5_1 = new Barrier(barrier2_horizontal, new Vector2(255F, 170F), true); //upper left
-            Barrier bar5_2 = new Barrier(barrier2_horizontal, new Vector2(255F, 310F)); //lower left
-            Barrier bar5_3 = new Barrier(barrier2_horizontal, new Vector2(415F, 170F), true); //upper right 
-            Barrier bar5_4 = new Barrier(barrier2_horizontal, new Vector2(415F, 310F)); //lower right
+            ManaLaser mlas5_1 = new ManaLaser(ManaLaserV, new Vector2(100F, 200F), laserEffect.CreateInstance(), 120, 10);
+            HPLaser las5_1 = new HPLaser(HealthLaserV, new Vector2(690F, 200F), laserEffect.CreateInstance(), 120, 10);
+            Barrier bar5_1 = new Barrier(barrier2_horizontal, new Vector2(255F, 170F), barrierEffect.CreateInstance(), true); //upper left
+            Barrier bar5_2 = new Barrier(barrier2_horizontal, new Vector2(255F, 310F), barrierEffect.CreateInstance()); //lower left
+            Barrier bar5_3 = new Barrier(barrier2_horizontal, new Vector2(415F, 170F), barrierEffect.CreateInstance(), true); //upper right 
+            Barrier bar5_4 = new Barrier(barrier2_horizontal, new Vector2(415F, 310F), barrierEffect.CreateInstance()); //lower right
 
-            HPLaser las6_1 = new HPLaser(HealthLaserH, new Vector2(0F, 160F), boltSound.CreateInstance(), 10, 800); //north h
-            HPLaser las6_2 = new HPLaser(HealthLaserH, new Vector2(160F, 320F), boltSound.CreateInstance(), 10, 640, false); //south  h
-            HPLaser las6_3 = new HPLaser(HealthLaserV, new Vector2(160F, 0F), boltSound.CreateInstance(), 480, 10); //east v
-            HPLaser las6_4 = new HPLaser(HealthLaserV, new Vector2(640F, 160F), boltSound.CreateInstance(), 320, 10, false); //west v
-            Barrier bar6_1 = new Barrier(barrier2_horizontal, new Vector2(15F, 320F));
-            Barrier bar6_2 = new Barrier(barrier2_vertical, new Vector2(640F, 15F));
-
-
-
+            HPLaser las6_1 = new HPLaser(HealthLaserH, new Vector2(0F, 160F), laserEffect.CreateInstance(), 10, 800); //north h
+            HPLaser las6_2 = new HPLaser(HealthLaserH, new Vector2(160F, 320F), laserEffect.CreateInstance(), 10, 640, false); //south  h
+            HPLaser las6_3 = new HPLaser(HealthLaserV, new Vector2(160F, 0F), laserEffect.CreateInstance(), 480, 10); //east v
+            HPLaser las6_4 = new HPLaser(HealthLaserV, new Vector2(640F, 160F), laserEffect.CreateInstance(), 320, 10, false); //west v
+            Barrier bar6_1 = new Barrier(barrier2_horizontal, new Vector2(15F, 320F), barrierEffect.CreateInstance());
+            Barrier bar6_2 = new Barrier(barrier2_vertical, new Vector2(640F, 15F), barrierEffect.CreateInstance());
+            
             //BUTTONS
             Texture2D buttonOn = Content.Load<Texture2D>("sprites/objects/PressButtonOn");
             Texture2D buttonOff = Content.Load<Texture2D>("sprites/objects/PressButtonOff");
             Texture2D buttonNull = Content.Load<Texture2D>("sprites/objects/PressButtonDeactivated");
+            SoundEffect pressEffect = Content.Load<SoundEffect>("audio/sound effects/buttonSound");
             Texture2D[] button = { buttonOn, buttonOff, buttonNull };
-            BarrierButton barbutt2_1 = new BarrierButton(button, new Vector2(700F, 50F), false, false, bar2_1);
+            BarrierButton barbutt2_1 = new BarrierButton(button, new Vector2(700F, 50F), pressEffect.CreateInstance(), false, false, bar2_1);
 
-            BarrierButton barbutt3_1 = new BarrierButton(button, new Vector2(540F, 220F), false, false, bar3_1);
-            BarrierButton barbutt3_2 = new BarrierButton(button, new Vector2(360F, 220F), false, false, bar3_2);
-            LaserButton lasbutt3_1 = new LaserButton(button, new Vector2(700F, 40F), false, false, las3_1);
+            BarrierButton barbutt3_1 = new BarrierButton(button, new Vector2(540F, 220F), pressEffect.CreateInstance(), false, false, bar3_1);
+            BarrierButton barbutt3_2 = new BarrierButton(button, new Vector2(360F, 220F), pressEffect.CreateInstance(), false, false, bar3_2);
+            LaserButton lasbutt3_1 = new LaserButton(button, new Vector2(700F, 40F), pressEffect.CreateInstance(), false, false, las3_1);
 
-            BarrierButton barbutt4_1 = new BarrierButton(button, new Vector2(140F, 140F), false, false, bar4_1);
-            BarrierButton barbutt4_2 = new BarrierButton(button, new Vector2(710F, 20F), false, false, bar4_2);
-            LaserButton lasbutt4_1 = new LaserButton(button, new Vector2(710F, 20F), false, false, las4_1);
-            LaserButton lasbutt4_2 = new LaserButton(button, new Vector2(460F, 160F), true, false, las4_2); //deactivated
-            ActivateButton actbutt4_1 = new ActivateButton(button, new Vector2(710F, 20F), false, false, lasbutt4_2);
+            BarrierButton barbutt4_1 = new BarrierButton(button, new Vector2(140F, 140F), pressEffect.CreateInstance(), false, false, bar4_1);
+            BarrierButton barbutt4_2 = new BarrierButton(button, new Vector2(710F, 20F), pressEffect.CreateInstance(), false, false, bar4_2);
+            LaserButton lasbutt4_1 = new LaserButton(button, new Vector2(710F, 20F), pressEffect.CreateInstance(), false, false, las4_1);
+            LaserButton lasbutt4_2 = new LaserButton(button, new Vector2(460F, 160F), pressEffect.CreateInstance(), true, false, las4_2); //deactivated
+            ActivateButton actbutt4_1 = new ActivateButton(button, new Vector2(710F, 20F), pressEffect.CreateInstance(), false, false, lasbutt4_2);
 
-            LaserButton lasbutt5_1 = new LaserButton(button, new Vector2(20F, 380F), false, false, mlas5_1);
-            LaserButton lasbutt5_2 = new LaserButton(button, new Vector2(280F, 360F), false, false, las5_1);
-            BarrierButton barbutt5_1 = new BarrierButton(button, new Vector2(20F, 40F), false, false, bar5_1);
-            BarrierButton barbutt5_2 = new BarrierButton(button, new Vector2(20F, 40F), false, false, bar5_2);
-            BarrierButton barbutt5_3 = new BarrierButton(button, new Vector2(20F, 40F), false, false, bar5_3);
-            BarrierButton barbutt5_4 = new BarrierButton(button, new Vector2(700F, 40F), false, false, bar5_4);
+            LaserButton lasbutt5_1 = new LaserButton(button, new Vector2(20F, 380F), pressEffect.CreateInstance(), false, false, mlas5_1);
+            LaserButton lasbutt5_2 = new LaserButton(button, new Vector2(280F, 360F), pressEffect.CreateInstance(), false, false, las5_1);
+            BarrierButton barbutt5_1 = new BarrierButton(button, new Vector2(20F, 40F), pressEffect.CreateInstance(), false, false, bar5_1);
+            BarrierButton barbutt5_2 = new BarrierButton(button, new Vector2(20F, 40F), pressEffect.CreateInstance(), false, false, bar5_2);
+            BarrierButton barbutt5_3 = new BarrierButton(button, new Vector2(20F, 40F), pressEffect.CreateInstance(), false, false, bar5_3);
+            BarrierButton barbutt5_4 = new BarrierButton(button, new Vector2(700F, 40F), pressEffect.CreateInstance(), false, false, bar5_4);
 
-            LaserButton lasbutt6_1 = new LaserButton(button, new Vector2(460F, 40F), false, false, las6_1);
-            LaserButton lasbutt6_2 = new LaserButton(button, new Vector2(460F, 40F), false, false, las6_2);
-            LaserButton lasbutt6_3 = new LaserButton(button, new Vector2(280F, 200F), false, false, las6_3);
-            LaserButton lasbutt6_4 = new LaserButton(button, new Vector2(280F, 200F), false, false, las6_4);
-            BarrierButton barbutt6_1 = new BarrierButton(button, new Vector2(680F, 200F), false, false, bar6_1);
-            BarrierButton barbutt6_2 = new BarrierButton(button, new Vector2(200F, 360F), true, false, bar6_2); //deactivated
-            ActivateButton actbutt6_1 = new ActivateButton(button, new Vector2(40F, 200F), false, false, barbutt6_2);
+            LaserButton lasbutt6_1 = new LaserButton(button, new Vector2(460F, 40F), pressEffect.CreateInstance(), false, false, las6_1);
+            LaserButton lasbutt6_2 = new LaserButton(button, new Vector2(460F, 40F), pressEffect.CreateInstance(), false, false, las6_2);
+            LaserButton lasbutt6_3 = new LaserButton(button, new Vector2(280F, 200F), pressEffect.CreateInstance(), false, false, las6_3);
+            LaserButton lasbutt6_4 = new LaserButton(button, new Vector2(280F, 200F), pressEffect.CreateInstance(), false, false, las6_4);
+            BarrierButton barbutt6_1 = new BarrierButton(button, new Vector2(680F, 200F), pressEffect.CreateInstance(), false, false, bar6_1);
+            BarrierButton barbutt6_2 = new BarrierButton(button, new Vector2(200F, 360F), pressEffect.CreateInstance(), true, false, bar6_2); //deactivated
+            ActivateButton actbutt6_1 = new ActivateButton(button, new Vector2(40F, 200F), pressEffect.CreateInstance(), false, false, barbutt6_2);
 
             //NPCS
             Texture2D male1 = Content.Load<Texture2D>("sprites/entities/npcs/Standing1");
             Texture2D male2 = Content.Load<Texture2D>("sprites/entities/npcs/Standing2");
             Texture2D hitsplat = Content.Load<Texture2D>("ui/Hitsplat");
             Texture2D lineofsight = Content.Load<Texture2D>("ui/LOS");
+            SoundEffect deathEffect = Content.Load<SoundEffect>("audio/sound effects/deathSound");
             //level 1 npcs
-            Npc npc1_1 = new Npc(this, male1, lineofsight, new Vector2(430F, height - 135F), Direction.East, new NpcDefinition("Normie", new string[0], new int[0]), 150, 0x5);
-            Npc npc1_2 = new Npc(this, male2, lineofsight, new Vector2(80F, 205F), Direction.East, new NpcDefinition("Normie2", new string[0], new int[0]), 150, 0x5);
-            Npc npc1_3 = new Npc(this, male2, lineofsight, new Vector2(666F, 205F), Direction.East, new NpcDefinition("Normie3", new string[0], new int[0]), 150, 0x5);
+            Npc npc1_1 = new Npc(this, male1, lineofsight, new Vector2(430F, height - 135F), deathEffect.CreateInstance(), Direction.East, new NpcDefinition("Normie", new string[0], new int[0]), 150, 0x5);
+            Npc npc1_2 = new Npc(this, male2, lineofsight, new Vector2(80F, 205F), deathEffect.CreateInstance(), Direction.East, new NpcDefinition("Normie2", new string[0], new int[0]), 150, 0x5);
+            Npc npc1_3 = new Npc(this, male2, lineofsight, new Vector2(666F, 205F), deathEffect.CreateInstance(), Direction.East, new NpcDefinition("Normie3", new string[0], new int[0]), 150, 0x5);
             //level 2 npcs
-            Npc npc2_1 = new Npc(this, male1, lineofsight, new Vector2(550F, 50F), Direction.West, new NpcDefinition("Normie4", new string[0], new int[0]), 150, 0x5);
-            Npc npc2_2 = new Npc(this, male1, lineofsight, new Vector2(660F, 200F), Direction.West, new NpcDefinition("Normie5", new string[0], new int[0]), 150, 0x5);
-            Npc npc2_3 = new Npc(this, male1, lineofsight, new Vector2(100F, 400F), Direction.East, new NpcDefinition("Normie6", new string[0], new int[0]), 150, 0x5);
+            Npc npc2_1 = new Npc(this, male1, lineofsight, new Vector2(550F, 50F), deathEffect.CreateInstance(), Direction.West, new NpcDefinition("Normie4", new string[0], new int[0]), 150, 0x5);
+            Npc npc2_2 = new Npc(this, male1, lineofsight, new Vector2(660F, 200F), deathEffect.CreateInstance(), Direction.West, new NpcDefinition("Normie5", new string[0], new int[0]), 150, 0x5);
+            Npc npc2_3 = new Npc(this, male1, lineofsight, new Vector2(100F, 400F), deathEffect.CreateInstance(), Direction.East, new NpcDefinition("Normie6", new string[0], new int[0]), 150, 0x5);
             //level 3 npcs
-            Npc npc3_1 = new Npc(this, male1, lineofsight, new Vector2(420F, 100F), Direction.West, new NpcDefinition("Normie7", new string[0], new int[0]), 150, 0x5);
-            Npc npc3_2 = new Npc(this, male1, lineofsight, new Vector2(540F, 380F), Direction.North, new NpcDefinition("Normie8", new string[0], new int[0]), 150, 0x5);
+            Npc npc3_1 = new Npc(this, male1, lineofsight, new Vector2(420F, 100F), deathEffect.CreateInstance(), Direction.West, new NpcDefinition("Normie7", new string[0], new int[0]), 150, 0x5);
+            Npc npc3_2 = new Npc(this, male1, lineofsight, new Vector2(540F, 380F), deathEffect.CreateInstance(), Direction.North, new NpcDefinition("Normie8", new string[0], new int[0]), 150, 0x5);
             //level 5 npcs
-            Npc npc5_1 = new Npc(this, male1, null, new Vector2(256F, 95F), Direction.South, new NpcDefinition("Normie9", new string[0], new int[0]), 150, 0x5);
-            Npc npc5_2 = new Npc(this, male1, null, new Vector2(324F, 95F), Direction.South, new NpcDefinition("Normie10", new string[0], new int[0]), 150, 0x5);
-            Npc npc5_3 = new Npc(this, male1, null, new Vector2(416F, 95F), Direction.South, new NpcDefinition("Normie11", new string[0], new int[0]), 150, 0x5);
-            Npc npc5_4 = new Npc(this, male1, null, new Vector2(484F, 95F), Direction.South, new NpcDefinition("Normie12", new string[0], new int[0]), 150, 0x5);
+            Npc npc5_1 = new Npc(this, male1, null, new Vector2(256F, 95F), deathEffect.CreateInstance(), Direction.South, new NpcDefinition("Normie9", new string[0], new int[0]), 150, 0x5);
+            Npc npc5_2 = new Npc(this, male1, null, new Vector2(324F, 95F), deathEffect.CreateInstance(), Direction.South, new NpcDefinition("Normie10", new string[0], new int[0]), 150, 0x5);
+            Npc npc5_3 = new Npc(this, male1, null, new Vector2(416F, 95F), deathEffect.CreateInstance(), Direction.South, new NpcDefinition("Normie11", new string[0], new int[0]), 150, 0x5);
+            Npc npc5_4 = new Npc(this, male1, null, new Vector2(484F, 95F), deathEffect.CreateInstance(), Direction.South, new NpcDefinition("Normie12", new string[0], new int[0]), 150, 0x5);
             //level 6 npcs
-            Npc npc6_1 = new Npc(this, male1, lineofsight, new Vector2(370F, 40F), Direction.East, new NpcDefinition("Normie13", new string[0], new int[0]), new int[0], 100, 6, 150, 0x5, false);
-            Npc npc6_2 = new Npc(this, male1, lineofsight, new Vector2(370F, 200F), Direction.East, new NpcDefinition("Normie14", new string[0], new int[0]), new int[0], 100, 6, 150, 0x5, false);
+            Npc npc6_1 = new Npc(this, male1, lineofsight, new Vector2(370F, 40F), deathEffect.CreateInstance(), Direction.East, new NpcDefinition("Normie13", new string[0], new int[0]), new int[0], 100, 6, 150, 0x5, false);
+            Npc npc6_2 = new Npc(this, male1, lineofsight, new Vector2(370F, 200F), deathEffect.CreateInstance(), Direction.East, new NpcDefinition("Normie14", new string[0], new int[0]), new int[0], 100, 6, 150, 0x5, false);
 
-
+            SoundEffect hitEffect = Content.Load<SoundEffect>("audio/sound effects/hitSound");
             midX = (graphics.PreferredBackBufferWidth - playur.Width) / 2;
             midY = (graphics.PreferredBackBufferHeight - playur.Height) / 2;
-            player = new Player(playur, new Vector2(125F, 295F), Direction.South, 100, 50, 0, 3);
-            player.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(player.getLocation().X + (hitsplat.Width / 2), player.getLocation().Y + (hitsplat.Height / 2))));
+            player = new Player(playur, new Vector2(125F, 295F), deathEffect.CreateInstance(), Direction.South, 100, 50, 0, 3);
+            player.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(player.getLocation().X + (hitsplat.Width / 2), player.getLocation().Y + (hitsplat.Height / 2)), hitEffect.CreateInstance()));
             Projectile p = new Projectile(player, lightningOrb, 5, 250, 0.25F, boltSound);
             p.setDamage(25);
             player.setProjectile(p);
@@ -516,60 +518,64 @@ namespace OutsideTheBox
             npc1_1.loadNPCTextures(Content);
             npc1_1.setDisplayBar(new DisplayBar(green, font2, new Vector2(npc1_1.getLocation().X, npc1_1.getLocation().Y - 5.0F), null, 64, 15));
             npc1_1.getDisplayBar().setColor(Color.Red);
-            npc1_1.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(npc1_1.getLocation().X + (hitsplat.Width / 2), npc1_1.getLocation().Y + (hitsplat.Height / 2))));
+            npc1_1.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(npc1_1.getLocation().X + (hitsplat.Width / 2), npc1_1.getLocation().Y + (hitsplat.Height / 2)), hitEffect.CreateInstance()));
             npc1_2.loadNPCTextures(Content);
             npc1_2.setDisplayBar(new DisplayBar(green, font2, new Vector2(npc1_2.getLocation().X, npc1_2.getLocation().Y - 5.0F), null, 64, 15));
             npc1_2.getDisplayBar().setColor(Color.Red);
-            npc1_2.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(npc1_2.getLocation().X + (hitsplat.Width / 2), npc1_2.getLocation().Y + (hitsplat.Height / 2))));
+            npc1_2.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(npc1_2.getLocation().X + (hitsplat.Width / 2), npc1_2.getLocation().Y + (hitsplat.Height / 2)), hitEffect.CreateInstance()));
             npc1_3.loadNPCTextures(Content);
             npc1_3.setDisplayBar(new DisplayBar(green, font2, new Vector2(npc1_3.getLocation().X, npc1_3.getLocation().Y - 5.0F), null, 64, 15));
             npc1_3.getDisplayBar().setColor(Color.Red);
-            npc1_3.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(npc1_3.getLocation().X + (hitsplat.Width / 2), npc1_3.getLocation().Y + (hitsplat.Height / 2))));
+            npc1_3.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(npc1_3.getLocation().X + (hitsplat.Width / 2), npc1_3.getLocation().Y + (hitsplat.Height / 2)), hitEffect.CreateInstance()));
             npc2_1.loadNPCTextures(Content);
             npc2_1.setDisplayBar(new DisplayBar(green, font2, new Vector2(npc2_1.getLocation().X, npc2_1.getLocation().Y - 5.0F), null, 64, 15));
             npc2_1.getDisplayBar().setColor(Color.Red);
-            npc2_1.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(npc2_1.getLocation().X + (hitsplat.Width / 2), npc2_1.getLocation().Y + (hitsplat.Height / 2))));
+            npc2_1.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(npc2_1.getLocation().X + (hitsplat.Width / 2), npc2_1.getLocation().Y + (hitsplat.Height / 2)), hitEffect.CreateInstance()));
             npc2_2.loadNPCTextures(Content);
             npc2_2.setDisplayBar(new DisplayBar(green, font2, new Vector2(npc2_2.getLocation().X, npc2_2.getLocation().Y - 5.0F), null, 64, 15));
             npc2_2.getDisplayBar().setColor(Color.Red);
-            npc2_2.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(npc2_2.getLocation().X + (hitsplat.Width / 2), npc2_2.getLocation().Y + (hitsplat.Height / 2))));
+            npc2_2.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(npc2_2.getLocation().X + (hitsplat.Width / 2), npc2_2.getLocation().Y + (hitsplat.Height / 2)), hitEffect.CreateInstance()));
             npc2_3.loadNPCTextures(Content);
             npc2_3.setDisplayBar(new DisplayBar(green, font2, new Vector2(npc2_3.getLocation().X, npc2_3.getLocation().Y - 5.0F), null, 64, 15));
             npc2_3.getDisplayBar().setColor(Color.Red);
-            npc2_3.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(npc2_3.getLocation().X + (hitsplat.Width / 2), npc2_3.getLocation().Y + (hitsplat.Height / 2))));
+            npc2_3.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(npc2_3.getLocation().X + (hitsplat.Width / 2), npc2_3.getLocation().Y + (hitsplat.Height / 2)), hitEffect.CreateInstance()));
             npc3_1.loadNPCTextures(Content);
             npc3_1.setDisplayBar(new DisplayBar(green, font2, new Vector2(npc3_1.getLocation().X, npc3_1.getLocation().Y - 5.0F), null, 64, 15));
             npc3_1.getDisplayBar().setColor(Color.Red);
-            npc3_1.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(npc3_1.getLocation().X + (hitsplat.Width / 2), npc3_1.getLocation().Y + (hitsplat.Height / 2))));
+            npc3_1.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(npc3_1.getLocation().X + (hitsplat.Width / 2), npc3_1.getLocation().Y + (hitsplat.Height / 2)), hitEffect.CreateInstance()));
             npc3_2.loadNPCTextures(Content);
             npc3_2.setDisplayBar(new DisplayBar(green, font2, new Vector2(npc3_2.getLocation().X, npc3_2.getLocation().Y - 5.0F), null, 64, 15));
             npc3_2.getDisplayBar().setColor(Color.Red);
-            npc3_2.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(npc3_2.getLocation().X + (hitsplat.Width / 2), npc3_2.getLocation().Y + (hitsplat.Height / 2))));
+            npc3_2.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(npc3_2.getLocation().X + (hitsplat.Width / 2), npc3_2.getLocation().Y + (hitsplat.Height / 2)), hitEffect.CreateInstance()));
+
             npc5_1.loadNPCTextures(Content);
             npc5_1.setDisplayBar(new DisplayBar(green, font2, new Vector2(npc5_1.getLocation().X, npc5_1.getLocation().Y - 5.0F), null, 64, 15));
             npc5_1.getDisplayBar().setColor(Color.Red);
-            npc5_1.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(npc5_1.getLocation().X + (hitsplat.Width / 2), npc5_1.getLocation().Y + (hitsplat.Height / 2))));
+            npc5_1.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(npc5_1.getLocation().X + (hitsplat.Width / 2), npc5_1.getLocation().Y + (hitsplat.Height / 2)), hitEffect.CreateInstance()));
+
             npc5_2.loadNPCTextures(Content);
             npc5_2.setDisplayBar(new DisplayBar(green, font2, new Vector2(npc5_2.getLocation().X, npc5_2.getLocation().Y - 5.0F), null, 64, 15));
             npc5_2.getDisplayBar().setColor(Color.Red);
-            npc5_2.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(npc5_2.getLocation().X + (hitsplat.Width / 2), npc5_2.getLocation().Y + (hitsplat.Height / 2))));
+            npc5_2.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(npc5_2.getLocation().X + (hitsplat.Width / 2), npc5_2.getLocation().Y + (hitsplat.Height / 2)), hitEffect.CreateInstance()));
+
             npc5_3.loadNPCTextures(Content);
             npc5_3.setDisplayBar(new DisplayBar(green, font2, new Vector2(npc5_3.getLocation().X, npc5_3.getLocation().Y - 5.0F), null, 64, 15));
             npc5_3.getDisplayBar().setColor(Color.Red);
-            npc5_3.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(npc5_3.getLocation().X + (hitsplat.Width / 2), npc5_3.getLocation().Y + (hitsplat.Height / 2))));
+            npc5_3.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(npc5_3.getLocation().X + (hitsplat.Width / 2), npc5_3.getLocation().Y + (hitsplat.Height / 2)), hitEffect.CreateInstance()));
+
             npc5_4.loadNPCTextures(Content);
             npc5_4.setDisplayBar(new DisplayBar(green, font2, new Vector2(npc5_4.getLocation().X, npc5_4.getLocation().Y - 5.0F), null, 64, 15));
             npc5_4.getDisplayBar().setColor(Color.Red);
-            npc5_4.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(npc5_4.getLocation().X + (hitsplat.Width / 2), npc5_4.getLocation().Y + (hitsplat.Height / 2))));
+            npc5_4.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(npc5_4.getLocation().X + (hitsplat.Width / 2), npc5_4.getLocation().Y + (hitsplat.Height / 2)), hitEffect.CreateInstance()));
 
             npc6_1.loadNPCTextures(Content);
             npc6_1.setDisplayBar(new DisplayBar(green, font2, new Vector2(npc6_1.getLocation().X, npc6_1.getLocation().Y - 5.0F), null, 64, 15));
             npc6_1.getDisplayBar().setColor(Color.Red);
-            npc6_1.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(npc6_1.getLocation().X + (hitsplat.Width / 2), npc6_1.getLocation().Y + (hitsplat.Height / 2))));
+            npc6_1.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(npc6_1.getLocation().X + (hitsplat.Width / 2), npc6_1.getLocation().Y + (hitsplat.Height / 2)), hitEffect.CreateInstance()));
             npc6_2.loadNPCTextures(Content);
             npc6_2.setDisplayBar(new DisplayBar(green, font2, new Vector2(npc6_2.getLocation().X, npc6_2.getLocation().Y - 5.0F), null, 64, 15));
             npc6_2.getDisplayBar().setColor(Color.Red);
-            npc6_2.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(npc6_2.getLocation().X + (hitsplat.Width / 2), npc6_2.getLocation().Y + (hitsplat.Height / 2))));
+            npc6_2.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(npc6_2.getLocation().X + (hitsplat.Width / 2), npc6_2.getLocation().Y + (hitsplat.Height / 2)), hitEffect.CreateInstance()));
 
             //LEVELS
             //LEVEL 1
@@ -666,8 +672,8 @@ namespace OutsideTheBox
             Level5Objects.Add(box5_1);
             Level5Objects.Add(key5_1);
             Level5Objects.Add(token5_1);
-            Level5Objects.Add(token5_2);
-            Level5Objects.Add(token5_3);
+            Level4Objects.Add(token5_2);
+            Level4Objects.Add(token5_3);
             Level5Objects.Add(mlas5_1);
             Level5Objects.Add(las5_1);
             Level5Objects.Add(lim5_1);
@@ -677,9 +683,9 @@ namespace OutsideTheBox
             Level5Objects.Add(bar5_4);
             Level5Objects.Add(lasbutt5_1);
             Level5Objects.Add(lasbutt5_2);
-            Level5Objects.Add(barbutt5_1);
+            Level5Objects.Add(barbutt5_1); // noise
             Level5Objects.Add(barbutt5_2);
-            Level5Objects.Add(barbutt5_3);
+            Level5Objects.Add(barbutt5_3); // noise
             Level5Objects.Add(barbutt5_4);
             Texture2D l5 = Content.Load<Texture2D>("sprites/levels/Level1");
             Level level5 = new Level(this, player, l5, new Npc[] { npc5_1, npc5_2, npc5_3, npc5_4 }, Level5Objects.ToArray(), 0);
@@ -713,6 +719,7 @@ namespace OutsideTheBox
             Level6Objects.Add(actbutt6_1);
             Level6Objects.Add(box6_1);
             Level6Objects.Add(key6_1);
+
             Texture2D l6 = Content.Load<Texture2D>("sprites/levels/Level1");
             Level level6 = new Level(this, player, l6, new Npc[] { npc6_1, npc6_2 }, Level6Objects.ToArray(), 0);
             level6.addCubicle(cube6_1);
@@ -733,18 +740,20 @@ namespace OutsideTheBox
             level7.setScreens(screens);
 
             levels = new List<Level>();
-            levels.Add(level1);
-            levels.Add(level2);
-            levels.Add(level3);
-            levels.Add(level4);
-            levels.Add(level5);
+            //levels.Add(level1);
+            //levels.Add(level2);
+            //levels.Add(level3);
+            //levels.Add(level4);
+            //levels.Add(level5);
             levels.Add(level6);
             levels.Add(level7);
             level = levels[0];
             levelIndex = 0;
 
+            SoundEffect readEffect = Content.Load<SoundEffect>("audio/sound effects/mindreadSound");
             MindRead read = new MindRead(2, 1, 20, 1000, 200, 100, true, false);
             read.setPlayerManager(playerManager);
+            read.setEffect(readEffect);
 
             inputManager = new InputManager(this, player, level, target, playerManager, screens, read);
             keyBox.update(inputManager);

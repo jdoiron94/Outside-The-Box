@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -9,6 +10,7 @@ namespace OutsideTheBox {
         private readonly Texture2D gradient;
         private readonly Texture2D cursor;
         private readonly SpriteFont font;
+        private readonly SoundEffectInstance effect;
 
         private readonly Rectangle bounds;
 
@@ -22,15 +24,26 @@ namespace OutsideTheBox {
         private int index;
         private bool showing;
 
-        public Hint(Texture2D gradient, Texture2D cursor, SpriteFont font, string text, string name, bool active) :
+        public Hint(Texture2D gradient, Texture2D cursor, SpriteFont font, SoundEffectInstance effect, string text, string name, bool active) :
             base(name, active) {
             this.gradient = gradient;
             this.cursor = cursor;
             this.font = font;
+            this.effect = effect;
             this.text = wrapText(font, text, 780);
             this.index = 1;
             this.showing = true;
             this.bounds = new Rectangle(710, 470, 90, 50);
+        }
+
+        public SoundEffectInstance getEffect() {
+            return effect;
+        }
+
+        public void playEffect() {
+            if (effect != null && effect.State != SoundState.Playing) {
+                effect.Play();
+            }
         }
 
         /// <summary>
@@ -122,11 +135,13 @@ namespace OutsideTheBox {
             if (prevMouse.LeftButton == ButtonState.Pressed && curMouse.LeftButton == ButtonState.Released) {
                 if (bounds.Contains(curMouse.Position)) {
                     showing = false;
+                    playEffect();
                     return;
                 }
             }
             if (prevKey.IsKeyDown(Keys.M) && curKey.IsKeyUp(Keys.M)) {
                 showing = false;
+                playEffect();
                 return;
             }
         }

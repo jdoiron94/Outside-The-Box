@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
 
 namespace OutsideTheBox {
 
@@ -12,6 +12,7 @@ namespace OutsideTheBox {
         private readonly Texture2D about;
         private readonly Texture2D cursor;
         private readonly SpriteFont font;
+        private readonly SoundEffectInstance effect;
 
         private readonly Rectangle[] backgroundBounds;
         private readonly Rectangle controlBounds;
@@ -27,17 +28,28 @@ namespace OutsideTheBox {
         private string[] options = { "Start", "Controls", "About" };
         private Vector2[] locations = { new Vector2(650.0F, 400.0F), new Vector2(650.0F, 430.0F), new Vector2(650.0F, 460.0F) };
 
-        public TitleScreen(Texture2D background, Texture2D controls, Texture2D about, Texture2D cursor, SpriteFont font, string name, bool active) :
+        public TitleScreen(Texture2D background, Texture2D controls, Texture2D about, Texture2D cursor, SpriteFont font, SoundEffectInstance effect, string name, bool active) :
             base(name, active) {
             this.background = background;
             this.controls = controls;
             this.about = about;
             this.cursor = cursor;
             this.font = font;
-            texture = background;
-            index = 1;
-            backgroundBounds = new Rectangle[] { new Rectangle(643, 397, 55, 25), new Rectangle(643, 429, 81, 25), new Rectangle(643, 459, 64, 25) };
-            controlBounds = new Rectangle(717, 474, 52, 25);
+            this.effect = effect;
+            this.texture = background;
+            this.index = 1;
+            this.backgroundBounds = new Rectangle[] { new Rectangle(643, 397, 55, 25), new Rectangle(643, 429, 81, 25), new Rectangle(643, 459, 64, 25) };
+            this.controlBounds = new Rectangle(717, 474, 52, 25);
+        }
+
+        public SoundEffectInstance getEffect() {
+            return effect;
+        }
+
+        public void playEffect() {
+            if (effect != null && effect.State != SoundState.Playing) {
+                effect.Play();
+            }
         }
 
         /// <summary>
@@ -100,10 +112,13 @@ namespace OutsideTheBox {
                 } else if (curKey.IsKeyDown(Keys.Enter)) {
                     if (index == 1) {
                         setActive(false);
+                        playEffect();
                     } else if (index == 2) {
                         texture = controls;
+                        playEffect();
                     } else {
                         texture = about;
+                        playEffect();
                     }
                 }
                 if (prevMouse.LeftButton == ButtonState.Pressed && curMouse.LeftButton == ButtonState.Released) {
@@ -111,10 +126,13 @@ namespace OutsideTheBox {
                         if (backgroundBounds[i].Contains(prevMouse.Position)) {
                             if (i == 0) {
                                 setActive(false);
+                                playEffect();
                             } else if (i == 1) {
                                 texture = controls;
+                                playEffect();
                             } else {
                                 texture = about;
+                                playEffect();
                             }
                             break;
                         }
@@ -127,6 +145,7 @@ namespace OutsideTheBox {
                 if (prevMouse.LeftButton == ButtonState.Pressed && curMouse.LeftButton == ButtonState.Released) {
                     if (controlBounds.Contains(curMouse.Position)) {
                         texture = background;
+                        playEffect();
                     }
                 }
             } else {
@@ -136,6 +155,7 @@ namespace OutsideTheBox {
                 if (prevMouse.LeftButton == ButtonState.Pressed && curMouse.LeftButton == ButtonState.Released) {
                     if (controlBounds.Contains(curMouse.Position)) {
                         texture = background;
+                        playEffect();
                     }
                 }
             }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace OutsideTheBox {
@@ -7,8 +8,8 @@ namespace OutsideTheBox {
 
         private readonly Door door;
 
-        public DoorButton(Texture2D[] Textures, Vector2 location, bool deactivated, bool pushed, Door door) :
-            base(Textures, location, deactivated, pushed) {
+        public DoorButton(Texture2D[] Textures, Vector2 location, SoundEffectInstance effect, bool deactivated, bool pushed, Door door) :
+            base(Textures, location, effect, deactivated, pushed) {
             this.door = door;
         }
 
