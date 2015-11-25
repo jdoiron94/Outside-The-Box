@@ -27,6 +27,10 @@ namespace OutsideTheBox {
             if (!isDeactivated()) {
                 button.setDeactivated(!isPushed());
             }
+            else
+            {
+                //button.setDeactivated(true);
+            }
         }
     }
 }

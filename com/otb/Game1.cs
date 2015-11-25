@@ -258,12 +258,17 @@ namespace OutsideTheBox
             Hint hint2 = new Hint(gradient, cursor, font4, "A laser and a key. I'll need to figure out a clever way to push the button.", "Hint 2", false);
             Hint hint3 = new Hint(gradient, cursor, font4, "So many buttons. I can't push all of them myself. Hmmm...", "Hint 3", false);
             Hint hint4 = new Hint(gradient, cursor, font4, "Looks like that button in the lava is deactivated. How do I fix that? Oh and look at all that gold!", "Hint 4", false);
-            Hint hint5 = new Hint(gradient, cursor, font4, "This floor seems to prevent me from regenerating.", "Hint 5", false);
+            Hint hint5 = new Hint(gradient, cursor, font4, "This floor seems to prevent me from regenerating... Those enemies look dangerous.", "Hint 5", false);
+            Hint hint6 = new Hint(gradient, cursor, font4, "Hmm... Those enemies are really pressin' my buttons. But maybe I should leave them alone.", "Hint 6", false);
+            Hint hint7 = new Hint(gradient, cursor, font4, "No more levels. Thanks for playing our beta! May the box be with you.", "Hint 7", false);
+
             pause.addHint(hint1);
             pause.addHint(hint2);
             pause.addHint(hint3);
             pause.addHint(hint4);
             pause.addHint(hint5);
+            pause.addHint(hint6);
+            pause.addHint(hint7);
             screens = new Screen[] { title, pause };
 
             boltSound = Content.Load<SoundEffect>("audio/sound effects/boltSound");
@@ -310,8 +315,12 @@ namespace OutsideTheBox
             Token token2_2 = new Token(gold, new Vector2(730F, 400F), TokenType.Gold);
             Token token3_1 = new Token(silver, new Vector2(midX, midY), TokenType.Silver);
             Token token3_2 = new Token(silver, new Vector2(midX + 100F, midY), TokenType.Silver);
-            Token token4_1 = new Token(gold, new Vector2(40F, 420F), TokenType.Gold);
+            Token token4_1 = new Token(gold, new Vector2(30F, 420F), TokenType.Gold);
+            Token token4_2 = new Token(gold, new Vector2(50F, 435F), TokenType.Gold);
+            Token token4_3 = new Token(bronze, new Vector2(400F, 380F), TokenType.Bronze);
             Token token5_1 = new Token(gold, new Vector2(460F, 380F), TokenType.Gold);
+            Token token5_2 = new Token(gold, new Vector2(470F, 400F), TokenType.Gold);
+            Token token5_3 = new Token(silver, new Vector2(640F, 50F), TokenType.Silver);
 
             //KEYS 
             Key key2_1 = new Key(key, new Vector2(45F, 60F));
@@ -626,6 +635,8 @@ namespace OutsideTheBox
             Level4Objects.Add(door4to3);
             Level4Objects.Add(door4to5);
             Level4Objects.Add(token4_1);
+            Level4Objects.Add(token4_2);
+            Level4Objects.Add(token4_3);
             Level4Objects.Add(box4_1);
             Level4Objects.Add(box4_2);
             Level4Objects.Add(pit4_1);
@@ -655,6 +666,8 @@ namespace OutsideTheBox
             Level5Objects.Add(box5_1);
             Level5Objects.Add(key5_1);
             Level5Objects.Add(token5_1);
+            Level5Objects.Add(token5_2);
+            Level5Objects.Add(token5_3);
             Level5Objects.Add(mlas5_1);
             Level5Objects.Add(las5_1);
             Level5Objects.Add(lim5_1);
@@ -721,10 +734,10 @@ namespace OutsideTheBox
 
             levels = new List<Level>();
             levels.Add(level1);
-            //levels.Add(level2);
-            //levels.Add(level3);
-            //levels.Add(level4);
-            //levels.Add(level5);
+            levels.Add(level2);
+            levels.Add(level3);
+            levels.Add(level4);
+            levels.Add(level5);
             levels.Add(level6);
             levels.Add(level7);
             level = levels[0];
@@ -747,6 +760,16 @@ namespace OutsideTheBox
             n1_2.setDamage(75);
             Projectile n1_3 = new Projectile(npc1_3, iceOrb, 7, 333, boltSound);
             n1_3.setDamage(20);
+            Projectile n2_1 = new Projectile(npc2_1, iceOrb, 5, 250, boltSound);
+            n2_1.setDamage(33);
+            Projectile n2_2 = new Projectile(npc2_2, iceOrb, 10, 500, boltSound);
+            n2_2.setDamage(33);
+            Projectile n2_3 = new Projectile(npc2_3, iceOrb, 7, 333, boltSound);
+            n2_3.setDamage(20);
+            Projectile n3_1 = new Projectile(npc3_1, lightningOrb, 5, 250, boltSound);
+            n3_1.setDamage(33);
+            Projectile n3_2 = new Projectile(npc3_2, lightningOrb, 10, 500, boltSound);
+            n3_2.setDamage(33);
             Projectile n5_1 = new Projectile(npc5_1, fireOrb, 7, 333, boltSound);
             n5_1.setDamage(30);
             Projectile n5_2 = new Projectile(npc5_2, fireOrb, 7, 333, boltSound);
@@ -768,11 +791,16 @@ namespace OutsideTheBox
             npc1_3.setProjectile(n1_3);
 
             npc2_1.setPath(new AIPath(npc2_1, this, new int[] { 200, 550 }, new int[] { 45, 45 }, new Direction[] { Direction.West, Direction.East }));
+            npc2_1.setProjectile(n2_1);
             npc2_2.setPath(new AIPath(npc2_2, this, new int[] { 180, 660 }, new int[] { 45, 45 }, new Direction[] { Direction.West, Direction.East }));
+            npc2_2.setProjectile(n2_2);
             npc2_3.setPath(new AIPath(npc2_3, this, new int[] { 600, 300, 100, 400 }, new int[] { 60, 60, 60, 60 }, new Direction[] { Direction.East, Direction.North, Direction.West, Direction.South }));
+            npc2_3.setProjectile(n2_3);
 
             npc3_1.setPath(new AIPath(npc3_1, this, new int[] { 100, 360, 100, 420 }, new int[] { 60, 60, 60, 60 }, new Direction[] { Direction.West, Direction.South, Direction.North, Direction.East }));
+            npc3_1.setProjectile(n3_1);
             npc3_2.setPath(new AIPath(npc3_2, this, new int[] { 80, 380 }, new int[] { 60, 60 }, new Direction[] { Direction.North, Direction.South }));
+            npc3_2.setProjectile(n3_2);
 
             npc5_1.setProjectile(n5_1);
             npc5_2.setProjectile(n5_2);

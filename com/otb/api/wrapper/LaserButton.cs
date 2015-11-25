@@ -27,6 +27,10 @@ namespace OutsideTheBox {
             if (!isDeactivated()) {
                 laser.setActivated(isPushed());
             }
+            else
+            {
+                laser.setActivated(false);
+            }
         }
     }
 }
