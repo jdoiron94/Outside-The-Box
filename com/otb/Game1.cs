@@ -31,8 +31,7 @@ namespace OutsideTheBox
         private SpriteFont font4;
 
         private Texture2D pixel;
-
-        private Song factorySong;
+        
         private SoundEffect dashSound;
         private SoundEffect buttonSound;
         private SoundEffect lavaSound;
@@ -232,7 +231,9 @@ namespace OutsideTheBox
             midX = (width / 2);
             midY = (height - 40) / 2;
 
-            factorySong = Content.Load<Song>("audio/songs/Factory");
+            Song factorySong = Content.Load<Song>("audio/songs/Factory");
+            Song streetSong = Content.Load<Song>("audio/songs/Streets");
+            Song officeSong = Content.Load<Song>("audio/songs/Office (Trimmed)");
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Play(factorySong);
 
@@ -549,6 +550,7 @@ namespace OutsideTheBox
             level1.setPlayerOrigin(new Vector2(165F, 100F));
             level1.setPlayerReentryPoint(new Vector2(368F, 455F - 64F));
             level1.setScreens(screens);
+            level1.setSong(factorySong);
 
             //LEVEL 2
             List<GameObject> Level2Objects = new List<GameObject>();
@@ -568,6 +570,7 @@ namespace OutsideTheBox
             level2.setPlayerOrigin(new Vector2(368F, 15F));
             level2.setPlayerReentryPoint(new Vector2(785F - 64F, height - 200F));
             level2.setScreens(screens);
+            level2.setSong(factorySong);
 
             //LEVEL 3
             List<GameObject> Level3Objects = new List<GameObject>();
@@ -589,6 +592,7 @@ namespace OutsideTheBox
             level3.setPlayerOrigin(new Vector2(15F, height - 200));
             level3.setPlayerReentryPoint(new Vector2(120F, 455F - 64F));
             level3.setScreens(screens);
+            level3.setSong(streetSong);
 
             //LEVEL 4
             List<GameObject> Level4Objects = new List<GameObject>();
@@ -615,6 +619,7 @@ namespace OutsideTheBox
             level4.setPlayerOrigin(new Vector2(140F, 15F));
             level4.setPlayerReentryPoint(new Vector2(785F - 64F, 360F));
             level4.setScreens(screens);
+            level4.setSong(streetSong);
 
             //LEVEL 5
             List<GameObject> Level5Objects = new List<GameObject>();
@@ -647,6 +652,7 @@ namespace OutsideTheBox
             level5.setPlayerOrigin(new Vector2(15F, 230F));
             level5.setPlayerReentryPoint(new Vector2(785F - 64F, 230F));
             level5.setScreens(screens);
+            level5.setSong(officeSong);
 
             //LEVEL 6
             List<GameObject> Level6Objects = new List<GameObject>();
@@ -658,6 +664,7 @@ namespace OutsideTheBox
             level6.setPlayerOrigin(new Vector2(20F, 10F));
             level6.setPlayerReentryPoint(new Vector2(785F - 64F, 400F));
             level6.setScreens(screens);
+            level6.setSong(officeSong);
 
             //LEVEL 7
             List<GameObject> Level7Objects = new List<GameObject>();

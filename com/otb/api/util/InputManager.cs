@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using System;
 
 namespace OutsideTheBox {
@@ -224,12 +225,17 @@ namespace OutsideTheBox {
                 if (d.isUnlocked()) {
                     level.eliminateCollectibles();
                     int index = (game.getLevelIndex()) + (d.getNext() ? 1 : -1);
+                    Song current = level.getSong();
                     level.setActive(false);
                     game.setLevel(index);
                     level = game.getLevel(index);
                     //
                     PauseMenu pause = (PauseMenu) level.getScreens()[1];
                     pause.setLevel(index);
+                    if (current != level.getSong()) {
+                        MediaPlayer.Stop();
+                        MediaPlayer.Play(level.getSong());
+                    }
                     //
                     game.setLevel(level);
                     deathManager = new DeathManager(this);

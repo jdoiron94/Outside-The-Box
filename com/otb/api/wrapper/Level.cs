@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
-
+using Microsoft.Xna.Framework.Media;
 using System.Collections.Generic;
 
 namespace OutsideTheBox {
@@ -18,6 +18,7 @@ namespace OutsideTheBox {
         private Game1 game;
         private Player player;
         private Texture2D map;
+        private Song song;
 
         private Vector2 dropLocation;
         private Vector2 playerOrigin;
@@ -74,6 +75,14 @@ namespace OutsideTheBox {
             this.index = index;
         }
 
+        public void setSong(Song song) {
+            this.song = song;
+        }
+
+        public Song getSong() {
+            return song;
+        }
+
         public void setScreens(Screen[] screens) {
             this.screens = screens;
         }
@@ -84,7 +93,6 @@ namespace OutsideTheBox {
 
         public void sortObjects() {
             List<GameObject> newObjects = new List<GameObject>();
-
             foreach (GameObject o in objects) {
                 if (o is Token) {
                     tokens.Add((Token) o);
