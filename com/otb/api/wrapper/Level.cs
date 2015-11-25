@@ -21,6 +21,7 @@ namespace OutsideTheBox {
 
         private Vector2 dropLocation;
         private Vector2 playerOrigin;
+        private Vector2 playerReentryPoint;
         private GameObject selectedObject;
         private InputManager inputManager;
         private CollisionManager collisionManager;
@@ -394,6 +395,16 @@ namespace OutsideTheBox {
         /// <param name="origin">The origin to set</param>
         public void setPlayerOrigin(Vector2 origin) {
             playerOrigin = origin;
+        }
+
+        public Vector2 getPlayerReentryPoint()
+        {
+            return playerReentryPoint;
+        }
+
+        public void setPlayerReentryPoint(Vector2 point)
+        {
+            playerReentryPoint = point;
         }
 
         /// <summary>

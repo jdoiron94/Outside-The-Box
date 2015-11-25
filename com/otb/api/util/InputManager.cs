@@ -238,15 +238,10 @@ namespace OutsideTheBox {
                     level.setInputManager(this);
                     collisionManager.setLevel(level);
                     level.setActive(true);
-                    if (d.getDirection() == Direction.East) {
-                        player.setLocation(new Vector2(40F, d.getLocation().Y));
-                    } else if (d.getDirection() == Direction.West) {
-                        player.setLocation(new Vector2(696F, d.getLocation().Y));
-                    } else if (d.getDirection() == Direction.North) {
-                        player.setLocation(new Vector2(d.getLocation().X, 376.0F));
-                    } else {
-                        player.setLocation(new Vector2(d.getLocation().X, 40.0F));
-                    }
+                    if (d.getNext())
+                        player.setLocation(level.getPlayerOrigin());
+                    else
+                        player.setLocation(level.getPlayerReentryPoint());
                     playerManager.getKeyBox().update(this);
                 }
             } else if (gCollision != null && gCollision is Pit) {

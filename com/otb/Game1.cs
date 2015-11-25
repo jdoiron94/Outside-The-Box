@@ -255,12 +255,14 @@ namespace OutsideTheBox
             PauseMenu pause = new PauseMenu(gradient, controls, cursor, font4, font5, "Pause", false);
             Hint hint1 = new Hint(gradient, cursor, font4, "If only someone could give me the password, or if I could brute force it...", "Hint 1", false);
             Hint hint2 = new Hint(gradient, cursor, font4, "A laser and a key. I'll need to figure out a clever way to push the button.", "Hint 2", false);
-            Hint hint3 = new Hint(gradient, cursor, font4, "I'm going to need that key behind the laser. But, how do I get it?", "Hint 3", false);
-            Hint hint4 = new Hint(gradient, cursor, font4, "Barriers and lasers. I should probably avoid the lava...", "Hint 4", false);
+            Hint hint3 = new Hint(gradient, cursor, font4, "So many buttons. I can't push all of them myself. Hmmm...", "Hint 3", false);
+            Hint hint4 = new Hint(gradient, cursor, font4, "Looks like that button in the lava is deactivated. How do I fix that? Oh and look at all that gold!", "Hint 4", false);
+            Hint hint5 = new Hint(gradient, cursor, font4, "This floor seems to prevent me from regenerating.", "Hint 5", false);
             pause.addHint(hint1);
             pause.addHint(hint2);
             pause.addHint(hint3);
             pause.addHint(hint4);
+            pause.addHint(hint5);
             screens = new Screen[] { title, pause };
 
             boltSound = Content.Load<SoundEffect>("audio/sound effects/boltSound");
@@ -362,9 +364,12 @@ namespace OutsideTheBox
             Door door4to5 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2(width - 10F, 360F), Direction.East, false, true, 10, 60, true);
 
             Door door5to4 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2(0F, 230F), Direction.West, false, false, 10, 60, true);
-            Door door5to6 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2(width -10F, 230F), Direction.East, false, true, 10, 64, false);
+            Door door5to6 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2(width - 10F, 230F), Direction.East, false, true, 10, 64, false);
 
-            Door door6to5 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2(120F, 470), Direction.West, false, true, 10, 64, true);
+            Door door6to5 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2(0F, 10F), Direction.West, false, false, 10, 64, true);
+            Door door6to7 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2(790F, 400F), Direction.West, false, true, 10, 64, false);
+
+            Door door7to6 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2(0F, 230F), Direction.West, false, false, 10, 64, true);
 
             //PITS, LASERS, and BARRIERS
             Texture2D lavaPit = Content.Load<Texture2D>("sprites/objects/Lava");
@@ -508,12 +513,12 @@ namespace OutsideTheBox
             npc3_2.setDisplayBar(new DisplayBar(green, font2, new Vector2(npc3_2.getLocation().X, npc3_2.getLocation().Y - 5.0F), null, 64, 15));
             npc3_2.getDisplayBar().setColor(Color.Red);
             npc3_2.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(npc3_2.getLocation().X + (hitsplat.Width / 2), npc3_2.getLocation().Y + (hitsplat.Height / 2))));
-           
+
             npc5_1.loadNPCTextures(Content);
             npc5_1.setDisplayBar(new DisplayBar(green, font2, new Vector2(npc5_1.getLocation().X, npc5_1.getLocation().Y - 5.0F), null, 64, 15));
             npc5_1.getDisplayBar().setColor(Color.Red);
             npc5_1.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(npc5_1.getLocation().X + (hitsplat.Width / 2), npc5_1.getLocation().Y + (hitsplat.Height / 2))));
-            
+
             npc5_2.loadNPCTextures(Content);
             npc5_2.setDisplayBar(new DisplayBar(green, font2, new Vector2(npc5_2.getLocation().X, npc5_2.getLocation().Y - 5.0F), null, 64, 15));
             npc5_2.getDisplayBar().setColor(Color.Red);
@@ -528,7 +533,7 @@ namespace OutsideTheBox
             npc5_4.setDisplayBar(new DisplayBar(green, font2, new Vector2(npc5_4.getLocation().X, npc5_4.getLocation().Y - 5.0F), null, 64, 15));
             npc5_4.getDisplayBar().setColor(Color.Red);
             npc5_4.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(npc5_4.getLocation().X + (hitsplat.Width / 2), npc5_4.getLocation().Y + (hitsplat.Height / 2))));
-            
+
             //LEVELS
             //LEVEL 1
             List<GameObject> Level1Objects = new List<GameObject>();
@@ -542,6 +547,7 @@ namespace OutsideTheBox
             level1.addCubicle(cube1_3);
             level1.addCubicle(cube1_4);
             level1.setPlayerOrigin(new Vector2(165F, 100F));
+            level1.setPlayerReentryPoint(new Vector2(368F, 455F - 64F));
             level1.setScreens(screens);
 
             //LEVEL 2
@@ -559,7 +565,8 @@ namespace OutsideTheBox
             Level level2 = new Level(this, player, l2, new Npc[] { npc2_1, npc2_2, npc2_3 }, Level2Objects.ToArray(), 0);
             level2.addCubicle(cube2_1);
             level2.addCubicle(cube2_2);
-            level2.setPlayerOrigin(new Vector2((width - 64F) / 2F, 20F));
+            level2.setPlayerOrigin(new Vector2(368F, 15F));
+            level2.setPlayerReentryPoint(new Vector2(785F - 64F, height - 200F));
             level2.setScreens(screens);
 
             //LEVEL 3
@@ -579,7 +586,8 @@ namespace OutsideTheBox
             level3.addCubicle(cube3_1);
             level3.addCubicle(cube3_2);
             level3.addCubicle(cube3_3);
-            level3.setPlayerOrigin(new Vector2(100F, height - 200));
+            level3.setPlayerOrigin(new Vector2(15F, height - 200));
+            level3.setPlayerReentryPoint(new Vector2(120F, 455F - 64F));
             level3.setScreens(screens);
 
             //LEVEL 4
@@ -604,7 +612,8 @@ namespace OutsideTheBox
             Level level4 = new Level(this, player, l4, new Npc[] { }, Level4Objects.ToArray(), 0);
             level4.addCubicle(cube4_1);
             level4.addCubicle(cube4_2);
-            level4.setPlayerOrigin(new Vector2(140F, 50F));
+            level4.setPlayerOrigin(new Vector2(140F, 15F));
+            level4.setPlayerReentryPoint(new Vector2(785F - 64F, 360F));
             level4.setScreens(screens);
 
             //LEVEL 5
@@ -627,27 +636,38 @@ namespace OutsideTheBox
             Level5Objects.Add(barbutt5_2);
             Level5Objects.Add(barbutt5_3);
             Level5Objects.Add(barbutt5_4);
-
             Texture2D l5 = Content.Load<Texture2D>("sprites/levels/Level1");
             Level level5 = new Level(this, player, l5, new Npc[] { npc5_1, npc5_2, npc5_3, npc5_4 }, Level5Objects.ToArray(), 0);
             level5.addCubicle(cube5_1);
             level5.addCubicle(cube5_2);
             level5.addCubicle(cube5_3);
-            level5.addCubicle(cube5_4); 
+            level5.addCubicle(cube5_4);
             level5.addCubicle(cube5_5);
             level5.addCubicle(cube5_6);
-            level5.setPlayerOrigin(new Vector2(20F, 230F));
+            level5.setPlayerOrigin(new Vector2(15F, 230F));
+            level5.setPlayerReentryPoint(new Vector2(785F - 64F, 230F));
             level5.setScreens(screens);
 
             //LEVEL 6
             List<GameObject> Level6Objects = new List<GameObject>();
             Level6Objects.Add(door6to5);
-            //Level6Objects.Add();
+            Level6Objects.Add(door6to7);
 
             Texture2D l6 = Content.Load<Texture2D>("sprites/levels/Level1");
             Level level6 = new Level(this, player, l6, new Npc[] { }, Level6Objects.ToArray(), 0);
-            level6.setPlayerOrigin(new Vector2(20F, 230F));
+            level6.setPlayerOrigin(new Vector2(20F, 10F));
+            level6.setPlayerReentryPoint(new Vector2(785F - 64F, 400F));
             level6.setScreens(screens);
+
+            //LEVEL 7
+            List<GameObject> Level7Objects = new List<GameObject>();
+            Level7Objects.Add(door7to6);
+
+            Texture2D l7 = Content.Load<Texture2D>("sprites/levels/Level1");
+            Level level7 = new Level(this, player, l7, new Npc[] { }, Level7Objects.ToArray(), 0);
+            level7.setPlayerOrigin(new Vector2(15F, 220F));
+            level7.setPlayerReentryPoint(new Vector2(785F - 64F, 220F));
+            level7.setScreens(screens);
 
             levels = new List<Level>();
             levels.Add(level1);
@@ -656,6 +676,7 @@ namespace OutsideTheBox
             levels.Add(level4);
             levels.Add(level5);
             levels.Add(level6);
+            levels.Add(level7);
             level = levels[0];
             levelIndex = 0;
 
@@ -738,9 +759,12 @@ namespace OutsideTheBox
                 }
             }
             mouse = Mouse.GetState();
-            if (busy) {
+            if (busy)
+            {
                 return;
-            } else {
+            }
+            else
+            {
                 level.setActive(true);
             }
             playerManager.updateHealthCooldown();
