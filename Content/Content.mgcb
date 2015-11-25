@@ -85,18 +85,6 @@
 /processorParam:TextureFormat=Compressed
 /build:fonts/font6.spritefont
 
-#begin audio/songs/Factory.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:audio/songs/Factory.mp3
-
-#begin audio/songs/Streets.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:audio/songs/Streets.mp3
-
 #begin audio/sound effects/barSound.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -114,4 +102,64 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:audio/sound effects/jewelSound.wav
+
+#begin audio/sound effects/barrierSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:audio/sound effects/barrierSound.wav
+
+#begin audio/sound effects/deathSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:audio/sound effects/deathSound.wav
+
+#begin audio/sound effects/hitSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:audio/sound effects/hitSound.wav
+
+#begin audio/sound effects/keySound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:audio/sound effects/keySound.wav
+
+#begin audio/sound effects/laserSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:audio/sound effects/laserSound.wav
+
+#begin audio/sound effects/menuButtonSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:audio/sound effects/menuButtonSound.wav
+
+#begin audio/sound effects/mindreadSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:audio/sound effects/mindreadSound.wav
+
+#begin audio/songs/Factory.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:audio/songs/Factory.mp3
+
+#begin audio/songs/Streets.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:audio/songs/Streets.mp3
+
+#begin audio/songs/Office (Trimmed).mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:audio/songs/Office (Trimmed).mp3
 
