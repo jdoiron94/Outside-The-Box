@@ -232,14 +232,12 @@ namespace OutsideTheBox {
                     level.setActive(false);
                     game.setLevel(index);
                     level = game.getLevel(index);
-                    //
                     PauseMenu pause = (PauseMenu) level.getScreens()[1];
                     pause.setLevel(index);
                     if (current != level.getSong()) {
                         MediaPlayer.Stop();
                         MediaPlayer.Play(level.getSong());
                     }
-                    //
                     game.setLevel(level);
                     deathManager = new DeathManager(this);
                     setDeathManager(deathManager);

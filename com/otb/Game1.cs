@@ -672,8 +672,8 @@ namespace OutsideTheBox
             Level5Objects.Add(box5_1);
             Level5Objects.Add(key5_1);
             Level5Objects.Add(token5_1);
-            Level4Objects.Add(token5_2);
-            Level4Objects.Add(token5_3);
+            Level5Objects.Add(token5_2);
+            Level5Objects.Add(token5_3);
             Level5Objects.Add(mlas5_1);
             Level5Objects.Add(las5_1);
             Level5Objects.Add(lim5_1);
@@ -683,9 +683,9 @@ namespace OutsideTheBox
             Level5Objects.Add(bar5_4);
             Level5Objects.Add(lasbutt5_1);
             Level5Objects.Add(lasbutt5_2);
-            Level5Objects.Add(barbutt5_1); // noise
+            Level5Objects.Add(barbutt5_1);
             Level5Objects.Add(barbutt5_2);
-            Level5Objects.Add(barbutt5_3); // noise
+            Level5Objects.Add(barbutt5_3);
             Level5Objects.Add(barbutt5_4);
             Texture2D l5 = Content.Load<Texture2D>("sprites/levels/Level1");
             Level level5 = new Level(this, player, l5, new Npc[] { npc5_1, npc5_2, npc5_3, npc5_4 }, Level5Objects.ToArray(), 0);
@@ -740,11 +740,11 @@ namespace OutsideTheBox
             level7.setScreens(screens);
 
             levels = new List<Level>();
-            //levels.Add(level1);
-            //levels.Add(level2);
-            //levels.Add(level3);
-            //levels.Add(level4);
-            //levels.Add(level5);
+            levels.Add(level1);
+            levels.Add(level2);
+            levels.Add(level3);
+            levels.Add(level4);
+            levels.Add(level5);
             levels.Add(level6);
             levels.Add(level7);
             level = levels[0];
