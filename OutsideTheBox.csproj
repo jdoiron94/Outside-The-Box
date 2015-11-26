@@ -99,6 +99,7 @@
     <Compile Include="com\otb\api\util\PlayerManager.cs" />
     <Compile Include="com\otb\Program.cs" />
     <Compile Include="com\otb\api\wrapper\locatable\Projectile.cs" />
+    <Compile Include="com\otb\ui\Numberpad.cs" />
     <Compile Include="com\otb\ui\PauseMenu.cs" />
     <Compile Include="com\otb\ui\PowerBar.cs" />
     <Compile Include="com\otb\ui\TitleScreen.cs" />
@@ -551,6 +552,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\ui\Hitsplat.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\ui\Keypad.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\ui\LOS.png">

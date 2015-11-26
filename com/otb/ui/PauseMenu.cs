@@ -36,9 +36,6 @@ namespace OutsideTheBox {
         private int level;
         private int experience;
 
-        private string lastHovered;
-        private string curHovered;
-
         public PauseMenu(Texture2D gradient, Texture2D controls, Texture2D cursor, SpriteFont small, SpriteFont large, SoundEffectInstance effect, string name, bool active) :
             base(name, active) {
             this.texture = gradient;

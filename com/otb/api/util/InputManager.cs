@@ -39,9 +39,10 @@ namespace OutsideTheBox {
         private bool moving;
         private bool powerReveal;
         private bool menuShown;
+        private bool puzzleShown;
         private string dropText;
 
-        private const byte WAIT = 0x4;
+        private const int WAIT = 4;
 
         public InputManager(Game1 game, Player player, Level level, Target target, PlayerManager playerManager, Screen[] screens, MindRead mindRead) {
             this.game = game;
@@ -63,6 +64,7 @@ namespace OutsideTheBox {
             moving = false;
             font = game.getDropFont();
             this.menuShown = false;
+            this.puzzleShown = false;
             this.gameState = GameState.Normal;
         }
 
@@ -154,9 +156,9 @@ namespace OutsideTheBox {
             lastKeyState = currentKeyState;
             currentKeyState = Keyboard.GetState();
             collisionManager.updatePressButtons(player);
-            if (currentKeyState.IsKeyDown(Keys.Escape)) {
+            /*if (currentKeyState.IsKeyDown(Keys.Escape)) {
                 game.Exit();
-            }
+            }*/
             if (playerManager.getHealth() <= 0) {
                 player.playEffect();
                 deathManager.resetGame();
@@ -164,12 +166,22 @@ namespace OutsideTheBox {
             if (collisionManager.playerSpotted(level)) {
                 //playerManager.setHealth(0);
             }
-            if (lastKeyState.IsKeyDown(Keys.F1) && currentKeyState.IsKeyUp(Keys.F1)) {
+            /*if (lastKeyState.IsKeyDown(Keys.F1) && currentKeyState.IsKeyUp(Keys.F1)) {
                 foreach (Level l in game.getLevels()) {
                     l.toggleDebug();
                 }
-            }
-            if (gameState == GameState.Normal) {
+            }*/
+            /*if (gameState == GameState.Puzzle) {
+                if (puzzleShown) {
+                    Console.WriteLine("puzzle shown, resuming game");
+                    gameState = GameState.Normal;
+                    puzzleShown = false;
+                } else {
+                    Console.WriteLine("game pausing, starting puzzle");
+                    puzzleShown = true;
+                    level.getScreens()[2].setActive(true);
+                }
+            } else*/ if (gameState == GameState.Normal) {
                 updateNormal(time);
             } else if (gameState == GameState.TelekinesisSelect) {
                 updateSelect(time);
@@ -245,12 +257,23 @@ namespace OutsideTheBox {
                     level.setInputManager(this);
                     collisionManager.setLevel(level);
                     level.setActive(true);
-                    if (d.getNext())
+                    if (d.getNext()) {
                         player.setLocation(level.getPlayerOrigin());
-                    else
+                    } else {
                         player.setLocation(level.getPlayerReentryPoint());
+                    }
                     playerManager.getKeyBox().update(this);
-                }
+                }/* else if (game.getLevelIndex() == 0) {
+                    if (gameState == GameState.Normal) {
+                        Console.WriteLine("Normal state, setting to puzzle");
+                        gameState = GameState.Puzzle;
+                        level.setActive(false);
+                    } else {
+                        Console.WriteLine("puzzle state, setting to normal");
+                        gameState = GameState.Normal;
+                        level.setActive(true);
+                    }
+                }*/
             } else if (gCollision != null && gCollision is Pit) {
                 Pit p = (Pit) gCollision;
                 p.update(this);

@@ -27,7 +27,6 @@ namespace OutsideTheBox {
 
         public void setPushed(bool pushed) {
             if (this.pushed != pushed && pushed) {
-                Console.WriteLine("SETTING PUSHED FROM " + this.pushed + " TO " + pushed);
                 playEffect();
             }
             this.pushed = pushed;

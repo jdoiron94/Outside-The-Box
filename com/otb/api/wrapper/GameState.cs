@@ -5,6 +5,7 @@
         Normal,
         TelekinesisSelect,
         TelekinesisMovement,
-        PauseMenu
+        PauseMenu,
+        Puzzle
     }
 }

@@ -269,7 +269,9 @@ namespace OutsideTheBox
             pause.addHint(hint5);
             pause.addHint(hint6);
             pause.addHint(hint7);
-            screens = new Screen[] { title, pause };
+            //Texture2D numberpad = Content.Load<Texture2D>("ui/Keypad");
+            //Numberpad numberPuzzle = new Numberpad(numberpad, cursor, font4, "Numberpad", false);
+            screens = new Screen[] { title, pause/*, numberPuzzle*/ };
 
             boltSound = Content.Load<SoundEffect>("audio/sound effects/boltSound");
             dashSound = Content.Load<SoundEffect>("audio/sound effects/dashSound");
@@ -744,10 +746,10 @@ namespace OutsideTheBox
 
             levels = new List<Level>();
             levels.Add(level1);
-            //levels.Add(level2);
-            //levels.Add(level3);
-            //levels.Add(level4);
-            //levels.Add(level5);
+            levels.Add(level2);
+            levels.Add(level3);
+            levels.Add(level4);
+            levels.Add(level5);
             levels.Add(level6);
             levels.Add(level7);
             level = levels[0];
