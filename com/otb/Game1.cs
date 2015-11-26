@@ -304,6 +304,7 @@ namespace OutsideTheBox
             GameObject box4_2 = new GameObject(box, new Vector2(40F, 360F), true);
             GameObject box5_1 = new GameObject(box, new Vector2(120F, 320F), true);
             GameObject box6_1 = new GameObject(box, new Vector2(40F, 340F), true);
+            GameObject box6_2 = new GameObject(box, new Vector2(660F, 20F), true);
 
             //COLLECTIBLES 
             Texture2D bronze = Content.Load<Texture2D>("sprites/objects/BronzeBar");
@@ -328,7 +329,7 @@ namespace OutsideTheBox
             Key key2_1 = new Key(key, new Vector2(45F, 60F), keyEffect);
             Key key3_1 = new Key(key, new Vector2(120F, 20F), keyEffect);
             Key key5_1 = new Key(key, new Vector2(300F, 380F), keyEffect);
-            Key key6_1 = new Key(key, new Vector2(690F, 50F), keyEffect);
+            Key key6_1 = new Key(key, new Vector2(740F, 90F), keyEffect);
 
 
             //WALLS
@@ -718,6 +719,7 @@ namespace OutsideTheBox
             Level6Objects.Add(barbutt6_2);
             Level6Objects.Add(actbutt6_1);
             Level6Objects.Add(box6_1);
+            Level6Objects.Add(box6_2);
             Level6Objects.Add(key6_1);
 
             Texture2D l6 = Content.Load<Texture2D>("sprites/levels/Level1");
@@ -738,13 +740,14 @@ namespace OutsideTheBox
             level7.setPlayerOrigin(new Vector2(15F, 220F));
             level7.setPlayerReentryPoint(new Vector2(785F - 64F, 220F));
             level7.setScreens(screens);
+            level7.setSong(streetSong);
 
             levels = new List<Level>();
             levels.Add(level1);
-            levels.Add(level2);
-            levels.Add(level3);
-            levels.Add(level4);
-            levels.Add(level5);
+            //levels.Add(level2);
+            //levels.Add(level3);
+            //levels.Add(level4);
+            //levels.Add(level5);
             levels.Add(level6);
             levels.Add(level7);
             level = levels[0];
