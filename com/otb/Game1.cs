@@ -409,14 +409,27 @@ namespace OutsideTheBox
             Barrier bar3_1 = new Barrier(barrier2_vertical, new Vector2(300F, 190F), barrierEffect.CreateInstance());
             Barrier bar3_2 = new Barrier(barrier2_horizontal, new Vector2(660F, 170F), barrierEffect.CreateInstance());
 
-            LavaPit pit4_1 = new LavaPit(lavaPit, new Vector2(0F, 120F), lavaSound.CreateInstance(), 100, 200);
-            LavaPit pit4_2 = new LavaPit(lavaPit, new Vector2(260F, 120F), lavaSound.CreateInstance(), 540, 200);
+            Texture2D[] smallLava = new Texture2D[16];
+            Texture2D[] bigLava = new Texture2D[16];
+            Texture2D[] water = new Texture2D[16];
+            string prefix = "00000";
+            for (int i = 0; i < smallLava.Length; i++) {
+                int leading = 5 - i.ToString().Length;
+                if (prefix.Length != leading) {
+                    prefix = prefix.Remove(0, 1);
+                }
+                smallLava[i] = Content.Load<Texture2D>("sprites/objects/small lava/Small_Lava_" + prefix + i);
+                bigLava[i] = Content.Load<Texture2D>("sprites/objects/big lava/Big_Lava_" + prefix + i);
+                water[i] = Content.Load<Texture2D>("sprites/objects/water/Game_Water_" + prefix + i);
+            }
+            LavaPit pit4_1 = new LavaPit(smallLava, new Vector2(0F, 120F), lavaSound.CreateInstance(), 100, 200);
+            LavaPit pit4_2 = new LavaPit(bigLava, new Vector2(260F, 120F), lavaSound.CreateInstance(), 540, 200);
             HPLaser las4_1 = new HPLaser(HealthLaserH, new Vector2(100, 320F), laserEffect.CreateInstance(), 10, 160, false);
             HPLaser las4_2 = new HPLaser(HealthLaserV, new Vector2(640F, 320F), laserEffect.CreateInstance(), 160, 10);
             Barrier bar4_1 = new Barrier(barrier2_vertical, new Vector2(690F, 0F), barrierEffect.CreateInstance());
             Barrier bar4_2 = new Barrier(barrier2_vertical, new Vector2(110F, 345F), barrierEffect.CreateInstance());
 
-            PlayerLimitationField lim5_1 = new PlayerLimitationField(limitationField, new Vector2(120F, 200F), lavaSound.CreateInstance(), 560, 120);
+            PlayerLimitationField lim5_1 = new PlayerLimitationField(water, new Vector2(120F, 200F), null, 560, 120);
             ManaLaser mlas5_1 = new ManaLaser(ManaLaserV, new Vector2(100F, 200F), laserEffect.CreateInstance(), 120, 10);
             HPLaser las5_1 = new HPLaser(HealthLaserV, new Vector2(690F, 200F), laserEffect.CreateInstance(), 120, 10);
             Barrier bar5_1 = new Barrier(barrier2_horizontal, new Vector2(255F, 170F), barrierEffect.CreateInstance(), true); //upper left

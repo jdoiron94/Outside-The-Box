@@ -156,9 +156,9 @@ namespace OutsideTheBox {
             lastKeyState = currentKeyState;
             currentKeyState = Keyboard.GetState();
             collisionManager.updatePressButtons(player);
-            /*if (currentKeyState.IsKeyDown(Keys.Escape)) {
+            if (currentKeyState.IsKeyDown(Keys.Escape)) {
                 game.Exit();
-            }*/
+            }
             if (playerManager.getHealth() <= 0) {
                 player.playEffect();
                 deathManager.resetGame();
@@ -166,11 +166,11 @@ namespace OutsideTheBox {
             if (collisionManager.playerSpotted(level)) {
                 //playerManager.setHealth(0);
             }
-            /*if (lastKeyState.IsKeyDown(Keys.F1) && currentKeyState.IsKeyUp(Keys.F1)) {
+            if (lastKeyState.IsKeyDown(Keys.F1) && currentKeyState.IsKeyUp(Keys.F1)) {
                 foreach (Level l in game.getLevels()) {
                     l.toggleDebug();
                 }
-            }*/
+            }
             /*if (gameState == GameState.Puzzle) {
                 if (puzzleShown) {
                     Console.WriteLine("puzzle shown, resuming game");
@@ -181,7 +181,17 @@ namespace OutsideTheBox {
                     puzzleShown = true;
                     level.getScreens()[2].setActive(true);
                 }
-            } else*/ if (gameState == GameState.Normal) {
+            } else*/
+            foreach (Pit p in level.getPits()) {
+                if (p is LavaPit) {
+                    LavaPit lava = (LavaPit) p;
+                    lava.updateFrame();
+                } else if (p is PlayerLimitationField) {
+                    PlayerLimitationField lim = (PlayerLimitationField) p;
+                    lim.updateFrame();
+                }
+            }
+            if (gameState == GameState.Normal) {
                 updateNormal(time);
             } else if (gameState == GameState.TelekinesisSelect) {
                 updateSelect(time);
@@ -218,6 +228,15 @@ namespace OutsideTheBox {
             foreach (PressButton pb in level.getPressButtons()) {
                 pb.update();
             }
+            /*foreach (Pit p in level.getPits()) {
+                if (p is LavaPit) {
+                    LavaPit lava = (LavaPit) p;
+                    lava.updateFrame();
+                } else if (p is PlayerLimitationField) {
+                    PlayerLimitationField lim = (PlayerLimitationField) p;
+                    lim.updateFrame();
+                }
+            }*/
             GameObject gCollision = collisionManager.getObjectCollision(player, true);
             if (gCollision != null && gCollision is Token) {
                 Token t = (Token) gCollision;
