@@ -17,7 +17,7 @@ namespace OutsideTheBox {
             base(frames[0], location, effect, width, height) {
             this.frames = frames;
             this.index = 0;
-            this.timer = 3;
+            this.timer = 5;
             this.current = 0;
             this.forward = true;
         }
