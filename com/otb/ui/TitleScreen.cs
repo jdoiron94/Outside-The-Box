@@ -42,10 +42,9 @@ namespace OutsideTheBox {
             this.controlBounds = new Rectangle(717, 474, 52, 25);
         }
 
-        public SoundEffectInstance getEffect() {
-            return effect;
-        }
-
+        /// <summary>
+        /// Plays the title screen's sound effect
+        /// </summary>
         public void playEffect() {
             if (effect != null && effect.State != SoundState.Playing) {
                 effect.Play();
@@ -80,9 +79,9 @@ namespace OutsideTheBox {
             } else {
                 if (index == 0) {
                     shadowText("Back", new Vector2(725.0F, 475.0F), batch);
-                    return;
+                } else {
+                    batch.DrawString(font, "Back", new Vector2(725.0F, 475.0F), Color.GhostWhite);
                 }
-                batch.DrawString(font, "Back", new Vector2(725.0F, 475.0F), Color.GhostWhite);
             }
             batch.Draw(cursor, new Vector2(curMouse.Position.X, curMouse.Position.Y), Color.White);
         }

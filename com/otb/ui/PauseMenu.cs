@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-
+using System;
 using System.Collections.Generic;
 
 namespace OutsideTheBox {
@@ -58,10 +58,9 @@ namespace OutsideTheBox {
             this.experience = 0;
         }
 
-        public SoundEffectInstance getEffect() {
-            return effect;
-        }
-
+        /// <summary>
+        /// Plays the pause menu's sound effect
+        /// </summary>
         public void playEffect() {
             if (effect != null && effect.State != SoundState.Playing) {
                 effect.Play();
