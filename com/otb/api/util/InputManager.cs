@@ -182,6 +182,9 @@ namespace OutsideTheBox {
                     level.getScreens()[2].setActive(true);
                 }
             } else*/
+            foreach (PressButton pb in level.getPressButtons()) {
+                pb.update();
+            }
             foreach (Pit p in level.getPits()) {
                 if (p is LavaPit) {
                     LavaPit lava = (LavaPit) p;
@@ -225,18 +228,6 @@ namespace OutsideTheBox {
                     level.unlockDoors();
                 }
             }
-            foreach (PressButton pb in level.getPressButtons()) {
-                pb.update();
-            }
-            /*foreach (Pit p in level.getPits()) {
-                if (p is LavaPit) {
-                    LavaPit lava = (LavaPit) p;
-                    lava.updateFrame();
-                } else if (p is PlayerLimitationField) {
-                    PlayerLimitationField lim = (PlayerLimitationField) p;
-                    lim.updateFrame();
-                }
-            }*/
             GameObject gCollision = collisionManager.getObjectCollision(player, true);
             if (gCollision != null && gCollision is Token) {
                 Token t = (Token) gCollision;
