@@ -70,8 +70,6 @@ namespace OutsideTheBox {
         /// </summary>
         /// <param name="cm">The ContentManager to load sprites</param>
         public void loadTextures(ContentManager cm) {
-            //string projectilePrefix = "sprites/projectiles/";
-            //string[] projectileNames = { "Bullet", "Fire", "Ice", "Lightning", "Paralysis", "Confusion" };
             string prefix = "sprites/entities/player/";
             string[] names = { "Forward", "Backward", "Left", "Right" };
             foreach (string s in names) {
@@ -82,7 +80,7 @@ namespace OutsideTheBox {
             }
         }
 
-        public void loadNPCTextures(ContentManager cm) {
+        public void loadNpcTextures(ContentManager cm) {
             string prefix = "sprites/entities/npcs/";
             string[] names = { "Forward", "Backward", "Left", "Right" };
             foreach (string n in names) {
@@ -122,9 +120,9 @@ namespace OutsideTheBox {
         /// </summary>
         public void updateStill() {
             if (direction == Direction.South) {
-                texture = southFacing[1];
+                texture = southFacing[0];
             } else if (direction == Direction.North) {
-                texture = northFacing[1];
+                texture = northFacing[0];
             } else if (direction == Direction.West) {
                 texture = westFacing[0];
             } else {
@@ -132,10 +130,9 @@ namespace OutsideTheBox {
             }
         }
 
-        public SoundEffectInstance getEffect() {
-            return effect;
-        }
-
+        /// <summary>
+        /// Plays the entity's death sound effect
+        /// </summary>
         public void playEffect() {
             if (effect != null && effect.State != SoundState.Playing) {
                 effect.Play();

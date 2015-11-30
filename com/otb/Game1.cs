@@ -531,64 +531,64 @@ namespace OutsideTheBox
             playerManager = new PlayerManager(player, Content, new DisplayBar(health, font2, new Vector2(240.0F, height - 41.0F), back, 560, 20), new DisplayBar(mana, font2, new Vector2(240.0F, height - 21.0F), back, 560, 20), keyBox, powerBar);
             player.loadTextures(Content);
 
-            npc1_1.loadNPCTextures(Content);
+            npc1_1.loadNpcTextures(Content);
             npc1_1.setDisplayBar(new DisplayBar(green, font2, new Vector2(npc1_1.getLocation().X, npc1_1.getLocation().Y - 5.0F), null, 64, 15));
             npc1_1.getDisplayBar().setColor(Color.Red);
             npc1_1.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(npc1_1.getLocation().X + (hitsplat.Width / 2), npc1_1.getLocation().Y + (hitsplat.Height / 2)), hitEffect.CreateInstance()));
-            npc1_2.loadNPCTextures(Content);
+            npc1_2.loadNpcTextures(Content);
             npc1_2.setDisplayBar(new DisplayBar(green, font2, new Vector2(npc1_2.getLocation().X, npc1_2.getLocation().Y - 5.0F), null, 64, 15));
             npc1_2.getDisplayBar().setColor(Color.Red);
             npc1_2.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(npc1_2.getLocation().X + (hitsplat.Width / 2), npc1_2.getLocation().Y + (hitsplat.Height / 2)), hitEffect.CreateInstance()));
-            npc1_3.loadNPCTextures(Content);
+            npc1_3.loadNpcTextures(Content);
             npc1_3.setDisplayBar(new DisplayBar(green, font2, new Vector2(npc1_3.getLocation().X, npc1_3.getLocation().Y - 5.0F), null, 64, 15));
             npc1_3.getDisplayBar().setColor(Color.Red);
             npc1_3.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(npc1_3.getLocation().X + (hitsplat.Width / 2), npc1_3.getLocation().Y + (hitsplat.Height / 2)), hitEffect.CreateInstance()));
-            npc2_1.loadNPCTextures(Content);
+            npc2_1.loadNpcTextures(Content);
             npc2_1.setDisplayBar(new DisplayBar(green, font2, new Vector2(npc2_1.getLocation().X, npc2_1.getLocation().Y - 5.0F), null, 64, 15));
             npc2_1.getDisplayBar().setColor(Color.Red);
             npc2_1.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(npc2_1.getLocation().X + (hitsplat.Width / 2), npc2_1.getLocation().Y + (hitsplat.Height / 2)), hitEffect.CreateInstance()));
-            npc2_2.loadNPCTextures(Content);
+            npc2_2.loadNpcTextures(Content);
             npc2_2.setDisplayBar(new DisplayBar(green, font2, new Vector2(npc2_2.getLocation().X, npc2_2.getLocation().Y - 5.0F), null, 64, 15));
             npc2_2.getDisplayBar().setColor(Color.Red);
             npc2_2.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(npc2_2.getLocation().X + (hitsplat.Width / 2), npc2_2.getLocation().Y + (hitsplat.Height / 2)), hitEffect.CreateInstance()));
-            npc2_3.loadNPCTextures(Content);
+            npc2_3.loadNpcTextures(Content);
             npc2_3.setDisplayBar(new DisplayBar(green, font2, new Vector2(npc2_3.getLocation().X, npc2_3.getLocation().Y - 5.0F), null, 64, 15));
             npc2_3.getDisplayBar().setColor(Color.Red);
             npc2_3.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(npc2_3.getLocation().X + (hitsplat.Width / 2), npc2_3.getLocation().Y + (hitsplat.Height / 2)), hitEffect.CreateInstance()));
-            npc3_1.loadNPCTextures(Content);
+            npc3_1.loadNpcTextures(Content);
             npc3_1.setDisplayBar(new DisplayBar(green, font2, new Vector2(npc3_1.getLocation().X, npc3_1.getLocation().Y - 5.0F), null, 64, 15));
             npc3_1.getDisplayBar().setColor(Color.Red);
             npc3_1.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(npc3_1.getLocation().X + (hitsplat.Width / 2), npc3_1.getLocation().Y + (hitsplat.Height / 2)), hitEffect.CreateInstance()));
-            npc3_2.loadNPCTextures(Content);
+            npc3_2.loadNpcTextures(Content);
             npc3_2.setDisplayBar(new DisplayBar(green, font2, new Vector2(npc3_2.getLocation().X, npc3_2.getLocation().Y - 5.0F), null, 64, 15));
             npc3_2.getDisplayBar().setColor(Color.Red);
             npc3_2.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(npc3_2.getLocation().X + (hitsplat.Width / 2), npc3_2.getLocation().Y + (hitsplat.Height / 2)), hitEffect.CreateInstance()));
 
-            npc5_1.loadNPCTextures(Content);
+            npc5_1.loadNpcTextures(Content);
             npc5_1.setDisplayBar(new DisplayBar(green, font2, new Vector2(npc5_1.getLocation().X, npc5_1.getLocation().Y - 5.0F), null, 64, 15));
             npc5_1.getDisplayBar().setColor(Color.Red);
             npc5_1.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(npc5_1.getLocation().X + (hitsplat.Width / 2), npc5_1.getLocation().Y + (hitsplat.Height / 2)), hitEffect.CreateInstance()));
 
-            npc5_2.loadNPCTextures(Content);
+            npc5_2.loadNpcTextures(Content);
             npc5_2.setDisplayBar(new DisplayBar(green, font2, new Vector2(npc5_2.getLocation().X, npc5_2.getLocation().Y - 5.0F), null, 64, 15));
             npc5_2.getDisplayBar().setColor(Color.Red);
             npc5_2.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(npc5_2.getLocation().X + (hitsplat.Width / 2), npc5_2.getLocation().Y + (hitsplat.Height / 2)), hitEffect.CreateInstance()));
 
-            npc5_3.loadNPCTextures(Content);
+            npc5_3.loadNpcTextures(Content);
             npc5_3.setDisplayBar(new DisplayBar(green, font2, new Vector2(npc5_3.getLocation().X, npc5_3.getLocation().Y - 5.0F), null, 64, 15));
             npc5_3.getDisplayBar().setColor(Color.Red);
             npc5_3.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(npc5_3.getLocation().X + (hitsplat.Width / 2), npc5_3.getLocation().Y + (hitsplat.Height / 2)), hitEffect.CreateInstance()));
 
-            npc5_4.loadNPCTextures(Content);
+            npc5_4.loadNpcTextures(Content);
             npc5_4.setDisplayBar(new DisplayBar(green, font2, new Vector2(npc5_4.getLocation().X, npc5_4.getLocation().Y - 5.0F), null, 64, 15));
             npc5_4.getDisplayBar().setColor(Color.Red);
             npc5_4.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(npc5_4.getLocation().X + (hitsplat.Width / 2), npc5_4.getLocation().Y + (hitsplat.Height / 2)), hitEffect.CreateInstance()));
 
-            npc6_1.loadNPCTextures(Content);
+            npc6_1.loadNpcTextures(Content);
             npc6_1.setDisplayBar(new DisplayBar(green, font2, new Vector2(npc6_1.getLocation().X, npc6_1.getLocation().Y - 5.0F), null, 64, 15));
             npc6_1.getDisplayBar().setColor(Color.Red);
             npc6_1.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(npc6_1.getLocation().X + (hitsplat.Width / 2), npc6_1.getLocation().Y + (hitsplat.Height / 2)), hitEffect.CreateInstance()));
-            npc6_2.loadNPCTextures(Content);
+            npc6_2.loadNpcTextures(Content);
             npc6_2.setDisplayBar(new DisplayBar(green, font2, new Vector2(npc6_2.getLocation().X, npc6_2.getLocation().Y - 5.0F), null, 64, 15));
             npc6_2.getDisplayBar().setColor(Color.Red);
             npc6_2.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(npc6_2.getLocation().X + (hitsplat.Width / 2), npc6_2.getLocation().Y + (hitsplat.Height / 2)), hitEffect.CreateInstance()));
@@ -812,7 +812,7 @@ namespace OutsideTheBox
 
             npc1_1.setPath(new AIPath(npc1_1, this, new int[] { midX - 105, midY - 180, midX + 120, midY + 165 }, new int[] { 60, 60, 60, 60 }, new Direction[] { Direction.West, Direction.North, Direction.East, Direction.South }));
             npc1_1.setProjectile(n1_1);
-            npc1_2.setPath(new AIPath(npc1_2, this, new int[] { 80, 175 }, new int[] { 45, 45 }, new Direction[] { Direction.West, Direction.East }));
+            npc1_2.setPath(new AIPath(npc1_2, this, new int[] { 80, 175 }, new int[] { 250, 45 }, new Direction[] { Direction.West, Direction.East }));
             npc1_2.setProjectile(n1_2);
             npc1_3.setPath(new AIPath(npc1_3, this, new int[] { 570, 665 }, new int[] { 45, 45 }, new Direction[] { Direction.West, Direction.East }));
             npc1_3.setProjectile(n1_3);

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
 
 namespace OutsideTheBox {
 
@@ -14,12 +15,14 @@ namespace OutsideTheBox {
         private int state;
         private int ticks;
         private int wait;
+        private int stuckFrames;
         private bool stagnant;
 
         private readonly int[] path;
         private readonly int[] delays;
 
-        private const byte SKIPPED_FRAMES = 0x4;
+        private const int SKIPPED_FRAMES = 4;
+        private const int STILL_FRAMES = 2;
 
         private readonly Npc npc;
         private readonly Player player;
@@ -28,55 +31,11 @@ namespace OutsideTheBox {
 
         public AIPath(Npc npc, Game1 game, int[] path, int[] delays, Direction[] directions) {
             this.npc = npc;
-            player = game.getPlayer();
-            collisionManager = game.getInputManager().getCollisionManager();
+            this.player = game.getPlayer();
+            this.collisionManager = game.getInputManager().getCollisionManager();
             this.path = path;
             this.delays = delays;
             this.directions = directions;
-            state = 0;
-            ticks = 0;
-            wait = 0;
-            stagnant = false;
-        }
-
-        /// <summary>
-        /// Returns an instance of the npc
-        /// </summary>
-        /// <returns>Returns an instance of the npc</returns>
-        public Npc getNpc() {
-            return npc;
-        }
-
-        /// <summary>
-        /// Returns the path followed by the npc
-        /// </summary>
-        /// <returns>Returns the integer array path followed by the npc</returns>
-        public int[] getPath() {
-            return path;
-        }
-
-        /// <summary>
-        /// Returns the delays followed by the npc
-        /// </summary>
-        /// <returns>Returns the integer array of delays between directions, followed by the npc</returns>
-        public int[] getDelays() {
-            return delays;
-        }
-
-        /// <summary>
-        /// Returns the directions followed by the npc
-        /// </summary>
-        /// <returns>Returns the direction array followed by the npc</returns>
-        public Direction[] getDirections() {
-            return directions;
-        }
-
-        /// <summary>
-        /// Returns the number of frames skipped between movements
-        /// </summary>
-        /// <returns>Returns 4</returns>
-        public byte getSkippedFrames() {
-            return SKIPPED_FRAMES;
         }
 
         /// <summary>
@@ -93,14 +52,21 @@ namespace OutsideTheBox {
                 state = (state + 1) % path.Length;
                 npc.setDirection(directions[state]);
             }
+            if (stuckFrames >= STILL_FRAMES) {
+                npc.updateStill();
+                stuckFrames = 0;
+            }
             switch (npc.getDirection()) {
                 case Direction.North:
                     if (npc.getLocation().Y > path[state]) {
                         if (ticks >= SKIPPED_FRAMES) {
                             npc.setDestination(new Vector2(npc.getLocation().X, npc.getLocation().Y - npc.getVelocity()));
                             if (collisionManager.isValid(npc, false)) {
+                                stuckFrames = 0;
                                 npc.deriveY(-npc.getVelocity());
                                 npc.updateMovement();
+                            } else {
+                                stuckFrames++;
                             }
                             ticks = 0;
                         } else {
@@ -116,8 +82,11 @@ namespace OutsideTheBox {
                         if (ticks >= SKIPPED_FRAMES) {
                             npc.setDestination(new Vector2(npc.getLocation().X, npc.getLocation().Y + npc.getVelocity()));
                             if (collisionManager.isValid(npc, false)) {
+                                stuckFrames = 0;
                                 npc.deriveY(npc.getVelocity());
                                 npc.updateMovement();
+                            } else {
+                                stuckFrames++;
                             }
                             ticks = 0;
                         } else {
@@ -133,8 +102,11 @@ namespace OutsideTheBox {
                         if (ticks >= SKIPPED_FRAMES) {
                             npc.setDestination(new Vector2(npc.getLocation().X - npc.getVelocity(), npc.getLocation().Y));
                             if (collisionManager.isValid(npc, false)) {
+                                stuckFrames = 0;
                                 npc.deriveX(-npc.getVelocity());
                                 npc.updateMovement();
+                            } else {
+                                stuckFrames++;
                             }
                             ticks = 0;
                         } else {
@@ -150,8 +122,11 @@ namespace OutsideTheBox {
                         if (ticks >= SKIPPED_FRAMES) {
                             npc.setDestination(new Vector2(npc.getLocation().X + npc.getVelocity(), npc.getLocation().Y));
                             if (collisionManager.isValid(npc, false)) {
+                                stuckFrames = 0;
                                 npc.deriveX(npc.getVelocity());
                                 npc.updateMovement();
+                            } else {
+                                stuckFrames++;
                             }
                             ticks = 0;
                         } else {
