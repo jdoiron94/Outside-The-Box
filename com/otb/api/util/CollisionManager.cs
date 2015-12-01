@@ -207,10 +207,11 @@
         /// <param name="e">The entity to check</param>
         /// <returns>Returns true if the entity collides with an object; otherwise, false</returns>
         public bool hitObject(Entity e, bool collectibles) {
-            if (getObjectCollision(e, collectibles) is Pit)
-                return false; 
-            else
+            if (getObjectCollision(e, collectibles) is Pit) {
+                return false;
+            } else {
                 return getObjectCollision(e, collectibles) != null;
+            }
         }
 
         /// <summary>

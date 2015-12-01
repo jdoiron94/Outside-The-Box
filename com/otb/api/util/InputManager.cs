@@ -238,7 +238,6 @@ namespace OutsideTheBox {
                 pause.setExperience(pause.getExperience() + t.getExp());
                 dropText = "+ " + t.getExp() + " EXP";
                 t.playEffect();
-                gCollision = null;
             } else if (gCollision != null && gCollision is Key) {
                 Key k = (Key) gCollision;
                 k.setCollected(true);
@@ -341,12 +340,20 @@ namespace OutsideTheBox {
                 }
                 confuse.activate(level);
             }
+            Entity eCollision = collisionManager.getEntityCollision(player);
             if (currentKeyState.IsKeyDown(Keys.Up)) {
                 player.setDirection(Direction.North);
                 player.updateMovement();
                 player.setDestination(new Vector2(player.getLocation().X, player.getLocation().Y - velocity));
-                if (player.getDestination().Y >= 0 && collisionManager.isValid(player, true)) {
+                if (player.getDestination().Y >= 0 && collisionManager.isValid(player, false)) {
                     player.deriveY(-velocity);
+                } else {
+                    if (!(collisionManager.getObjectCollision(player, false) is Door)) {
+                        player.setDestination(player.getLocation());
+                    }
+                    if (eCollision != null) {
+                        eCollision.setDestination(eCollision.getLocation());
+                    }
                 }
             } else if (lastKeyState.IsKeyDown(Keys.Up) && currentKeyState.IsKeyUp(Keys.Up)) {
                 stagnant = true;
@@ -354,8 +361,15 @@ namespace OutsideTheBox {
                 player.setDirection(Direction.South);
                 player.updateMovement();
                 player.setDestination(new Vector2(player.getLocation().X, player.getLocation().Y + velocity));
-                if (player.getDestination().Y <= height - player.getTexture().Height && collisionManager.isValid(player, true)) {
+                if (player.getDestination().Y <= height - player.getTexture().Height && collisionManager.isValid(player, false)) {
                     player.deriveY(velocity);
+                } else {
+                    if (!(collisionManager.getObjectCollision(player, false) is Door)) {
+                        player.setDestination(player.getLocation());
+                    }
+                    if (eCollision != null) {
+                        eCollision.setDestination(eCollision.getLocation());
+                    }
                 }
             } else if (lastKeyState.IsKeyDown(Keys.Down) && currentKeyState.IsKeyUp(Keys.Down)) {
                 stagnant = true;
@@ -363,8 +377,15 @@ namespace OutsideTheBox {
                 player.setDirection(Direction.West);
                 player.updateMovement();
                 player.setDestination(new Vector2(player.getLocation().X - velocity, player.getLocation().Y));
-                if (player.getDestination().X >= 0 && collisionManager.isValid(player, true)) {
+                if (player.getDestination().X >= 0 && collisionManager.isValid(player, false)) {
                     player.deriveX(-velocity);
+                } else {
+                    if (!(collisionManager.getObjectCollision(player, false) is Door)) {
+                        player.setDestination(player.getLocation());
+                    }
+                    if (eCollision != null) {
+                        eCollision.setDestination(eCollision.getLocation());
+                    }
                 }
             } else if (lastKeyState.IsKeyDown(Keys.Left) && currentKeyState.IsKeyUp(Keys.Left)) {
                 stagnant = true;
@@ -372,8 +393,15 @@ namespace OutsideTheBox {
                 player.setDirection(Direction.East);
                 player.updateMovement();
                 player.setDestination(new Vector2(player.getLocation().X + velocity, player.getLocation().Y));
-                if (player.getDestination().X <= width - 64 && collisionManager.isValid(player, true)) {
+                if (player.getDestination().X <= width - 64 && collisionManager.isValid(player, false)) {
                     player.deriveX(velocity);
+                } else {
+                    if (!(collisionManager.getObjectCollision(player, false) is Door)) {
+                        player.setDestination(player.getLocation());
+                    }
+                    if (eCollision != null) {
+                        eCollision.setDestination(eCollision.getLocation());
+                    }
                 }
             } else if (lastKeyState.IsKeyDown(Keys.Right) && currentKeyState.IsKeyUp(Keys.Right)) {
                 stagnant = true;

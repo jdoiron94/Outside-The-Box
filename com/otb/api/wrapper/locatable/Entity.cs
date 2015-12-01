@@ -366,6 +366,17 @@ namespace OutsideTheBox {
         /// </summary>
         /// <param name="direction">The direction to face</param>
         public void setDirection(Direction direction) {
+            if (this.direction != direction) {
+                if (direction == Direction.North) {
+                    texture = northFacing[0];
+                } else if (direction == Direction.South) {
+                    texture = southFacing[0];
+                } else if (direction == Direction.West) {
+                    texture = westFacing[0];
+                } else {
+                    texture = eastFacing[0];
+                }
+            }
             this.direction = direction;
         }
 
