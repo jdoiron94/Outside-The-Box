@@ -2,7 +2,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-using System;
 
 namespace OutsideTheBox {
 
@@ -456,6 +455,7 @@ namespace OutsideTheBox {
 
         private void updateTelekinesisMove(GameTime time) {
             playerManager.updateManaDrainRate();
+            Entity eCollision = collisionManager.getEntityCollision(selectedObject);
             if (currentKeyState.IsKeyDown(Keys.Up)) {
                 selectedObject.setDirection(Direction.North);
                 selectedObject.setDestination(new Vector2(selectedObject.getLocation().X, selectedObject.getLocation().Y - velocity));
@@ -463,6 +463,11 @@ namespace OutsideTheBox {
                     selectedObject.deriveY(-velocity);
                     if (playerManager.getManaDrainRate() == 5) {
                         playerManager.depleteMana(2);
+                    }
+                } else {
+                    selectedObject.setDestination(selectedObject.getLocation());
+                    if (eCollision != null) {
+                        eCollision.setDestination(eCollision.getLocation());
                     }
                 }
             } else if (currentKeyState.IsKeyDown(Keys.Down)) {
@@ -473,6 +478,11 @@ namespace OutsideTheBox {
                     if (playerManager.getManaDrainRate() == 5) {
                         playerManager.depleteMana(2);
                     }
+                } else {
+                    selectedObject.setDestination(selectedObject.getLocation());
+                    if (eCollision != null) {
+                        eCollision.setDestination(eCollision.getLocation());
+                    }
                 }
             } else if (currentKeyState.IsKeyDown(Keys.Left)) {
                 selectedObject.setDirection(Direction.West);
@@ -482,6 +492,11 @@ namespace OutsideTheBox {
                     if (playerManager.getManaDrainRate() == 5) {
                         playerManager.depleteMana(2);
                     }
+                } else {
+                    selectedObject.setDestination(selectedObject.getLocation());
+                    if (eCollision != null) {
+                        eCollision.setDestination(eCollision.getLocation());
+                    }
                 }
             } else if (currentKeyState.IsKeyDown(Keys.Right)) {
                 selectedObject.setDirection(Direction.East);
@@ -490,6 +505,11 @@ namespace OutsideTheBox {
                     selectedObject.deriveX(velocity);
                     if (playerManager.getManaDrainRate() == 5) {
                         playerManager.depleteMana(2);
+                    }
+                } else {
+                    selectedObject.setDestination(selectedObject.getLocation());
+                    if (eCollision != null) {
+                        eCollision.setDestination(eCollision.getLocation());
                     }
                 }
             } else {
@@ -505,18 +525,21 @@ namespace OutsideTheBox {
                         moving = false;
                     }
                 } else if (selectedObject.getDirection() == Direction.South) {
+                    selectedObject.setDestination(new Vector2(selectedObject.getLocation().X, selectedObject.getLocation().Y + velocity));
                     if (selectedObject.getDestination().Y < height - selectedObject.getTexture().Height && collisionManager.isValid(selectedObject)) {
                         selectedObject.deriveY(velocity);
                     } else {
                         moving = false;
                     }
                 } else if (selectedObject.getDirection() == Direction.West) {
+                    selectedObject.setDestination(new Vector2(selectedObject.getLocation().X - velocity, selectedObject.getLocation().Y));
                     if (selectedObject.getDestination().X > 0 && collisionManager.isValid(selectedObject)) {
                         selectedObject.deriveX(-velocity);
                     } else {
                         moving = false;
                     }
                 } else {
+                    selectedObject.setDestination(new Vector2(selectedObject.getLocation().X + velocity, selectedObject.getLocation().Y));
                     if (selectedObject.getDestination().X < width && collisionManager.isValid(selectedObject)) {
                         selectedObject.deriveX(velocity);
                     } else {
@@ -527,6 +550,10 @@ namespace OutsideTheBox {
                     playerManager.depleteMana(1);
                 }
                 if (!moving) {
+                    selectedObject.setDestination(selectedObject.getLocation());
+                    if (eCollision != null) {
+                        eCollision.setDestination(eCollision.getLocation());
+                    }
                     gameState = GameState.Normal;
                     selectedObject.setSelected(false);
                     selectedObject = null;
