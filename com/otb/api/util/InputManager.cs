@@ -193,6 +193,15 @@ namespace OutsideTheBox {
                     lim.updateFrame();
                 }
             }
+            if (stagnant) {
+                if (ticks >= WAIT) {
+                    player.updateStill();
+                    ticks = 0;
+                    stagnant = false;
+                } else {
+                    ticks++;
+                }
+            }
             if (gameState == GameState.Normal) {
                 updateNormal(time);
             } else if (gameState == GameState.TelekinesisSelect) {
@@ -414,15 +423,6 @@ namespace OutsideTheBox {
                     playerManager.depleteMana(5);
                 }
             }
-            if (stagnant) {
-                if (ticks >= WAIT) {
-                    player.updateStill();
-                    ticks = 0;
-                    stagnant = false;
-                } else {
-                    ticks++;
-                }
-            }
             if (lastKeyState.IsKeyDown(Keys.Q) && currentKeyState.IsKeyUp(Keys.Q)) {
                 gameState = GameState.TelekinesisSelect;
                 level.setMode(1);
@@ -435,6 +435,7 @@ namespace OutsideTheBox {
         private void updateSelect(GameTime time) {
             lastState = state;
             state = Mouse.GetState().LeftButton;
+            stagnant = true;
             playerManager.setManaDrainRate(5);
             if (lastState == ButtonState.Pressed && state == ButtonState.Released) {
                 foreach (GameObject obj in level.getObjectsAndKeys()) {
