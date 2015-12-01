@@ -343,6 +343,8 @@ namespace OutsideTheBox
             Cubicle cube1_2 = new Cubicle(80F, 280F, 150, 150, this, Direction.East, wall);
             Cubicle cube1_3 = new Cubicle(width - 230F, 30F, 150, 150, this, Direction.West, wall);
             Cubicle cube1_4 = new Cubicle(width - 230F, 280F, 150, 150, this, Direction.West, wall);
+            cube1_1.addObject(desk1_1);
+            cube1_4.addObject(desk1_2);
             //level 2 cubicles
             Cubicle cube2_1 = new Cubicle(0F, 0F, 150, 150, this, Direction.East, wall);
             Cubicle cube2_2 = new Cubicle(width - 160, 0F, 150, 150, this, Direction.West, wall);
