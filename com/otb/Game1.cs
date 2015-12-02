@@ -305,6 +305,7 @@ namespace OutsideTheBox
             GameObject box4_1 = new GameObject(box, new Vector2(280F, 20F), true);
             GameObject box4_2 = new GameObject(box, new Vector2(40F, 360F), true);
             GameObject box5_1 = new GameObject(box, new Vector2(120F, 320F), true);
+            GameObject box5_2 = new GameObject(box, new Vector2(600F, 320F), true);
             GameObject box6_1 = new GameObject(box, new Vector2(40F, 340F), true);
             GameObject box6_2 = new GameObject(box, new Vector2(660F, 20F), true);
 
@@ -688,6 +689,7 @@ namespace OutsideTheBox
             Level5Objects.Add(door5to4);
             Level5Objects.Add(door5to6);
             Level5Objects.Add(box5_1);
+            Level5Objects.Add(box5_2);
             Level5Objects.Add(key5_1);
             Level5Objects.Add(token5_1);
             Level5Objects.Add(token5_2);
