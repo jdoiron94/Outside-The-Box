@@ -163,3 +163,9 @@
 /processorParam:Quality=Best
 /build:audio/songs/Office (Trimmed).mp3
 
+#begin audio/sound effects/waterSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:audio/sound effects/waterSound.wav
+
