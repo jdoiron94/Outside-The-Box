@@ -432,7 +432,8 @@ namespace OutsideTheBox
             Barrier bar4_1 = new Barrier(barrier2_vertical, new Vector2(690F, 0F), barrierEffect.CreateInstance());
             Barrier bar4_2 = new Barrier(barrier2_vertical, new Vector2(110F, 345F), barrierEffect.CreateInstance());
 
-            PlayerLimitationField lim5_1 = new PlayerLimitationField(water, new Vector2(120F, 200F), null, 560, 120);
+            SoundEffect waterEffect = Content.Load<SoundEffect>("audio/sound effects/waterSound");
+            PlayerLimitationField lim5_1 = new PlayerLimitationField(water, new Vector2(120F, 200F), waterEffect.CreateInstance(), 560, 120);
             ManaLaser mlas5_1 = new ManaLaser(ManaLaserV, new Vector2(100F, 200F), laserEffect.CreateInstance(), 120, 10);
             HPLaser las5_1 = new HPLaser(HealthLaserV, new Vector2(690F, 200F), laserEffect.CreateInstance(), 120, 10);
             Barrier bar5_1 = new Barrier(barrier2_horizontal, new Vector2(255F, 170F), barrierEffect.CreateInstance(), true); //upper left
