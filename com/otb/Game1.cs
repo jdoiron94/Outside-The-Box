@@ -39,8 +39,9 @@ namespace OutsideTheBox
         private SoundEffect slowSound;
         private SoundEffect boltSound;
 
-        Video introvideo;
-        VideoPlayer vidplayer;
+        Video introVideo;
+        Video endVideo;
+        VideoPlayer vidPlayer;
 
         private Screen[] screens;
 
@@ -234,8 +235,9 @@ namespace OutsideTheBox
             midX = (width / 2);
             midY = (height - 40) / 2;
 
-            introvideo = Content.Load<Video>("video/Outside The Box Intro");
-            vidplayer = new VideoPlayer();
+            introVideo = Content.Load<Video>("video/Outside The Box Intro");
+            endVideo = Content.Load<Video>("video/EndVideo");
+            vidPlayer = new VideoPlayer();
             //IntroVideo intvid = new IntroVideo(introvideo, vidplayer, "video", true);
 
             Song factorySong = Content.Load<Song>("audio/songs/Factory");

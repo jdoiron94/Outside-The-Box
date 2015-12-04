@@ -174,3 +174,8 @@
 /processor:VideoProcessor
 /build:video/Outside The Box Intro.wmv
 
+#begin video/EndVideo.wmv
+/importer:WmvImporter
+/processor:VideoProcessor
+/build:video/EndVideo.wmv
+
