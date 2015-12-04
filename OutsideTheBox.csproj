@@ -99,6 +99,7 @@
     <Compile Include="com\otb\api\util\PlayerManager.cs" />
     <Compile Include="com\otb\Program.cs" />
     <Compile Include="com\otb\api\wrapper\locatable\Projectile.cs" />
+    <Compile Include="com\otb\ui\IntroVideo.cs" />
     <Compile Include="com\otb\ui\Numberpad.cs" />
     <Compile Include="com\otb\ui\PauseMenu.cs" />
     <Compile Include="com\otb\ui\PowerBar.cs" />
@@ -774,6 +775,9 @@
     <Content Include="Content\ui\Telekinesis.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\video\Outside The Box Intro.wmv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -838,6 +842,9 @@
     </None>
     <None Include="Content\fonts\font1.spritefont" />
     <None Include="Content\fonts\font1.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\video\Outside The Box Intro.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

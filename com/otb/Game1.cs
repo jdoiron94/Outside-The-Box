@@ -39,6 +39,9 @@ namespace OutsideTheBox
         private SoundEffect slowSound;
         private SoundEffect boltSound;
 
+        Video introvideo;
+        VideoPlayer vidplayer;
+
         private Screen[] screens;
 
         private int midX;
@@ -230,6 +233,10 @@ namespace OutsideTheBox
             height = 520;
             midX = (width / 2);
             midY = (height - 40) / 2;
+
+            introvideo = Content.Load<Video>("video/Outside The Box Intro");
+            vidplayer = new VideoPlayer();
+            //IntroVideo intvid = new IntroVideo(introvideo, vidplayer, "video", true);
 
             Song factorySong = Content.Load<Song>("audio/songs/Factory");
             Song streetSong = Content.Load<Song>("audio/songs/Streets");
@@ -905,6 +912,7 @@ namespace OutsideTheBox
             GraphicsDevice.Clear(Color.White);
             bool busy = false;
             spriteBatch.Begin();
+          
             foreach (Screen s in screens)
             {
                 if (s.isActive())

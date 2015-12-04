@@ -169,3 +169,8 @@
 /processorParam:Quality=Best
 /build:audio/sound effects/waterSound.wav
 
+#begin video/Outside The Box Intro.wmv
+/importer:WmvImporter
+/processor:VideoProcessor
+/build:video/Outside The Box Intro.wmv
+
