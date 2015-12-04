@@ -775,6 +775,9 @@
     <Content Include="Content\ui\Telekinesis.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\video\EndVideo.wmv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\video\Outside The Box Intro.wmv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -842,6 +845,9 @@
     </None>
     <None Include="Content\fonts\font1.spritefont" />
     <None Include="Content\fonts\font1.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\video\EndVideo.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Content\video\Outside The Box Intro.xnb">
