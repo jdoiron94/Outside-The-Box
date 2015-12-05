@@ -1,9 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
 
 namespace OutsideTheBox {
+
+    /// <summary>
+    /// Class which handles the numberpad puzzle
+    /// </summary>
 
     public class Numberpad : Screen {
 
@@ -18,6 +21,7 @@ namespace OutsideTheBox {
         private KeyboardState curKey;
 
         private string pass;
+        private string enteredPass;
         private string actualPass;
 
         private readonly Rectangle[] numberBounds;
@@ -35,6 +39,18 @@ namespace OutsideTheBox {
                 new Rectangle(258, 308, 83, 83), new Rectangle(358, 308, 83, 83), new Rectangle(458, 308, 83, 83), new Rectangle(458, 408, 83, 83)};
         }
 
+        /// <summary>
+        /// Returns whether or not the numberpad was successfully cracked
+        /// </summary>
+        /// <returns>Returns true if successfully solved; otherwise, false</returns>
+        public bool solved() {
+            return enteredPass == actualPass;
+        }
+
+        /// <summary>
+        /// Handles updating of the numberpad
+        /// </summary>
+        /// <param name="time">The GameTime to respect</param>
         public override void update(GameTime time) {
             prevMouse = curMouse;
             curMouse = Mouse.GetState();
@@ -45,13 +61,12 @@ namespace OutsideTheBox {
                     if (numberBounds[i].Contains(curMouse.Position)) {
                         if (i != 10 && pass.Length < 4) {
                             pass += i;
-                            Console.WriteLine("Mouse clicked number " + i);
                         } else if (i == 10) {
                             if (pass == actualPass) {
-                                Console.WriteLine("SUCCESS");
                                 setActive(false);
+                                enteredPass = pass;
+                                pass = "";
                             } else {
-                                Console.WriteLine(pass + " != " + actualPass);
                                 pass = "";
                             }
                         }
@@ -60,9 +75,15 @@ namespace OutsideTheBox {
             }
             if (prevKey.IsKeyDown(Keys.Escape) && curKey.IsKeyUp(Keys.Escape)) {
                 setActive(false);
+                enteredPass = pass;
+                pass = "";
             }
         }
 
+        /// <summary>
+        /// Handles drawing of the numberpad
+        /// </summary>
+        /// <param name="batch">TheSpriteBatch to draw with</param>
         public override void draw(SpriteBatch batch) {
             batch.Draw(numberpad, Vector2.Zero, Color.White);
             Vector2 size = font.MeasureString(pass);

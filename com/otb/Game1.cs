@@ -278,9 +278,9 @@ namespace OutsideTheBox
             pause.addHint(hint5);
             pause.addHint(hint6);
             pause.addHint(hint7);
-            //Texture2D numberpad = Content.Load<Texture2D>("ui/Keypad");
-            //Numberpad numberPuzzle = new Numberpad(numberpad, cursor, font4, "Numberpad", false);
-            screens = new Screen[] { title, pause/*, numberPuzzle*/ };
+            Texture2D numberpad = Content.Load<Texture2D>("ui/Keypad");
+            Numberpad numberPuzzle = new Numberpad(numberpad, cursor, font4, "Numberpad", false);
+            screens = new Screen[] { title, pause, numberPuzzle };
 
             boltSound = Content.Load<SoundEffect>("audio/sound effects/boltSound");
             dashSound = Content.Load<SoundEffect>("audio/sound effects/dashSound");
@@ -382,7 +382,7 @@ namespace OutsideTheBox
             //DOORS
             Texture2D door = Content.Load<Texture2D>("sprites/objects/DoorOpen");
             Texture2D doorClosed = Content.Load<Texture2D>("sprites/objects/Door");
-            Door door1to2 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2((width - 64F) / 2F, height - 51F), Direction.South, false, true, 64, 10, true);
+            Door door1to2 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2((width - 64F) / 2F, height - 51F), Direction.South, false, true, 64, 10, false);
 
             Door door2to1 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2((width - 64F) / 2F, 0F), Direction.North, false, false, 64, 10, true);
             Door door2to3 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2(width - 10F, height - 200), Direction.East, false, true, 10, 64, false);

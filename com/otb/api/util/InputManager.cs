@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using System;
 
 namespace OutsideTheBox {
 
@@ -39,6 +40,7 @@ namespace OutsideTheBox {
         private bool powerReveal;
         private bool menuShown;
         private bool puzzleShown;
+        private bool showPuzzle;
         private string dropText;
 
         private const int WAIT = 4;
@@ -62,8 +64,6 @@ namespace OutsideTheBox {
             stagnant = false;
             moving = false;
             font = game.getDropFont();
-            this.menuShown = false;
-            this.puzzleShown = false;
             this.gameState = GameState.Normal;
         }
 
@@ -170,17 +170,6 @@ namespace OutsideTheBox {
                     l.toggleDebug();
                 }
             }
-            /*if (gameState == GameState.Puzzle) {
-                if (puzzleShown) {
-                    Console.WriteLine("puzzle shown, resuming game");
-                    gameState = GameState.Normal;
-                    puzzleShown = false;
-                } else {
-                    Console.WriteLine("game pausing, starting puzzle");
-                    puzzleShown = true;
-                    level.getScreens()[2].setActive(true);
-                }
-            } else*/
             foreach (PressButton pb in level.getPressButtons()) {
                 pb.update();
             }
@@ -215,6 +204,18 @@ namespace OutsideTheBox {
                 } else {
                     menuShown = true;
                     level.getScreens()[1].setActive(true);
+                }
+            } else if (gameState == GameState.Puzzle) {
+                if (puzzleShown) {
+                    Console.WriteLine("Puzzle finished, setting to normal");
+                    puzzleShown = false;
+                    showPuzzle = false;
+                    gameState = GameState.Normal;
+                    level.setActive(true);
+                } else {
+                    Console.WriteLine("Starting puzzle");
+                    puzzleShown = true;
+                    level.getScreens()[2].setActive(true);
                 }
             }
         }
@@ -280,17 +281,20 @@ namespace OutsideTheBox {
                         player.setLocation(level.getPlayerReentryPoint());
                     }
                     playerManager.getKeyBox().update(this);
-                }/* else if (game.getLevelIndex() == 0) {
-                    if (gameState == GameState.Normal) {
-                        Console.WriteLine("Normal state, setting to puzzle");
-                        gameState = GameState.Puzzle;
-                        level.setActive(false);
+                } else if (game.getLevelIndex() == 0) {
+                    Numberpad num = (Numberpad) level.getScreens()[2];
+                    if (!num.solved()) {
+                        if (gameState == GameState.Normal) {
+                            if (showPuzzle) {
+                                Console.WriteLine("Pause game, set to puzzle");
+                                gameState = GameState.Puzzle;
+                                level.setActive(false);
+                            }
+                        }
                     } else {
-                        Console.WriteLine("puzzle state, setting to normal");
-                        gameState = GameState.Normal;
-                        level.setActive(true);
+                        d.unlockDoor(true);
                     }
-                }*/
+                }
             } else if (gCollision != null && gCollision is Pit) {
                 Pit p = (Pit) gCollision;
                 p.update(this);
@@ -350,6 +354,7 @@ namespace OutsideTheBox {
             }
             Entity eCollision = collisionManager.getEntityCollision(player);
             if (currentKeyState.IsKeyDown(Keys.Up)) {
+                showPuzzle = true;
                 player.setDirection(Direction.North);
                 player.updateMovement();
                 player.setDestination(new Vector2(player.getLocation().X, player.getLocation().Y - velocity));
@@ -366,6 +371,7 @@ namespace OutsideTheBox {
             } else if (lastKeyState.IsKeyDown(Keys.Up) && currentKeyState.IsKeyUp(Keys.Up)) {
                 stagnant = true;
             } else if (currentKeyState.IsKeyDown(Keys.Down)) {
+                showPuzzle = true;
                 player.setDirection(Direction.South);
                 player.updateMovement();
                 player.setDestination(new Vector2(player.getLocation().X, player.getLocation().Y + velocity));
@@ -382,6 +388,7 @@ namespace OutsideTheBox {
             } else if (lastKeyState.IsKeyDown(Keys.Down) && currentKeyState.IsKeyUp(Keys.Down)) {
                 stagnant = true;
             } else if (currentKeyState.IsKeyDown(Keys.Left)) {
+                showPuzzle = true;
                 player.setDirection(Direction.West);
                 player.updateMovement();
                 player.setDestination(new Vector2(player.getLocation().X - velocity, player.getLocation().Y));
@@ -398,6 +405,7 @@ namespace OutsideTheBox {
             } else if (lastKeyState.IsKeyDown(Keys.Left) && currentKeyState.IsKeyUp(Keys.Left)) {
                 stagnant = true;
             } else if (currentKeyState.IsKeyDown(Keys.Right)) {
+                showPuzzle = true;
                 player.setDirection(Direction.East);
                 player.updateMovement();
                 player.setDestination(new Vector2(player.getLocation().X + velocity, player.getLocation().Y));
