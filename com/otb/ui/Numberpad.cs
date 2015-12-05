@@ -24,6 +24,7 @@ namespace OutsideTheBox {
         private string enteredPass;
         private string actualPass;
 
+        private readonly Keys[] numbers;
         private readonly Rectangle[] numberBounds;
 
         public Numberpad(Texture2D numberpad, Texture2D cursor, SpriteFont font, string name, bool active) :
@@ -34,6 +35,9 @@ namespace OutsideTheBox {
             this.pass = "";
             this.actualPass = "1776";
             this.location = new Vector2(253.0F, 15.0F);
+            this.numbers = new Keys[] { Keys.NumPad0, Keys.NumPad1, Keys.NumPad2, Keys.NumPad3, Keys.NumPad4,
+                Keys.NumPad5, Keys.NumPad6, Keys.NumPad7, Keys.NumPad8, Keys.NumPad9, Keys.D0, Keys.D1, Keys.D2,
+                Keys.D3, Keys.D4, Keys.D5, Keys.D6, Keys.D7, Keys.D8, Keys.D9 };
             this.numberBounds = new Rectangle[] { new Rectangle(358, 408, 83, 83), new Rectangle(258, 108, 83, 83), new Rectangle(358, 108, 83, 83), new Rectangle(458, 108, 83, 83),
                 new Rectangle(258, 208, 83, 83), new Rectangle(358, 208, 83, 83), new Rectangle(458, 208, 83, 83),
                 new Rectangle(258, 308, 83, 83), new Rectangle(358, 308, 83, 83), new Rectangle(458, 308, 83, 83), new Rectangle(458, 408, 83, 83)};
@@ -73,7 +77,28 @@ namespace OutsideTheBox {
                     }
                 }
             }
-            if (prevKey.IsKeyDown(Keys.Escape) && curKey.IsKeyUp(Keys.Escape)) {
+            for (int i = 0; i < numbers.Length; i++) {
+                Keys k = numbers[i];
+                if (prevKey.IsKeyDown(k) && curKey.IsKeyUp(k)) {
+                    if (pass.Length < 4) {
+                        if (i >= 10) {
+                            pass += i - 10;
+                            break;
+                        }
+                        pass += i;
+                        break;
+                    }
+                }
+            }
+            if (prevKey.IsKeyDown(Keys.Enter) && curKey.IsKeyUp(Keys.Enter)) {
+                if (pass == actualPass) {
+                    setActive(false);
+                    enteredPass = pass;
+                    pass = "";
+                } else {
+                    pass = "";
+                }
+            } else if (prevKey.IsKeyDown(Keys.Escape) && curKey.IsKeyUp(Keys.Escape)) {
                 setActive(false);
                 enteredPass = pass;
                 pass = "";
