@@ -279,7 +279,7 @@ namespace OutsideTheBox
             pause.addHint(hint6);
             pause.addHint(hint7);
             Texture2D numberpad = Content.Load<Texture2D>("ui/Keypad");
-            Numberpad numberPuzzle = new Numberpad(numberpad, cursor, font4, "Numberpad", false);
+            Numberpad numberPuzzle = new Numberpad(GraphicsDevice, numberpad, cursor, font4, "Numberpad", false);
             screens = new Screen[] { title, pause, numberPuzzle };
 
             boltSound = Content.Load<SoundEffect>("audio/sound effects/boltSound");

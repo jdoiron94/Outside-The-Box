@@ -10,11 +10,14 @@ namespace OutsideTheBox {
 
     public class Numberpad : Screen {
 
+        private readonly GraphicsDevice device;
         private readonly Texture2D numberpad;
         private readonly Texture2D cursor;
         private readonly SpriteFont font;
         private readonly Vector2 location;
 
+        private Texture2D crop;
+        private Rectangle active;
         private MouseState prevMouse;
         private MouseState curMouse;
         private KeyboardState prevKey;
@@ -23,12 +26,15 @@ namespace OutsideTheBox {
         private string pass;
         private string enteredPass;
         private string actualPass;
+        private bool correct;
+        private bool reset;
 
         private readonly Keys[] numbers;
         private readonly Rectangle[] numberBounds;
 
-        public Numberpad(Texture2D numberpad, Texture2D cursor, SpriteFont font, string name, bool active) :
+        public Numberpad(GraphicsDevice device, Texture2D numberpad, Texture2D cursor, SpriteFont font, string name, bool active) :
             base(name, active) {
+            this.device = device;
             this.numberpad = numberpad;
             this.cursor = cursor;
             this.font = font;
@@ -52,6 +58,20 @@ namespace OutsideTheBox {
         }
 
         /// <summary>
+        /// Updates the last entered numberkey to show correctness
+        /// </summary>
+        /// <param name="i">The number index typed or clicked</param>
+        private void updateKey(int i) {
+            active = numberBounds[i];
+            crop = new Texture2D(device, active.Width, active.Height);
+            Color[] data = new Color[active.Width * active.Height];
+            numberpad.GetData(0, active, data, 0, data.Length);
+            crop.SetData(data);
+            pass += i;
+            correct = pass[pass.Length - 1] == actualPass[pass.Length - 1];
+        }
+
+        /// <summary>
         /// Handles updating of the numberpad
         /// </summary>
         /// <param name="time">The GameTime to respect</param>
@@ -64,12 +84,15 @@ namespace OutsideTheBox {
                 for (int i = 0; i < numberBounds.Length; i++) {
                     if (numberBounds[i].Contains(curMouse.Position)) {
                         if (i != 10 && pass.Length < 4) {
-                            pass += i;
+                            reset = false;
+                            updateKey(i);
+                            break;
                         } else if (i == 10) {
+                            reset = true;
                             if (pass == actualPass) {
-                                setActive(false);
                                 enteredPass = pass;
                                 pass = "";
+                                setActive(false);
                             } else {
                                 pass = "";
                             }
@@ -81,27 +104,26 @@ namespace OutsideTheBox {
                 Keys k = numbers[i];
                 if (prevKey.IsKeyDown(k) && curKey.IsKeyUp(k)) {
                     if (pass.Length < 4) {
-                        if (i >= 10) {
-                            pass += i - 10;
-                            break;
-                        }
-                        pass += i;
+                        reset = false;
+                        updateKey(i >= 10 ? i - 10 : i);
                         break;
                     }
                 }
             }
             if (prevKey.IsKeyDown(Keys.Enter) && curKey.IsKeyUp(Keys.Enter)) {
+                reset = true;
                 if (pass == actualPass) {
-                    setActive(false);
                     enteredPass = pass;
                     pass = "";
+                    setActive(false);
                 } else {
                     pass = "";
                 }
             } else if (prevKey.IsKeyDown(Keys.Escape) && curKey.IsKeyUp(Keys.Escape)) {
-                setActive(false);
                 enteredPass = pass;
                 pass = "";
+                reset = true;
+                setActive(false);
             }
         }
 
@@ -113,6 +135,9 @@ namespace OutsideTheBox {
             batch.Draw(numberpad, Vector2.Zero, Color.White);
             Vector2 size = font.MeasureString(pass);
             Vector2 loc = new Vector2(location.X + ((292.0F - size.X) / 2.0F), location.Y + ((63.0F - size.Y) / 2.0F));
+            if (crop != null && !reset) {
+                batch.Draw(crop, active, correct ? Color.LightGreen : Color.IndianRed);
+            }
             batch.DrawString(font, pass, loc, Color.GhostWhite);
             batch.Draw(cursor, new Vector2(curMouse.X, curMouse.Y), Color.White);
         }
