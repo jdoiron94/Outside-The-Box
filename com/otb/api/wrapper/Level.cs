@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
+
 using System;
 using System.Collections.Generic;
 
@@ -30,6 +31,7 @@ namespace OutsideTheBox {
         private PlayerManager playerManager;
 
         private List<Npc> npcs;
+        private List<Npc> deadNpcs;
         private List<GameObject> objects;
         private List<ThoughtBubble> thoughts;
 
@@ -57,41 +59,59 @@ namespace OutsideTheBox {
             this.map = map;
             this.npcs = new List<Npc>(npcs.Length);
             this.npcs.AddRange(npcs);
+            this.deadNpcs = new List<Npc>(npcs.Length);
             this.objects = new List<GameObject>(objects.Length);
             this.objects.AddRange(objects);
-            tokens = new List<Token>();
-            doors = new List<Door>();
-            keys = new List<Key>();
-            barriers = new List<Barrier>();
-            thoughts = new List<ThoughtBubble>();
-            walls = new List<Wall>();
-            pressButtons = new List<PressButton>();
-            Pits = new List<Pit>();
-            sortObjects();
-            cubicles = new List<Cubicle>();
-            active = true;
-            selectedObject = null;
-            debug = false;
-            projectiles = new List<Projectile>();
+            this.tokens = new List<Token>();
+            this.doors = new List<Door>();
+            this.keys = new List<Key>();
+            this.barriers = new List<Barrier>();
+            this.thoughts = new List<ThoughtBubble>();
+            this.walls = new List<Wall>();
+            this.pressButtons = new List<PressButton>();
+            this.Pits = new List<Pit>();
+            this.sortObjects();
+            this.cubicles = new List<Cubicle>();
+            this.active = true;
+            this.projectiles = new List<Projectile>();
             this.index = index;
         }
 
+        /// <summary>
+        /// Sets the level's song
+        /// </summary>
+        /// <param name="song">The song to set</param>
         public void setSong(Song song) {
             this.song = song;
         }
 
+        /// <summary>
+        /// Returns the level's song
+        /// </summary>
+        /// <returns>Returns the level's song</returns>
         public Song getSong() {
             return song;
         }
 
+        /// <summary>
+        /// Sets the game screens
+        /// </summary>
+        /// <param name="screens">The screens to set</param>
         public void setScreens(Screen[] screens) {
             this.screens = screens;
         }
 
+        /// <summary>
+        /// Returns the game screens
+        /// </summary>
+        /// <returns>Returns the game screens</returns>
         public Screen[] getScreens() {
             return screens;
         }
 
+        /// <summary>
+        /// Sorts the objects added to the level
+        /// </summary>
         public void sortObjects() {
             List<GameObject> newObjects = new List<GameObject>();
             foreach (GameObject o in objects) {
@@ -306,9 +326,13 @@ namespace OutsideTheBox {
         /// Resets the level's npcs
         /// </summary>
         public void resetNpcs() {
+            foreach (Npc n in deadNpcs) {
+                npcs.Add(n);
+            }
             foreach (Npc n in npcs) {
                 n.reset();
             }
+            deadNpcs = new List<Npc>(npcs.Count);
         }
 
         /// <summary>
@@ -508,8 +532,8 @@ namespace OutsideTheBox {
             for (int i = 0; i < npcs.Count; i++) {
                 Npc npc = npcs[i];
                 if (npc.isDead()) {
-                    Console.WriteLine("DED NPC");
                     npc.playEffect();
+                    deadNpcs.Add(npc);
                     npcs.RemoveAt(i);
                     i--;
                 } else {

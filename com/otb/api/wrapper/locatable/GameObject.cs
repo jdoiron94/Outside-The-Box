@@ -20,6 +20,7 @@ namespace OutsideTheBox {
         private Rectangle destinationBounds;
 
         private readonly Vector2 origLoc;
+        private readonly Direction origDir;
 
         private readonly bool liftable;
         private bool selected;
@@ -36,6 +37,7 @@ namespace OutsideTheBox {
             this.origLoc = new Vector2(location.X, location.Y);
             this.bounds = new Rectangle((int) location.X, (int) location.Y, width, height);
             this.destinationBounds = new Rectangle(bounds.X, bounds.Y, bounds.Width, bounds.Height);
+            this.origDir = direction;
             this.lastFired = -1.0D;
         }
 
@@ -59,6 +61,7 @@ namespace OutsideTheBox {
             setDestination(origLoc);
             selected = false;
             lastFired = -1.0D;
+            direction = origDir;
         }
 
         /// <summary>

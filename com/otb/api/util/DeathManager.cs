@@ -62,6 +62,7 @@ namespace OutsideTheBox {
             inputManager.getPlayerManager().setHealth(health);
             inputManager.getPlayerManager().setMana(mana);
             inputManager.getPlayerManager().setTotalMana(totalMana);
+            inputManager.getPlayer().updateStill();
         }
 
         /// <summary>
