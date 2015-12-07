@@ -9,6 +9,7 @@ namespace OutsideTheBox {
         private readonly SpriteFont font;
         private readonly Texture2D splat;
         private Vector2 location;
+        private readonly Vector2 origLoc;
         private readonly SoundEffectInstance effect;
 
         private string hit;
@@ -18,8 +19,20 @@ namespace OutsideTheBox {
             this.splat = splat;
             this.location = location;
             this.effect = effect;
+            this.origLoc = new Vector2((int) location.X, (int) location.Y);
         }
 
+        /// <summary>
+        /// Resets the hitsplat's location to being centered over the entity
+        /// </summary>
+        public void reset() {
+            this.location = origLoc;
+        }
+
+        /// <summary>
+        /// Returns the hitsplat's sound effect
+        /// </summary>
+        /// <returns>Returns the hitsplat's sound effect</returns>
         public SoundEffectInstance getEffect() {
             return effect;
         }

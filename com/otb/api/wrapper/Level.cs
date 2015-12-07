@@ -310,6 +310,8 @@ namespace OutsideTheBox {
                 n.resetHealth();
                 n.setLocation(n.getOrigLoc());
                 n.setDestination(n.getOrigLoc());
+                n.getDisplayBar().reset();
+                n.getHitsplat().reset();
                 n.setHit(false);
                 AIPath path = n.getPath();
                 if (path != null) {

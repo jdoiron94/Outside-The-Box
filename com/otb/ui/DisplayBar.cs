@@ -24,6 +24,8 @@ namespace OutsideTheBox {
 
         private string text;
 
+        private readonly Vector2 origLoc;
+
         public DisplayBar(Texture2D texture, SpriteFont font, Vector2 location, Texture2D gradient, int width, int height) {
             this.texture = texture;
             this.font = font;
@@ -31,11 +33,25 @@ namespace OutsideTheBox {
             this.gradient = gradient;
             this.width = width;
             this.height = height;
-            outlineBar = new Rectangle((int) location.X, (int) location.Y, width, height);
-            backBar = new Rectangle((int) location.X, (int) location.Y + 5, width, height - 10);
-            displayBar = new Rectangle((int) location.X, (int) location.Y + 5, width, height - 10);
-            color = Color.Black;
-            text = "100/100";
+            this.outlineBar = new Rectangle((int) location.X, (int) location.Y, width, height);
+            this.backBar = new Rectangle((int) location.X, (int) location.Y + 5, width, height - 10);
+            this.displayBar = new Rectangle((int) location.X, (int) location.Y + 5, width, height - 10);
+            this.color = Color.Black;
+            this.text = "100/100";
+            this.origLoc = new Vector2((int) location.X, (int) location.Y);
+        }
+
+        /// <summary>
+        /// Resets the display bar back to being centered over the entity
+        /// </summary>
+        public void reset() {
+            this.location = origLoc;
+            this.outlineBar.X = (int) origLoc.X;
+            this.outlineBar.Y = (int) origLoc.Y;
+            this.backBar.X = (int) origLoc.X;
+            this.backBar.Y = (int) origLoc.Y + 5;
+            this.displayBar.X = (int) origLoc.X;
+            this.displayBar.Y = (int) origLoc.Y + 5;
         }
 
         /// <summary>
