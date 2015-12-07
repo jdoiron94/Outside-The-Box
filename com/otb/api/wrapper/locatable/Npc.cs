@@ -32,6 +32,7 @@ namespace OutsideTheBox {
         private Rectangle lineOfSight;
 
         private readonly Vector2 origLoc;
+        private readonly Direction origDir;
 
         public Npc(Game1 game, Texture2D texture, Texture2D sight, Vector2 location, SoundEffectInstance effect, Direction direction, NpcDefinition def, int[] offsets, int maxHealth, int velocity, int radius, int reactTime, bool wander) :
             base(texture, location, effect, direction, maxHealth, velocity) {
@@ -44,6 +45,7 @@ namespace OutsideTheBox {
             this.sight = sight;
             this.origin = new Vector2(texture.Width / 2F, texture.Height / 2F);
             this.origLoc = new Vector2((int) location.X, (int) location.Y);
+            this.origDir = direction;
         }
 
         public Npc(Game1 game, Texture2D texture, Texture2D sight, Vector2 location, SoundEffectInstance effect, Direction direction, NpcDefinition def, int[] offsets, int radius, byte reactTime, bool wander) :
@@ -68,6 +70,7 @@ namespace OutsideTheBox {
             }
             reactTicks = 0;
             hit = false;
+            direction = origDir;
         }
 
         /// <summary>
