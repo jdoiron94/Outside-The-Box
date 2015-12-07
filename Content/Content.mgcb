@@ -179,3 +179,213 @@
 /processor:VideoProcessor
 /build:video/EndVideo.wmv
 
+#begin video/IntroFrames/Frame (1).wma
+/importer:WmaImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:video/IntroFrames/Frame (1).wma
+
+#begin video/IntroFrames/Frame (2).wma
+/importer:WmaImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:video/IntroFrames/Frame (2).wma
+
+#begin video/IntroFrames/Frame (3).wma
+/importer:WmaImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:video/IntroFrames/Frame (3).wma
+
+#begin video/IntroFrames/Frame (4-7).wma
+/importer:WmaImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:video/IntroFrames/Frame (4-7).wma
+
+#begin video/IntroFrames/Frame (8-11).wma
+/importer:WmaImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:video/IntroFrames/Frame (8-11).wma
+
+#begin video/IntroFrames/Frame (12).wma
+/importer:WmaImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:video/IntroFrames/Frame (12).wma
+
+#begin video/IntroFrames/Frame (13).wma
+/importer:WmaImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:video/IntroFrames/Frame (13).wma
+
+#begin video/IntroFrames/Frame (15).wma
+/importer:WmaImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:video/IntroFrames/Frame (15).wma
+
+#begin video/IntroFrames/Frame (16-).wma
+/importer:WmaImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:video/IntroFrames/Frame (16-).wma
+
+#begin video/IntroFrames/Frame (18).wma
+/importer:WmaImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:video/IntroFrames/Frame (18).wma
+
+#begin video/IntroFrames/Frame (19).wma
+/importer:WmaImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:video/IntroFrames/Frame (19).wma
+
+#begin video/IntroFrames/Frame (20).wma
+/importer:WmaImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:video/IntroFrames/Frame (20).wma
+
+#begin video/IntroFrames/Frame (21).wma
+/importer:WmaImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:video/IntroFrames/Frame (21).wma
+
+#begin video/IntroFrames/Frame (22).wma
+/importer:WmaImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:video/IntroFrames/Frame (22).wma
+
+#begin video/IntroFrames/Frame (23).wma
+/importer:WmaImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:video/IntroFrames/Frame (23).wma
+
+#begin video/IntroFrames/Frame (24).wma
+/importer:WmaImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:video/IntroFrames/Frame (24).wma
+
+#begin video/IntroFrames/Frame (25).wma
+/importer:WmaImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:video/IntroFrames/Frame (25).wma
+
+#begin video/IntroFrames/Frame (26).wma
+/importer:WmaImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:video/IntroFrames/Frame (26).wma
+
+#begin video/IntroFrames/Frame (27).wma
+/importer:WmaImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:video/IntroFrames/Frame (27).wma
+
+#begin video/IntroFrames/Frame (28).wma
+/importer:WmaImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:video/IntroFrames/Frame (28).wma
+
+#begin video/IntroFrames/Frame (29).wma
+/importer:WmaImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:video/IntroFrames/Frame (29).wma
+
+#begin video/IntroFrames/Frame (30).wma
+/importer:WmaImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:video/IntroFrames/Frame (30).wma
+
+#begin video/IntroFrames/Frame (31).wma
+/importer:WmaImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:video/IntroFrames/Frame (31).wma
+
+#begin video/IntroFrames/Frame (32).wma
+/importer:WmaImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:video/IntroFrames/Frame (32).wma
+
+#begin video/IntroFrames/Frame (33).wma
+/importer:WmaImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:video/IntroFrames/Frame (33).wma
+
+#begin video/IntroFrames/Frame (34).wma
+/importer:WmaImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:video/IntroFrames/Frame (34).wma
+
+#begin video/IntroFrames/Frame (35).wma
+/importer:WmaImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:video/IntroFrames/Frame (35).wma
+
+#begin video/IntroFrames/Frame (36).wma
+/importer:WmaImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:video/IntroFrames/Frame (36).wma
+
+#begin video/IntroFrames/Frame (37).wma
+/importer:WmaImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:video/IntroFrames/Frame (37).wma
+
+#begin video/IntroFrames/Frame (38).wma
+/importer:WmaImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:video/IntroFrames/Frame (38).wma
+
+#begin video/IntroFrames/Frame (39).wma
+/importer:WmaImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:video/IntroFrames/Frame (39).wma
+
+#begin video/IntroFrames/Frame (40).wma
+/importer:WmaImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:video/IntroFrames/Frame (40).wma
+
+#begin video/IntroFrames/Frame (41).wma
+/importer:WmaImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:video/IntroFrames/Frame (41).wma
+
+#begin video/EndFrames/Narration 1 (12-4-2015 6-22 PM).wma
+/importer:WmaImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:video/EndFrames/Narration 1 (12-4-2015 6-22 PM).wma
+
+#begin video/EndFrames/Narration 2 (12-4-2015 6-25 PM).wma
+/importer:WmaImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:video/EndFrames/Narration 2 (12-4-2015 6-25 PM).wma
+
