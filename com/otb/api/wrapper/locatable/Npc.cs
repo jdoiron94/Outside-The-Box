@@ -12,8 +12,6 @@ namespace OutsideTheBox {
 
     public class Npc : Entity {
 
-        // TODO: Have it react with reactTime
-
         private readonly Game1 game;
         private readonly NpcDefinition def;
         private readonly Texture2D sight;
@@ -43,10 +41,8 @@ namespace OutsideTheBox {
             this.radius = radius;
             this.reactTime = reactTime;
             this.wander = wander;
-            reactTicks = 0;
-            hit = false;
             this.sight = sight;
-            origin = new Vector2(texture.Width / 2F, texture.Height / 2F);
+            this.origin = new Vector2(texture.Width / 2F, texture.Height / 2F);
             this.origLoc = new Vector2((int) location.X, (int) location.Y);
         }
 
@@ -58,8 +54,20 @@ namespace OutsideTheBox {
             this(game, texture, sight, location, effect, direction, def, new int[0], radius, 10, false) {
         }
 
-        public Vector2 getOrigLoc() {
-            return origLoc;
+        /// <summary>
+        /// Resets the npc to as it was once the level started
+        /// </summary>
+        public void reset() {
+            resetHealth();
+            setLocation(origLoc);
+            setDestination(origLoc);
+            getDisplayBar().reset();
+            getHitsplat().reset();
+            if (path != null) {
+                path.setState(0);
+            }
+            reactTicks = 0;
+            hit = false;
         }
 
         /// <summary>

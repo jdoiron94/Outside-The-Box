@@ -307,16 +307,7 @@ namespace OutsideTheBox {
         /// </summary>
         public void resetNpcs() {
             foreach (Npc n in npcs) {
-                n.resetHealth();
-                n.setLocation(n.getOrigLoc());
-                n.setDestination(n.getOrigLoc());
-                n.getDisplayBar().reset();
-                n.getHitsplat().reset();
-                n.setHit(false);
-                AIPath path = n.getPath();
-                if (path != null) {
-                    path.setState(0);
-                }
+                n.reset();
             }
         }
 
@@ -325,8 +316,7 @@ namespace OutsideTheBox {
         /// </summary>
         public void resetObjects() {
             foreach (GameObject g in objects) {
-                g.setLocation(g.getOrigLoc());
-                g.setDestination(g.getOrigLoc());
+                g.reset();
             }
         }
 
@@ -340,39 +330,36 @@ namespace OutsideTheBox {
             }
         }
 
-        public void eliminateCollectibles()
-        {
-            List<Token> newTokens = new List<Token>(); 
-            foreach(Token t in tokens)
-            {
-                if(!t.isCollected())
-                {
+        /// <summary>
+        /// Removes collected items from level resetting
+        /// </summary>
+        public void eliminateCollectibles() {
+            List<Token> newTokens = new List<Token>();
+            foreach (Token t in tokens) {
+                if (!t.isCollected()) {
                     newTokens.Add(t);
                 }
             }
-
             tokens = newTokens;
-
-            List<Key> newKeys = new List<Key>(); 
-            foreach(Key k in keys)
-            {
-                if(!k.isCollected())
-                {
+            List<Key> newKeys = new List<Key>();
+            foreach (Key k in keys) {
+                if (!k.isCollected()) {
                     newKeys.Add(k);
                 }
             }
-
-            keys = newKeys; 
+            keys = newKeys;
         }
 
         /// <summary>
         /// Resets the level's tokens
         /// </summary>
         public void resetCollectibles() {
-            foreach (Token t in tokens)
+            foreach (Token t in tokens) {
                 t.setCollected(false);
-            foreach (Key k in keys)
+            }
+            foreach (Key k in keys) {
                 k.setCollected(false);
+            }
         }
 
         /// <summary>
@@ -409,13 +396,19 @@ namespace OutsideTheBox {
             playerOrigin = origin;
         }
 
-        public Vector2 getPlayerReentryPoint()
-        {
+        /// <summary>
+        /// Returns the player's level reentry point
+        /// </summary>
+        /// <returns>Returns the player's level reentry point</returns>
+        public Vector2 getPlayerReentryPoint() {
             return playerReentryPoint;
         }
 
-        public void setPlayerReentryPoint(Vector2 point)
-        {
+        /// <summary>
+        /// Sets the player's level reentry point
+        /// </summary>
+        /// <param name="point">The reentry point to set</param>
+        public void setPlayerReentryPoint(Vector2 point) {
             playerReentryPoint = point;
         }
 
@@ -490,12 +483,9 @@ namespace OutsideTheBox {
                             }
                         }
                     }
-                    if (projectile.isActive())
-                    {
-                        foreach (Barrier b in barriers)
-                        {
-                            if (!b.isOpen() && collisionManager.collides(projectile, b))
-                            {
+                    if (projectile.isActive()) {
+                        foreach (Barrier b in barriers) {
+                            if (!b.isOpen() && collisionManager.collides(projectile, b)) {
                                 projectile.setActive(false);
                                 break;
                             }
@@ -528,6 +518,9 @@ namespace OutsideTheBox {
             }
         }
 
+        /// <summary>
+        /// Unlocks all doors
+        /// </summary>
         public void unlockDoors() {
             foreach (Door d in doors) {
                 d.unlockDoor(true);

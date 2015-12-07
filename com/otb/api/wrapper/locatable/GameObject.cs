@@ -51,8 +51,14 @@ namespace OutsideTheBox {
             this(texture, location, false) {
         }
 
-        public Vector2 getOrigLoc() {
-            return origLoc;
+        /// <summary>
+        /// Resets the object to how it was once the level started
+        /// </summary>
+        public void reset() {
+            setLocation(origLoc);
+            setDestination(origLoc);
+            selected = false;
+            lastFired = -1.0D;
         }
 
         /// <summary>
