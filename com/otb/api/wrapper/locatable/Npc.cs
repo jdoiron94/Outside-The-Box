@@ -71,6 +71,7 @@ namespace OutsideTheBox {
             reactTicks = 0;
             hit = false;
             direction = origDir;
+            updateStill();
         }
 
         /// <summary>
