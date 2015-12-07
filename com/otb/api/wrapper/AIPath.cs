@@ -38,6 +38,10 @@ namespace OutsideTheBox {
             this.directions = directions;
         }
 
+        public void setState(int state) {
+            this.state = state;
+        }
+
         /// <summary>
         /// Updates the npc's direction and movement, if it has been sufficient time between interactions
         /// </summary>

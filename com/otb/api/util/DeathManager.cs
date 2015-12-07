@@ -20,44 +20,19 @@ namespace OutsideTheBox {
 
         private int levelMode;
         private List<Npc> npcs;
-        private List<Vector2> npcLocations;
-        private List<Vector2> objectLocations;
         private List<bool> doorsUnlocked;
 
         public DeathManager(InputManager inputManager) {
             this.inputManager = inputManager;
-            totalExp = inputManager.getPlayerManager().getTotalExperience();
-            currentExp = inputManager.getPlayerManager().getCurrentExperience();
-            health = inputManager.getPlayerManager().getHealth();
-            mana = inputManager.getPlayerManager().getMana();
-            totalMana = inputManager.getPlayerManager().getTotalMana();
-            levelMode = inputManager.getLevel().getMode();
-            npcs = new List<Npc>();
-            npcLocations = new List<Vector2>();
-            populateNpcList();
-            objectLocations = new List<Vector2>();
-            populateObjectLocationsList();
-            doorsUnlocked = new List<bool>();
-            populateDoorsUnlockedList();
-        }
-
-        /// <summary>
-        /// Handles populating the npc list
-        /// </summary>
-        private void populateNpcList() {
-            foreach (Npc n in inputManager.getLevel().getNpcs()) {
-                npcs.Add(n);
-                npcLocations.Add(n.getLocation());
-            }
-        }
-
-        /// <summary>
-        /// Handles populating the object list
-        /// </summary>
-        private void populateObjectLocationsList() {
-            foreach (GameObject o in inputManager.getLevel().getObjects()) {
-                objectLocations.Add(o.getLocation());
-            }
+            this.totalExp = inputManager.getPlayerManager().getTotalExperience();
+            this.currentExp = inputManager.getPlayerManager().getCurrentExperience();
+            this.health = inputManager.getPlayerManager().getHealth();
+            this.mana = inputManager.getPlayerManager().getMana();
+            this.totalMana = inputManager.getPlayerManager().getTotalMana();
+            this.levelMode = inputManager.getLevel().getMode();
+            this.npcs = new List<Npc>();
+            this.doorsUnlocked = new List<bool>();
+            this.populateDoorsUnlockedList();
         }
 
         /// <summary>
@@ -93,8 +68,8 @@ namespace OutsideTheBox {
         /// Handles resetting the level
         /// </summary>
         public void resetLevel() {
-            inputManager.getLevel().resetNpcs(npcs, npcLocations);
-            inputManager.getLevel().resetObjects(objectLocations);
+            inputManager.getLevel().resetNpcs();
+            inputManager.getLevel().resetObjects();
             inputManager.getLevel().resetDoors(doorsUnlocked);
             inputManager.getLevel().resetCollectibles();
         }

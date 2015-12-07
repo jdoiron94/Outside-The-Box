@@ -618,10 +618,12 @@ namespace OutsideTheBox
             level1.addCubicle(cube1_2);
             level1.addCubicle(cube1_3);
             level1.addCubicle(cube1_4);
-            level1.setPlayerOrigin(new Vector2(165F, 100F));
+            level1.setPlayerOrigin(new Vector2(125F, 295F));
             level1.setPlayerReentryPoint(new Vector2(368F, 455F - 64F));
             level1.setScreens(screens);
             level1.setSong(factorySong);
+
+            Console.WriteLine(player.getLocation());
 
             //LEVEL 2
             List<GameObject> Level2Objects = new List<GameObject>();

@@ -161,6 +161,9 @@ namespace OutsideTheBox {
             if (playerManager.getHealth() <= 0) {
                 player.playEffect();
                 deathManager.resetGame();
+                foreach (GameObject g in level.getObjects()) {
+                    Console.WriteLine("object at " + g.getLocation() + ", bounds at " + g.getBounds());
+                }
             }
             if (collisionManager.playerSpotted(level)) {
                 //playerManager.setHealth(0);

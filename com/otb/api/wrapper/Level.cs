@@ -305,25 +305,26 @@ namespace OutsideTheBox {
         /// <summary>
         /// Resets the level's npcs
         /// </summary>
-        /// <param name="reset">The list of npcs to copy from</param>
-        /// <param name="locations">The location list to copy from</param>
-        public void resetNpcs(List<Npc> reset, List<Vector2> locations) {
-            npcs = new List<Npc>();
-            for (int i = 0; i < reset.Count; i++) {
-                reset[i].resetHealth();
-                reset[i].setX((int) locations[i].X);
-                reset[i].setY((int) locations[i].Y);
-                npcs.Add(reset[i]);
+        public void resetNpcs() {
+            foreach (Npc n in npcs) {
+                n.resetHealth();
+                n.setLocation(n.getOrigLoc());
+                n.setDestination(n.getOrigLoc());
+                n.setHit(false);
+                AIPath path = n.getPath();
+                if (path != null) {
+                    path.setState(0);
+                }
             }
         }
 
         /// <summary>
         /// Resets the level's objects
         /// </summary>
-        /// <param name="locations">The location list to copy from</param>
-        public void resetObjects(List<Vector2> locations) {
-            for (int i = 0; i < objects.Count; i++) {
-                objects[i].setLocation(locations[i]);
+        public void resetObjects() {
+            foreach (GameObject g in objects) {
+                g.setLocation(g.getOrigLoc());
+                g.setDestination(g.getOrigLoc());
             }
         }
 

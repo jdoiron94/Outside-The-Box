@@ -19,6 +19,8 @@ namespace OutsideTheBox {
         private Rectangle bounds;
         private Rectangle destinationBounds;
 
+        private readonly Vector2 origLoc;
+
         private readonly bool liftable;
         private bool selected;
         private double lastFired;
@@ -29,12 +31,12 @@ namespace OutsideTheBox {
             this.location = location;
             this.direction = direction;
             this.liftable = liftable;
-            destination = location;
-            selected = false;
-            origin = new Vector2(texture.Width / 2.0F, texture.Height / 2.0F);
-            bounds = new Rectangle((int) location.X, (int) location.Y, width, height);
-            destinationBounds = new Rectangle(bounds.X, bounds.Y, bounds.Width, bounds.Height);
-            lastFired = -1.0D;
+            this.origin = new Vector2(texture.Width / 2.0F, texture.Height / 2.0F);
+            this.destination = new Vector2((int) location.X, (int) location.Y);
+            this.origLoc = new Vector2(location.X, location.Y);
+            this.bounds = new Rectangle((int) location.X, (int) location.Y, width, height);
+            this.destinationBounds = new Rectangle(bounds.X, bounds.Y, bounds.Width, bounds.Height);
+            this.lastFired = -1.0D;
         }
 
         public GameObject(Texture2D texture, Projectile projectile, Vector2 location, Direction direction, bool liftable) :
@@ -47,6 +49,10 @@ namespace OutsideTheBox {
 
         public GameObject(Texture2D texture, Vector2 location) :
             this(texture, location, false) {
+        }
+
+        public Vector2 getOrigLoc() {
+            return origLoc;
         }
 
         /// <summary>
