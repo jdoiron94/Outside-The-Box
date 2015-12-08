@@ -145,24 +145,6 @@
 /processorParam:Quality=Best
 /build:audio/sound effects/mindreadSound.wav
 
-#begin audio/songs/Factory.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:audio/songs/Factory.mp3
-
-#begin audio/songs/Streets.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:audio/songs/Streets.mp3
-
-#begin audio/songs/Office (Trimmed).mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:audio/songs/Office (Trimmed).mp3
-
 #begin audio/sound effects/waterSound.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -378,4 +360,40 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:video/outro/audio/Narration 2.wma
+
+#begin audio/songs/Factory1.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:audio/songs/Factory1.mp3
+
+#begin audio/songs/Factory2.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:audio/songs/Factory2.mp3
+
+#begin audio/songs/Office1.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:audio/songs/Office1.mp3
+
+#begin audio/songs/Office2.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:audio/songs/Office2.mp3
+
+#begin audio/songs/Streets1.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:audio/songs/Streets1.mp3
+
+#begin audio/songs/Streets2.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:audio/songs/Streets2.mp3
 

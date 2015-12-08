@@ -227,8 +227,11 @@ namespace OutsideTheBox
             midY = (height - 40) / 2;
 
             factorySong = Content.Load<Song>("audio/songs/Factory");
+            Song factorySong2 = Content.Load<Song>("audio/songs/Factory2");
             Song streetSong = Content.Load<Song>("audio/songs/Streets");
-            Song officeSong = Content.Load<Song>("audio/songs/Office (Trimmed)");
+            Song streetSong2 = Content.Load<Song>("audio/songs/Streets2");
+            Song officeSong = Content.Load<Song>("audio/songs/Office");
+            Song officeSong2 = Content.Load<Song>("audio/songs/Office2");
 
             SpriteFont font1 = Content.Load<SpriteFont>("fonts/font1");
             SpriteFont font2 = Content.Load<SpriteFont>("fonts/font2");
