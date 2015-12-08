@@ -8,8 +8,8 @@ namespace OutsideTheBox {
 
     public class Confuse : BasePower {
 
-        public Confuse(int id, int slotId, int manaCost, int expCost, int cooldown, int duration, bool unlocked, bool activated) :
-            base(id, slotId, manaCost, expCost, cooldown, duration, unlocked, activated) {
+        public Confuse(int manaCost, int cooldown, int duration, bool unlocked, bool activated) :
+            base(manaCost, cooldown, duration, unlocked, activated) {
         }
 
         /// <summary>

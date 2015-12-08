@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace OutsideTheBox {
 
@@ -9,10 +8,7 @@ namespace OutsideTheBox {
 
     public class BasePower {
 
-        private int id;
-        private int slotId;
         private int manaCost;
-        private int expCost;
         protected int cooldown;
         protected int duration;
         protected bool unlocked;
@@ -23,11 +19,8 @@ namespace OutsideTheBox {
         private SoundEffect effect;
         private Projectile projectile;
 
-        public BasePower(int id, int slotId, int manaCost, int expCost, int cooldown, int duration, bool unlocked, bool activated) {
-            this.id = id;
-            this.slotId = slotId;
+        public BasePower(int manaCost, int cooldown, int duration, bool unlocked, bool activated) {
             this.manaCost = manaCost;
-            this.expCost = expCost;
             this.cooldown = cooldown;
             this.duration = duration;
             this.unlocked = unlocked;
@@ -43,51 +36,11 @@ namespace OutsideTheBox {
         }
 
         /// <summary>
-        /// Returns the power's id
-        /// </summary>
-        /// <returns>Returns the power's id</returns>
-        public int getId() {
-            return id;
-        }
-
-        /// <summary>
-        /// Returns the power's slot id
-        /// </summary>
-        /// <returns>Returns the power's slot id</returns>
-        public int getSlotId() {
-            return slotId;
-        }
-
-        /// <summary>
         /// Returns the power's mana cost
         /// </summary>
         /// <returns>Returns the power's mana cost</returns>
         public int getManaCost() {
             return manaCost;
-        }
-
-        /// <summary>
-        /// Returns the power's exp cost
-        /// </summary>
-        /// <returns>Returns the power's exp cost</returns>
-        public int getExpCost() {
-            return expCost;
-        }
-
-        /// <summary>
-        /// Returns the power's cooldown
-        /// </summary>
-        /// <returns>Returns the power's cooldown</returns>
-        public int getCooldown() {
-            return cooldown;
-        }
-
-        /// <summary>
-        /// Returns the power's duration
-        /// </summary>
-        /// <returns>Returns the power's duration</returns>
-        public int getDuration() {
-            return duration;
         }
 
         /// <summary>
@@ -104,30 +57,6 @@ namespace OutsideTheBox {
         /// <returns>Returns true if the power is activated; otherwise, false</returns>
         public bool isActivated() {
             return activated;
-        }
-
-        /// <summary>
-        /// Returns the power's sound effect
-        /// </summary>
-        /// <returns>Returns the power's sound effect</returns>
-        public SoundEffect getEffect() {
-            return effect;
-        }
-
-        /// <summary>
-        /// Returns the power's projectile
-        /// </summary>
-        /// <returns>Returns the power's projectile</returns>
-        public Projectile getProjectile() {
-            return projectile;
-        }
-
-        /// <summary>
-        /// Sets the power's unlocked status
-        /// </summary>
-        /// <param name="unlocked">The unlocked status to set</param>
-        public void setUnlocked(bool unlocked) {
-            this.unlocked = unlocked;
         }
 
         /// <summary>

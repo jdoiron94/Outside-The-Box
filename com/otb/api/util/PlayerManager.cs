@@ -46,16 +46,16 @@ namespace OutsideTheBox {
             healthCooldown = 0;
             manaCooldown = 0;
             totalMana = 100;
-            SlowTime slow = new SlowTime(0, 2, 20, 1000, 200, 200, true, false);
+            SlowTime slow = new SlowTime(20, 200, 200, true, false);
             slow.setEffect(cm.Load<SoundEffect>("audio/Sound Effects/slowSound"));
             slow.setPlayerManager(this);
-            Dash dash = new Dash(1, 4, 5, 1000, 20, 15, true, false);
+            Dash dash = new Dash(5, 20, 15, true, false);
             dash.setEffect(cm.Load<SoundEffect>("audio/Sound Effects/dashSound"));
             dash.setPlayerManager(this);
-            Confuse confuse = new Confuse(3, 7, 20, 1000, 200, 50, true, false);
+            Confuse confuse = new Confuse(20, 200, 50, true, false);
             confuse.setEffect(cm.Load<SoundEffect>("audio/Sound Effects/paralyzeSound"));
             confuse.setPlayerManager(this);
-            powers = new List<BasePower> { slow, dash, confuse /*, new Mindread(true, false, inputManager)*/};
+            powers = new List<BasePower> { slow, dash, confuse };
             manaLimit = true;
             healthLimit = true; 
         }
@@ -78,10 +78,6 @@ namespace OutsideTheBox {
         /// <returns>Returns the player's abilities</returns>
         public List<BasePower> getPowers() {
             return powers;
-        }
-
-        public void unlockPower(int powerID) {
-            powers[powerID].setUnlocked(true);
         }
 
         /// <summary>
@@ -200,7 +196,6 @@ namespace OutsideTheBox {
         /// </summary>
         /// <param name="damage">The amount of damage to inflict</param>
         public void damagePlayer(int damage) {
-            player.deriveHealth(-2);
             health = Math.Max(0, health - damage);
             healthBar.update(health, MAX_HEALTH);
         }
@@ -209,7 +204,6 @@ namespace OutsideTheBox {
         /// Regenerates the appropriate amount of health for the player, based on their total experience
         /// </summary>
         public void regenerateHealth() {
-            player.deriveHealth(2);
             health = Math.Min(MAX_HEALTH, health + 1);
             healthBar.update(health, MAX_HEALTH);
         }
@@ -224,7 +218,7 @@ namespace OutsideTheBox {
         /// <summary>
         /// Sets the player's current exp
         /// </summary>
-        /// <param name="exp">The exp to set</param>
+        /// <param name="experience">The exp to set</param>
         public void setExperience(int experience) {
             this.experience = experience;
         }
@@ -232,26 +226,26 @@ namespace OutsideTheBox {
         /// <summary>
         /// Sets the player's health
         /// </summary>
-        /// <param name="h">The health to set</param>
-        public void setHealth(int h) {
-            health = h;
+        /// <param name="health">The health to set</param>
+        public void setHealth(int health) {
+            this.health = health;
         }
 
         /// <summary>
         /// Sets the player's mana
         /// </summary>
-        /// <param name="m">The mana to set</param>
-        public void setMana(int m) {
-            mana = m;
+        /// <param name="mana">The mana to set</param>
+        public void setMana(int mana) {
+            this.mana = mana;
         }
 
         /// <summary>
         /// Depletes the specified amount of mana
         /// </summary>
         /// <param name="mana">The amount of mana to deplete</param>
-        public void depleteMana(int damage) {
-            mana = Math.Max(0, mana - damage);
-            manaBar.update(mana, totalMana);
+        public void depleteMana(int mana) {
+            this.mana = Math.Max(0, this.mana - mana);
+            manaBar.update(this.mana, totalMana);
         }
 
         /// <summary>
@@ -280,17 +274,17 @@ namespace OutsideTheBox {
         /// <summary>
         /// Levels up the player's mana
         /// </summary>
-        /// <param name="percentageValue">The percent to up mana by</param>
-        public void levelMana(int value) {
-            totalMana = Math.Min(MAX_MANA, (totalMana + value));
+        /// <param name="mana">The percent to up mana by</param>
+        public void levelMana(int mana) {
+            totalMana = Math.Min(MAX_MANA, (totalMana + mana));
         }
 
         /// <summary>
         /// Adds to the player's exp
         /// </summary>
-        /// <param name="bonus">The amount of exp to increment</param>
-        public void incrementExperience(int bonus) {
-            experience += bonus;
+        /// <param name="experience">The amount of exp to increment</param>
+        public void incrementExperience(int experience) {
+            this.experience += experience;
         }
     }
 }

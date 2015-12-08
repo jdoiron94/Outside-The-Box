@@ -10,8 +10,8 @@ namespace OutsideTheBox {
 
         private CollisionManager manager;
 
-        public Dash(int id, int slotId, int manaCost, int expCost, int cooldown, int duration, bool unlocked, bool activated) :
-            base(id, slotId, manaCost, expCost, cooldown, duration, unlocked, activated) {
+        public Dash(int manaCost, int cooldown, int duration, bool unlocked, bool activated) :
+            base(manaCost, cooldown, duration, unlocked, activated) {
         }
 
         /// <summary>

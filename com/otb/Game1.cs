@@ -582,7 +582,7 @@ namespace OutsideTheBox
             SoundEffect hitEffect = Content.Load<SoundEffect>("audio/sound effects/hitSound");
             midX = (graphics.PreferredBackBufferWidth - playur.Width) / 2;
             midY = (graphics.PreferredBackBufferHeight - playur.Height) / 2;
-            player = new Player(playur, new Vector2(125.0F, 295.0F), deathEffect.CreateInstance(), Direction.South, 100, 50, 0, 3);
+            player = new Player(playur, new Vector2(125.0F, 295.0F), deathEffect.CreateInstance(), Direction.South, 100, 3);
             player.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(player.getLocation().X + (hitsplat.Width / 2.0F), player.getLocation().Y + (hitsplat.Height / 2.0F)), hitEffect.CreateInstance()));
             Projectile p = new Projectile(player, lightningOrb, 5, 250, 0.25F, boltSound);
             p.setDamage(25);
@@ -846,7 +846,7 @@ namespace OutsideTheBox
             levelIndex = 0;
 
             SoundEffect readEffect = Content.Load<SoundEffect>("audio/sound effects/mindreadSound");
-            MindRead read = new MindRead(2, 1, 20, 1000, 200, 100, true, false);
+            MindRead read = new MindRead(20, 200, 100, true, false);
             read.setPlayerManager(playerManager);
             read.setEffect(readEffect);
 

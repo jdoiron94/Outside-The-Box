@@ -321,7 +321,7 @@ namespace OutsideTheBox {
                 if (mindRead.validate()) {
                     playerManager.depleteMana(mindRead.getManaCost());
                     foreach (Npc n in level.getNpcs()) {
-                        if (player.getDistance(n) <= 500) { // change later
+                        if (player.getDistance(n) <= 200) {
                             NpcDefinition def = n.getDefinition();
                             if (def.getHints().Length > 0) {
                                 def.update(true);
