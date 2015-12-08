@@ -676,7 +676,7 @@ namespace OutsideTheBox
             Level1Objects.Add(token1_1);
             Level1Objects.Add(token1_2);
             Texture2D l1 = Content.Load<Texture2D>("sprites/levels/Level1Map");
-            Level level1 = new Level(this, player, l1, new Npc[] { npc1_1, npc1_2, npc1_3 }, Level1Objects.ToArray(), 0);
+            Level level1 = new Level(this, player, l1, new Npc[] { npc1_1, npc1_2, npc1_3 }, Level1Objects.ToArray(), 1);
             level1.addCubicle(cube1_1);
             level1.addCubicle(cube1_2);
             level1.addCubicle(cube1_3);
@@ -684,7 +684,7 @@ namespace OutsideTheBox
             level1.setPlayerOrigin(new Vector2(125.0F, 295.0F));
             level1.setPlayerReentryPoint(new Vector2(368.0F, 455.0F - 64.0F));
             level1.setScreens(screens);
-            level1.setSong(factorySong);
+            level1.setSongs(factorySong, factorySong2);
 
             //LEVEL 2
             List<GameObject> Level2Objects = new List<GameObject>();
@@ -698,13 +698,13 @@ namespace OutsideTheBox
             Level2Objects.Add(bar2_1);
             Level2Objects.Add(barbutt2_1);
             Texture2D l2 = Content.Load<Texture2D>("sprites/levels/Level1");
-            Level level2 = new Level(this, player, l2, new Npc[] { npc2_1, npc2_2, npc2_3 }, Level2Objects.ToArray(), 0);
+            Level level2 = new Level(this, player, l2, new Npc[] { npc2_1, npc2_2, npc2_3 }, Level2Objects.ToArray(), 2);
             level2.addCubicle(cube2_1);
             level2.addCubicle(cube2_2);
             level2.setPlayerOrigin(new Vector2(368.0F, 15.0F));
             level2.setPlayerReentryPoint(new Vector2(785.0F - 64.0F, height - 200.0F));
             level2.setScreens(screens);
-            level2.setSong(factorySong);
+            level2.setSongs(factorySong, factorySong2);
 
             //LEVEL 3
             List<GameObject> Level3Objects = new List<GameObject>();
@@ -719,14 +719,14 @@ namespace OutsideTheBox
             Level3Objects.Add(lasbutt3_1);
             Level3Objects.Add(key3_1);
             Texture2D l3 = Content.Load<Texture2D>("sprites/levels/Level1");
-            Level level3 = new Level(this, player, l3, new Npc[] { npc3_1, npc3_2 }, Level3Objects.ToArray(), 0);
+            Level level3 = new Level(this, player, l3, new Npc[] { npc3_1, npc3_2 }, Level3Objects.ToArray(), 3);
             level3.addCubicle(cube3_1);
             level3.addCubicle(cube3_2);
             level3.addCubicle(cube3_3);
             level3.setPlayerOrigin(new Vector2(15.0F, height - 200.0F));
             level3.setPlayerReentryPoint(new Vector2(120.0F, 455.0F - 64.0F));
             level3.setScreens(screens);
-            level3.setSong(streetSong);
+            level3.setSongs(streetSong, streetSong2);
 
             //LEVEL 4
             List<GameObject> Level4Objects = new List<GameObject>();
@@ -749,13 +749,13 @@ namespace OutsideTheBox
             Level4Objects.Add(lasbutt4_2);
             Level4Objects.Add(actbutt4_1);
             Texture2D l4 = Content.Load<Texture2D>("sprites/levels/Level1");
-            Level level4 = new Level(this, player, l4, new Npc[] { }, Level4Objects.ToArray(), 0);
+            Level level4 = new Level(this, player, l4, new Npc[] { }, Level4Objects.ToArray(), 4);
             level4.addCubicle(cube4_1);
             level4.addCubicle(cube4_2);
             level4.setPlayerOrigin(new Vector2(140.0F, 15.0F));
             level4.setPlayerReentryPoint(new Vector2(785.0F - 64.0F, 360.0F));
             level4.setScreens(screens);
-            level4.setSong(streetSong);
+            level4.setSongs(streetSong, streetSong2);
 
             //LEVEL 5
             List<GameObject> Level5Objects = new List<GameObject>();
@@ -781,7 +781,7 @@ namespace OutsideTheBox
             Level5Objects.Add(barbutt5_3);
             Level5Objects.Add(barbutt5_4);
             Texture2D l5 = Content.Load<Texture2D>("sprites/levels/Level1");
-            Level level5 = new Level(this, player, l5, new Npc[] { npc5_1, npc5_2, npc5_3, npc5_4 }, Level5Objects.ToArray(), 0);
+            Level level5 = new Level(this, player, l5, new Npc[] { npc5_1, npc5_2, npc5_3, npc5_4 }, Level5Objects.ToArray(), 5);
             level5.addCubicle(cube5_1);
             level5.addCubicle(cube5_2);
             level5.addCubicle(cube5_3);
@@ -791,7 +791,7 @@ namespace OutsideTheBox
             level5.setPlayerOrigin(new Vector2(15.0F, 230.0F));
             level5.setPlayerReentryPoint(new Vector2(785.0F - 64.0F, 230.0F));
             level5.setScreens(screens);
-            level5.setSong(officeSong);
+            level5.setSongs(officeSong, officeSong2);
 
             //LEVEL 6
             List<GameObject> Level6Objects = new List<GameObject>();
@@ -815,24 +815,24 @@ namespace OutsideTheBox
             Level6Objects.Add(key6_1);
 
             Texture2D l6 = Content.Load<Texture2D>("sprites/levels/Level1");
-            Level level6 = new Level(this, player, l6, new Npc[] { npc6_1, npc6_2 }, Level6Objects.ToArray(), 0);
+            Level level6 = new Level(this, player, l6, new Npc[] { npc6_1, npc6_2 }, Level6Objects.ToArray(), 6);
             level6.addCubicle(cube6_1);
             level6.addCubicle(cube6_2);
             level6.setPlayerOrigin(new Vector2(20.0F, 10.0F));
             level6.setPlayerReentryPoint(new Vector2(785.0F - 64.0F, 400.0F));
             level6.setScreens(screens);
-            level6.setSong(officeSong);
+            level6.setSongs(officeSong, officeSong2);
 
             //LEVEL 7
             List<GameObject> Level7Objects = new List<GameObject>();
             Level7Objects.Add(door7to6);
 
             Texture2D l7 = Content.Load<Texture2D>("sprites/levels/Level1");
-            Level level7 = new Level(this, player, l7, new Npc[] { }, Level7Objects.ToArray(), 0);
+            Level level7 = new Level(this, player, l7, new Npc[] { }, Level7Objects.ToArray(), 7);
             level7.setPlayerOrigin(new Vector2(15.0F, 220.0F));
             level7.setPlayerReentryPoint(new Vector2(785.0F - 64.0F, 220.0F));
             level7.setScreens(screens);
-            level7.setSong(streetSong);
+            level7.setSongs(streetSong, streetSong2);
 
             levels = new List<Level>();
             levels.Add(level1);
@@ -959,6 +959,7 @@ namespace OutsideTheBox
                         Song song = level.getSong();
                         if (song != null) {
                             MediaPlayer.Play(song);
+                            level.setLooped(true);
                         }
                     }
                 }

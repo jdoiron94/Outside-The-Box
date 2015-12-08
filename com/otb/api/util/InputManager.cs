@@ -2,7 +2,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-using System;
 
 namespace OutsideTheBox {
 
@@ -19,7 +18,9 @@ namespace OutsideTheBox {
         private readonly Target target;
         private readonly SpriteFont font;
 
+        private Song song;
         private Level level;
+        private Level prevLevel;
         private MindRead mindRead;
         private GameObject selectedObject;
         private DeathManager deathManager;
@@ -52,19 +53,16 @@ namespace OutsideTheBox {
             this.target = target;
             this.playerManager = playerManager;
             this.mindRead = mindRead;
-            powerReveal = false;
-            collisionManager = new CollisionManager(player, level);
-            selectedObject = null;
-            velocity = player.getVelocity();
-            width = game.getWidth();
-            height = game.getHeight() - 40;
-            lastKeyState = new KeyboardState();
-            currentKeyState = new KeyboardState();
-            ticks = 0;
-            stagnant = false;
-            moving = false;
-            font = game.getDropFont();
+            this.collisionManager = new CollisionManager(player, level);
+            this.velocity = player.getVelocity();
+            this.width = game.getWidth();
+            this.height = game.getHeight() - 40;
+            this.lastKeyState = new KeyboardState();
+            this.currentKeyState = new KeyboardState();
+            this.font = game.getDropFont();
             this.gameState = GameState.Normal;
+            this.song = level.getSong();
+            this.prevLevel = level;
         }
 
         /// <summary>
@@ -161,9 +159,25 @@ namespace OutsideTheBox {
             if (playerManager.getHealth() <= 0) {
                 player.playEffect();
                 deathManager.resetGame();
+                dropText = "You died!";
             }
             if (collisionManager.playerSpotted(level)) {
                 //playerManager.setHealth(0);
+            }
+            if (MediaPlayer.State == MediaState.Stopped) {
+                if (level.getSong() == prevLevel.getSong()) {
+                    if (prevLevel.shouldLoop() || level.shouldLoop()) {
+                        prevLevel.setLooped(true);
+                        level.setLooped(true);
+                        song = level.getSong2();
+                    } else {
+                        song = level.getSong();
+                    }
+                } else {
+                    song = level.shouldLoop() ? level.getSong2() : level.getSong();
+                }
+                MediaPlayer.Play(song);
+                level.setLooped(true);
             }
             if (lastKeyState.IsKeyDown(Keys.F1) && currentKeyState.IsKeyUp(Keys.F1)) {
                 foreach (Level l in game.getLevels()) {
@@ -259,12 +273,21 @@ namespace OutsideTheBox {
                     Song current = level.getSong();
                     level.setActive(false);
                     game.setLevel(index);
+                    prevLevel = level;
                     level = game.getLevel(index);
                     PauseMenu pause = (PauseMenu) level.getScreen("Pause");
                     pause.setLevel(index);
                     if (current != level.getSong()) {
                         MediaPlayer.Stop();
                         MediaPlayer.Play(level.getSong());
+                        if (d.getNext()) {
+                            game.getLevel(index - 2).setLooped(false);
+                            prevLevel.setLooped(false);
+                        } else {
+                            level.setLooped(false);
+                            prevLevel.setLooped(false);
+                        }
+                        level.setLooped(true);
                     }
                     game.setLevel(level);
                     deathManager = new DeathManager(this);
@@ -437,8 +460,6 @@ namespace OutsideTheBox {
                 gameState = GameState.TelekinesisSelect;
                 level.setMode(1);
                 target.setActive(true);
-            } else if (currentKeyState.IsKeyDown(Keys.P)) {
-                playerManager.damagePlayer(2);
             }
         }
 

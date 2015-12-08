@@ -21,6 +21,7 @@ namespace OutsideTheBox {
         private Player player;
         private Texture2D map;
         private Song song;
+        private Song song2;
 
         private Vector2 dropLocation;
         private Vector2 playerOrigin;
@@ -47,6 +48,7 @@ namespace OutsideTheBox {
         private List<Pit> Pits;
 
         private bool debug;
+        private bool looped;
         private int index;
         private int textTicks;
         private string text;
@@ -79,8 +81,34 @@ namespace OutsideTheBox {
         /// Sets the level's song
         /// </summary>
         /// <param name="song">The song to set</param>
-        public void setSong(Song song) {
+        /// <param name="song2">The trimmed song to set</param>
+        public void setSongs(Song song, Song song2) {
             this.song = song;
+            this.song2 = song2;
+        }
+
+        /// <summary>
+        /// Adds to the level's song ticks
+        /// </summary>
+        /// <param name="ticks">The amount of ticks to add</param>
+        public void setLooped(bool looped) {
+            this.looped = looped;
+        }
+
+        /// <summary>
+        /// Returns whether or not we should play the trimmed song
+        /// </summary>
+        /// <returns>Returns true if we should play the trimmed song; otherwise, false</returns>
+        public bool shouldLoop() {
+            return looped;
+        }
+
+        /// <summary>
+        /// Returns the level's index
+        /// </summary>
+        /// <returns>Returns the level's index</returns>
+        public int getIndex() {
+            return index;
         }
 
         /// <summary>
@@ -89,6 +117,14 @@ namespace OutsideTheBox {
         /// <returns>Returns the level's song</returns>
         public Song getSong() {
             return song;
+        }
+
+        /// <summary>
+        /// Returns the level's trimmed song
+        /// </summary>
+        /// <returns>Returns the level's trimmed song</returns>
+        public Song getSong2() {
+            return song2;
         }
 
         /// <summary>
