@@ -77,6 +77,9 @@ namespace OutsideTheBox {
             location.Y += y;
         }
 
+        /// <summary>
+        /// Plays the hit sound effect
+        /// </summary>
         public void playEffect() {
             if (effect != null && effect.State != SoundState.Playing) {
                 effect.Play();
@@ -90,7 +93,7 @@ namespace OutsideTheBox {
         public void draw(SpriteBatch batch) {
             batch.Draw(splat, location, Color.White);
             Vector2 size = font.MeasureString(hit);
-            Vector2 loc = new Vector2(location.X + ((splat.Width - size.X) / 2), location.Y + ((splat.Height - size.Y) / 2));
+            Vector2 loc = new Vector2(location.X + ((splat.Width - size.X) / 2.0F), location.Y + ((splat.Height - size.Y) / 2.0F));
             batch.DrawString(font, hit, loc, Color.GhostWhite);
         }
     }

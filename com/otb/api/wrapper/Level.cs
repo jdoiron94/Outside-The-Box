@@ -14,7 +14,7 @@ namespace OutsideTheBox {
 
     public class Level {
 
-        private byte mode;
+        private int mode;
         private bool active;
 
         private Game1 game;
@@ -33,7 +33,6 @@ namespace OutsideTheBox {
         private List<Npc> npcs;
         private List<Npc> deadNpcs;
         private List<GameObject> objects;
-        private List<ThoughtBubble> thoughts;
 
         private Screen[] screens;
         private List<Token> tokens;
@@ -66,7 +65,6 @@ namespace OutsideTheBox {
             this.doors = new List<Door>();
             this.keys = new List<Key>();
             this.barriers = new List<Barrier>();
-            this.thoughts = new List<ThoughtBubble>();
             this.walls = new List<Wall>();
             this.pressButtons = new List<PressButton>();
             this.Pits = new List<Pit>();
@@ -192,14 +190,6 @@ namespace OutsideTheBox {
         }
 
         /// <summary>
-        /// Returns the list of thought bubbles
-        /// </summary>
-        /// <returns>Returns the list of thought bubbles for the level</returns>
-        public List<ThoughtBubble> getThoughts() {
-            return thoughts;
-        }
-
-        /// <summary>
         /// Returns all of the level's game objects
         /// </summary>
         /// <returns>Returns a list of all of the game objects in the level</returns>
@@ -207,13 +197,18 @@ namespace OutsideTheBox {
             return objects;
         }
 
+        /// <summary>
+        /// Returns the list of objects and keys in the level
+        /// </summary>
+        /// <returns>Returns the list of objects and keys in the level</returns>
         public List<GameObject> getObjectsAndKeys() {
             List<GameObject> list = new List<GameObject>();
-            foreach (GameObject o in objects)
+            foreach (GameObject o in objects) {
                 list.Add(o);
-            foreach (Key k in keys)
+            }
+            foreach (Key k in keys) {
                 list.Add(k);
-
+            }
             return list;
         }
 
@@ -300,7 +295,7 @@ namespace OutsideTheBox {
         /// Returns the current telekinesis mode
         /// </summary>
         /// <returns>Returns the current telekinesis mode</returns>
-        public byte getMode() {
+        public int getMode() {
             return mode;
         }
 
@@ -396,7 +391,7 @@ namespace OutsideTheBox {
         /// Sets the telekinesis mode
         /// </summary>
         /// <param name="mode">The telekinesis mode to be set</param>
-        public void setMode(byte mode) {
+        public void setMode(int mode) {
             this.mode = mode;
         }
 
@@ -624,6 +619,7 @@ namespace OutsideTheBox {
             }
             foreach (Npc n in npcs) {
                 n.draw(batch);
+                n.getDefinition().drawThought(batch);
                 if (n.wasHit() && n.getCombatTicks() < 250) {
                     n.getDisplayBar().draw(batch);
                     n.getHitsplat().draw(batch);
@@ -637,9 +633,6 @@ namespace OutsideTheBox {
             if (debug) {
                 game.outline(batch, player.getBounds());
             }
-            foreach (ThoughtBubble tb in thoughts) {
-                tb.draw(batch);
-            }
             playerManager.getKeyBox().draw(batch);
             playerManager.getHealthBar().draw(batch);
             playerManager.getManaBar().draw(batch);
@@ -652,7 +645,7 @@ namespace OutsideTheBox {
                         textTicks = 0;
                     }
                     Vector2 size = game.getDropFont().MeasureString(text);
-                    dropLocation = new Vector2(game.getWidth() / 2 - (size.X / 2), game.getHeight() / 2 - (size.Y / 2));
+                    dropLocation = new Vector2(game.getWidth() / 2.0F - (size.X / 2.0F), game.getHeight() / 2.0F - (size.Y / 2.0F));
                     batch.DrawString(game.getDropFont(), text, dropLocation, Color.DodgerBlue);
                     textTicks++;
                 } else {

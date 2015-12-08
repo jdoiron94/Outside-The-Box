@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using System;
 
 namespace OutsideTheBox {
 
@@ -228,12 +229,10 @@ namespace OutsideTheBox {
                 playerManager.regenerateHealth();
                 playerManager.regenerateMana();
             }
-            foreach (ThoughtBubble tb in level.getThoughts()) {
-                tb.reveal(mindRead.isActivated());
-                tb.updateLocation();
-                if (tb.isRevealed() && tb.isKey()) {
-                    playerManager.getKeyBox().setUnlocked(true);
-                    level.unlockDoors();
+            foreach (Npc n in level.getNpcs()) {
+                NpcDefinition def = n.getDefinition();
+                if (def.getHints().Length > 0 && def.isShowing()) {
+                    def.update(false);
                 }
             }
             GameObject gCollision = collisionManager.getObjectCollision(player, true);
@@ -321,8 +320,13 @@ namespace OutsideTheBox {
             } else if (lastKeyState.IsKeyDown(Keys.E) && currentKeyState.IsKeyUp(Keys.E)) {
                 if (mindRead.validate()) {
                     playerManager.depleteMana(mindRead.getManaCost());
-                    foreach (ThoughtBubble th in level.getThoughts()) {
-                        th.updateThought();
+                    foreach (Npc n in level.getNpcs()) {
+                        if (player.getDistance(n) <= 500) { // change later
+                            NpcDefinition def = n.getDefinition();
+                            if (def.getHints().Length > 0) {
+                                def.update(true);
+                            }
+                        }
                     }
                 }
             }

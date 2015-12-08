@@ -46,7 +46,7 @@ namespace OutsideTheBox {
         /// Handles drawing of the token
         /// </summary>
         /// <param name="batch">The SpriteBatch to draw with</param>
-        public override void draw(SpriteBatch batch, byte mode) {
+        public override void draw(SpriteBatch batch, int mode) {
             if (!collected) {
                 if (mode == 0) {
                     batch.Draw(getTexture(), getLocation(), Color.White);

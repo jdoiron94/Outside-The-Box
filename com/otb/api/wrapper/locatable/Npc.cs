@@ -25,11 +25,13 @@ namespace OutsideTheBox {
 
         private int reactTicks;
         private bool hit;
+        private bool thoughtShown;
 
         private float angle = 0;
 
         private AIPath path;
         private Rectangle lineOfSight;
+        private Rectangle thoughtBounds;
 
         private readonly Vector2 origLoc;
         private readonly Direction origDir;
@@ -48,11 +50,11 @@ namespace OutsideTheBox {
             this.origDir = direction;
         }
 
-        public Npc(Game1 game, Texture2D texture, Texture2D sight, Vector2 location, SoundEffectInstance effect, Direction direction, NpcDefinition def, int[] offsets, int radius, byte reactTime, bool wander) :
+        public Npc(Game1 game, Texture2D texture, Texture2D sight, Vector2 location, SoundEffectInstance effect, Direction direction, NpcDefinition def, int[] offsets, int radius, int reactTime, bool wander) :
             this(game, texture, sight, location, effect, direction, def, offsets, 100, 3, radius, 10, wander) {
         }
 
-        public Npc(Game1 game, Texture2D texture, Texture2D sight, Vector2 location, SoundEffectInstance effect, Direction direction, NpcDefinition def, int radius, byte reactTime) :
+        public Npc(Game1 game, Texture2D texture, Texture2D sight, Vector2 location, SoundEffectInstance effect, Direction direction, NpcDefinition def, int radius, int reactTime) :
             this(game, texture, sight, location, effect, direction, def, new int[0], radius, 10, false) {
         }
 
@@ -70,8 +72,27 @@ namespace OutsideTheBox {
             }
             reactTicks = 0;
             hit = false;
+            thoughtShown = false;
             direction = origDir;
             updateStill();
+        }
+
+        /// <summary>
+        /// Derives the npc and thought bubble by x
+        /// </summary>
+        /// <param name="x">The x amount</param>
+        public override void deriveX(int x) {
+            base.deriveX(x);
+            def.deriveX(x);
+        }
+
+        /// <summary>
+        /// Derives the npc and thought bubble by y
+        /// </summary>
+        /// <param name="y">The y amount</param>
+        public override void deriveY(int y) {
+            base.deriveY(y);
+            def.deriveY(y);
         }
 
         /// <summary>
@@ -130,8 +151,7 @@ namespace OutsideTheBox {
             return reactTime;
         }
 
-        public void setReactTicks(int reactTicks)
-        {
+        public void setReactTicks(int reactTicks) {
             this.reactTicks = reactTicks;
         }
 
@@ -219,20 +239,20 @@ namespace OutsideTheBox {
         public void updateLineOfSight() {
             if (direction == Direction.North) {
                 lineOfSight = new Rectangle((int) location.X, (int) location.Y + 10 - texture.Height * 3, texture.Width, (texture.Height * 3));
-                angle = MathHelper.ToRadians(0F);
-                losBegin = new Vector2(location.X, location.Y - lineOfSight.Height + 10F);
+                angle = MathHelper.ToRadians(0.0F);
+                losBegin = new Vector2(location.X, location.Y - lineOfSight.Height + 10.0F);
             } else if (direction == Direction.South) {
                 lineOfSight = new Rectangle((int) location.X, (int) location.Y + texture.Height, texture.Width, texture.Height * 3);
-                angle = MathHelper.ToRadians(180F);
-                losBegin = new Vector2(location.X, location.Y + (texture.Height * 3F));
+                angle = MathHelper.ToRadians(180.0F);
+                losBegin = new Vector2(location.X, location.Y + (texture.Height * 3.0F));
             } else if (direction == Direction.West) {
                 lineOfSight = new Rectangle((int) location.X + 15 - texture.Width * 3, (int) location.Y, texture.Width * 3, texture.Height);
-                angle = MathHelper.ToRadians(-90F);
-                losBegin = new Vector2(location.X - lineOfSight.Width + 15F, location.Y);
+                angle = MathHelper.ToRadians(-90.0F);
+                losBegin = new Vector2(location.X - lineOfSight.Width + 15.0F, location.Y);
             } else {
                 lineOfSight = new Rectangle((int) location.X - 15 + texture.Width, (int) location.Y, texture.Width * 3, texture.Height);
-                angle = MathHelper.ToRadians(90F);
-                losBegin = new Vector2(location.X + (texture.Width * 3F) - 15F, location.Y);
+                angle = MathHelper.ToRadians(90.0F);
+                losBegin = new Vector2(location.X + (texture.Width * 3.0F) - 15.0F, location.Y);
             }
         }
 
@@ -251,10 +271,15 @@ namespace OutsideTheBox {
             react(time, game.getPlayer(), true);
         }
 
+        /// <summary>
+        /// Updates the drawing of the npc
+        /// </summary>
+        /// <param name="batch">The SpriteBatch to draw with</param>
         public override void draw(SpriteBatch batch) {
             batch.Draw(texture, location, Color.White);
-            if (sight != null) 
-                batch.Draw(sight, Vector2.Add(losBegin, origin), null, Color.White, angle, origin, 1F, SpriteEffects.None, 0F);
+            if (sight != null) {
+                batch.Draw(sight, Vector2.Add(losBegin, origin), null, Color.White, angle, origin, 1.0F, SpriteEffects.None, 0.0F);
+            }
         }
     }
 }

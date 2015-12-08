@@ -80,6 +80,10 @@ namespace OutsideTheBox {
             }
         }
 
+        /// <summary>
+        /// Loads the npc textures for animations
+        /// </summary>
+        /// <param name="cm">The ContentManager to load sprites</param>
         public void loadNpcTextures(ContentManager cm) {
             string prefix = "sprites/entities/npcs/";
             string[] names = { "Forward", "Backward", "Left", "Right" };
@@ -303,7 +307,7 @@ namespace OutsideTheBox {
         /// Derives the entity's x coordinate in location, bounds, and destination vectors
         /// </summary>
         /// <param name="x">The x amount for the vectors to be derived by</param>
-        public void deriveX(int x) {
+        public virtual void deriveX(int x) {
             location.X += x;
             bounds.X += x;
             if (healthBar != null) {
@@ -316,31 +320,13 @@ namespace OutsideTheBox {
         /// Derives the entity's y coordinate in location, bounds, and destination vectors
         /// </summary>
         /// <param name="y">The y amount for the vectors to be derived by</param>
-        public void deriveY(int y) {
+        public virtual void deriveY(int y) {
             location.Y += y;
             bounds.Y += y;
             if (healthBar != null) {
                 healthBar.deriveY(y);
             }
             splat.deriveY(y);
-        }
-
-        /// <summary>
-        /// Sets the entity's x coordinate
-        /// </summary>
-        /// <param name="x">The x coordinate to set</param>
-        public void setX(int x) {
-            location.X = x;
-            bounds.X = x;
-        }
-
-        /// <summary>
-        /// Sets the entity's y coordinate
-        /// </summary>
-        /// <param name="y">The y coordinate to set</param>
-        public void setY(int y) {
-            location.Y = y;
-            bounds.Y = y;
         }
 
         /// <summary>
@@ -426,9 +412,9 @@ namespace OutsideTheBox {
         /// <param name="e">The entity</param>
         /// <returns>Returns the horizontal Euclidean distance to the specified entity</returns>
         public int getHDistance(Entity e) {
-            double eLowX = e.getLocation().X + (e.getTexture().Width / 2);
+            double eLocX = e.getLocation().X + (e.getTexture().Width / 2);
             double locX = location.X + (texture.Width / 2);
-            return (int) Math.Sqrt(Math.Pow(eLowX - locX, 2.0D)) - (e.getTexture().Width / 2) - (texture.Width / 2);
+            return (int) Math.Sqrt(Math.Pow(eLocX - locX, 2.0D)) - (e.getTexture().Width / 2) - (texture.Width / 2);
         }
 
         /// <summary>

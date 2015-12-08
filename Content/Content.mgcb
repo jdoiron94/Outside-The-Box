@@ -151,204 +151,6 @@
 /processorParam:Quality=Best
 /build:audio/sound effects/waterSound.wav
 
-#begin video/intro/audio/Frame (1).wma
-/importer:WmaImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:video/intro/audio/Frame (1).wma
-
-#begin video/intro/audio/Frame (12).wma
-/importer:WmaImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:video/intro/audio/Frame (12).wma
-
-#begin video/intro/audio/Frame (13).wma
-/importer:WmaImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:video/intro/audio/Frame (13).wma
-
-#begin video/intro/audio/Frame (15).wma
-/importer:WmaImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:video/intro/audio/Frame (15).wma
-
-#begin video/intro/audio/Frame (16-17).wma
-/importer:WmaImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:video/intro/audio/Frame (16-17).wma
-
-#begin video/intro/audio/Frame (18).wma
-/importer:WmaImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:video/intro/audio/Frame (18).wma
-
-#begin video/intro/audio/Frame (19).wma
-/importer:WmaImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:video/intro/audio/Frame (19).wma
-
-#begin video/intro/audio/Frame (2).wma
-/importer:WmaImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:video/intro/audio/Frame (2).wma
-
-#begin video/intro/audio/Frame (20).wma
-/importer:WmaImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:video/intro/audio/Frame (20).wma
-
-#begin video/intro/audio/Frame (21).wma
-/importer:WmaImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:video/intro/audio/Frame (21).wma
-
-#begin video/intro/audio/Frame (22).wma
-/importer:WmaImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:video/intro/audio/Frame (22).wma
-
-#begin video/intro/audio/Frame (23).wma
-/importer:WmaImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:video/intro/audio/Frame (23).wma
-
-#begin video/intro/audio/Frame (24).wma
-/importer:WmaImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:video/intro/audio/Frame (24).wma
-
-#begin video/intro/audio/Frame (25).wma
-/importer:WmaImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:video/intro/audio/Frame (25).wma
-
-#begin video/intro/audio/Frame (26).wma
-/importer:WmaImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:video/intro/audio/Frame (26).wma
-
-#begin video/intro/audio/Frame (27).wma
-/importer:WmaImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:video/intro/audio/Frame (27).wma
-
-#begin video/intro/audio/Frame (28).wma
-/importer:WmaImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:video/intro/audio/Frame (28).wma
-
-#begin video/intro/audio/Frame (29).wma
-/importer:WmaImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:video/intro/audio/Frame (29).wma
-
-#begin video/intro/audio/Frame (3).wma
-/importer:WmaImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:video/intro/audio/Frame (3).wma
-
-#begin video/intro/audio/Frame (30).wma
-/importer:WmaImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:video/intro/audio/Frame (30).wma
-
-#begin video/intro/audio/Frame (31).wma
-/importer:WmaImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:video/intro/audio/Frame (31).wma
-
-#begin video/intro/audio/Frame (32).wma
-/importer:WmaImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:video/intro/audio/Frame (32).wma
-
-#begin video/intro/audio/Frame (33).wma
-/importer:WmaImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:video/intro/audio/Frame (33).wma
-
-#begin video/intro/audio/Frame (34).wma
-/importer:WmaImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:video/intro/audio/Frame (34).wma
-
-#begin video/intro/audio/Frame (35).wma
-/importer:WmaImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:video/intro/audio/Frame (35).wma
-
-#begin video/intro/audio/Frame (36).wma
-/importer:WmaImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:video/intro/audio/Frame (36).wma
-
-#begin video/intro/audio/Frame (37).wma
-/importer:WmaImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:video/intro/audio/Frame (37).wma
-
-#begin video/intro/audio/Frame (38).wma
-/importer:WmaImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:video/intro/audio/Frame (38).wma
-
-#begin video/intro/audio/Frame (39).wma
-/importer:WmaImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:video/intro/audio/Frame (39).wma
-
-#begin video/intro/audio/Frame (4-7).wma
-/importer:WmaImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:video/intro/audio/Frame (4-7).wma
-
-#begin video/intro/audio/Frame (40).wma
-/importer:WmaImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:video/intro/audio/Frame (40).wma
-
-#begin video/intro/audio/Frame (41).wma
-/importer:WmaImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:video/intro/audio/Frame (41).wma
-
-#begin video/intro/audio/Frame (8-11).wma
-/importer:WmaImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:video/intro/audio/Frame (8-11).wma
-
 #begin video/outro/audio/Narration 1.wma
 /importer:WmaImporter
 /processor:SoundEffectProcessor
@@ -396,4 +198,202 @@
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:audio/songs/Streets2.mp3
+
+#begin video/intro/audio/Frame 1.wma
+/importer:WmaImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:video/intro/audio/Frame 1.wma
+
+#begin video/intro/audio/Frame 12.wma
+/importer:WmaImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:video/intro/audio/Frame 12.wma
+
+#begin video/intro/audio/Frame 13.wma
+/importer:WmaImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:video/intro/audio/Frame 13.wma
+
+#begin video/intro/audio/Frame 15.wma
+/importer:WmaImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:video/intro/audio/Frame 15.wma
+
+#begin video/intro/audio/Frame 16-17.wma
+/importer:WmaImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:video/intro/audio/Frame 16-17.wma
+
+#begin video/intro/audio/Frame 18.wma
+/importer:WmaImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:video/intro/audio/Frame 18.wma
+
+#begin video/intro/audio/Frame 19.wma
+/importer:WmaImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:video/intro/audio/Frame 19.wma
+
+#begin video/intro/audio/Frame 2.wma
+/importer:WmaImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:video/intro/audio/Frame 2.wma
+
+#begin video/intro/audio/Frame 20.wma
+/importer:WmaImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:video/intro/audio/Frame 20.wma
+
+#begin video/intro/audio/Frame 21.wma
+/importer:WmaImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:video/intro/audio/Frame 21.wma
+
+#begin video/intro/audio/Frame 22.wma
+/importer:WmaImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:video/intro/audio/Frame 22.wma
+
+#begin video/intro/audio/Frame 23.wma
+/importer:WmaImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:video/intro/audio/Frame 23.wma
+
+#begin video/intro/audio/Frame 24.wma
+/importer:WmaImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:video/intro/audio/Frame 24.wma
+
+#begin video/intro/audio/Frame 25.wma
+/importer:WmaImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:video/intro/audio/Frame 25.wma
+
+#begin video/intro/audio/Frame 26.wma
+/importer:WmaImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:video/intro/audio/Frame 26.wma
+
+#begin video/intro/audio/Frame 27.wma
+/importer:WmaImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:video/intro/audio/Frame 27.wma
+
+#begin video/intro/audio/Frame 28.wma
+/importer:WmaImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:video/intro/audio/Frame 28.wma
+
+#begin video/intro/audio/Frame 29.wma
+/importer:WmaImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:video/intro/audio/Frame 29.wma
+
+#begin video/intro/audio/Frame 3.wma
+/importer:WmaImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:video/intro/audio/Frame 3.wma
+
+#begin video/intro/audio/Frame 30.wma
+/importer:WmaImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:video/intro/audio/Frame 30.wma
+
+#begin video/intro/audio/Frame 31.wma
+/importer:WmaImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:video/intro/audio/Frame 31.wma
+
+#begin video/intro/audio/Frame 32.wma
+/importer:WmaImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:video/intro/audio/Frame 32.wma
+
+#begin video/intro/audio/Frame 33.wma
+/importer:WmaImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:video/intro/audio/Frame 33.wma
+
+#begin video/intro/audio/Frame 34.wma
+/importer:WmaImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:video/intro/audio/Frame 34.wma
+
+#begin video/intro/audio/Frame 35.wma
+/importer:WmaImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:video/intro/audio/Frame 35.wma
+
+#begin video/intro/audio/Frame 36.wma
+/importer:WmaImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:video/intro/audio/Frame 36.wma
+
+#begin video/intro/audio/Frame 37.wma
+/importer:WmaImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:video/intro/audio/Frame 37.wma
+
+#begin video/intro/audio/Frame 38.wma
+/importer:WmaImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:video/intro/audio/Frame 38.wma
+
+#begin video/intro/audio/Frame 39.wma
+/importer:WmaImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:video/intro/audio/Frame 39.wma
+
+#begin video/intro/audio/Frame 4-7.wma
+/importer:WmaImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:video/intro/audio/Frame 4-7.wma
+
+#begin video/intro/audio/Frame 40.wma
+/importer:WmaImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:video/intro/audio/Frame 40.wma
+
+#begin video/intro/audio/Frame 41.wma
+/importer:WmaImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:video/intro/audio/Frame 41.wma
+
+#begin video/intro/audio/Frame 8-11.wma
+/importer:WmaImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:video/intro/audio/Frame 8-11.wma
 

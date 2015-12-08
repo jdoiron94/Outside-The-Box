@@ -240,7 +240,7 @@ namespace OutsideTheBox {
         /// </summary>
         /// <param name="batch">The SpriteBatch to draw with</param>
         /// <param name="mode">The game's telekinesis mode to draw with respect to</param>
-        public virtual void draw(SpriteBatch batch, byte mode) {
+        public virtual void draw(SpriteBatch batch, int mode) {
             if (mode == 0) {
                 batch.Draw(texture, location, Color.White);
             } else if (mode == 1) {
