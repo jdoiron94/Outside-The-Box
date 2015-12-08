@@ -1,8 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+
 using System;
 using System.Collections.Generic;
 
@@ -27,21 +29,10 @@ namespace OutsideTheBox
         private Texture2D cursor;
         private Target target;
         private MouseState mouse;
-        private Texture2D startMenu;
         private SpriteFont font4;
+        private Song factorySong;
 
         private Texture2D pixel;
-        
-        private SoundEffect dashSound;
-        private SoundEffect buttonSound;
-        private SoundEffect lavaSound;
-        private SoundEffect paralyzeSound;
-        private SoundEffect slowSound;
-        private SoundEffect boltSound;
-
-        Video introVideo;
-        Video endVideo;
-        VideoPlayer vidPlayer;
 
         private Screen[] screens;
 
@@ -217,7 +208,7 @@ namespace OutsideTheBox
         {
             base.Initialize();
             graphics.PreferredBackBufferWidth = 800;
-            graphics.PreferredBackBufferHeight = 521;
+            graphics.PreferredBackBufferHeight = 520;
             graphics.ApplyChanges();
             Window.Title = "Outside The Box";
         }
@@ -235,16 +226,9 @@ namespace OutsideTheBox
             midX = (width / 2);
             midY = (height - 40) / 2;
 
-            introVideo = Content.Load<Video>("video/Outside The Box Intro");
-            endVideo = Content.Load<Video>("video/EndVideo");
-            vidPlayer = new VideoPlayer();
-            //IntroVideo intvid = new IntroVideo(introvideo, vidplayer, "video", true);
-
-            Song factorySong = Content.Load<Song>("audio/songs/Factory");
+            factorySong = Content.Load<Song>("audio/songs/Factory");
             Song streetSong = Content.Load<Song>("audio/songs/Streets");
             Song officeSong = Content.Load<Song>("audio/songs/Office (Trimmed)");
-            MediaPlayer.IsRepeating = true;
-            MediaPlayer.Play(factorySong);
 
             SpriteFont font1 = Content.Load<SpriteFont>("fonts/font1");
             SpriteFont font2 = Content.Load<SpriteFont>("fonts/font2");
@@ -258,7 +242,7 @@ namespace OutsideTheBox
             target = new Target(targ);
 
             Texture2D gradient = Content.Load<Texture2D>("ui/gradient");
-            startMenu = Content.Load<Texture2D>("menus/Title Screen");
+            Texture2D startMenu = Content.Load<Texture2D>("menus/Title Screen");
             Texture2D controls = Content.Load<Texture2D>("menus/Controls");
             Texture2D about = Content.Load<Texture2D>("menus/About");
             SoundEffect hoverEffect = Content.Load<SoundEffect>("audio/sound effects/menuButtonSound");
@@ -280,14 +264,60 @@ namespace OutsideTheBox
             pause.addHint(hint7);
             Texture2D numberpad = Content.Load<Texture2D>("ui/Keypad");
             Numberpad numberPuzzle = new Numberpad(GraphicsDevice, numberpad, cursor, font4, "Numberpad", false);
-            screens = new Screen[] { title, pause, numberPuzzle };
 
-            boltSound = Content.Load<SoundEffect>("audio/sound effects/boltSound");
-            dashSound = Content.Load<SoundEffect>("audio/sound effects/dashSound");
-            buttonSound = Content.Load<SoundEffect>("audio/sound effects/buttonSound");
-            lavaSound = Content.Load<SoundEffect>("audio/sound effects/lavaSound");
-            paralyzeSound = Content.Load<SoundEffect>("audio/sound effects/paralyzeSound");
-            slowSound = Content.Load<SoundEffect>("audio/sound effects/slowSound");
+            List<FrameSet> sets = new List<FrameSet>();
+            for (int i = 1; i < 4; i++) {
+                Texture2D[] frame = new Texture2D[] { Content.Load<Texture2D>("video/intro/frames/Intro (" + i + ")") };
+                SoundEffect song = Content.Load<SoundEffect>("video/intro/audio/Frame (" + i + ")");
+                FrameSet f = new FrameSet(frame, song);
+                if (i == 1) {
+                    f.setActive(true);
+                }
+                sets.Add(f);
+            }
+            Texture2D[] a = new Texture2D[4];
+            SoundEffect sa = Content.Load<SoundEffect>("video/intro/audio/Frame (4-7)");
+            for (int i = 4; i < 8; i++) {
+                a[i - 4] = Content.Load<Texture2D>("video/intro/frames/Intro (" + i + ")");
+            }
+            FrameSet fa = new FrameSet(a, sa);
+            sets.Add(fa);
+            Texture2D[] b = new Texture2D[4];
+            SoundEffect sb = Content.Load<SoundEffect>("video/intro/audio/Frame (8-11)");
+            for (int i = 8; i < 12; i++) {
+                b[i - 8] = Content.Load<Texture2D>("video/intro/frames/Intro (" + i + ")");
+            }
+            FrameSet fb = new FrameSet(b, sb);
+            sets.Add(fb);
+            for (int i = 12; i < 16; i++) {
+                Texture2D[] frame = new Texture2D[] { Content.Load<Texture2D>("video/intro/frames/Intro (" + i + ")") };
+                SoundEffect song = i == 14 ? null : Content.Load<SoundEffect>("video/intro/audio/Frame (" + i + ")");
+                FrameSet f = new FrameSet(frame, song);
+                sets.Add(f);
+            }
+            Texture2D[] c = new Texture2D[2];
+            SoundEffect sc = Content.Load<SoundEffect>("video/intro/audio/Frame (16-17)");
+            for (int i = 16; i < 18; i++) {
+                c[i - 16] = Content.Load<Texture2D>("video/intro/frames/Intro (" + i + ")");
+            }
+            FrameSet fc = new FrameSet(c, sc);
+            sets.Add(fc);
+            for (int i = 18; i < 42; i++) {
+                Texture2D[] frame = new Texture2D[] { Content.Load<Texture2D>("video/intro/frames/Intro (" + i + ")") };
+                SoundEffect song = Content.Load<SoundEffect>("video/intro/audio/Frame (" + i + ")");
+                FrameSet f = new FrameSet(frame, song);
+                sets.Add(f);
+            }
+            ManualVideo intro = new ManualVideo(sets.ToArray(), "Intro video", true);
+
+            screens = new Screen[] { intro, title, pause, numberPuzzle };
+
+            SoundEffect boltSound = Content.Load<SoundEffect>("audio/sound effects/boltSound");
+            SoundEffect dashSound = Content.Load<SoundEffect>("audio/sound effects/dashSound");
+            SoundEffect buttonSound = Content.Load<SoundEffect>("audio/sound effects/buttonSound");
+            SoundEffect lavaSound = Content.Load<SoundEffect>("audio/sound effects/lavaSound");
+            SoundEffect paralyzeSound = Content.Load<SoundEffect>("audio/sound effects/paralyzeSound");
+            SoundEffect slowSound = Content.Load<SoundEffect>("audio/sound effects/slowSound");
 
             Texture2D playur = Content.Load<Texture2D>("sprites/entities/player/Standing1");
             Texture2D bullet = Content.Load<Texture2D>("sprites/projectiles/BulletOrb");
@@ -623,8 +653,6 @@ namespace OutsideTheBox
             level1.setScreens(screens);
             level1.setSong(factorySong);
 
-            Console.WriteLine(player.getLocation());
-
             //LEVEL 2
             List<GameObject> Level2Objects = new List<GameObject>();
             Level2Objects.Add(door2to1);
@@ -878,10 +906,12 @@ namespace OutsideTheBox
         {
             base.Update(gameTime);
             bool busy = false;
+            Screen active = null;
             foreach (Screen s in screens)
             {
                 if (s.isActive())
                 {
+                    active = s;
                     level.setActive(false);
                     s.update(gameTime);
                     busy = true;
@@ -891,6 +921,14 @@ namespace OutsideTheBox
             mouse = Mouse.GetState();
             if (busy)
             {
+                if (active.getName() != "Intro video") {
+                    if (MediaPlayer.State == MediaState.Stopped) {
+                        Song song = level.getSong();
+                        if (song != null) {
+                            MediaPlayer.Play(song);
+                        }
+                    }
+                }
                 return;
             }
             else
@@ -913,7 +951,7 @@ namespace OutsideTheBox
         protected override void Draw(GameTime gameTime)
         {
             base.Draw(gameTime);
-            GraphicsDevice.Clear(Color.White);
+            GraphicsDevice.Clear(Color.Black);
             bool busy = false;
             spriteBatch.Begin();
           
@@ -921,7 +959,6 @@ namespace OutsideTheBox
             {
                 if (s.isActive())
                 {
-                    //level.setActive(false);
                     s.draw(spriteBatch);
                     busy = true;
                     break;
@@ -932,7 +969,6 @@ namespace OutsideTheBox
                 spriteBatch.End();
                 return;
             }
-            //level.setActive(true);
             level.draw(spriteBatch);
             if (level.getMode() < 1)
             {

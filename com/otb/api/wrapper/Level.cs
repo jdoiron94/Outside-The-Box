@@ -102,11 +102,17 @@ namespace OutsideTheBox {
         }
 
         /// <summary>
-        /// Returns the game screens
+        /// Returns the screen with the specified name
         /// </summary>
-        /// <returns>Returns the game screens</returns>
-        public Screen[] getScreens() {
-            return screens;
+        /// <param name="name">The name to search for</param>
+        /// <returns>Returns the screen with the specified name</returns>
+        public Screen getScreen(string name) {
+            foreach (Screen s in screens) {
+                if (s.getName() == name) {
+                    return s;
+                }
+            }
+            return null;
         }
 
         /// <summary>

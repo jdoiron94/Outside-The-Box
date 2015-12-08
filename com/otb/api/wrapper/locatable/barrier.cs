@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 
 namespace OutsideTheBox {
 
@@ -44,21 +43,13 @@ namespace OutsideTheBox {
         /// </summary>
         /// <param name="value">The boolean to be set</param>
         public void setState(bool value) {
-            /*if (state != value) {
-                Console.WriteLine("BARRIER STATE FROM " + state + " TO " + value);
-                playEffect();
-                this.state = value;
-                //state = defaultValue ? !value : value;
-            }?*/
             if (defaultValue) {
                 if (state != !value) {
-                    Console.WriteLine("BARRIER STATE FROM " + state + " TO " + value);
                     playEffect();
                 }
                 state = !value;
             } else {
                 if (state != value) {
-                    Console.WriteLine("BARRIER STATE FROM " + state + " TO " + value);
                     playEffect();
                 }
                 state = value;

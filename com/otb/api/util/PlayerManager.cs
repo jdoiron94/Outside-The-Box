@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
 
 using System;
 using System.Collections.Generic;
@@ -312,21 +311,6 @@ namespace OutsideTheBox {
         public void incrementExperience(int bonus) {
             totalExp += bonus;
             currentExp += bonus;
-        }
-
-        /// <summary>
-        /// Depletes spendable exp if you have enough
-        /// </summary>
-        /// <param name="amount"></param>
-        /// <returns>Returns true if the player has enough exp to spend; otherwise, false</returns>
-        public bool spendExperience(int amount) {
-            if ((currentExp - amount) < 0) {
-                Console.WriteLine("Not enough EXP to spend");
-                return false;
-            } else {
-                currentExp -= amount;
-                return true;
-            }
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Audio;
-using System;
 
 namespace OutsideTheBox {
 
@@ -19,14 +18,8 @@ namespace OutsideTheBox {
             base(frames[0], location, effect, width, height) {
             this.frames = frames;
             this.damage = 2;
-            this.index = 0;
             this.timer = 5;
-            this.current = 0;
             this.forward = true;
-        }
-
-        public int getDamage() {
-            return damage;
         }
 
         public void updateFrame() {

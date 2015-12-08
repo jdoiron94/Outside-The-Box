@@ -2,7 +2,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-using System;
 
 namespace OutsideTheBox {
 
@@ -161,9 +160,6 @@ namespace OutsideTheBox {
             if (playerManager.getHealth() <= 0) {
                 player.playEffect();
                 deathManager.resetGame();
-                foreach (GameObject g in level.getObjects()) {
-                    Console.WriteLine("object at " + g.getLocation() + ", bounds at " + g.getBounds());
-                }
             }
             if (collisionManager.playerSpotted(level)) {
                 //playerManager.setHealth(0);
@@ -206,19 +202,19 @@ namespace OutsideTheBox {
                     menuShown = false;
                 } else {
                     menuShown = true;
-                    level.getScreens()[1].setActive(true);
+                    PauseMenu pause = (PauseMenu) level.getScreen("Pause");
+                    pause.setActive(true);
                 }
             } else if (gameState == GameState.Puzzle) {
                 if (puzzleShown) {
-                    Console.WriteLine("Puzzle finished, setting to normal");
                     puzzleShown = false;
                     showPuzzle = false;
                     gameState = GameState.Normal;
                     level.setActive(true);
                 } else {
-                    Console.WriteLine("Starting puzzle");
                     puzzleShown = true;
-                    level.getScreens()[2].setActive(true);
+                    Numberpad num = (Numberpad) level.getScreen("Numberpad");
+                    num.setActive(true);
                 }
             }
         }
@@ -246,7 +242,7 @@ namespace OutsideTheBox {
                 t.setCollected(true);
                 playerManager.incrementExperience(t.getExp());
                 playerManager.levelMana(t.getManaIncrementationValue());
-                PauseMenu pause = (PauseMenu) level.getScreens()[1];
+                PauseMenu pause = (PauseMenu) level.getScreen("Pause");
                 pause.setExperience(pause.getExperience() + t.getExp());
                 dropText = "+ " + t.getExp() + " EXP";
                 t.playEffect();
@@ -265,7 +261,7 @@ namespace OutsideTheBox {
                     level.setActive(false);
                     game.setLevel(index);
                     level = game.getLevel(index);
-                    PauseMenu pause = (PauseMenu) level.getScreens()[1];
+                    PauseMenu pause = (PauseMenu) level.getScreen("Pause");
                     pause.setLevel(index);
                     if (current != level.getSong()) {
                         MediaPlayer.Stop();
@@ -285,11 +281,10 @@ namespace OutsideTheBox {
                     }
                     playerManager.getKeyBox().update(this);
                 } else if (game.getLevelIndex() == 0) {
-                    Numberpad num = (Numberpad) level.getScreens()[2];
+                    Numberpad num = (Numberpad) level.getScreen("Numberpad");
                     if (!num.solved()) {
                         if (gameState == GameState.Normal) {
                             if (showPuzzle) {
-                                Console.WriteLine("Pause game, set to puzzle");
                                 gameState = GameState.Puzzle;
                                 level.setActive(false);
                             }
