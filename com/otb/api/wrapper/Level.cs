@@ -477,10 +477,15 @@ namespace OutsideTheBox {
                             projectile.setActive(false);
                             n.deriveHealth(-projectile.getDamage());
                             n.setHit(true);
-                            n.restCombatTicks();
+                            n.resetCombatTicks();
                             n.getDisplayBar().update(n.getCurrentHealth(), n.getMaxHealth());
                             n.getHitsplat().setHit("" + projectile.getDamage());
                             n.getHitsplat().playEffect();
+                            int exp = 4 * projectile.getDamage();
+                            playerManager.incrementExperience(exp);
+                            PauseMenu pause = (PauseMenu) getScreen("Pause");
+                            pause.setExperience(pause.getExperience() + exp);
+                            inputManager.setDropText("+ " + exp + " EXP");
                             break;
                         }
                     }

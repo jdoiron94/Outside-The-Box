@@ -11,8 +11,7 @@ namespace OutsideTheBox {
     public class DeathManager {
 
         private InputManager inputManager;
-
-        private int totalExp;
+        
         private int currentExp;
         private int health;
         private int mana;
@@ -24,8 +23,7 @@ namespace OutsideTheBox {
 
         public DeathManager(InputManager inputManager) {
             this.inputManager = inputManager;
-            this.totalExp = inputManager.getPlayerManager().getTotalExperience();
-            this.currentExp = inputManager.getPlayerManager().getCurrentExperience();
+            this.currentExp = inputManager.getPlayerManager().getExperience();
             this.health = inputManager.getPlayerManager().getHealth();
             this.mana = inputManager.getPlayerManager().getMana();
             this.totalMana = inputManager.getPlayerManager().getTotalMana();
@@ -56,9 +54,11 @@ namespace OutsideTheBox {
         /// Handles resetting the player
         /// </summary>
         public void resetPlayer() {
+            int exp = inputManager.getPlayerManager().getExperience() / 2;
             inputManager.getPlayer().setLocation(inputManager.getLevel().getPlayerOrigin());
-            inputManager.getPlayerManager().setTotalExp(totalExp);
-            inputManager.getPlayerManager().setCurrentExp(currentExp);
+            inputManager.getPlayerManager().setExperience(exp);
+            PauseMenu pause = (PauseMenu) inputManager.getLevel().getScreen("Pause");
+            pause.setExperience(exp);
             inputManager.getPlayerManager().setHealth(health);
             inputManager.getPlayerManager().setMana(mana);
             inputManager.getPlayerManager().setTotalMana(totalMana);

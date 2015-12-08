@@ -90,7 +90,6 @@ namespace OutsideTheBox {
         /// </summary>
         public void update(bool generate) {
             if (generate) {
-                //text = hints[rand.Next(0, hints.Length)];
                 text = getRandom();
                 showing = true;
             } else {

@@ -177,7 +177,7 @@ namespace OutsideTheBox {
         /// <summary>
         /// Resets the combat ticks
         /// </summary>
-        public void restCombatTicks() {
+        public void resetCombatTicks() {
             combatTicks = 0;
         }
 

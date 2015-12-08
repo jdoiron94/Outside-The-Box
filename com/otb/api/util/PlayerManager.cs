@@ -22,8 +22,7 @@ namespace OutsideTheBox {
         private int health;
         private int mana;
         private int totalMana;
-        private int totalExp;
-        private int currentExp;
+        private int experience;
         private int healthCooldown;
         private int manaCooldown;
         private int manaDrainRate;
@@ -35,12 +34,11 @@ namespace OutsideTheBox {
         private bool manaLimit;
         private bool healthLimit; 
 
-        public PlayerManager(Player player, ContentManager cm, int health, int mana, int totalExp, int currentExp, DisplayBar healthBar, DisplayBar manaBar, KeyBox keyBox, PowerBar powerbar) {
+        public PlayerManager(Player player, ContentManager cm, int health, int mana, int experience, DisplayBar healthBar, DisplayBar manaBar, KeyBox keyBox, PowerBar powerbar) {
             this.player = player;
             this.health = health;
             this.mana = mana;
-            this.totalExp = totalExp;
-            this.currentExp = currentExp;
+            this.experience = experience;
             this.healthBar = healthBar;
             this.manaBar = manaBar;
             this.keyBox = keyBox;
@@ -63,7 +61,7 @@ namespace OutsideTheBox {
         }
 
         public PlayerManager(Player player, ContentManager cm, DisplayBar healthBar, DisplayBar manaBar, KeyBox keyBox, PowerBar powerbar) :
-            this(player, cm, 100, 100, 0, 0, healthBar, manaBar, keyBox, powerbar) {
+            this(player, cm, 100, 100, 0, healthBar, manaBar, keyBox, powerbar) {
         }
 
         /// <summary>
@@ -103,19 +101,11 @@ namespace OutsideTheBox {
         }
 
         /// <summary>
-        /// Returns the player's total experience
-        /// </summary>
-        /// <returns>Returns the player's total experience</returns>
-        public int getTotalExperience() {
-            return totalExp;
-        }
-
-        /// <summary>
         /// Returns the player's current experience
         /// </summary>
         /// <returns>Returns the player's current experience</returns>
-        public int getCurrentExperience() {
-            return currentExp;
+        public int getExperience() {
+            return experience;
         }
 
         /// <summary>
@@ -232,19 +222,11 @@ namespace OutsideTheBox {
         }
 
         /// <summary>
-        /// Sets the player's total exp
-        /// </summary>
-        /// <param name="exp">The exp to set</param>
-        public void setTotalExp(int exp) {
-            totalExp = exp;
-        }
-
-        /// <summary>
         /// Sets the player's current exp
         /// </summary>
         /// <param name="exp">The exp to set</param>
-        public void setCurrentExp(int exp) {
-            currentExp = exp;
+        public void setExperience(int experience) {
+            this.experience = experience;
         }
 
         /// <summary>
@@ -276,8 +258,7 @@ namespace OutsideTheBox {
         /// Regenerates the appropriate amount of mana for the player, based on their total experience
         /// </summary>
         public void regenerateMana() {
-            //int regeneration = (int) (totalMana * .01);
-            int regeneration = (int) (1 + totalExp * .001);
+            int regeneration = (int) (1 + experience * .001);
             mana = Math.Min(totalMana, mana + regeneration);
             manaBar.update(mana, totalMana);
         }
@@ -309,8 +290,7 @@ namespace OutsideTheBox {
         /// </summary>
         /// <param name="bonus">The amount of exp to increment</param>
         public void incrementExperience(int bonus) {
-            totalExp += bonus;
-            currentExp += bonus;
+            experience += bonus;
         }
     }
 }
