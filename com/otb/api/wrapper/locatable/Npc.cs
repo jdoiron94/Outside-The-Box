@@ -75,6 +75,7 @@ namespace OutsideTheBox {
             thoughtShown = false;
             direction = origDir;
             updateStill();
+            def.resetThought();
         }
 
         /// <summary>

@@ -14,24 +14,24 @@ namespace OutsideTheBox {
         private readonly string[] hints;
         private readonly SpriteFont font;
         private readonly Vector2 origLoc;
+        private readonly Texture2D thought;
         private readonly Random rand;
 
-        private readonly int[] hintLevels;
+        private readonly int[] weights;
 
         private Vector2 location;
-        private Texture2D thought;
 
         private string text;
         private bool showing;
         private int ticks;
 
-        public NpcDefinition(Texture2D thought, SpriteFont font, Vector2 location, string name, string[] hints, int[] hintLevels) {
+        public NpcDefinition(Texture2D thought, SpriteFont font, Vector2 location, string name, string[] hints, int[] weights) {
             this.thought = thought;
             this.font = font;
             this.location = location;
             this.name = name;
             this.hints = hints;
-            this.hintLevels = hintLevels;
+            this.weights = weights;
             this.origLoc = new Vector2(location.X, location.Y);
             this.rand = new Random();
         }
@@ -66,6 +66,7 @@ namespace OutsideTheBox {
         public void resetThought() {
             location = origLoc;
             showing = false;
+            ticks = 0;
         }
 
         /// <summary>
@@ -89,7 +90,8 @@ namespace OutsideTheBox {
         /// </summary>
         public void update(bool generate) {
             if (generate) {
-                text = hints[rand.Next(0, hints.Length)];
+                //text = hints[rand.Next(0, hints.Length)];
+                text = getRandom();
                 showing = true;
             } else {
                 if (ticks > 200) {
@@ -99,6 +101,26 @@ namespace OutsideTheBox {
                 }
                 ticks++;
             }
+        }
+
+        /// <summary>
+        /// Returns a random hint from the hint array
+        /// </summary>
+        /// <returns>Returns a random hint from the hint array</returns>
+        private string getRandom() {
+            int totalWeight = 0;
+            foreach (int w in weights) {
+                totalWeight += w;
+            }
+            int random = rand.Next(0, totalWeight);
+            int count = 0;
+            for (int i = 0; i < weights.Length; i++) {
+                count += weights[i];
+                if (count >= random) {
+                    return hints[i];
+                }
+            }
+            return null;
         }
 
         /// <summary>

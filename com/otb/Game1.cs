@@ -535,9 +535,9 @@ namespace OutsideTheBox
             Vector2 vec1_1 = new Vector2(430.0F, height - 135.0F);
             Vector2 vec1_2 = new Vector2(80.0F, 205.0F);
             Vector2 vec1_3 = new Vector2(666.0F, 205.0F);
-            NpcDefinition def1_1 = new NpcDefinition(bubble, font2, vec1_1 + offset, "Normie", new string[] { "Test1", "Test2", "Test3", "Test4", "Please, the password isn't 1337..." }, new int[0]);
-            NpcDefinition def1_2 = new NpcDefinition(bubble, font2, vec1_2 + offset, "Normie2", new string[0], new int[0]);
-            NpcDefinition def1_3 = new NpcDefinition(bubble, font2, vec1_3 + offset, "Normie3", new string[0], new int[0]);
+            NpcDefinition def1_1 = new NpcDefinition(bubble, font2, vec1_1 + offset, "Normie", new string[] { "Johnny is seriously such a dimwit.", "Life as a guard is really boring...", "Mhmmm... vegetables.", "How much longer until my shift ends?", "Please, the password isn't 1337..." }, new int[] { 50, 50, 50, 50, 10 });
+            NpcDefinition def1_2 = new NpcDefinition(bubble, font2, vec1_2 + offset, "Normie2", new string[] { "I can't wait to get home.", "Doo doo doo doo doo...", "I wanna be at the movies with friends.", "I really hate my boss.", "Nobody will ever take away my INDEPENDENCE." }, new int[] { 30, 15, 10, 40, 50 });
+            NpcDefinition def1_3 = new NpcDefinition(bubble, font2, vec1_3 + offset + new Vector2(-64.0F, 0.0F), "Normie3", new string[] { "So close to Christmas, whoohoo!", "I wonder what my wife got me...", "Jingle bells, jingle bells...", "Ho ho ho!", "1776 was a great year." }, new int[] { 15, 20, 25, 20, 30 });
             Npc npc1_1 = new Npc(this, male1, lineofsight, vec1_1, deathEffect.CreateInstance(), Direction.East, def1_1, 150, 5);
             Npc npc1_2 = new Npc(this, male2, lineofsight, vec1_2, deathEffect.CreateInstance(), Direction.East, def1_2, 150, 5);
             Npc npc1_3 = new Npc(this, male2, lineofsight, vec1_3, deathEffect.CreateInstance(), Direction.East, def1_3, 150, 5);
@@ -545,17 +545,17 @@ namespace OutsideTheBox
             Vector2 vec2_1 = new Vector2(550.0F, 50.0F);
             Vector2 vec2_2 = new Vector2(660.0F, 200.0F);
             Vector2 vec2_3 = new Vector2(100.0F, 400.0F);
-            NpcDefinition def2_1 = new NpcDefinition(bubble, font1, vec2_1 + offset, "Normie4", new string[0], new int[0]);
-            NpcDefinition def2_2 = new NpcDefinition(bubble, font1, vec2_2 + offset, "Normie5", new string[0], new int[0]);
-            NpcDefinition def2_3 = new NpcDefinition(bubble, font1, vec2_3 + offset, "Normie6", new string[0], new int[0]);
+            NpcDefinition def2_1 = new NpcDefinition(bubble, font2, vec2_1 + offset + new Vector2(0.0F, 64.0F), "Normie4", new string[] { "*yawn*", "If you touch that, you're done for." }, new int[] { 20, 30 });
+            NpcDefinition def2_2 = new NpcDefinition(bubble, font2, vec2_2 + offset, "Normie5", new string[] { "Do re mi fa so la ti do...", "There are 10 types of people in the world.", "I'd tell you a UDP joke, but you may not get it."}, new int[] { 15, 10, 20 });
+            NpcDefinition def2_3 = new NpcDefinition(bubble, font2, vec2_3 + offset, "Normie6", new string[] { "Pew pew pew!", "I love huskies!" }, new int[] { 30, 20 });
             Npc npc2_1 = new Npc(this, male1, lineofsight, vec2_1, deathEffect.CreateInstance(), Direction.West, def2_1, 150, 5);
             Npc npc2_2 = new Npc(this, male1, lineofsight, vec2_2, deathEffect.CreateInstance(), Direction.West, def2_2, 150, 5);
             Npc npc2_3 = new Npc(this, male1, lineofsight, vec2_3, deathEffect.CreateInstance(), Direction.East, def2_3, 150, 5);
             //level 3 npcs
             Vector2 vec3_1 = new Vector2(420.0F, 100.0F);
             Vector2 vec3_2 = new Vector2(540.0F, 380.0F);
-            NpcDefinition def3_1 = new NpcDefinition(bubble, font1, vec3_1 + offset, "Normie7", new string[0], new int[0]);
-            NpcDefinition def3_2 = new NpcDefinition(bubble, font1, vec3_2 + offset, "Normie8", new string[0], new int[0]);
+            NpcDefinition def3_1 = new NpcDefinition(bubble, font2, vec3_1 + offset, "Normie7", new string[] { "Protect the key. Protect the key.", "If I mess this up, I'm screwed." }, new int[] { 25, 25 });
+            NpcDefinition def3_2 = new NpcDefinition(bubble, font2, vec3_2 + offset, "Normie8", new string[] { "Quite frankly, C has no class..." }, new int[] { 1 });
             Npc npc3_1 = new Npc(this, male1, lineofsight, vec3_1, deathEffect.CreateInstance(), Direction.West, def3_1, 150, 5);
             Npc npc3_2 = new Npc(this, male1, lineofsight, vec3_2, deathEffect.CreateInstance(), Direction.North, def3_2, 150, 5);
             //level 5 npcs
@@ -563,10 +563,10 @@ namespace OutsideTheBox
             Vector2 vec5_2 = new Vector2(324.0F, 95.0F);
             Vector2 vec5_3 = new Vector2(416.0F, 95.0F);
             Vector2 vec5_4 = new Vector2(484.0F, 95.0F);
-            NpcDefinition def5_1 = new NpcDefinition(bubble, font1, vec5_1 + offset, "Normie9", new string[0], new int[0]);
-            NpcDefinition def5_2 = new NpcDefinition(bubble, font1, vec5_2 + offset, "Normie10", new string[0], new int[0]);
-            NpcDefinition def5_3 = new NpcDefinition(bubble, font1, vec5_3 + offset, "Normie11", new string[0], new int[0]);
-            NpcDefinition def5_4 = new NpcDefinition(bubble, font1, vec5_4 + offset, "Normie12", new string[0], new int[0]);
+            NpcDefinition def5_1 = new NpcDefinition(bubble, font2, vec5_1 + offset + new Vector2(0.0F, 64.0F), "Normie9", new string[] { "If you even come near me..." }, new int[] { 1 });
+            NpcDefinition def5_2 = new NpcDefinition(bubble, font2, vec5_2 + offset, "Normie10", new string[0], new int[0]);
+            NpcDefinition def5_3 = new NpcDefinition(bubble, font2, vec5_3 + offset, "Normie11", new string[] { "I'MMA FIRIN' MAH LAZER!!" }, new int[] { 1 });
+            NpcDefinition def5_4 = new NpcDefinition(bubble, font2, vec5_4 + offset, "Normie12", new string[0], new int[0]);
             Npc npc5_1 = new Npc(this, male1, null, vec5_1, deathEffect.CreateInstance(), Direction.South, def5_1, 150, 5);
             Npc npc5_2 = new Npc(this, male1, null, vec5_2, deathEffect.CreateInstance(), Direction.South, def5_2, 150, 5);
             Npc npc5_3 = new Npc(this, male1, null, vec5_3, deathEffect.CreateInstance(), Direction.South, def5_3, 150, 5);
@@ -574,8 +574,8 @@ namespace OutsideTheBox
             //level 6 npcs
             Vector2 vec6_1 = new Vector2(370.0F, 40.0F);
             Vector2 vec6_2 = new Vector2(370.0F, 200.0F);
-            NpcDefinition def6_1 = new NpcDefinition(bubble, font1, vec6_1 + offset, "Normie13", new string[0], new int[0]);
-            NpcDefinition def6_2 = new NpcDefinition(bubble, font1, vec6_2 + offset, "Normie14", new string[0], new int[0]);
+            NpcDefinition def6_1 = new NpcDefinition(bubble, font2, vec6_1 + offset + new Vector2(0.0F, 64.0F), "Normie13", new string[] { "I like my humans crispy.", "You're gonna get zapped." }, new int[] { 15, 20 });
+            NpcDefinition def6_2 = new NpcDefinition(bubble, font2, vec6_2 + offset, "Normie14", new string[] { "You're gonna need us to surive...", "UNCE UNCE UNCE UNCE" }, new int[] { 10, 20});
             Npc npc6_1 = new Npc(this, male1, lineofsight, vec6_1, deathEffect.CreateInstance(), Direction.East, def6_1, new int[0], 100, 6, 150, 5, false);
             Npc npc6_2 = new Npc(this, male1, lineofsight, vec6_2, deathEffect.CreateInstance(), Direction.East, def6_2, new int[0], 100, 6, 150, 5, false);
 
