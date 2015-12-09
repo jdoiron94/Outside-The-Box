@@ -147,21 +147,6 @@ namespace OutsideTheBox {
         }
 
         /// <summary>
-        /// Sets the level at the index
-        /// </summary>
-        /// <param name="index">The level index to set</param>
-        public void setLevel(int index) {
-            this.level.setActive(false);
-            Level level = game.getLevel(index);
-            level.setActive(true);
-            this.level = level;
-            this.prevLevel = level;
-            PauseMenu pause = (PauseMenu) level.getScreen("Pause");
-            pause.setLevel(index);
-            game.setLevel(index);
-        }
-
-        /// <summary>
         /// Controls updating of the game based on the current screen state and mouse/keyboard input
         /// </summary>
         /// <param name="time">The GameTime to update with respect to</param>
@@ -175,14 +160,10 @@ namespace OutsideTheBox {
             if (playerManager.getHealth() <= 0) {
                 deaths++;
                 player.playEffect();
-                level.resetProjectiles(); 
                 if (deaths == 3) {
                     foreach (Level l in game.getLevels()) {
                         l.setLooped(false);
                         deathManager.resetLevel(l, deaths);
-                        foreach (Door d in l.getDoors()) {
-                            d.setUnlocked(false);
-                        }
                     }
                     deathManager.resetPlayer(deaths);
                     level.setActive(false);
@@ -199,7 +180,6 @@ namespace OutsideTheBox {
                     Numberpad num = (Numberpad) level.getScreen("Numberpad");
                     num.setSolved(false);
                     dropText = "Game over!";
-                    //deaths = 0;
                 } else {
                     deathManager.resetGame(deaths);
                     dropText = deaths == 1 ? "2 lives remaining" : "1 life remaining";
@@ -531,8 +511,6 @@ namespace OutsideTheBox {
             } else if (lastKeyState.IsKeyDown(Keys.Q) && currentKeyState.IsKeyUp(Keys.Q)) {
                 gameState = GameState.Normal;
                 level.setMode(0);
-                lastKeyState = new KeyboardState();
-                currentKeyState = new KeyboardState();
             }
         }
 

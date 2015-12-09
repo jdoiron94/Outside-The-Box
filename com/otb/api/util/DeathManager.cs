@@ -62,6 +62,7 @@ namespace OutsideTheBox {
                 level.resetDoors();
             }
             level.resetCollectibles();
+            level.resetProjectiles();
         }
     }
 }

@@ -633,10 +633,8 @@ namespace OutsideTheBox {
             }
             foreach (Token t in tokens) {
                 t.draw(batch, mode);
-                if (debug) {
-                    if (!t.isCollected()) {
-                        game.outline(batch, t.getBounds());
-                    }
+                if (debug && !t.isCollected()) {
+                    game.outline(batch, t.getBounds());
                 }
             }
             foreach (Key k in keys) {
