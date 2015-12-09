@@ -10,7 +10,6 @@ namespace OutsideTheBox {
 
         public Key(Texture2D Texture, Vector2 Location, SoundEffect effect) :
             base(Texture, Location, effect, true) {
-            unlocked = false;
         }
 
         /// <summary>

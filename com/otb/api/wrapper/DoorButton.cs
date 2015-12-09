@@ -26,7 +26,7 @@ namespace OutsideTheBox {
         /// </summary>
         public override void update() {
             if (!isDeactivated()) {
-                door.unlockDoor(isPushed());
+                door.setUnlocked(isPushed());
             }
         }
     }

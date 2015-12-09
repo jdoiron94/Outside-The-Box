@@ -28,6 +28,7 @@ namespace OutsideTheBox {
         private string actualPass;
         private bool correct;
         private bool reset;
+        private bool solved;
 
         private readonly Keys[] numbers;
         private readonly Rectangle[] numberBounds;
@@ -53,8 +54,17 @@ namespace OutsideTheBox {
         /// Returns whether or not the numberpad was successfully cracked
         /// </summary>
         /// <returns>Returns true if successfully solved; otherwise, false</returns>
-        public bool solved() {
-            return enteredPass == actualPass;
+        public bool isSolved() {
+            solved = enteredPass == actualPass;
+            return solved;
+            //return enteredPass == actualPass;
+        }
+
+        public void setSolved(bool solved) {
+            this.solved = solved;
+            if (!solved) {
+                enteredPass = "";
+            }
         }
 
         /// <summary>

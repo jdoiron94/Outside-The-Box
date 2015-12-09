@@ -9,36 +9,41 @@ namespace OutsideTheBox {
 
     public class Door : GameObject {
 
-        private bool next;
+        private bool leads;
         private bool unlocked;
 
-        private Texture2D open;
-        private Texture2D closed;
+        private readonly bool origUnlocked;
 
-        //private Door door; 
+        private readonly Texture2D open;
+        private readonly Texture2D closed;
 
-        public Door(Texture2D[] texture, Projectile projectile, Vector2 location, Direction direction, bool liftable, bool next, int width, int height, bool unlocked) :
+        public Door(Texture2D[] texture, Projectile projectile, Vector2 location, Direction direction, bool liftable, bool leads, int width, int height, bool unlocked) :
             base(texture[0], projectile, location, direction, liftable, width, height) {
-            this.next = next;
+            this.leads = leads;
             this.unlocked = unlocked;
-            open = texture[0];
-            closed = texture[1];
+            this.open = texture[0];
+            this.closed = texture[1];
+            this.origUnlocked = unlocked;
+        }
+
+        public void reset() {
+            unlocked = origUnlocked;
         }
 
         /// <summary>
         /// Sets the door's next bool
         /// </summary>
-        /// <param name="next">Bool telling us if door leads to a new level</param>
-        public void setNext(bool next) {
-            this.next = next;
+        /// <param name="leads">Bool telling us if door leads to a new level</param>
+        public void setLeads(bool leads) {
+            this.leads = leads;
         }
 
         /// <summary>
         /// Returns whether or not there is a next level
         /// </summary>
         /// <returns>Returns true if the door leads to a new level; otherwise, false</returns>
-        public bool getNext() {
-            return next;
+        public bool continues() {
+            return leads;
         }
 
         /// <summary>
@@ -52,11 +57,15 @@ namespace OutsideTheBox {
         /// <summary>
         /// Handles unlocking of the door
         /// </summary>
-        /// <param name="value">Bool to determine the door's unlocked property</param>
-        public void unlockDoor(bool value) {
-            unlocked = value;
+        /// <param name="unlocked">Bool to determine the door's unlocked property</param>
+        public void setUnlocked(bool unlocked) {
+            this.unlocked = unlocked;
         }
 
+        /// <summary>
+        /// Handles drawing of the door
+        /// </summary>
+        /// <param name="batch">The SpriteBatch to draw with</param>
         public void draw(SpriteBatch batch) {
             batch.Draw(unlocked ? open : closed, getLocation(), Color.White);
         }

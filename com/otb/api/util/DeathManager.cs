@@ -1,6 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace OutsideTheBox {
 
@@ -10,51 +8,40 @@ namespace OutsideTheBox {
 
     public class DeathManager {
 
-        private InputManager inputManager;
-        
-        private int currentExp;
         private int health;
         private int mana;
         private int totalMana;
-
         private int levelMode;
-        private List<Npc> npcs;
-        private List<bool> doorsUnlocked;
+
+        private readonly InputManager inputManager;
 
         public DeathManager(InputManager inputManager) {
             this.inputManager = inputManager;
-            this.currentExp = inputManager.getPlayerManager().getExperience();
             this.health = inputManager.getPlayerManager().getHealth();
             this.mana = inputManager.getPlayerManager().getMana();
             this.totalMana = inputManager.getPlayerManager().getTotalMana();
             this.levelMode = inputManager.getLevel().getMode();
-            this.npcs = new List<Npc>();
-            this.doorsUnlocked = new List<bool>();
-            this.populateDoorsUnlockedList();
-        }
-
-        /// <summary>
-        /// Handles populating the door list
-        /// </summary>
-        private void populateDoorsUnlockedList() {
-            foreach (Door d in inputManager.getLevel().getDoors()) {
-                doorsUnlocked.Add(d.isUnlocked());
-            }
         }
 
         /// <summary>
         /// Handles resetting the game
         /// </summary>
-        public void resetGame() {
-            resetPlayer();
-            resetLevel();
+        public void resetGame(int deaths) {
+            resetPlayer(deaths);
+            resetLevel(inputManager.getLevel(), deaths);
         }
 
         /// <summary>
         /// Handles resetting the player
         /// </summary>
-        public void resetPlayer() {
-            int exp = inputManager.getPlayerManager().getExperience() / 2;
+        public void resetPlayer(int deaths) {
+            if (deaths == 3) {
+                health = 100;
+                mana = 100;
+                totalMana = 100;
+                levelMode = 0;
+            }
+            int exp = deaths == 3 ? 0 : inputManager.getPlayerManager().getExperience() / 2;
             inputManager.getPlayer().setLocation(inputManager.getLevel().getPlayerOrigin());
             inputManager.getPlayerManager().setExperience(exp);
             PauseMenu pause = (PauseMenu) inputManager.getLevel().getScreen("Pause");
@@ -68,11 +55,13 @@ namespace OutsideTheBox {
         /// <summary>
         /// Handles resetting the level
         /// </summary>
-        public void resetLevel() {
-            inputManager.getLevel().resetNpcs();
-            inputManager.getLevel().resetObjects();
-            inputManager.getLevel().resetDoors(doorsUnlocked);
-            inputManager.getLevel().resetCollectibles();
+        public void resetLevel(Level level, int deaths) {
+            level.resetNpcs();
+            level.resetObjects();
+            if (deaths != 3) {
+                level.resetDoors();
+            }
+            level.resetCollectibles();
         }
     }
 }

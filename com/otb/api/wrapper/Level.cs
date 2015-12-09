@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
 
-using System;
 using System.Collections.Generic;
 
 namespace OutsideTheBox {
@@ -38,6 +37,7 @@ namespace OutsideTheBox {
         private Screen[] screens;
         private List<Token> tokens;
         private List<Key> keys;
+        private List<Collectible> takenCollectibles;
 
         private List<Door> doors;
         private List<Wall> walls;
@@ -75,6 +75,7 @@ namespace OutsideTheBox {
             this.active = true;
             this.projectiles = new List<Projectile>();
             this.index = index;
+            this.takenCollectibles = new List<Collectible>();
         }
 
         /// <summary>
@@ -385,42 +386,44 @@ namespace OutsideTheBox {
         /// Resets the level's doors
         /// </summary>
         /// <param name="values">The bool list to set doors as unlocked/locked</param>
-        public void resetDoors(List<bool> values) {
-            for (int i = 0; i < doors.Count; i++) {
-                doors[i].unlockDoor(values[i]);
+        public void resetDoors() {
+            foreach (Door d in doors) {
+                d.reset();
             }
         }
 
         /// <summary>
-        /// Removes collected items from level resetting
+        /// 
         /// </summary>
-        public void eliminateCollectibles() {
-            List<Token> newTokens = new List<Token>();
-            foreach (Token t in tokens) {
-                if (!t.isCollected()) {
-                    newTokens.Add(t);
-                }
+        /// <param name="c"></param>
+        public void takeCollectible(Collectible c) {
+            c.setCollected(true);
+            takenCollectibles.Add(c);
+            if (c is Token) {
+                Token t = (Token) c;
+                tokens.Remove(t);
+            } else {
+                Key k = (Key) c;
+                keys.Remove(k);
             }
-            tokens = newTokens;
-            List<Key> newKeys = new List<Key>();
-            foreach (Key k in keys) {
-                if (!k.isCollected()) {
-                    newKeys.Add(k);
-                }
-            }
-            keys = newKeys;
         }
 
         /// <summary>
         /// Resets the level's tokens
         /// </summary>
         public void resetCollectibles() {
-            foreach (Token t in tokens) {
-                t.setCollected(false);
+            foreach (Collectible c in takenCollectibles) {
+                c.setCollected(false);
+                if (c is Token) {
+                    Token t = (Token) c;
+                    tokens.Add(t);
+                } else {
+                    Key k = (Key) c;
+                    k.setUnlocked(false);
+                    keys.Add(k);
+                }
             }
-            foreach (Key k in keys) {
-                k.setCollected(false);
-            }
+            takenCollectibles = new List<Collectible>();
         }
 
         /// <summary>
@@ -589,7 +592,7 @@ namespace OutsideTheBox {
         /// </summary>
         public void unlockDoors() {
             foreach (Door d in doors) {
-                d.unlockDoor(true);
+                d.setUnlocked(true);
             }
         }
 
@@ -630,8 +633,10 @@ namespace OutsideTheBox {
             }
             foreach (Token t in tokens) {
                 t.draw(batch, mode);
-                if (debug && !t.isCollected()) {
-                    game.outline(batch, t.getBounds());
+                if (debug) {
+                    if (!t.isCollected()) {
+                        game.outline(batch, t.getBounds());
+                    }
                 }
             }
             foreach (Key k in keys) {

@@ -19,9 +19,9 @@ namespace OutsideTheBox {
         /// <summary>
         /// Sets the Collectible's collected status
         /// </summary>
-        /// <param name="value">The collected status bool</param>
-        public void setCollected(bool value) {
-            collected = value;
+        /// <param name="collected">The collected status bool</param>
+        public void setCollected(bool collected) {
+            this.collected = collected;
         }
 
         /// <summary>

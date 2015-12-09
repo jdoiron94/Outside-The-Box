@@ -10,14 +10,13 @@ namespace OutsideTheBox {
 
     public class Token : Collectible {
 
-        private int exp;
-
+        private readonly int exp;
         private readonly TokenType type;
 
         public Token(Texture2D texture, Vector2 location, SoundEffect effect, TokenType type) :
             base(texture, location, effect, false) {
             this.type = type;
-            exp = (int) type;
+            this.exp = (int) type;
         }
 
         /// <summary>

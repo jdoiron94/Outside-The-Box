@@ -36,6 +36,7 @@ namespace OutsideTheBox {
         private readonly int height;
 
         private int ticks;
+        private int deaths;
         private bool stagnant;
         private bool moving;
         private bool powerReveal;
@@ -146,6 +147,21 @@ namespace OutsideTheBox {
         }
 
         /// <summary>
+        /// Sets the level at the index
+        /// </summary>
+        /// <param name="index">The level index to set</param>
+        public void setLevel(int index) {
+            this.level.setActive(false);
+            Level level = game.getLevel(index);
+            level.setActive(true);
+            this.level = level;
+            this.prevLevel = level;
+            PauseMenu pause = (PauseMenu) level.getScreen("Pause");
+            pause.setLevel(index);
+            game.setLevel(index);
+        }
+
+        /// <summary>
         /// Controls updating of the game based on the current screen state and mouse/keyboard input
         /// </summary>
         /// <param name="time">The GameTime to update with respect to</param>
@@ -157,14 +173,42 @@ namespace OutsideTheBox {
                 game.Exit();
             }
             if (playerManager.getHealth() <= 0) {
+                deaths++;
                 player.playEffect();
-                deathManager.resetGame();
-                dropText = "You died!";
+                level.resetProjectiles(); 
+                if (deaths == 3) {
+                    foreach (Level l in game.getLevels()) {
+                        l.setLooped(false);
+                        deathManager.resetLevel(l, deaths);
+                        foreach (Door d in l.getDoors()) {
+                            d.setUnlocked(false);
+                        }
+                    }
+                    deathManager.resetPlayer(deaths);
+                    level.setActive(false);
+                    game.setLevel(0);
+                    level = game.getLevel(0);
+                    prevLevel = level;
+                    game.setLevel(level);
+                    deathManager = new DeathManager(this);
+                    setDeathManager(deathManager);
+                    collisionManager.setLevel(level);
+                    level.setActive(true);
+                    player.setLocation(level.getPlayerOrigin());
+                    playerManager.getKeyBox().update(this);
+                    Numberpad num = (Numberpad) level.getScreen("Numberpad");
+                    num.setSolved(false);
+                    dropText = "Game over!";
+                    //deaths = 0;
+                } else {
+                    deathManager.resetGame(deaths);
+                    dropText = deaths == 1 ? "2 lives remaining" : "1 life remaining";
+                }
             }
             if (collisionManager.playerSpotted(level)) {
                 //playerManager.setHealth(0);
             }
-            if (MediaPlayer.State == MediaState.Stopped) {
+            if (MediaPlayer.State == MediaState.Stopped || deaths == 3) {
                 if (level.getSong() == prevLevel.getSong()) {
                     if (prevLevel.shouldLoop() || level.shouldLoop()) {
                         prevLevel.setLooped(true);
@@ -175,6 +219,12 @@ namespace OutsideTheBox {
                     }
                 } else {
                     song = level.shouldLoop() ? level.getSong2() : level.getSong();
+                }
+                if (deaths == 3) {
+                    deaths = 0;
+                }
+                if (MediaPlayer.State == MediaState.Playing) {
+                    MediaPlayer.Stop();
                 }
                 MediaPlayer.Play(song);
                 level.setLooped(true);
@@ -252,7 +302,7 @@ namespace OutsideTheBox {
             GameObject gCollision = collisionManager.getObjectCollision(player, true);
             if (gCollision != null && gCollision is Token) {
                 Token t = (Token) gCollision;
-                t.setCollected(true);
+                level.takeCollectible(t);
                 playerManager.incrementExperience(t.getExp());
                 playerManager.levelMana(t.getManaIncrementationValue());
                 PauseMenu pause = (PauseMenu) level.getScreen("Pause");
@@ -261,15 +311,14 @@ namespace OutsideTheBox {
                 t.playEffect();
             } else if (gCollision != null && gCollision is Key) {
                 Key k = (Key) gCollision;
-                k.setCollected(true);
+                level.takeCollectible(k);
                 k.setUnlocked(true);
                 level.unlockDoors();
                 k.playEffect();
             } else if (gCollision != null && gCollision is Door) {
                 Door d = (Door) gCollision;
                 if (d.isUnlocked()) {
-                    level.eliminateCollectibles();
-                    int index = (game.getLevelIndex()) + (d.getNext() ? 1 : -1);
+                    int index = (game.getLevelIndex()) + (d.continues() ? 1 : -1);
                     Song current = level.getSong();
                     level.setActive(false);
                     game.setLevel(index);
@@ -280,7 +329,7 @@ namespace OutsideTheBox {
                     if (current != level.getSong()) {
                         MediaPlayer.Stop();
                         MediaPlayer.Play(level.getSong());
-                        if (d.getNext()) {
+                        if (d.continues()) {
                             game.getLevel(index - 2).setLooped(false);
                             prevLevel.setLooped(false);
                         } else {
@@ -296,7 +345,7 @@ namespace OutsideTheBox {
                     level.setInputManager(this);
                     collisionManager.setLevel(level);
                     level.setActive(true);
-                    if (d.getNext()) {
+                    if (d.continues()) {
                         player.setLocation(level.getPlayerOrigin());
                     } else {
                         player.setLocation(level.getPlayerReentryPoint());
@@ -304,7 +353,7 @@ namespace OutsideTheBox {
                     playerManager.getKeyBox().update(this);
                 } else if (game.getLevelIndex() == 0) {
                     Numberpad num = (Numberpad) level.getScreen("Numberpad");
-                    if (!num.solved()) {
+                    if (!num.isSolved()) {
                         if (gameState == GameState.Normal) {
                             if (showPuzzle) {
                                 gameState = GameState.Puzzle;
@@ -312,7 +361,7 @@ namespace OutsideTheBox {
                             }
                         }
                     } else {
-                        d.unlockDoor(true);
+                        d.setUnlocked(true);
                     }
                 }
             } else if (gCollision != null && gCollision is Pit) {
@@ -482,6 +531,8 @@ namespace OutsideTheBox {
             } else if (lastKeyState.IsKeyDown(Keys.Q) && currentKeyState.IsKeyUp(Keys.Q)) {
                 gameState = GameState.Normal;
                 level.setMode(0);
+                lastKeyState = new KeyboardState();
+                currentKeyState = new KeyboardState();
             }
         }
 
