@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace OutsideTheBox {
+﻿namespace OutsideTheBox {
 
     /// <summary>
     /// Class which handles death of the player
@@ -58,11 +56,12 @@ namespace OutsideTheBox {
         public void resetLevel(Level level, int deaths) {
             level.resetNpcs();
             level.resetObjects();
-            if (deaths != 3) {
+            if (deaths == 3) {
                 level.resetDoors();
             }
             level.resetCollectibles();
             level.resetProjectiles();
+            level.setLooped(false);
         }
     }
 }

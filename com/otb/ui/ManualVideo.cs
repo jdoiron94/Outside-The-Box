@@ -16,6 +16,13 @@ namespace OutsideTheBox {
             this.sets = sets;
         }
 
+        public void reset() {
+            foreach (FrameSet f in sets) {
+                f.reset();
+            }
+            sets[0].setActive(true);
+        }
+
         /// <summary>
         /// Handles the updating of the video
         /// </summary>

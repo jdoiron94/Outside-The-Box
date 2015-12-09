@@ -27,18 +27,16 @@ namespace OutsideTheBox
 
         private int reactTicks;
         private bool hit;
-        private bool thoughtShown;
 
         private float angle = 0;
 
         private AIPath path;
         private Rectangle lineOfSight;
-        private Rectangle thoughtBounds;
 
         private readonly Vector2 origLoc;
         private readonly Direction origDir;
 
-        private int defaultVelocity;
+        private readonly int origVel;
 
         public Npc(Game1 game, Texture2D texture, Texture2D sight, Vector2 location, SoundEffectInstance effect, Direction direction, NpcDefinition def, int[] offsets, int maxHealth, int velocity, int radius, int reactTime, bool wander) :
             base(texture, location, effect, direction, maxHealth, velocity)
@@ -53,19 +51,17 @@ namespace OutsideTheBox
             this.origin = new Vector2(texture.Width / 2F, texture.Height / 2F);
             this.origLoc = new Vector2((int)location.X, (int)location.Y);
             this.origDir = direction;
-            defaultVelocity = velocity;
+            this.origVel = velocity;
         }
 
         public Npc(Game1 game, Texture2D texture, Texture2D sight, Vector2 location, SoundEffectInstance effect, Direction direction, NpcDefinition def, int[] offsets, int radius, int reactTime, bool wander) :
             this(game, texture, sight, location, effect, direction, def, offsets, 100, 3, radius, 10, wander)
         {
-            defaultVelocity = 3;
         }
 
         public Npc(Game1 game, Texture2D texture, Texture2D sight, Vector2 location, SoundEffectInstance effect, Direction direction, NpcDefinition def, int radius, int reactTime) :
             this(game, texture, sight, location, effect, direction, def, new int[0], radius, 10, false)
         {
-            defaultVelocity = 3;
         }
 
         /// <summary>
@@ -78,13 +74,12 @@ namespace OutsideTheBox
             setDestination(origLoc);
             getDisplayBar().reset();
             getHitsplat().reset();
-            if (path != null)
-            {
-                path.setState(0);
+            if (path != null) {
+                path.reset();
             }
             reactTicks = 0;
             hit = false;
-            thoughtShown = false;
+            setVelocity(origVel);
             direction = origDir;
             updateStill();
             def.resetThought();
@@ -225,7 +220,7 @@ namespace OutsideTheBox
 
         public int getDefaultVelocity()
         {
-            return defaultVelocity;
+            return origVel;
         }
 
         /// <summary>

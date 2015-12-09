@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
 
 namespace OutsideTheBox {
 
@@ -38,8 +37,15 @@ namespace OutsideTheBox {
             this.directions = directions;
         }
 
-        public void setState(int state) {
-            this.state = state;
+        /// <summary>
+        /// Resets the AIPath
+        /// </summary>
+        public void reset() {
+            state = 0;
+            ticks = 0;
+            wait = 0;
+            stuckFrames = 0;
+            stagnant = false;
         }
 
         /// <summary>

@@ -6,6 +6,7 @@
         TelekinesisSelect,
         TelekinesisMovement,
         PauseMenu,
-        Puzzle
+        Puzzle,
+        Outro
     }
 }

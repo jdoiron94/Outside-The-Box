@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
+using System;
+
 namespace OutsideTheBox {
 
     /// <summary>
@@ -18,7 +20,6 @@ namespace OutsideTheBox {
         private readonly Target target;
         private readonly SpriteFont font;
 
-        private Song song;
         private Level level;
         private Level prevLevel;
         private MindRead mindRead;
@@ -39,10 +40,10 @@ namespace OutsideTheBox {
         private int deaths;
         private bool stagnant;
         private bool moving;
-        private bool powerReveal;
         private bool menuShown;
         private bool puzzleShown;
         private bool showPuzzle;
+        private bool finished;
         private string dropText;
 
         private const int WAIT = 4;
@@ -58,11 +59,8 @@ namespace OutsideTheBox {
             this.velocity = player.getVelocity();
             this.width = game.getWidth();
             this.height = game.getHeight() - 40;
-            this.lastKeyState = new KeyboardState();
-            this.currentKeyState = new KeyboardState();
             this.font = game.getDropFont();
             this.gameState = GameState.Normal;
-            this.song = level.getSong();
             this.prevLevel = level;
         }
 
@@ -123,27 +121,37 @@ namespace OutsideTheBox {
         }
 
         /// <summary>
-        /// Returns the power reveal bool
-        /// </summary>
-        /// <returns>Returns the power reveal bool</returns>
-        public bool getPowerReveal() {
-            return powerReveal;
-        }
-
-        /// <summary>
-        /// Sets the power reveal bool
-        /// </summary>
-        /// <param name="reveal">Sets the power reveal bool</param>
-        public void setPowerReveal(bool reveal) {
-            powerReveal = reveal;
-        }
-
-        /// <summary>
         /// Sets the death manager
         /// </summary>
         /// <param name="deathManager">Sets the death manager</param>
         public void setDeathManager(DeathManager deathManager) {
             this.deathManager = deathManager;
+        }
+
+        public void resetGame(bool finished) {
+            foreach (Level l in game.getLevels()) {
+                deathManager.resetLevel(l, 3);
+            }
+            deathManager.resetPlayer(3);
+            level.setActive(false);
+            game.setLevel(0);
+            level = game.getLevel(0);
+            prevLevel = level;
+            game.setLevel(level);
+            deathManager = new DeathManager(this);
+            setDeathManager(deathManager);
+            collisionManager.setLevel(level);
+            level.setActive(true);
+            player.setLocation(level.getPlayerOrigin());
+            playerManager.getKeyBox().update(this);
+            Numberpad num = (Numberpad) level.getScreen("Numberpad");
+            num.setSolved(false);
+            if (finished) {
+                TitleScreen title = (TitleScreen) level.getScreen("Title screen");
+                title.setActive(true);
+            } else {
+                dropText = "Game over!";
+            }
         }
 
         /// <summary>
@@ -161,25 +169,7 @@ namespace OutsideTheBox {
                 deaths++;
                 player.playEffect();
                 if (deaths == 3) {
-                    foreach (Level l in game.getLevels()) {
-                        l.setLooped(false);
-                        deathManager.resetLevel(l, deaths);
-                    }
-                    deathManager.resetPlayer(deaths);
-                    level.setActive(false);
-                    game.setLevel(0);
-                    level = game.getLevel(0);
-                    prevLevel = level;
-                    game.setLevel(level);
-                    deathManager = new DeathManager(this);
-                    setDeathManager(deathManager);
-                    collisionManager.setLevel(level);
-                    level.setActive(true);
-                    player.setLocation(level.getPlayerOrigin());
-                    playerManager.getKeyBox().update(this);
-                    Numberpad num = (Numberpad) level.getScreen("Numberpad");
-                    num.setSolved(false);
-                    dropText = "Game over!";
+                    resetGame(false);
                 } else {
                     deathManager.resetGame(deaths);
                     dropText = deaths == 1 ? "2 lives remaining" : "1 life remaining";
@@ -188,7 +178,8 @@ namespace OutsideTheBox {
             if (collisionManager.playerSpotted(level)) {
                 //playerManager.setHealth(0);
             }
-            if (MediaPlayer.State == MediaState.Stopped || deaths == 3) {
+            if (!finished && (MediaPlayer.State != MediaState.Playing || deaths == 3)) {
+                Song song;
                 if (level.getSong() == prevLevel.getSong()) {
                     if (prevLevel.shouldLoop() || level.shouldLoop()) {
                         prevLevel.setLooped(true);
@@ -203,9 +194,7 @@ namespace OutsideTheBox {
                 if (deaths == 3) {
                     deaths = 0;
                 }
-                if (MediaPlayer.State == MediaState.Playing) {
-                    MediaPlayer.Stop();
-                }
+                MediaPlayer.Stop();
                 MediaPlayer.Play(song);
                 level.setLooped(true);
             }
@@ -261,6 +250,18 @@ namespace OutsideTheBox {
                     Numberpad num = (Numberpad) level.getScreen("Numberpad");
                     num.setActive(true);
                 }
+            } else if (gameState == GameState.Outro) {
+                if (game.getLastScreen() == "Outro video") {
+                    resetGame(true);
+                    finished = false;
+                    gameState = GameState.Normal;
+                } else {
+                    level.setActive(false);
+                    MediaPlayer.Stop();
+                    ManualVideo outro = (ManualVideo) level.getScreen("Outro video");
+                    outro.reset();
+                    outro.setActive(true);
+                }
             }
         }
 
@@ -298,19 +299,24 @@ namespace OutsideTheBox {
             } else if (gCollision != null && gCollision is Door) {
                 Door d = (Door) gCollision;
                 if (d.isUnlocked()) {
-                    int index = (game.getLevelIndex()) + (d.continues() ? 1 : -1);
+                    int next = (game.getLevelIndex()) + (d.continues() ? 1 : -1);
+                    if (next == 7) {
+                        gameState = GameState.Outro;
+                        finished = true;
+                        return;
+                    }
                     Song current = level.getSong();
                     level.setActive(false);
-                    game.setLevel(index);
+                    game.setLevel(next);
                     prevLevel = level;
-                    level = game.getLevel(index);
+                    level = game.getLevel(next);
                     PauseMenu pause = (PauseMenu) level.getScreen("Pause");
-                    pause.setLevel(index);
+                    pause.setLevel(next);
                     if (current != level.getSong()) {
                         MediaPlayer.Stop();
                         MediaPlayer.Play(level.getSong());
                         if (d.continues()) {
-                            game.getLevel(index - 2).setLooped(false);
+                            game.getLevel(next - 2).setLooped(false);
                             prevLevel.setLooped(false);
                         } else {
                             level.setLooped(false);

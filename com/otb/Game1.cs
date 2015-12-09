@@ -41,6 +41,7 @@ namespace OutsideTheBox
         private int width;
         private int height;
         private int levelIndex;
+        private string lastScreen;
 
         public Game1()
         {
@@ -175,6 +176,10 @@ namespace OutsideTheBox
             return font4;
         }
 
+        public string getLastScreen() {
+            return lastScreen;
+        }
+
         /// <summary>
         /// Adds a projectile to the game from an NPC
         /// </summary>
@@ -249,7 +254,7 @@ namespace OutsideTheBox
             Texture2D controls = Content.Load<Texture2D>("menus/Controls");
             Texture2D about = Content.Load<Texture2D>("menus/About");
             SoundEffect hoverEffect = Content.Load<SoundEffect>("audio/sound effects/menuButtonSound");
-            TitleScreen title = new TitleScreen(startMenu, controls, about, cursor, font1, hoverEffect.CreateInstance(), "Normal", true);
+            TitleScreen title = new TitleScreen(startMenu, controls, about, cursor, font1, hoverEffect.CreateInstance(), "Title screen", true);
             PauseMenu pause = new PauseMenu(gradient, controls, cursor, font4, font5, hoverEffect.CreateInstance(), "Pause", false);
             Hint hint1 = new Hint(gradient, cursor, font4, hoverEffect.CreateInstance(), "If only someone could give me the password, or if I could brute force it...", "Hint 1", false);
             Hint hint2 = new Hint(gradient, cursor, font4, hoverEffect.CreateInstance(), "A laser and a key. I'll need to figure out a clever way to push the button.", "Hint 2", false);
@@ -315,7 +320,19 @@ namespace OutsideTheBox
             }
             ManualVideo intro = new ManualVideo(sets.ToArray(), "Intro video", true);
 
-            screens = new Screen[] { /*intro, */title, pause, numberPuzzle };
+            List<FrameSet> oSets = new List<FrameSet>();
+            for (int i = 1; i < 3; i++) {
+                Texture2D[] frame = { Content.Load<Texture2D>("video/outro/frames/Outro " + i) };
+                SoundEffect sound = Content.Load<SoundEffect>("video/outro/audio/Narration " + i);
+                FrameSet dSet = new FrameSet(frame, sound);
+                if (i == 1) {
+                    dSet.setActive(true);
+                }
+                oSets.Add(dSet);
+            }
+            ManualVideo outro = new ManualVideo(oSets.ToArray(), "Outro video", false);
+
+            screens = new Screen[] { /*intro, */title, pause, numberPuzzle, outro };
 
             SoundEffect boltSound = Content.Load<SoundEffect>("audio/sound effects/boltSound");
             SoundEffect dashSound = Content.Load<SoundEffect>("audio/sound effects/dashSound");
@@ -442,7 +459,7 @@ namespace OutsideTheBox
             Door door6to7 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2(790.0F, 400.0F), Direction.West, false, true, 10, 64, false);
 
             Door door7to6 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2(0.0F, 230.0F), Direction.West, false, false, 10, 64, true);
-            Door door7to8 = new Door(new Texture2D[] { parents, parents }, null, new Vector2(705F, 240F), Direction.West, false, true, parents.Width, parents.Height, true);
+            Door door7to8 = new Door(new Texture2D[] { parents, parents }, null, new Vector2(705.0F, 240.0F), Direction.West, false, true, parents.Width, parents.Height, true);
 
             //PITS, LASERS, and BARRIERS
             Texture2D lavaPit = Content.Load<Texture2D>("sprites/objects/Lava");
@@ -497,7 +514,7 @@ namespace OutsideTheBox
             HPLaser las6_2 = new HPLaser(HealthLaserH, new Vector2(160.0F, 320.0F), laserEffect.CreateInstance(), 10, 640, false); //south h
             HPLaser las6_3 = new HPLaser(HealthLaserV, new Vector2(160.0F, 0.0F), laserEffect.CreateInstance(), 480, 10); //east v
             HPLaser las6_4 = new HPLaser(HealthLaserV, new Vector2(640.0F, 160.0F), laserEffect.CreateInstance(), 320, 10, false); //west v
-            Barrier bar6_1 = new Barrier(barrier2_horizontal, new Vector2(15F, 320.0F), barrierEffect.CreateInstance());
+            Barrier bar6_1 = new Barrier(barrier2_horizontal, new Vector2(15.0F, 320.0F), barrierEffect.CreateInstance());
             Barrier bar6_2 = new Barrier(barrier2_vertical, new Vector2(640.0F, 15.0F), barrierEffect.CreateInstance());
 
             HPLaser las7_1 = new HPLaser(HealthLaserV, new Vector2(640.0F, 190.0F), laserEffect.CreateInstance(), 130, 10, 50); //in front of parents
@@ -612,6 +629,8 @@ namespace OutsideTheBox
             SoundEffect hitEffect = Content.Load<SoundEffect>("audio/sound effects/hitSound");
             midX = (graphics.PreferredBackBufferWidth - playur.Width) / 2;
             midY = (graphics.PreferredBackBufferHeight - playur.Height) / 2;
+            //new Vector2(125.0F, 295.0F)
+            
             player = new Player(playur, new Vector2(125.0F, 295.0F), deathEffect.CreateInstance(), Direction.South, 100, 3);
             player.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(player.getLocation().X + (hitsplat.Width / 2.0F), player.getLocation().Y + (hitsplat.Height / 2.0F)), hitEffect.CreateInstance()));
             Projectile p = new Projectile(player, lightningOrb, 5, 250, 0.25F, boltSound);
@@ -715,7 +734,7 @@ namespace OutsideTheBox
             Level1Objects.Add(token1_1);
             Level1Objects.Add(token1_2);
             Texture2D l1 = Content.Load<Texture2D>("sprites/levels/Level1Map");
-            Level level1 = new Level(this, player, l1, new Npc[] { npc1_1, npc1_2, npc1_3 }, Level1Objects.ToArray(), 1);
+            Level level1 = new Level(this, player, l1, new Npc[] { npc1_1, npc1_2, npc1_3 }, Level1Objects.ToArray(), 0);
             level1.addCubicle(cube1_1);
             level1.addCubicle(cube1_2);
             level1.addCubicle(cube1_3);
@@ -737,7 +756,7 @@ namespace OutsideTheBox
             Level2Objects.Add(bar2_1);
             Level2Objects.Add(barbutt2_1);
             Texture2D l2 = Content.Load<Texture2D>("sprites/levels/Level1");
-            Level level2 = new Level(this, player, l2, new Npc[] { npc2_1, npc2_2, npc2_3 }, Level2Objects.ToArray(), 2);
+            Level level2 = new Level(this, player, l2, new Npc[] { npc2_1, npc2_2, npc2_3 }, Level2Objects.ToArray(), 1);
             level2.addCubicle(cube2_1);
             level2.addCubicle(cube2_2);
             level2.setPlayerOrigin(new Vector2(368.0F, 15.0F));
@@ -758,7 +777,7 @@ namespace OutsideTheBox
             Level3Objects.Add(lasbutt3_1);
             Level3Objects.Add(key3_1);
             Texture2D l3 = Content.Load<Texture2D>("sprites/levels/Level1");
-            Level level3 = new Level(this, player, l3, new Npc[] { npc3_1, npc3_2 }, Level3Objects.ToArray(), 3);
+            Level level3 = new Level(this, player, l3, new Npc[] { npc3_1, npc3_2 }, Level3Objects.ToArray(), 2);
             level3.addCubicle(cube3_1);
             level3.addCubicle(cube3_2);
             level3.addCubicle(cube3_3);
@@ -788,7 +807,7 @@ namespace OutsideTheBox
             Level4Objects.Add(lasbutt4_2);
             Level4Objects.Add(actbutt4_1);
             Texture2D l4 = Content.Load<Texture2D>("sprites/levels/Level1");
-            Level level4 = new Level(this, player, l4, new Npc[] { }, Level4Objects.ToArray(), 4);
+            Level level4 = new Level(this, player, l4, new Npc[] { }, Level4Objects.ToArray(), 3);
             level4.addCubicle(cube4_1);
             level4.addCubicle(cube4_2);
             level4.setPlayerOrigin(new Vector2(140.0F, 15.0F));
@@ -820,7 +839,7 @@ namespace OutsideTheBox
             Level5Objects.Add(barbutt5_3);
             Level5Objects.Add(barbutt5_4);
             Texture2D l5 = Content.Load<Texture2D>("sprites/levels/Level1");
-            Level level5 = new Level(this, player, l5, new Npc[] { npc5_1, npc5_2, npc5_3, npc5_4 }, Level5Objects.ToArray(), 5);
+            Level level5 = new Level(this, player, l5, new Npc[] { npc5_1, npc5_2, npc5_3, npc5_4 }, Level5Objects.ToArray(), 4);
             level5.addCubicle(cube5_1);
             level5.addCubicle(cube5_2);
             level5.addCubicle(cube5_3);
@@ -854,7 +873,7 @@ namespace OutsideTheBox
             Level6Objects.Add(key6_1);
 
             Texture2D l6 = Content.Load<Texture2D>("sprites/levels/Level1");
-            Level level6 = new Level(this, player, l6, new Npc[] { npc6_1, npc6_2 }, Level6Objects.ToArray(), 6);
+            Level level6 = new Level(this, player, l6, new Npc[] { npc6_1, npc6_2 }, Level6Objects.ToArray(), 5);
             level6.addCubicle(cube6_1);
             level6.addCubicle(cube6_2);
             level6.setPlayerOrigin(new Vector2(20.0F, 10.0F));
@@ -878,24 +897,14 @@ namespace OutsideTheBox
             Level7Objects.Add(barbutt7_2);
             Level7Objects.Add(box7_1);
             Texture2D l7 = Content.Load<Texture2D>("sprites/levels/Level1");
-            Level level7 = new Level(this, player, l7, new Npc[] { npc7_1, npc7_2 }, Level7Objects.ToArray(), 7);
+            Level level7 = new Level(this, player, l7, new Npc[] { npc7_1, npc7_2 }, Level7Objects.ToArray(), 6);
             level7.addCubicle(cube7_1);
             level7.addCubicle(cube7_2);
             level7.addCubicle(cube7_3);
             level7.setPlayerOrigin(new Vector2(15.0F, 220.0F));
-            level7.setPlayerReentryPoint(new Vector2(15F, 220.0F));
+            level7.setPlayerReentryPoint(new Vector2(15.0F, 220.0F));
             level7.setScreens(screens);
             level7.setSongs(streetSong, officeSong2);
-
-            //LEVEL 8
-            List<GameObject> Level8Objects = new List<GameObject>();
-
-            Texture2D l8 = Content.Load<Texture2D>("sprites/levels/Level1");
-            Level level8 = new Level(this, player, l8, new Npc[] { }, Level8Objects.ToArray(), 8);
-            level8.setPlayerOrigin(new Vector2(15.0F, 220.0F));
-            level8.setPlayerReentryPoint(new Vector2(785.0F - 64.0F, 220.0F));
-            level8.setScreens(screens);
-            level8.setSongs(streetSong, officeSong);
 
             levels = new List<Level>();
             levels.Add(level1);
@@ -905,7 +914,6 @@ namespace OutsideTheBox
             levels.Add(level5);
             levels.Add(level6);
             levels.Add(level7);
-            levels.Add(level8);
             level = levels[0];
             levelIndex = 0;
 
@@ -1019,6 +1027,7 @@ namespace OutsideTheBox
                     active = s;
                     level.setActive(false);
                     s.update(gameTime);
+                    lastScreen = s.getName();
                     busy = true;
                     break;
                 }
@@ -1026,19 +1035,23 @@ namespace OutsideTheBox
             mouse = Mouse.GetState();
             if (busy)
             {
-                if (active.getName() != "Intro video") {
-                    if (MediaPlayer.State == MediaState.Stopped) {
+                if (!active.getName().Contains("video")) {
+                    if (MediaPlayer.State != MediaState.Playing) {
+                        Console.WriteLine("crap");
+                        MediaPlayer.Stop();
                         Song song = level.getSong();
-                        if (song != null) {
-                            MediaPlayer.Play(song);
-                            level.setLooped(true);
-                        }
+                        MediaPlayer.Play(song);
+                        level.setLooped(true);
                     }
                 }
                 return;
             }
             else
             {
+                if (lastScreen == "Outro video") {
+                    Exit();
+                    return;
+                }
                 level.setActive(true);
             }
             playerManager.updateHealthCooldown();

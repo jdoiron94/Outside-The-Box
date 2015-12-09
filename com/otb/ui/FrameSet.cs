@@ -31,6 +31,15 @@ namespace OutsideTheBox {
             this.timer = sound == null ? 60 : (int) (sound.Duration.TotalSeconds * 60) / frames.Length;
         }
 
+        public void reset() {
+            step = 0;
+            index = 0;
+            active = false;
+            played = false;
+            completed = false;
+            initialized = false;
+        }
+
         /// <summary>
         /// Returns whether or not the frame set is active
         /// </summary>
