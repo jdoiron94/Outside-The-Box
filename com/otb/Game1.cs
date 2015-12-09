@@ -518,8 +518,8 @@ namespace OutsideTheBox
             Barrier bar6_2 = new Barrier(barrier2_vertical, new Vector2(640.0F, 15.0F), barrierEffect.CreateInstance());
 
             HPLaser las7_1 = new HPLaser(HealthLaserV, new Vector2(640.0F, 190.0F), laserEffect.CreateInstance(), 130, 10, 50); //in front of parents
-            HPLaser las7_2 = new HPLaser(HealthLaserH, new Vector2(0.0F, 170.0F), laserEffect.CreateInstance(), 10, 800, 0); //north h
-            HPLaser las7_3 = new HPLaser(HealthLaserH, new Vector2(0.0F, 330.0F), laserEffect.CreateInstance(), 10, 800, 0); //south h
+            HPLaser las7_2 = new HPLaser(HealthLaserH, new Vector2(0.0F, 170.0F), laserEffect.CreateInstance(), 10, 800, 10); //north h
+            HPLaser las7_3 = new HPLaser(HealthLaserH, new Vector2(0.0F, 330.0F), laserEffect.CreateInstance(), 10, 800, 10); //south h
             Barrier bar7_1 = new Barrier(barrier2_vertical, new Vector2(150.0F, 15.0F), barrierEffect.CreateInstance());
             Barrier bar7_2 = new Barrier(barrier2_vertical, new Vector2(145.0F, 355.0F), barrierEffect.CreateInstance());
 
