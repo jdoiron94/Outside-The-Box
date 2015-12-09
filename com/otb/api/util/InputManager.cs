@@ -162,9 +162,9 @@ namespace OutsideTheBox {
             lastKeyState = currentKeyState;
             currentKeyState = Keyboard.GetState();
             collisionManager.updatePressButtons(player);
-            if (currentKeyState.IsKeyDown(Keys.Escape)) {
+            /*if (currentKeyState.IsKeyDown(Keys.Escape)) {
                 game.Exit();
-            }
+            }*/
             if (playerManager.getHealth() <= 0) {
                 deaths++;
                 player.playEffect();
@@ -198,11 +198,11 @@ namespace OutsideTheBox {
                 MediaPlayer.Play(song);
                 level.setLooped(true);
             }
-            if (lastKeyState.IsKeyDown(Keys.F1) && currentKeyState.IsKeyUp(Keys.F1)) {
+            /*if (lastKeyState.IsKeyDown(Keys.F1) && currentKeyState.IsKeyUp(Keys.F1)) {
                 foreach (Level l in game.getLevels()) {
                     l.toggleDebug();
                 }
-            }
+            }*/
             foreach (PressButton pb in level.getPressButtons()) {
                 pb.update();
             }
