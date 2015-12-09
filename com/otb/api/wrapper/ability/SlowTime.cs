@@ -1,30 +1,36 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 
-namespace OutsideTheBox {
+namespace OutsideTheBox
+{
 
     /// <summary>
     /// Class representing the slow-mo ability
     /// </summary>
 
-    public class SlowTime : BasePower {
+    public class SlowTime : BasePower
+    {
 
         public SlowTime(int manaCost, int cooldown, int duration, bool unlocked, bool activated) :
-            base(manaCost, cooldown, duration, unlocked, activated) {
+            base(manaCost, cooldown, duration, unlocked, activated)
+        {
         }
 
         /// <summary>
         /// Returns whether or not the power's cooldown timer has been met
         /// </summary>
         /// <returns>Returns true if the power's cooldown has been met; otherwise, false</returns>
-        public override bool isCooldownMet() {
+        public override bool isCooldownMet()
+        {
             return cooldown == 200;
         }
 
         /// <summary>
         /// Handles how the power updates its cooldown
         /// </summary>
-        public override void updateCooldown() {
-            if (cooldown < 200) {
+        public override void updateCooldown()
+        {
+            if (cooldown < 200)
+            {
                 cooldown++;
             }
         }
@@ -32,8 +38,10 @@ namespace OutsideTheBox {
         /// <summary>
         /// Handles how the power updates its duration
         /// </summary>
-        public override void updateDuration() {
-            if (duration < 200) {
+        public override void updateDuration()
+        {
+            if (duration < 200)
+            {
                 duration++;
             }
         }
@@ -42,18 +50,27 @@ namespace OutsideTheBox {
         /// Handles how the power operates
         /// </summary>
         /// <param name="level">The level the power is activating on</param>
-        public override void activate(Level level) {
-            if (activated) {
-                if (duration == 0) {
-                    foreach (Npc npc in level.getNpcs()) {
+        public override void activate(Level level)
+        {
+            if (activated)
+            {
+                if (duration == 0)
+                {
+                    foreach (Npc npc in level.getNpcs())
+                    {
                         npc.setVelocity(1);
                     }
                     updateDuration();
-                } else if (duration < 200) {
+                }
+                else if (duration < 200)
+                {
                     updateDuration();
-                } else {
-                    foreach (Npc npc in level.getNpcs()) {
-                        npc.setVelocity(3);
+                }
+                else
+                {
+                    foreach (Npc npc in level.getNpcs())
+                    {
+                        npc.setVelocity(npc.getDefaultVelocity());
                     }
                     setActivated(false);
                 }

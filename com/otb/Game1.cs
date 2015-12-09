@@ -257,7 +257,8 @@ namespace OutsideTheBox
             Hint hint4 = new Hint(gradient, cursor, font4, hoverEffect.CreateInstance(), "Looks like that button in the lava is deactivated. How do I fix that? Oh and look at all that gold!", "Hint 4", false);
             Hint hint5 = new Hint(gradient, cursor, font4, hoverEffect.CreateInstance(), "This floor seems to prevent me from regenerating... Those enemies look dangerous.", "Hint 5", false);
             Hint hint6 = new Hint(gradient, cursor, font4, hoverEffect.CreateInstance(), "Hmm... Those enemies are really pressin' my buttons. But maybe I should leave them alone.", "Hint 6", false);
-            Hint hint7 = new Hint(gradient, cursor, font4, hoverEffect.CreateInstance(), "No more levels. Thanks for playing our beta! May the box be with you.", "Hint 7", false);
+            Hint hint7 = new Hint(gradient, cursor, font4, hoverEffect.CreateInstance(), "I need to get to my parents! These lasers are in the way.", "Hint 7", false);
+            Hint hint8 = new Hint(gradient, cursor, font4, hoverEffect.CreateInstance(), "No more levels. Thanks for playing! May the box be with you.", "Hint 8", false);
             pause.addHint(hint1);
             pause.addHint(hint2);
             pause.addHint(hint3);
@@ -265,6 +266,7 @@ namespace OutsideTheBox
             pause.addHint(hint5);
             pause.addHint(hint6);
             pause.addHint(hint7);
+            pause.addHint(hint8);
             Texture2D numberpad = Content.Load<Texture2D>("ui/Keypad");
             Numberpad numberPuzzle = new Numberpad(GraphicsDevice, numberpad, cursor, font4, "Numberpad", false);
 
@@ -350,6 +352,7 @@ namespace OutsideTheBox
             GameObject box5_2 = new GameObject(box, new Vector2(600.0F, 320.0F), true);
             GameObject box6_1 = new GameObject(box, new Vector2(40.0F, 340.0F), true);
             GameObject box6_2 = new GameObject(box, new Vector2(660.0F, 20.0F), true);
+            GameObject box7_1 = new GameObject(box, new Vector2(40.0F, 380.0F), true);
 
             //COLLECTIBLES 
             Texture2D bronze = Content.Load<Texture2D>("sprites/objects/BronzeBar");
@@ -410,11 +413,17 @@ namespace OutsideTheBox
             //level 6 cubicles
             Cubicle cube6_1 = new Cubicle(0.0F, 320.0F, 150, 150, this, Direction.North, wall);
             Cubicle cube6_2 = new Cubicle(640.0F, 0.0F, 150, 150, this, Direction.West, wall);
+            //level 7 cubicles
+            Cubicle cube7_1 = new Cubicle(640.0F, 180.0F, 140, 200, this, Direction.West, wall);
+            Cubicle cube7_2 = new Cubicle(0.0F, 0.0F, 150, 150, this, Direction.East, wall);
+            Cubicle cube7_3 = new Cubicle(0.0F, 340.0F, 150, 140, this, Direction.East, wall);
 
 
             //DOORS
             Texture2D door = Content.Load<Texture2D>("sprites/objects/DoorOpen");
             Texture2D doorClosed = Content.Load<Texture2D>("sprites/objects/Door");
+            Texture2D parents = Content.Load<Texture2D>("sprites/entities/npcs/MomDad");
+
             Door door1to2 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2((width - 64.0F) / 2.0F, height - 51.0F), Direction.South, false, true, 64, 10, false);
 
             Door door2to1 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2((width - 64.0F) / 2.0F, 0.0F), Direction.North, false, false, 64, 10, true);
@@ -433,6 +442,7 @@ namespace OutsideTheBox
             Door door6to7 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2(790.0F, 400.0F), Direction.West, false, true, 10, 64, false);
 
             Door door7to6 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2(0.0F, 230.0F), Direction.West, false, false, 10, 64, true);
+            Door door7to8 = new Door(new Texture2D[] { parents, parents }, null, new Vector2(705F, 240F), Direction.West, false, true, parents.Width, parents.Height, true);
 
             //PITS, LASERS, and BARRIERS
             Texture2D lavaPit = Content.Load<Texture2D>("sprites/objects/Lava");
@@ -489,7 +499,13 @@ namespace OutsideTheBox
             HPLaser las6_4 = new HPLaser(HealthLaserV, new Vector2(640.0F, 160.0F), laserEffect.CreateInstance(), 320, 10, false); //west v
             Barrier bar6_1 = new Barrier(barrier2_horizontal, new Vector2(15F, 320.0F), barrierEffect.CreateInstance());
             Barrier bar6_2 = new Barrier(barrier2_vertical, new Vector2(640.0F, 15.0F), barrierEffect.CreateInstance());
-            
+
+            HPLaser las7_1 = new HPLaser(HealthLaserV, new Vector2(640.0F, 190.0F), laserEffect.CreateInstance(), 130, 10, 50); //in front of parents
+            HPLaser las7_2 = new HPLaser(HealthLaserH, new Vector2(0.0F, 170.0F), laserEffect.CreateInstance(), 10, 800, 0); //north h
+            HPLaser las7_3 = new HPLaser(HealthLaserH, new Vector2(0.0F, 330.0F), laserEffect.CreateInstance(), 10, 800, 0); //south h
+            Barrier bar7_1 = new Barrier(barrier2_vertical, new Vector2(150.0F, 15.0F), barrierEffect.CreateInstance());
+            Barrier bar7_2 = new Barrier(barrier2_vertical, new Vector2(145.0F, 355.0F), barrierEffect.CreateInstance());
+
             //BUTTONS
             Texture2D buttonOn = Content.Load<Texture2D>("sprites/objects/PressButtonOn");
             Texture2D buttonOff = Content.Load<Texture2D>("sprites/objects/PressButtonOff");
@@ -522,6 +538,12 @@ namespace OutsideTheBox
             BarrierButton barbutt6_1 = new BarrierButton(button, new Vector2(680.0F, 200.0F), pressEffect.CreateInstance(), false, false, bar6_1);
             BarrierButton barbutt6_2 = new BarrierButton(button, new Vector2(200.0F, 360.0F), pressEffect.CreateInstance(), true, false, bar6_2); //deactivated
             ActivateButton actbutt6_1 = new ActivateButton(button, new Vector2(40.0F, 200.0F), pressEffect.CreateInstance(), false, false, barbutt6_2);
+
+            LaserButton lasbutt7_1 = new LaserButton(button, new Vector2(40.0F, 40.0F), pressEffect.CreateInstance(), false, false, las7_1);
+            LaserButton lasbutt7_2 = new LaserButton(button, new Vector2(710.0F, 40.0F), pressEffect.CreateInstance(), false, false, las7_2);
+            LaserButton lasbutt7_3 = new LaserButton(button, new Vector2(710.0F, 380.0F), pressEffect.CreateInstance(), false, false, las7_3);
+            BarrierButton barbutt7_1 = new BarrierButton(button, new Vector2(710.0F, 40.0F), pressEffect.CreateInstance(), false, false, bar7_1);
+            BarrierButton barbutt7_2 = new BarrierButton(button, new Vector2(40.0F, 40.0F), pressEffect.CreateInstance(), false, false, bar7_2);
 
             //NPCS
             Texture2D male1 = Content.Load<Texture2D>("sprites/entities/npcs/Standing1");
@@ -578,6 +600,14 @@ namespace OutsideTheBox
             NpcDefinition def6_2 = new NpcDefinition(bubble, font2, vec6_2 + offset, "Normie14", new string[] { "You're gonna need us to surive...", "UNCE UNCE UNCE UNCE" }, new int[] { 10, 20});
             Npc npc6_1 = new Npc(this, male1, lineofsight, vec6_1, deathEffect.CreateInstance(), Direction.East, def6_1, new int[0], 100, 6, 150, 5, false);
             Npc npc6_2 = new Npc(this, male1, lineofsight, vec6_2, deathEffect.CreateInstance(), Direction.East, def6_2, new int[0], 100, 6, 150, 5, false);
+            //level 7 npcs
+            Vector2 vec7_1 = new Vector2(710.0F, 40.0F);
+            Vector2 vec7_2 = new Vector2(710.0F, 380.0F);
+            NpcDefinition def7_1 = new NpcDefinition(bubble, font2, vec7_1 + offset + new Vector2(0.0F, 64.0F), "Normie15", new string[] { "Nobody gets past me" }, new int[] { 1 });
+            NpcDefinition def7_2 = new NpcDefinition(bubble, font2, vec7_2 + offset, "Normie16", new string[] { "Can't let the prisoners escape" }, new int[] { 1 });
+            Npc npc7_1 = new Npc(this, male1, lineofsight, vec7_1, deathEffect.CreateInstance(), Direction.West, def7_1, new int[0], 100, 6, 150, 5, false);
+            Npc npc7_2 = new Npc(this, male1, lineofsight, vec7_2, deathEffect.CreateInstance(), Direction.West, def7_2, new int[0], 100, 6, 150, 5, false);
+            
 
             SoundEffect hitEffect = Content.Load<SoundEffect>("audio/sound effects/hitSound");
             midX = (graphics.PreferredBackBufferWidth - playur.Width) / 2;
@@ -668,6 +698,15 @@ namespace OutsideTheBox
             npc6_2.setDisplayBar(new DisplayBar(green, font2, new Vector2(npc6_2.getLocation().X, npc6_2.getLocation().Y - 5.0F), null, 64, 15));
             npc6_2.getDisplayBar().setColor(Color.Red);
             npc6_2.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(npc6_2.getLocation().X + (hitsplat.Width / 2), npc6_2.getLocation().Y + (hitsplat.Height / 2.0F)), hitEffect.CreateInstance()));
+            
+            npc7_1.loadNpcTextures(Content);
+            npc7_1.setDisplayBar(new DisplayBar(green, font2, new Vector2(npc7_1.getLocation().X, npc7_1.getLocation().Y - 5.0F), null, 64, 15));
+            npc7_1.getDisplayBar().setColor(Color.Red);
+            npc7_1.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(npc7_1.getLocation().X + (hitsplat.Width / 2), npc7_1.getLocation().Y + (hitsplat.Height / 2.0F)), hitEffect.CreateInstance()));
+            npc7_2.loadNpcTextures(Content);
+            npc7_2.setDisplayBar(new DisplayBar(green, font2, new Vector2(npc7_2.getLocation().X, npc7_2.getLocation().Y - 5.0F), null, 64, 15));
+            npc7_2.getDisplayBar().setColor(Color.Red);
+            npc7_2.setHitsplat(new Hitsplat(font2, hitsplat, new Vector2(npc7_2.getLocation().X + (hitsplat.Width / 2), npc7_2.getLocation().Y + (hitsplat.Height / 2.0F)), hitEffect.CreateInstance()));
 
             //LEVELS
             //LEVEL 1
@@ -826,13 +865,37 @@ namespace OutsideTheBox
             //LEVEL 7
             List<GameObject> Level7Objects = new List<GameObject>();
             Level7Objects.Add(door7to6);
-
+            Level7Objects.Add(door7to8);
+            Level7Objects.Add(las7_1);
+            Level7Objects.Add(las7_2);
+            Level7Objects.Add(las7_3);
+            Level7Objects.Add(lasbutt7_1);
+            Level7Objects.Add(lasbutt7_2);
+            Level7Objects.Add(lasbutt7_3);
+            Level7Objects.Add(bar7_1);
+            Level7Objects.Add(bar7_2);
+            Level7Objects.Add(barbutt7_1);
+            Level7Objects.Add(barbutt7_2);
+            Level7Objects.Add(box7_1);
             Texture2D l7 = Content.Load<Texture2D>("sprites/levels/Level1");
-            Level level7 = new Level(this, player, l7, new Npc[] { }, Level7Objects.ToArray(), 7);
+            Level level7 = new Level(this, player, l7, new Npc[] { npc7_1, npc7_2 }, Level7Objects.ToArray(), 7);
+            level7.addCubicle(cube7_1);
+            level7.addCubicle(cube7_2);
+            level7.addCubicle(cube7_3);
             level7.setPlayerOrigin(new Vector2(15.0F, 220.0F));
-            level7.setPlayerReentryPoint(new Vector2(785.0F - 64.0F, 220.0F));
+            level7.setPlayerReentryPoint(new Vector2(15F, 220.0F));
             level7.setScreens(screens);
-            level7.setSongs(streetSong, streetSong2);
+            level7.setSongs(streetSong, officeSong2);
+
+            //LEVEL 8
+            List<GameObject> Level8Objects = new List<GameObject>();
+
+            Texture2D l8 = Content.Load<Texture2D>("sprites/levels/Level1");
+            Level level8 = new Level(this, player, l8, new Npc[] { }, Level8Objects.ToArray(), 8);
+            level8.setPlayerOrigin(new Vector2(15.0F, 220.0F));
+            level8.setPlayerReentryPoint(new Vector2(785.0F - 64.0F, 220.0F));
+            level8.setScreens(screens);
+            level8.setSongs(streetSong, officeSong);
 
             levels = new List<Level>();
             levels.Add(level1);
@@ -842,6 +905,7 @@ namespace OutsideTheBox
             levels.Add(level5);
             levels.Add(level6);
             levels.Add(level7);
+            levels.Add(level8);
             level = levels[0];
             levelIndex = 0;
 
@@ -886,6 +950,10 @@ namespace OutsideTheBox
             n6_1.setDamage(25);
             Projectile n6_2 = new Projectile(npc6_2, lightningOrb, 7, 333, boltSound);
             n6_2.setDamage(25);
+            Projectile n7_1 = new Projectile(npc7_1, lightningOrb, 7, 333, boltSound);
+            n7_1.setDamage(25);
+            Projectile n7_2 = new Projectile(npc7_2, lightningOrb, 7, 333, boltSound);
+            n7_2.setDamage(25);
 
             npc1_1.setPath(new AIPath(npc1_1, this, new int[] { midX - 105, midY - 180, midX + 120, midY + 165 }, new int[] { 60, 60, 60, 60 }, new Direction[] { Direction.West, Direction.North, Direction.East, Direction.South }));
             npc1_1.setProjectile(n1_1);
@@ -916,6 +984,10 @@ namespace OutsideTheBox
             npc6_2.setPath(new AIPath(npc6_2, this, new int[] { 190, 370 }, new int[] { 20, 20 }, new Direction[] { Direction.West, Direction.East }));
             npc6_2.setProjectile(n6_2);
 
+            npc7_1.setPath(new AIPath(npc7_1, this, new int[] { 560, 190, 300, 440, 40, 710 }, new int[] { 20, 20, 20, 20, 20, 220 }, new Direction[] { Direction.West, Direction.South, Direction.West, Direction.East, Direction.North, Direction.East }));
+            npc7_1.setProjectile(n7_1);
+            npc7_2.setPath(new AIPath(npc7_2, this, new int[] { 560, 270, 300, 440, 380, 710 }, new int[] { 20, 20, 20, 20, 20, 220 }, new Direction[] { Direction.West, Direction.North, Direction.West, Direction.East, Direction.South, Direction.East }));
+            npc7_2.setProjectile(n7_2);
         }
 
 
