@@ -169,6 +169,10 @@ namespace OutsideTheBox {
             }
             selectedObject = null;
             gameState = GameState.Normal;
+            moving = false;
+            menuShown = false;
+            stagnant = false;
+            ticks = 0;
         }
 
         /// <summary>
@@ -584,7 +588,7 @@ namespace OutsideTheBox {
             } else if (currentKeyState.IsKeyDown(Keys.Right)) {
                 selectedObject.setDirection(Direction.East);
                 selectedObject.setDestination(new Vector2(selectedObject.getLocation().X + velocity, selectedObject.getLocation().Y));
-                if (selectedObject.getDestination().X < width - 64 && collisionManager.isValid(selectedObject)) {
+                if (selectedObject.getDestination().X < width - selectedObject.getTexture().Width && collisionManager.isValid(selectedObject)) {
                     selectedObject.deriveX(velocity);
                     if (playerManager.getManaDrainRate() == 5) {
                         playerManager.depleteMana(2);
@@ -623,7 +627,7 @@ namespace OutsideTheBox {
                     }
                 } else {
                     selectedObject.setDestination(new Vector2(selectedObject.getLocation().X + velocity, selectedObject.getLocation().Y));
-                    if (selectedObject.getDestination().X < width && collisionManager.isValid(selectedObject)) {
+                    if (selectedObject.getDestination().X < width - selectedObject.getTexture().Width && collisionManager.isValid(selectedObject)) {
                         selectedObject.deriveX(velocity);
                     } else {
                         moving = false;
@@ -643,6 +647,7 @@ namespace OutsideTheBox {
                     level.setMode(0);
                 }
             } else if ((lastKeyState.IsKeyDown(Keys.Q) && currentKeyState.IsKeyUp(Keys.Q)) || playerManager.getMana() == 0) {
+                moving = false;
                 gameState = GameState.Normal;
                 selectedObject.setSelected(false);
                 selectedObject = null;
