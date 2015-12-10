@@ -16,9 +16,9 @@ namespace OutsideTheBox {
         private int mode;
         private bool active;
 
-        private Game1 game;
-        private Player player;
-        private Texture2D map;
+        private readonly Game1 game;
+        private readonly Player player;
+        private readonly Texture2D map;
         private Song song;
         private Song song2;
 
@@ -45,11 +45,11 @@ namespace OutsideTheBox {
         private List<Projectile> projectiles;
         private List<PressButton> pressButtons;
         private List<Barrier> barriers;
-        private List<Pit> Pits;
+        private List<Pit> pits;
 
         private bool debug;
         private bool looped;
-        private int index;
+        private readonly int index;
         private int textTicks;
         private string text;
         private string oldText;
@@ -69,7 +69,7 @@ namespace OutsideTheBox {
             this.barriers = new List<Barrier>();
             this.walls = new List<Wall>();
             this.pressButtons = new List<PressButton>();
-            this.Pits = new List<Pit>();
+            this.pits = new List<Pit>();
             this.sortObjects();
             this.cubicles = new List<Cubicle>();
             this.active = true;
@@ -169,7 +169,7 @@ namespace OutsideTheBox {
                 } else if (o is Barrier) {
                     barriers.Add((Barrier) o);
                 } else if (o is Pit) {
-                    Pits.Add((Pit) o);
+                    pits.Add((Pit) o);
                 } else {
                     newObjects.Add(o);
                 }
@@ -289,7 +289,7 @@ namespace OutsideTheBox {
         }
 
         public List<Pit> getPits() {
-            return Pits;
+            return pits;
         }
 
         /// <summary>
@@ -602,7 +602,7 @@ namespace OutsideTheBox {
         /// <param name="batch">The SpriteBatch to perform the drawing</param>
         public void draw(SpriteBatch batch) {
             batch.Draw(map, Vector2.Zero, Color.White);
-            foreach (Pit pit in Pits) {
+            foreach (Pit pit in pits) {
                 pit.draw(batch);
                 if (debug) {
                     game.outline(batch, pit.getBounds());

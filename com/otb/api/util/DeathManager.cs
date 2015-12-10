@@ -62,6 +62,8 @@
             level.resetCollectibles();
             level.resetProjectiles();
             level.setLooped(false);
+            level.setMode(0);
+            inputManager.setGameState(GameState.Normal);
         }
     }
 }

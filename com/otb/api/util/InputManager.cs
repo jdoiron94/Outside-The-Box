@@ -128,6 +128,18 @@ namespace OutsideTheBox {
             this.deathManager = deathManager;
         }
 
+        /// <summary>
+        /// Sets the game state
+        /// </summary>
+        /// <param name="state">The game state to set</param>
+        public void setGameState(GameState state) {
+            gameState = state;
+        }
+
+        /// <summary>
+        /// Sets the entire game
+        /// </summary>
+        /// <param name="finished">True if the game was completed; otherwise, false</param>
         public void resetGame(bool finished) {
             foreach (Level l in game.getLevels()) {
                 deathManager.resetLevel(l, 3);
@@ -152,6 +164,11 @@ namespace OutsideTheBox {
             } else {
                 dropText = "Game over!";
             }
+            if (selectedObject != null) {
+                selectedObject.setSelected(false);
+            }
+            selectedObject = null;
+            gameState = GameState.Normal;
         }
 
         /// <summary>
@@ -494,7 +511,6 @@ namespace OutsideTheBox {
             if (lastKeyState.IsKeyDown(Keys.Q) && currentKeyState.IsKeyUp(Keys.Q)) {
                 gameState = GameState.TelekinesisSelect;
                 level.setMode(1);
-                target.setActive(true);
             }
         }
 
@@ -568,7 +584,7 @@ namespace OutsideTheBox {
             } else if (currentKeyState.IsKeyDown(Keys.Right)) {
                 selectedObject.setDirection(Direction.East);
                 selectedObject.setDestination(new Vector2(selectedObject.getLocation().X + velocity, selectedObject.getLocation().Y));
-                if (selectedObject.getDestination().X < width && collisionManager.isValid(selectedObject)) {
+                if (selectedObject.getDestination().X < width - 64 && collisionManager.isValid(selectedObject)) {
                     selectedObject.deriveX(velocity);
                     if (playerManager.getManaDrainRate() == 5) {
                         playerManager.depleteMana(2);
