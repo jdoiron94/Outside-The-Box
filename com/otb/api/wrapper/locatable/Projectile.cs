@@ -35,12 +35,12 @@ namespace OutsideTheBox {
             this.cooldown = cooldown;
             this.rotationSpeed = rotationSpeed;
             this.sound = sound;
-            origin = new Vector2(texture.Width / 2F, texture.Height / 2F);
-            location = new Vector2(owner.getLocation().X + (owner.getTexture().Width - texture.Width) / 2F, owner.getLocation().Y + (owner.getTexture().Height - texture.Height) / 2F);
-            direction = Direction.None;
-            bounds = new Rectangle((int) location.X, (int) location.Y, texture.Width, texture.Height);
-            rotation = 0f;
-            active = true;
+            this.origin = new Vector2(texture.Width / 2.0F, texture.Height / 2.0F);
+            this.location = new Vector2(owner.getLocation().X + (owner.getTexture().Width - texture.Width) / 2.0F, owner.getLocation().Y + (owner.getTexture().Height - texture.Height) / 2.0F);
+            this.direction = Direction.None;
+            this.bounds = new Rectangle((int) location.X, (int) location.Y, texture.Width, texture.Height);
+            this.rotation = 0.0F;
+            this.active = true;
         }
 
         public Projectile(Entity owner, Texture2D texture, int velocity, int cooldown, SoundEffect sound) :
@@ -77,14 +77,6 @@ namespace OutsideTheBox {
         /// <returns>Returns the projectile's texture</returns>
         public Texture2D getTexture() {
             return texture;
-        }
-
-        /// <summary>
-        /// Returns the projectile's position
-        /// </summary>
-        /// <returns>Returns the projectile's position</returns>
-        public Vector2 getLocation() {
-            return location;
         }
 
         /// <summary>
@@ -126,15 +118,6 @@ namespace OutsideTheBox {
         public float getRotationSpeed() {
             return rotationSpeed;
         }
-
-        /// <summary>
-        /// Returns the projectile's current rotation
-        /// </summary>
-        /// <returns>Returns the projectile's current rotation</returns>
-        public float getRotation() {
-            return rotation;
-        }
-
 
         /// <summary>
         /// Returns the projectile's sound

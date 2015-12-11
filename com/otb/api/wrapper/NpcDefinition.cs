@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+
 using System;
 
 namespace OutsideTheBox {
@@ -34,14 +35,6 @@ namespace OutsideTheBox {
             this.weights = weights;
             this.origLoc = new Vector2(location.X, location.Y);
             this.rand = new Random();
-        }
-
-        /// <summary>
-        /// Returns the npc's name
-        /// </summary>
-        /// <returns>Returns the npc's name</returns>
-        public string getName() {
-            return name;
         }
 
         /// <summary>

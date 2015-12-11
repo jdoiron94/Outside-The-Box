@@ -3,6 +3,10 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace OutsideTheBox {
 
+    /// <summary>
+    /// Class which handles the ability icons in the powerbar
+    /// </summary>
+
     public class AbilityIcon {
 
         private readonly Texture2D icon;
@@ -15,38 +19,6 @@ namespace OutsideTheBox {
             this.location = location;
             this.font = font;
             this.key = key;
-        }
-
-        /// <summary>
-        /// Returns the icon for the ability
-        /// </summary>
-        /// <returns>Returns the icon for the ability</returns>
-        public Texture2D getIcon() {
-            return icon;
-        }
-
-        /// <summary>
-        /// Returns the location of the icon
-        /// </summary>
-        /// <returns>Returns the location of the icon</returns>
-        public Vector2 getLocation() {
-            return location;
-        }
-
-        /// <summary>
-        /// Returns the font used for the icon's text
-        /// </summary>
-        /// <returns>Returns the font used for the icon's text</returns>
-        public SpriteFont getFont() {
-            return font;
-        }
-
-        /// <summary>
-        /// Returns the key used to activate the ability
-        /// </summary>
-        /// <returns>Returns the key used to activate the ability</returns>
-        public string getKey() {
-            return key;
         }
 
         /// <summary>

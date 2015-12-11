@@ -5,6 +5,10 @@ using System.Collections.Generic;
 
 namespace OutsideTheBox {
 
+    /// <summary>
+    /// Class which handles cubicles
+    /// </summary>
+
     public class Cubicle {
 
         private readonly int width;
@@ -23,7 +27,7 @@ namespace OutsideTheBox {
             this.game = game;
             this.orientation = orientation;
             this.texture = texture;
-            walls = new Wall[3];
+            this.walls = new Wall[3];
             if (orientation == Direction.North) {
                 walls[0] = new Wall(texture, null, new Vector2(x, y), Direction.North, false, false, 10, height);
                 walls[1] = new Wall(texture, null, new Vector2(x, y + height), Direction.East, false, false, width + 10, 10);

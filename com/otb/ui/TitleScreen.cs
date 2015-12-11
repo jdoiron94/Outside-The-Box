@@ -5,6 +5,10 @@ using Microsoft.Xna.Framework.Input;
 
 namespace OutsideTheBox {
 
+    /// <summary>
+    /// Class which handles the title screen's interactions
+    /// </summary>
+
     public class TitleScreen : Screen {
 
         private readonly Texture2D background;

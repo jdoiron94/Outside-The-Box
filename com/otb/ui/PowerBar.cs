@@ -1,7 +1,10 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
 
 namespace OutsideTheBox {
+
+    /// <summary>
+    /// Class which handles the power bar
+    /// </summary>
 
     public class PowerBar {
 
@@ -9,14 +12,6 @@ namespace OutsideTheBox {
 
         public PowerBar(AbilityIcon[] icons) {
             this.icons = icons;
-        }
-
-        /// <summary>
-        /// Returns the ability icons belonging to the power bar
-        /// </summary>
-        /// <returns>Returns the ability icons belonging to the power bar</returns>
-        public AbilityIcon[] getIcons() {
-            return icons;
         }
 
         /// <summary>

@@ -16,14 +16,6 @@
         }
 
         /// <summary>
-        /// Returns an instance of the player
-        /// </summary>
-        /// <returns>Returns an instance of the player</returns>
-        public Player getPlayer() {
-            return player;
-        }
-
-        /// <summary>
         /// Returns an instance of the level
         /// </summary>
         /// <returns>Returns an instance of the level</returns>
@@ -37,20 +29,6 @@
         /// <param name="level">The level to be set</param>
         public void setLevel(Level level) {
             this.level = level;
-        }
-
-        /// <summary>
-        /// Checks if the player has been spotted in the level
-        /// </summary>
-        /// <param name="level">The level to check</param>
-        /// <returns>Returns true if the player was within the npc's los; otherwise, false</returns>
-        public bool playerSpotted(Level level) {
-            foreach (Npc npc in level.getNpcs()) {
-                if (level.getPlayer().getDestinationBounds().Intersects(npc.getLineOfSight())) {
-                    return true;
-                }
-            }
-            return false;
         }
 
         /// <summary>
@@ -93,7 +71,7 @@
                     return b;
                 }
             }
-            
+
             return null;
         }
 
@@ -163,10 +141,9 @@
                     return b;
                 }
             }
-            foreach (Pit pi in level.getPits())
-            {
+            foreach (Pit pi in level.getPits()) {
                 if (e.getDestinationBounds().Intersects(pi.getDestinationBounds()))
-                    return pi; 
+                    return pi;
             }
             if (e == player && collectibles) {
                 foreach (Token t in level.getTokens()) {

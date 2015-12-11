@@ -4,6 +4,10 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace OutsideTheBox {
 
+    /// <summary>
+    /// Class which handles keys
+    /// </summary>
+
     public class Key : Collectible {
 
         private bool unlocked;

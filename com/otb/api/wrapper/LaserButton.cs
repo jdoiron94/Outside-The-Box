@@ -4,21 +4,17 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace OutsideTheBox {
 
+    /// <summary>
+    /// Class which handles laser buttons
+    /// </summary>
+
     public class LaserButton : PressButton {
-        
+
         private readonly Laser laser;
 
         public LaserButton(Texture2D[] textures, Vector2 location, SoundEffectInstance effect, bool deactivated, bool pushed, Laser laser) :
             base(textures, location, effect, deactivated, pushed) {
             this.laser = laser;
-        }
-
-        /// <summary>
-        /// Returns the laser
-        /// </summary>
-        /// <returns>Returns the laser</returns>
-        public Laser getLaser() {
-            return laser;
         }
 
         /// <summary>

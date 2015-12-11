@@ -16,6 +16,9 @@ namespace OutsideTheBox {
             this.sets = sets;
         }
 
+        /// <summary>
+        /// Handles the resetting of the video
+        /// </summary>
         public void reset() {
             foreach (FrameSet f in sets) {
                 f.reset();

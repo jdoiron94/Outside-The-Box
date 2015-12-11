@@ -5,6 +5,10 @@ using Microsoft.Xna.Framework.Input;
 
 namespace OutsideTheBox {
 
+    /// <summary>
+    /// Class which gives hints through the pause menu
+    /// </summary>
+
     public class Hint : Screen {
 
         private readonly Texture2D gradient;
@@ -36,10 +40,9 @@ namespace OutsideTheBox {
             this.bounds = new Rectangle(710, 470, 90, 50);
         }
 
-        public SoundEffectInstance getEffect() {
-            return effect;
-        }
-
+        /// <summary>
+        /// Plays the hint's sound effect
+        /// </summary>
         public void playEffect() {
             if (effect != null && effect.State != SoundState.Playing) {
                 effect.Play();

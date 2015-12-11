@@ -4,6 +4,10 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace OutsideTheBox {
 
+    /// <summary>
+    /// Class which handles activatable buttons
+    /// </summary>
+
     public class ActivateButton : PressButton {
 
         private readonly PressButton button;
@@ -11,14 +15,6 @@ namespace OutsideTheBox {
         public ActivateButton(Texture2D[] Textures, Vector2 location, SoundEffectInstance effect, bool deactivated, bool pushed, PressButton button) :
             base(Textures, location, effect, deactivated, pushed) {
             this.button = button;
-        }
-
-        /// <summary>
-        /// Returns the button
-        /// </summary>
-        /// <returns>Returns the button</returns>
-        public PressButton getButton() {
-            return button;
         }
 
         /// <summary>

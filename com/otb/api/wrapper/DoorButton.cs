@@ -4,6 +4,10 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace OutsideTheBox {
 
+    /// <summary>
+    /// Class which handles door releasable buttons
+    /// </summary>
+
     public class DoorButton : PressButton {
 
         private readonly Door door;
@@ -11,14 +15,6 @@ namespace OutsideTheBox {
         public DoorButton(Texture2D[] Textures, Vector2 location, SoundEffectInstance effect, bool deactivated, bool pushed, Door door) :
             base(Textures, location, effect, deactivated, pushed) {
             this.door = door;
-        }
-
-        /// <summary>
-        /// Returns the door
-        /// </summary>
-        /// <returns>Returns the door</returns>
-        public Door getDoor() {
-            return door;
         }
 
         /// <summary>

@@ -27,6 +27,10 @@ namespace OutsideTheBox {
             return exp;
         }
 
+        /// <summary>
+        /// Returns the token's mana increment
+        /// </summary>
+        /// <returns>Returns the token's mana increment</returns>
         public int getManaIncrementationValue() {
             if (type == TokenType.Bronze) {
                 return 2;

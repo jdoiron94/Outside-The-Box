@@ -32,7 +32,7 @@ namespace OutsideTheBox {
         private const int MAX_MANA = 500;
 
         private bool manaLimit;
-        private bool healthLimit; 
+        private bool healthLimit;
 
         public PlayerManager(Player player, ContentManager cm, int health, int mana, int experience, DisplayBar healthBar, DisplayBar manaBar, KeyBox keyBox, PowerBar powerbar) {
             this.player = player;
@@ -42,34 +42,24 @@ namespace OutsideTheBox {
             this.healthBar = healthBar;
             this.manaBar = manaBar;
             this.keyBox = keyBox;
-            this.powerbar = powerbar; 
-            healthCooldown = 0;
-            manaCooldown = 0;
-            totalMana = 100;
-            SlowTime slow = new SlowTime(20, 200, 200, true, false);
+            this.powerbar = powerbar;
+            this.totalMana = 100;
+            SlowTime slow = new SlowTime(20, 200, 200);
             slow.setEffect(cm.Load<SoundEffect>("audio/Sound Effects/slowSound"));
             slow.setPlayerManager(this);
-            Dash dash = new Dash(5, 20, 15, true, false);
+            Dash dash = new Dash(5, 20, 15);
             dash.setEffect(cm.Load<SoundEffect>("audio/Sound Effects/dashSound"));
             dash.setPlayerManager(this);
-            Confuse confuse = new Confuse(20, 200, 50, true, false);
+            Confuse confuse = new Confuse(20, 200, 50);
             confuse.setEffect(cm.Load<SoundEffect>("audio/Sound Effects/paralyzeSound"));
             confuse.setPlayerManager(this);
             powers = new List<BasePower> { slow, dash, confuse };
-            manaLimit = true;
-            healthLimit = true; 
+            this.manaLimit = true;
+            this.healthLimit = true;
         }
 
         public PlayerManager(Player player, ContentManager cm, DisplayBar healthBar, DisplayBar manaBar, KeyBox keyBox, PowerBar powerbar) :
             this(player, cm, 100, 100, 0, healthBar, manaBar, keyBox, powerbar) {
-        }
-
-        /// <summary>
-        /// Returns an instance of the player
-        /// </summary>
-        /// <returns>Returns an instance of the player</returns>
-        public Player getPlayer() {
-            return player;
         }
 
         /// <summary>
@@ -120,13 +110,20 @@ namespace OutsideTheBox {
             return manaBar;
         }
 
+        /// <summary>
+        /// Returns the key box
+        /// </summary>
+        /// <returns>eturns the key box</returns>
         public KeyBox getKeyBox() {
             return keyBox;
         }
 
-        public PowerBar getPowerBar()
-        {
-            return powerbar; 
+        /// <summary>
+        /// Returns the power bar
+        /// </summary>
+        /// <returns>Returns the power bar</returns>
+        public PowerBar getPowerBar() {
+            return powerbar;
         }
 
         /// <summary>
@@ -170,26 +167,37 @@ namespace OutsideTheBox {
             manaDrainMax = manaDrainRate + 1;
         }
 
-        public void setManaLimit(bool value)
-        {
-            manaLimit = value; 
-        }
-        
-        public bool getManaLimit()
-        {
-            return manaLimit; 
+        /// <summary>
+        /// Sets the mana limit
+        /// </summary>
+        /// <param name="value">The value to set</param>
+        public void setManaLimit(bool value) {
+            manaLimit = value;
         }
 
-        public void setHealthLimit(bool value)
-        {
-            healthLimit = value; 
+        /// <summary>
+        /// Returns the mana limit
+        /// </summary>
+        /// <returns>Returns the mana limit</returns>
+        public bool getManaLimit() {
+            return manaLimit;
         }
 
-        public bool getHealthLimit()
-        {
-            return healthLimit; 
+        /// <summary>
+        /// Sets the health limit
+        /// </summary>
+        /// <param name="value">The value to set</param>
+        public void setHealthLimit(bool value) {
+            healthLimit = value;
         }
 
+        /// <summary>
+        /// Returns the health limit
+        /// </summary>
+        /// <returns>Returns the health limit</returns>
+        public bool getHealthLimit() {
+            return healthLimit;
+        }
 
         /// <summary>
         /// Damages the player by the specified amount

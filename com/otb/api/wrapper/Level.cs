@@ -195,27 +195,11 @@ namespace OutsideTheBox {
         }
 
         /// <summary>
-        /// Returns an instance of the game
-        /// </summary>
-        /// <returns>Returns an instance of the game</returns>
-        public Game1 getGame() {
-            return game;
-        }
-
-        /// <summary>
         /// Returns an instance of the player
         /// </summary>
         /// <returns>Returns an instance of the player</returns>
         public Player getPlayer() {
             return player;
-        }
-
-        /// <summary>
-        /// Returns an instance of the level's map
-        /// </summary>
-        /// <returns>Returns an instance of the level's map</returns>
-        public Texture2D getMap() {
-            return map;
         }
 
         /// <summary>
@@ -250,14 +234,6 @@ namespace OutsideTheBox {
         }
 
         /// <summary>
-        /// Returns all of the level's active projectiles
-        /// </summary>
-        /// <returns>Returns a list of all of the active projectiles in the level</returns>
-        public List<Projectile> getProjectiles() {
-            return projectiles;
-        }
-
-        /// <summary>
         /// Resets the level's projectile list
         /// </summary>
         public void resetProjectiles() {
@@ -288,6 +264,10 @@ namespace OutsideTheBox {
             return doors;
         }
 
+        /// <summary>
+        /// Returns a list of the level's pits
+        /// </summary>
+        /// <returns>Returns a list of the level's pits</returns>
         public List<Pit> getPits() {
             return pits;
         }
@@ -308,6 +288,10 @@ namespace OutsideTheBox {
             return walls;
         }
 
+        /// <summary>
+        /// Returns a list of the level's barriers
+        /// </summary>
+        /// <returns>Returns a list of the level's barriers</returns>
         public List<Barrier> getBarriers() {
             return barriers;
         }
@@ -385,7 +369,6 @@ namespace OutsideTheBox {
         /// <summary>
         /// Resets the level's doors
         /// </summary>
-        /// <param name="values">The bool list to set doors as unlocked/locked</param>
         public void resetDoors() {
             foreach (Door d in doors) {
                 d.reset();
@@ -393,7 +376,7 @@ namespace OutsideTheBox {
         }
 
         /// <summary>
-        /// 
+        /// Sets the collectible as collected
         /// </summary>
         /// <param name="c"></param>
         public void takeCollectible(Collectible c) {

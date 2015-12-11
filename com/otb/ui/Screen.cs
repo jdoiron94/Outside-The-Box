@@ -14,13 +14,11 @@ namespace OutsideTheBox {
         private readonly Song song;
 
         private bool active;
-        private bool songPlaying;
 
         public Screen(string name, Song song, bool active) {
             this.name = name;
             this.song = song;
             this.active = active;
-            songPlaying = false;
         }
 
         public Screen(string name, bool active) :
@@ -56,27 +54,11 @@ namespace OutsideTheBox {
         }
 
         /// <summary>
-        /// Returns whether or not the screen is playing its song
-        /// </summary>
-        /// <returns>Returns true if the screen's song is playing; otherwise, false</returns>
-        public bool isSongPlaying() {
-            return songPlaying;
-        }
-
-        /// <summary>
         /// Sets the screen's active status to the specified boolean
         /// </summary>
         /// <param name="active">The active status to set</param>
         public void setActive(bool active) {
             this.active = active;
-        }
-
-        /// <summary>
-        /// Sets the screen's song playing status to the specified boolean
-        /// </summary>
-        /// <param name="songPlaying">The song playing status to set</param>
-        public void setSongPlaying(bool songPlaying) {
-            this.songPlaying = songPlaying;
         }
 
         /// <summary>

@@ -57,9 +57,12 @@ namespace OutsideTheBox {
         public bool isSolved() {
             solved = enteredPass == actualPass;
             return solved;
-            //return enteredPass == actualPass;
         }
 
+        /// <summary>
+        /// Sets the puzzle's solved status
+        /// </summary>
+        /// <param name="solved">The solved status to set</param>
         public void setSolved(bool solved) {
             this.solved = solved;
             if (!solved) {

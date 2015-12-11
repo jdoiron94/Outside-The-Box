@@ -4,6 +4,10 @@ using Microsoft.Xna.Framework.Audio;
 
 namespace OutsideTheBox {
 
+    /// <summary>
+    /// Class which handles lava pits
+    /// </summary>
+
     public class LavaPit : Pit {
 
         private readonly Texture2D[] frames;
@@ -22,6 +26,9 @@ namespace OutsideTheBox {
             this.forward = true;
         }
 
+        /// <summary>
+        /// Loops through the frames
+        /// </summary>
         public void updateFrame() {
             if (current >= timer) {
                 if (forward) {
@@ -41,10 +48,18 @@ namespace OutsideTheBox {
             }
         }
 
+        /// <summary>
+        /// Updates the lava pit
+        /// </summary>
+        /// <param name="inputManager">The InputManager</param>
         public override void update(InputManager inputManager) {
             inputManager.getPlayerManager().damagePlayer(damage);
         }
 
+        /// <summary>
+        /// Draws the lava pit in its active frame
+        /// </summary>
+        /// <param name="batch">The SpriteBatch to draw with</param>
         public override void draw(SpriteBatch batch) {
             batch.Draw(frames[index], getSize(), Color.White);
         }

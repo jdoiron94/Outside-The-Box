@@ -3,6 +3,10 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace OutsideTheBox {
 
+    /// <summary>
+    /// Class which handles the key box
+    /// </summary>
+
     public class KeyBox : GameObject {
 
         private Texture2D normBox;
@@ -13,28 +17,15 @@ namespace OutsideTheBox {
 
         public KeyBox(Texture2D[] Textures, Vector2 Location) :
             base(Textures[0], Location) {
-            normBox = Textures[0];
-            nullBox = Textures[1];
-            key = Textures[2];
-            unlocked = false;
+            this.normBox = Textures[0];
+            this.nullBox = Textures[1];
+            this.key = Textures[2];
         }
 
-        public bool isUnlocked() {
-            return unlocked;
-        }
-
-        public bool isNull() {
-            return nullCheck;
-        }
-
-        public void setUnlocked(bool value) {
-            unlocked = value;
-        }
-
-        public void setNull(bool value) {
-            nullCheck = value;
-        }
-
+        /// <summary>
+        /// Updates the key box
+        /// </summary>
+        /// <param name="inputManager">The InputManager</param>
         public void update(InputManager inputManager) {
             nullCheck = true;
             foreach (Door d in inputManager.getLevel().getDoors()) {
@@ -45,10 +36,14 @@ namespace OutsideTheBox {
             }
         }
 
+        /// <summary>
+        /// Draws the key box
+        /// </summary>
+        /// <param name="batch">The SpriteBatch to draw with</param>
         public void draw(SpriteBatch batch) {
             if (!nullCheck) {
                 batch.Draw(normBox, getLocation(), Color.White);
-                if (unlocked == true) {
+                if (unlocked) {
                     batch.Draw(key, getLocation(), Color.White);
                 }
             } else {

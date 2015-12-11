@@ -4,6 +4,10 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace OutsideTheBox {
 
+    /// <summary>
+    /// Class which handles collectible objects
+    /// </summary>
+
     public class Collectible : GameObject {
 
         private readonly SoundEffect effect;
@@ -13,7 +17,6 @@ namespace OutsideTheBox {
         public Collectible(Texture2D Texture, Vector2 Location, SoundEffect effect, bool liftable) :
             base(Texture, Location, liftable) {
             this.effect = effect;
-            collected = false;
         }
 
         /// <summary>
@@ -32,10 +35,9 @@ namespace OutsideTheBox {
             return collected;
         }
 
-        public SoundEffect getEffect() {
-            return effect;
-        }
-
+        /// <summary>
+        /// Plays the collectible's sound effect
+        /// </summary>
         public void playEffect() {
             if (effect != null) {
                 effect.Play();

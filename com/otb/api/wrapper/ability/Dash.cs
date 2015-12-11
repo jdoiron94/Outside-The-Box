@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
 namespace OutsideTheBox {
-    
+
     /// <summary>
     /// Class which handles the dash ability
     /// </summary>
@@ -10,8 +10,8 @@ namespace OutsideTheBox {
 
         private CollisionManager manager;
 
-        public Dash(int manaCost, int cooldown, int duration, bool unlocked, bool activated) :
-            base(manaCost, cooldown, duration, unlocked, activated) {
+        public Dash(int manaCost, int cooldown, int duration) :
+            base(manaCost, cooldown, duration) {
         }
 
         /// <summary>

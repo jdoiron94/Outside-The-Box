@@ -8,8 +8,8 @@ namespace OutsideTheBox {
 
     public class MindRead : BasePower {
 
-        public MindRead(int manaCost, int cooldown, int duration, bool unlocked, bool activated) :
-            base(manaCost, cooldown, duration, unlocked, activated) {
+        public MindRead(int manaCost, int cooldown, int duration) :
+            base(manaCost, cooldown, duration) {
         }
 
         /// <summary>

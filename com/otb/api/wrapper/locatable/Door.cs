@@ -21,6 +21,9 @@ namespace OutsideTheBox {
             this.origUnlocked = unlocked;
         }
 
+        /// <summary>
+        /// Resets the door's unlocked status
+        /// </summary>
         public void reset() {
             unlocked = origUnlocked;
         }

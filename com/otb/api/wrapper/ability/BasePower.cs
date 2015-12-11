@@ -11,20 +11,16 @@ namespace OutsideTheBox {
         private int manaCost;
         protected int cooldown;
         protected int duration;
-        protected bool unlocked;
         protected bool activated;
 
         private PlayerManager manager;
-        
-        private SoundEffect effect;
-        private Projectile projectile;
 
-        public BasePower(int manaCost, int cooldown, int duration, bool unlocked, bool activated) {
+        private SoundEffect effect;
+
+        public BasePower(int manaCost, int cooldown, int duration) {
             this.manaCost = manaCost;
             this.cooldown = cooldown;
             this.duration = duration;
-            this.unlocked = unlocked;
-            this.activated = activated;
         }
 
         /// <summary>
@@ -41,14 +37,6 @@ namespace OutsideTheBox {
         /// <returns>Returns the power's mana cost</returns>
         public int getManaCost() {
             return manaCost;
-        }
-
-        /// <summary>
-        /// Returns whether or not the power is unlocked
-        /// </summary>
-        /// <returns>Returns true if the power is unlocked; otherwise, false</returns>
-        public bool isUnlocked() {
-            return unlocked;
         }
 
         /// <summary>
@@ -81,14 +69,6 @@ namespace OutsideTheBox {
         }
 
         /// <summary>
-        /// Sets the power's projectile
-        /// </summary>
-        /// <param name="projectile">The projectile to set</param>
-        public void setProjectile(Projectile projectile) {
-            this.projectile = projectile;
-        }
-
-        /// <summary>
         /// Plays the power's sound effect
         /// </summary>
         public void playEffect() {
@@ -102,7 +82,7 @@ namespace OutsideTheBox {
         /// </summary>
         /// <returns>Returns true if the power may be activated; otherwise, false</returns>
         public bool validate() {
-            if (isUnlocked() && !isActivated() && isCooldownMet() && manager.getMana() >= manaCost) {
+            if (!isActivated() && isCooldownMet() && manager.getMana() >= manaCost) {
                 setActivated(true);
                 playEffect();
                 return true;

@@ -4,6 +4,10 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace OutsideTheBox {
 
+    /// <summary>
+    /// Class which handles the hitsplats
+    /// </summary>
+
     public class Hitsplat {
 
         private readonly SpriteFont font;
@@ -27,30 +31,6 @@ namespace OutsideTheBox {
         /// </summary>
         public void reset() {
             this.location = origLoc;
-        }
-
-        /// <summary>
-        /// Returns the hitsplat's sound effect
-        /// </summary>
-        /// <returns>Returns the hitsplat's sound effect</returns>
-        public SoundEffectInstance getEffect() {
-            return effect;
-        }
-
-        /// <summary>
-        /// Returns the hitsplat's texture
-        /// </summary>
-        /// <returns>Returns the hitsplat's texture</returns>
-        public Texture2D getSplat() {
-            return splat;
-        }
-
-        /// <summary>
-        /// Returns the hitsplat's hit
-        /// </summary>
-        /// <returns>Returns the hitsplat's hit</returns>
-        public string getHit() {
-            return hit;
         }
 
         /// <summary>

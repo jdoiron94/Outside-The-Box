@@ -63,38 +63,6 @@ namespace OutsideTheBox {
         }
 
         /// <summary>
-        /// Returns the display bar's texture
-        /// </summary>
-        /// <returns>Returns the display bar's texture</returns>
-        public Texture2D getTexture() {
-            return texture;
-        }
-
-        /// <summary>
-        /// Returns the display bar's location
-        /// </summary>
-        /// <returns>Returns the display bar's location</returns>
-        public Vector2 getLocation() {
-            return location;
-        }
-
-        /// <summary>
-        /// Returns the display bar's bounds
-        /// </summary>
-        /// <returns>Returns the display bar's bounds</returns>
-        public Rectangle getDisplayBar() {
-            return displayBar;
-        }
-
-        /// <summary>
-        /// Returns the width of the display bar
-        /// </summary>
-        /// <returns>Returns the display bar's width</returns>
-        public int getWidth() {
-            return displayBar.Width;
-        }
-
-        /// <summary>
         /// Sets the display bar's text
         /// </summary>
         /// <param name="text">The text to set</param>

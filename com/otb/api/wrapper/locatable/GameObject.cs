@@ -114,9 +114,12 @@ namespace OutsideTheBox {
             return destinationBounds;
         }
 
-        public void setDestinationBounds(Rectangle rect)
-        {
-            destinationBounds = rect; 
+        /// <summary>
+        /// Sets the object's destination bounds
+        /// </summary>
+        /// <param name="rect">The bounds to be set</param>
+        public void setDestinationBounds(Rectangle rect) {
+            destinationBounds = rect;
         }
 
         /// <summary>
@@ -145,9 +148,12 @@ namespace OutsideTheBox {
             return bounds;
         }
 
-        public void setBounds(Rectangle rect)
-        {
-            bounds = rect; 
+        /// <summary>
+        /// Sets the object's bounds
+        /// </summary>
+        /// <param name="rect">The bounds to set</param>
+        public void setBounds(Rectangle rect) {
+            bounds = rect;
         }
 
         /// <summary>
@@ -172,14 +178,6 @@ namespace OutsideTheBox {
         /// <param name="selected">The selected state to be set</param>
         public void setSelected(bool selected) {
             this.selected = selected;
-        }
-
-        /// <summary>
-        /// Returns the game object's last projectile fire time
-        /// </summary>
-        /// <returns>Returns the game object's last projectile fire time</returns>
-        public double getLastFired() {
-            return lastFired;
         }
 
         /// <summary>

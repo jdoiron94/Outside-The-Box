@@ -2,10 +2,14 @@
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
+
 using System.Collections.Generic;
 
 namespace OutsideTheBox {
+
+    /// <summary>
+    /// Class which handles the pause menu
+    /// </summary>
 
     public class PauseMenu : Screen {
 

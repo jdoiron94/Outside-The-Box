@@ -4,6 +4,10 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace OutsideTheBox {
 
+    /// <summary>
+    /// Class which handles barrier buttons
+    /// </summary>
+
     public class BarrierButton : PressButton {
 
         private readonly Barrier barrier;
@@ -11,14 +15,6 @@ namespace OutsideTheBox {
         public BarrierButton(Texture2D[] Textures, Vector2 location, SoundEffectInstance effect, bool deactivated, bool pushed, Barrier barrier) :
             base(Textures, location, effect, deactivated, pushed) {
             this.barrier = barrier;
-        }
-
-        /// <summary>
-        /// Returns the barrier button
-        /// </summary>
-        /// <returns>Returns the barrier button</returns>
-        public Barrier getBarrier() {
-            return barrier;
         }
 
         /// <summary>

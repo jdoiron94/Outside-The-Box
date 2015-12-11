@@ -81,14 +81,6 @@ namespace OutsideTheBox {
         }
 
         /// <summary>
-        /// Returns an instance of the game
-        /// </summary>
-        /// <returns>Returns an instance of the game</returns>
-        public Game1 getGame() {
-            return game;
-        }
-
-        /// <summary>
         /// Returns an instance of the player
         /// </summary>
         /// <returns>Returns an instance of the player</returns>
@@ -537,6 +529,10 @@ namespace OutsideTheBox {
             }
         }
 
+        /// <summary>
+        /// Updates the game while in telekinesis
+        /// </summary>
+        /// <param name="time">The GameTime to respect</param>
         private void updateTelekinesisMove(GameTime time) {
             playerManager.updateManaDrainRate();
             Entity eCollision = collisionManager.getEntityCollision(selectedObject);

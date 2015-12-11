@@ -4,6 +4,10 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace OutsideTheBox {
 
+    /// <summary>
+    /// Class which handles barriers
+    /// </summary>
+
     public class Barrier : GameObject {
 
         private readonly Texture2D open;
@@ -28,10 +32,9 @@ namespace OutsideTheBox {
             this.defaultValue = state;
         }
 
-        public SoundEffectInstance getEffect() {
-            return effect;
-        }
-
+        /// <summary>
+        /// Handles playing the barrier's sound effect
+        /// </summary>
         public void playEffect() {
             if (effect != null && effect.State != SoundState.Playing) {
                 effect.Play();

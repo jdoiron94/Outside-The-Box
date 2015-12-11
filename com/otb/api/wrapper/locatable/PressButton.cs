@@ -1,9 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 
 namespace OutsideTheBox {
+
+    /// <summary>
+    /// Class which handles pressable buttons
+    /// </summary>
 
     public class PressButton : GameObject {
 
@@ -25,6 +28,10 @@ namespace OutsideTheBox {
             this.pushed = pushed;
         }
 
+        /// <summary>
+        /// Sets the button's pushed status
+        /// </summary>
+        /// <param name="pushed">The status to set</param>
         public void setPushed(bool pushed) {
             if (this.pushed != pushed && pushed) {
                 playEffect();
@@ -40,8 +47,12 @@ namespace OutsideTheBox {
             return pushed;
         }
 
-        public void setDeactivated(bool value) {
-            deactivated = value;
+        /// <summary>
+        /// Sets the button's deactivated status
+        /// </summary>
+        /// <param name="deactivated">The status to set</param>
+        public void setDeactivated(bool deactivated) {
+            this.deactivated = deactivated;
         }
 
         /// <summary>
@@ -52,14 +63,19 @@ namespace OutsideTheBox {
             return deactivated;
         }
 
+        /// <summary>
+        /// Plays the button's sound effect
+        /// </summary>
         public void playEffect() {
             if (effect != null && effect.State != SoundState.Playing) {
                 effect.Play();
             }
         }
 
-        public virtual void update()
-        {
+        /// <summary>
+        /// Updates the button
+        /// </summary>
+        public virtual void update() {
 
         }
 
@@ -73,7 +89,6 @@ namespace OutsideTheBox {
             } else {
                 batch.Draw(pushed ? textureOn : textureOff, getLocation(), Color.White);
             }
-
         }
     }
 }
