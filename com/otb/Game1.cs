@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
@@ -342,7 +341,6 @@ namespace OutsideTheBox
             SoundEffect slowSound = Content.Load<SoundEffect>("audio/sound effects/slowSound");
 
             Texture2D playur = Content.Load<Texture2D>("sprites/entities/player/Standing1");
-            Texture2D bullet = Content.Load<Texture2D>("sprites/projectiles/BulletOrb");
             Texture2D fireOrb = Content.Load<Texture2D>("sprites/projectiles/FireOrb");
             Texture2D iceOrb = Content.Load<Texture2D>("sprites/projectiles/IceOrb");
             Texture2D confusionOrb = Content.Load<Texture2D>("sprites/projectiles/ConfusionOrb");
@@ -396,7 +394,6 @@ namespace OutsideTheBox
             Key key5_1 = new Key(key, new Vector2(300.0F, 380.0F), keyEffect);
             Key key6_1 = new Key(key, new Vector2(740.0F, 90.0F), keyEffect);
 
-
             //WALLS
             Texture2D wall = Content.Load<Texture2D>("sprites/objects/WallTexture");
 
@@ -437,39 +434,34 @@ namespace OutsideTheBox
 
 
             //DOORS
-            Texture2D door = Content.Load<Texture2D>("sprites/objects/DoorOpen");
-            Texture2D doorClosed = Content.Load<Texture2D>("sprites/objects/Door");
+            Texture2D door = Content.Load<Texture2D>("sprites/objects/DoorTexture");
             Texture2D parents = Content.Load<Texture2D>("sprites/entities/npcs/MomDad");
 
-            Door door1to2 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2((width - 64.0F) / 2.0F, height - 51.0F), Direction.South, false, true, 64, 10, false);
+            Door door1to2 = new Door(door, null, new Vector2((width - 64.0F) / 2.0F, height - 51.0F), Direction.South, false, true, 64, 10, false);
 
-            Door door2to1 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2((width - 64.0F) / 2.0F, 0.0F), Direction.North, false, false, 64, 10, true);
-            Door door2to3 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2(width - 10.0F, height - 200.0F), Direction.East, false, true, 10, 64, false);
+            Door door2to1 = new Door(door, null, new Vector2((width - 64.0F) / 2.0F, 0.0F), Direction.North, false, false, 64, 10, true);
+            Door door2to3 = new Door(door, null, new Vector2(width - 10.0F, height - 200.0F), Direction.East, false, true, 10, 64, false);
 
-            Door door3to2 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2(0.0F, height - 200.0F), Direction.West, false, false, 10, 64, true);
-            Door door3to4 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2(120.0F, 470.0F), Direction.South, false, true, 64, 10, false);
+            Door door3to2 = new Door(door, null, new Vector2(0.0F, height - 200.0F), Direction.West, false, false, 10, 64, true);
+            Door door3to4 = new Door(door, null, new Vector2(120.0F, 470.0F), Direction.South, false, true, 64, 10, false);
 
-            Door door4to3 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2(140.0F, 0.0F), Direction.North, false, false, 64, 10, true);
-            Door door4to5 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2(width - 10.0F, 360.0F), Direction.East, false, true, 10, 60, true);
+            Door door4to3 = new Door(door, null, new Vector2(140.0F, 0.0F), Direction.North, false, false, 64, 10, true);
+            Door door4to5 = new Door(door, null, new Vector2(width - 10.0F, 360.0F), Direction.East, false, true, 10, 60, true);
 
-            Door door5to4 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2(0.0F, 230.0F), Direction.West, false, false, 10, 60, true);
-            Door door5to6 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2(width - 10.0F, 230.0F), Direction.East, false, true, 10, 64, false);
+            Door door5to4 = new Door(door, null, new Vector2(0.0F, 230.0F), Direction.West, false, false, 10, 60, true);
+            Door door5to6 = new Door(door, null, new Vector2(width - 10.0F, 230.0F), Direction.East, false, true, 10, 64, false);
 
-            Door door6to5 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2(0.0F, 10.0F), Direction.West, false, false, 10, 64, true);
-            Door door6to7 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2(790.0F, 400.0F), Direction.West, false, true, 10, 64, false);
+            Door door6to5 = new Door(door, null, new Vector2(0.0F, 10.0F), Direction.West, false, false, 10, 64, true);
+            Door door6to7 = new Door(door, null, new Vector2(790.0F, 400.0F), Direction.West, false, true, 10, 64, false);
 
-            Door door7to6 = new Door(new Texture2D[] { door, doorClosed }, null, new Vector2(0.0F, 230.0F), Direction.West, false, false, 10, 64, true);
-            Door door7to8 = new Door(new Texture2D[] { parents, parents }, null, new Vector2(705.0F, 240.0F), Direction.West, false, true, parents.Width, parents.Height, true);
+            Door door7to6 = new Door(door, null, new Vector2(0.0F, 230.0F), Direction.West, false, false, 10, 64, true);
+            Door door7to8 = new Door(door, null, new Vector2(705.0F, 240.0F), Direction.West, false, true, parents.Width, parents.Height, true);
 
             //PITS, LASERS, and BARRIERS
-            Texture2D lavaPit = Content.Load<Texture2D>("sprites/objects/Lava");
             Texture2D HealthLaserV = Content.Load<Texture2D>("sprites/objects/HPLaser");
             Texture2D HealthLaserH = Content.Load<Texture2D>("sprites/objects/HPLaserHorizontal");
             Texture2D ManaLaserV = Content.Load<Texture2D>("sprites/objects/ManaLaser");
             Texture2D ManaLaserH = Content.Load<Texture2D>("sprites/objects/ManaLaserHorizontal");
-            Texture2D limitationField = Content.Load<Texture2D>("sprites/objects/PlayerLimitationField");
-            Texture2D[] barrier1_vertical = { Content.Load<Texture2D>("sprites/objects/BarrierOpenVertical"), Content.Load<Texture2D>("sprites/objects/BarrierClosedVertical") };
-            Texture2D[] barrier1_horizontal = { Content.Load<Texture2D>("sprites/objects/BarrierOpenHorizontal"), Content.Load<Texture2D>("sprites/objects/BarrierClosedHorizontal") };
             Texture2D[] barrier2_vertical = { Content.Load<Texture2D>("sprites/objects/Barrier3OV"), Content.Load<Texture2D>("sprites/objects/Barrier3CV") };
             Texture2D[] barrier2_horizontal = { Content.Load<Texture2D>("sprites/objects/Barrier3OH"), Content.Load<Texture2D>("sprites/objects/Barrier3CH") };
             SoundEffect laserEffect = Content.Load<SoundEffect>("audio/sound effects/laserSound");
@@ -564,7 +556,6 @@ namespace OutsideTheBox
 
             //NPCS
             Texture2D male1 = Content.Load<Texture2D>("sprites/entities/npcs/Standing1");
-            Texture2D male2 = Content.Load<Texture2D>("sprites/entities/npcs/Standing2");
             Texture2D hitsplat = Content.Load<Texture2D>("ui/Hitsplat");
             Texture2D lineofsight = Content.Load<Texture2D>("ui/LOS");
             SoundEffect deathEffect = Content.Load<SoundEffect>("audio/sound effects/deathSound");
@@ -578,8 +569,8 @@ namespace OutsideTheBox
             NpcDefinition def1_2 = new NpcDefinition(bubble, font2, vec1_2 + offset, "Normie2", new string[] { "I can't wait to get home.", "Doo doo doo doo doo...", "I wanna be at the movies with friends.", "I really hate my boss.", "Nobody will ever take away my INDEPENDENCE." }, new int[] { 30, 15, 10, 40, 50 });
             NpcDefinition def1_3 = new NpcDefinition(bubble, font2, vec1_3 + offset + new Vector2(-64.0F, 0.0F), "Normie3", new string[] { "So close to Christmas, whoohoo!", "I wonder what my wife got me...", "Jingle bells, jingle bells...", "Ho ho ho!", "1776 was a great year." }, new int[] { 15, 20, 25, 20, 30 });
             Npc npc1_1 = new Npc(this, male1, lineofsight, vec1_1, deathEffect.CreateInstance(), Direction.East, def1_1, 150, 5);
-            Npc npc1_2 = new Npc(this, male2, lineofsight, vec1_2, deathEffect.CreateInstance(), Direction.East, def1_2, 150, 5);
-            Npc npc1_3 = new Npc(this, male2, lineofsight, vec1_3, deathEffect.CreateInstance(), Direction.East, def1_3, 150, 5);
+            Npc npc1_2 = new Npc(this, male1, lineofsight, vec1_2, deathEffect.CreateInstance(), Direction.East, def1_2, 150, 5);
+            Npc npc1_3 = new Npc(this, male1, lineofsight, vec1_3, deathEffect.CreateInstance(), Direction.East, def1_3, 150, 5);
             //level 2 npcs
             Vector2 vec2_1 = new Vector2(550.0F, 50.0F);
             Vector2 vec2_2 = new Vector2(660.0F, 200.0F);

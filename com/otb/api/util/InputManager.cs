@@ -196,9 +196,6 @@ namespace OutsideTheBox {
                     dropText = deaths == 1 ? "2 lives remaining" : "1 life remaining";
                 }
             }
-            if (collisionManager.playerSpotted(level)) {
-                //playerManager.setHealth(0);
-            }
             if (!finished && (MediaPlayer.State != MediaState.Playing || deaths == 3)) {
                 Song song;
                 if (level.getSong() == prevLevel.getSong()) {

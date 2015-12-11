@@ -14,15 +14,10 @@ namespace OutsideTheBox {
 
         private readonly bool origUnlocked;
 
-        private readonly Texture2D open;
-        private readonly Texture2D closed;
-
-        public Door(Texture2D[] texture, Projectile projectile, Vector2 location, Direction direction, bool liftable, bool leads, int width, int height, bool unlocked) :
-            base(texture[0], projectile, location, direction, liftable, width, height) {
+        public Door(Texture2D texture, Projectile projectile, Vector2 location, Direction direction, bool liftable, bool leads, int width, int height, bool unlocked) :
+            base(texture, projectile, location, direction, liftable, width, height) {
             this.leads = leads;
             this.unlocked = unlocked;
-            this.open = texture[0];
-            this.closed = texture[1];
             this.origUnlocked = unlocked;
         }
 
@@ -60,14 +55,6 @@ namespace OutsideTheBox {
         /// <param name="unlocked">Bool to determine the door's unlocked property</param>
         public void setUnlocked(bool unlocked) {
             this.unlocked = unlocked;
-        }
-
-        /// <summary>
-        /// Handles drawing of the door
-        /// </summary>
-        /// <param name="batch">The SpriteBatch to draw with</param>
-        public void draw(SpriteBatch batch) {
-            batch.Draw(unlocked ? open : closed, getLocation(), Color.White);
         }
     }
 }
